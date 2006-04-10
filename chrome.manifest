@@ -1,0 +1,3 @@
+overlay	chrome://browser/content/browser.xul	chrome://rtse/content/browser.xul
+content	rtse	chrome/content/
+skin	rtse	classic/1.0	chrome/skin/

@@ -1,0 +1,176 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet href="chrome://global/skin/global.css" type="text/css"?>
+
+<!--
+/* ***** BEGIN LICENSE BLOCK *****
+ * Version: Open Software License v. 2.1
+ *
+ * The contents of this file are subject to the Open Software License Version
+ * 2.1 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ * http://www.opensource.org/licenses/osl-2.1.php
+ *
+ * Software distributed under the License is distributed on an "AS IS" basis,
+ * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+ * for the specific language governing rights and limitations under the
+ * License.
+ *
+ * The Original Code is the 'Rooster Teeth Site Extender'.
+ *
+ * The Initial Developer of the Original Code is
+ * Shawn Wilsher
+ *
+ * Portions created by the Initial Developer are Copyright (C) 2005
+ * the Initial Developer. All Rights Reserved.
+ *
+ * Contributor(s):
+ *     Brandon Jernigan
+ *
+ * ***** END LICENSE BLOCK ***** */
+-->
+
+<dialog id="OptionsDialog" title="Rooster Teeth Site Extender Settings"
+		orient="vertical"
+		xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+		xmlns:html="http://www.w3.org/1999/xhtml"
+		maxwidth="500"
+		onload="return load();"
+        	buttons="accept,cancel"
+		ondialogaccept="return apply();"
+		buttonlabelaccept="Accept"
+		buttonlabelcancel="Cancel">
+
+	<script type="application/x-javascript" src="chrome://rtse/content/options.js" />
+	<script type="application/x-javascript" src="chrome://rtse/content/functions.js" />
+	<script type="application/x-javascript" src="chrome://rtse/content/config.js" />
+	<script type="application/x-javascript" src="chrome://rtse/content/rtse.js" />
+	<!--<script type="application/x-javascript" src="chrome://rtse/content/watchlist.js" />-->
+
+<popupset>
+	<tooltip id="tt_import_smilies">
+		<description>Browse for a custom smilies.xml file</description>
+	</tooltip>
+</popupset>
+
+
+<tabbox id="maintabbox">
+	<tabs>
+		<tab label="Authentication"/>
+		<tab label="Site Preferences"/>
+		<tab label="Site Extensions"/>
+		<tab label="Forum Jump List Filter"/>
+		<!--<tab label="Watchlist Manager"/>-->
+	</tabs>
+	<tabpanels>
+	<tabpanel>
+	<groupbox width="400">
+		<caption label="Auto-Login"/>
+		<hbox>
+			<label value="Username:" control="username" />
+			<textbox id="username" maxlength="12" size="12" width="120"/>
+			<label value="Password:" control="pwd" />
+			<textbox id="pwd" maxlength="16" size="16" type="password" width="120"/>
+		</hbox>
+		<spacer style="height: 10px"/>
+		<description>
+			Notice: Your password is stored in plain text in your profile directory. You
+			are storing this at your own risk. If your account on this computer is protected
+			with a password, you should be fine. As it is, your password is sent as plain
+			text when you submit it to log in normally.
+		</description>
+		<spacer style="height: 10px"/>
+		<checkbox id="signin" label="Enable Auto-Login" />
+	</groupbox>
+	</tabpanel>
+	<tabpanel flex="1">
+	<vbox>
+	<groupbox width="400">
+		<caption label="Links"/>
+		<hbox>
+			<label value="Prefered site skin:"/>
+			<menulist id="themeType">
+				<menupopup>
+					<menuitem label="Rooster Teeth" value="www" selected="true"/>
+					<menuitem label="Red vs Blue" value="rvb"/>
+					<menuitem label="Stangerhood" value="sh"/>
+					<menuitem label="PANICS" value="panics"/>
+				</menupopup>
+			</menulist>
+		</hbox>
+		<spacer style="height: 10px"/>
+		<description>
+				This will redirect all links pointing to pages on the *.roosterteeth.com domain
+				to your prefered skin, fixing poorly coded links, and/or external (from other
+				sites) links.
+		</description>
+		<spacer style="height: 10px"/>
+		<checkbox id="theme" label="Enable Themer"/>
+		<checkbox id="linkFix" label="External Fixing links"/>
+	</groupbox>
+	</vbox>
+	</tabpanel>
+	<tabpanel flex="1">
+	<vbox>
+	<groupbox width="400">
+		<caption label="Added Features"/>
+		<checkbox id="sponsor" label="Enable Sponsor-only features" />
+		<description>
+			Notice: This will only give you Sponsor-only features if you are actually a sponsor.
+		</description>
+		<checkbox id="smilies" checked="true" label="Enable Smilies" />
+		<!--		<spacer style="height:10px;"/>
+		<hbox>
+			<button id="import_smilies" label="Import Smilies" width="100" tooltip="tt_import_smilies" />
+			<spacer flex="1"/>
+		</hbox>-->
+	</groupbox>
+	<groupbox width="400">
+		<caption label="User Interface"/>
+		<checkbox id="editor" checked="true" label="Enable Advanced Text Editing"/>
+		<checkbox id="same_page_reply" label="Use Same Page for Post Replies"/>
+	</groupbox>
+	</vbox>
+	</tabpanel>
+	<tabpanel flex="1">
+		<groupbox width="400">
+		<caption label="Select Forums to Display"/>
+		<richlistbox id="forumList" maxheight="200">
+			<richlistitem><checkbox label="Sponsors" value="101"/></richlistitem>
+			<richlistitem><checkbox label="Level 20" value="103"/></richlistitem>
+			<richlistitem><checkbox label="18 and Up" value="104"/></richlistitem>
+			<richlistitem><checkbox label="First Stop" value="1"/></richlistitem>
+			<richlistitem><checkbox label="Website Forum" value="8"/></richlistitem>
+			<richlistitem><checkbox label="Rooster Teeth" value="9"/></richlistitem>
+			<richlistitem><checkbox label="Red vs Blue" value="2"/></richlistitem>
+			<richlistitem><checkbox label="The Strangerhood" value="10"/></richlistitem>
+			<richlistitem><checkbox label="PANICS" value="30"/></richlistitem>
+			<richlistitem><checkbox label="General Gaming" value="3"/></richlistitem>
+			<richlistitem><checkbox label="PC Gaming" value="18"/></richlistitem>
+			<richlistitem><checkbox label="Halo" value="19"/></richlistitem>
+			<richlistitem><checkbox label="The Sims" value="26"/></richlistitem>
+			<richlistitem><checkbox label="Xbox" value="20"/></richlistitem>
+			<richlistitem><checkbox label="Xbox 360" value="31"/></richlistitem>
+			<richlistitem><checkbox label="Playststion" value="21"/></richlistitem>
+			<richlistitem><checkbox label="Gamecube" value="22"/></richlistitem>
+			<richlistitem><checkbox label="Classics and Handhelds" value="23"/></richlistitem>
+			<richlistitem><checkbox label="Board Games and Tabletop Games" value="24"/></richlistitem>
+			<richlistitem><checkbox label="Movies" value="5"/></richlistitem>
+			<richlistitem><checkbox label="Film Making and Machinima" value="13"/></richlistitem>
+			<richlistitem><checkbox label="Television" value="16"/></richlistitem>
+			<richlistitem><checkbox label="Music" value="4"/></richlistitem>
+			<richlistitem><checkbox label="Books" value="15"/></richlistitem>
+			<richlistitem><checkbox label="Comics and Anime" value="25"/></richlistitem>
+			<richlistitem><checkbox label="The Billboard" value="28"/></richlistitem>
+			<richlistitem><checkbox label="Art" value="29"/></richlistitem>
+			<richlistitem><checkbox label="Sports" value="12"/></richlistitem>
+			<richlistitem><checkbox label="Politics and Current Events" value="14"/></richlistitem>
+			<richlistitem><checkbox label="Technical" value="11"/></richlistitem>
+			<richlistitem><checkbox label="Lopez's Garage" value="17"/></richlistitem>
+			<richlistitem><checkbox label="Forum Games" value="27"/></richlistitem>
+			<richlistitem><checkbox label="The Basement" value="7"/></richlistitem>
+		</richlistbox>
+		</groupbox>
+	</tabpanel>
+	</tabpanels>
+</tabbox>
+</dialog>

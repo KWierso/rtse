@@ -1,0 +1,68 @@
+<?xml version="1.0" ?>
+<smilies>
+		<smiley name="Happy" path="http://services.shawnwilsher.com/smilies/smile.png">
+				<key><![CDATA[:)]]></key>
+				<key><![CDATA[:-)]]></key>
+		</smiley>
+		<smiley name="Sad" path="http://services.shawnwilsher.com/smilies/sad.png">
+				<key><![CDATA[:(]]></key>
+				<key><![CDATA[:-(]]></key>
+		</smiley>
+		<smiley name="Emo" path="http://services.shawnwilsher.com/smilies/emo.png">
+				<key><![CDATA[;(]]></key>
+				<key><![CDATA[:emo:]]></key>
+		</smiley>
+		<smiley name="Wink" path="http://services.shawnwilsher.com/smilies/wink.png">
+				<key><![CDATA[;)]]></key>
+				<key><![CDATA[;-)]]></key>
+		</smiley>
+		<smiley name="Shock" path="http://services.shawnwilsher.com/smilies/shock.png">
+				<key><![CDATA[:gasp:]]></key>
+		</smiley>
+		<smiley name="Confused" path="http://services.shawnwilsher.com/smilies/confused.png">
+				<key><![CDATA[:S]]></key>
+				<key><![CDATA[:-S]]></key>
+				<key><![CDATA[:unsure:]]></key>
+		</smiley>
+		<smiley name="Goofy" path="http://services.shawnwilsher.com/smilies/goofy.png">
+				<key><![CDATA[:-D]]></key>
+		</smiley>
+		<smiley name="Big Smile" path="http://services.shawnwilsher.com/smilies/bigsmile.png">
+				<key><![CDATA[:D]]></key>
+		</smiley>
+		<smiley name="Tongue" path="http://services.shawnwilsher.com/smilies/tongue.png">
+				<key><![CDATA[:P]]></key>
+				<key><![CDATA[:p]]></key>
+				<key><![CDATA[:-P]]></key>
+		</smiley>
+		<smiley name="Roll Eyes" path="http://services.shawnwilsher.com/smilies/roll.png">
+				<key><![CDATA[:roll:]]></key>
+		</smiley>
+		<smiley name="Crazy" path="http://services.shawnwilsher.com/smilies/crazy.png">
+				<key><![CDATA[:crazy:]]></key>
+		</smiley>
+		<smiley name="Angry" path="http://services.shawnwilsher.com/smilies/angry.png">
+				<key><![CDATA[:grr:]]></key>
+		</smiley>
+		<smiley name="Wtf" path="http://services.shawnwilsher.com/smilies/wtf.png">
+				<key><![CDATA[:wtf:]]></key>
+		</smiley>
+		<smiley name="LOL" path="http://services.shawnwilsher.com/smilies/lol.png">
+				<key><![CDATA[:lol:]]></key>
+		</smiley>
+		<smiley name="Exclamation Point" path="http://services.shawnwilsher.com/smilies/exclamation.png">
+				<key><![CDATA[(!)]]></key>
+		</smiley>
+		<smiley name="Star" path="http://services.shawnwilsher.com/smilies/star.png">
+				<key><![CDATA[(*)]]></key>
+		</smiley>
+		<smiley name="Question Mark" path="http://services.shawnwilsher.com/smilies/question.png">
+				<key><![CDATA[(?)]]></key>
+		</smiley>
+		<smiley name="Heart" path="http://services.shawnwilsher.com/smilies/heart.png">
+				<key><![CDATA[<3]]></key>
+		</smiley>
+		<smiley name="Master Chief" path="http://services.shawnwilsher.com/smilies/masterchief.png">
+				<key><![CDATA[:mc:]]></key>
+		</smiley>
+</smilies>

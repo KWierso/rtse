@@ -1,0 +1,116 @@
+/* ***** BEGIN LICENSE BLOCK *****
+ * Version: Open Software License v. 2.1
+ *
+ * The contents of this file are subject to the Open Software License Version
+ * 2.1 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ * http://www.opensource.org/licenses/osl-2.1.php
+ *
+ * Software distributed under the License is distributed on an "AS IS" basis,
+ * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+ * for the specific language governing rights and limitations under the
+ * License.
+ *
+ * The Original Code is the 'Rooster Teeth Site Extender'.
+ *
+ * The Initial Developer of the Original Code is
+ * Brandon Jernigan
+ *
+ * Portions created by the Initial Developer are Copyright (C) 2005-2006
+ * the Initial Developer. All Rights Reserved.
+ *
+ * Contributor(s):
+ *     Shawn Wilsher
+ *     Matt Shaver
+ *
+ * ***** END LICENSE BLOCK ***** */
+
+toolbarbutton, toolbar, toolbox, window {
+	-moz-appearance:none !important;
+}
+
+toolbarbutton {
+	-moz-appearance: none;
+	margin-right:0px;
+	margin-left:0px;
+	padding-right:0px;
+	padding-left:2px;
+	background:#F4F4F4;
+	color:#000000;
+	height:25px;
+}
+
+toolbarbutton:hover {
+	background:#E0E0E0 !important;
+}
+
+toolbar {
+	-moz-appearance:none !important;
+	background:#F4F4F4 none !important;
+	margin:0px 0px 0px 0px;
+	padding:0px 0px 0px 0px;
+}
+
+window {
+	background:#F4F4F4;
+	font-family:arial,serif;
+	font-size:12px;
+	color:#000000;
+	padding:0px 2px 0px 2px;
+}
+
+toolbarbutton>image {
+	margin-right:3px !important;
+}
+
+toolbarseparator {
+	-moz-appearance:none !important;
+	-moz-binding: url(chrome://global/content/bindings/menu.xml#menuseparator) !important;
+}
+
+textbox {
+	-moz-appearance:none !important;
+	background:#FFFFFF !important;
+	border:1px solid Gray !important;
+	padding:0px 0px 0px 0px !important;
+}
+textbox>hbox textarea:focus, textbox hbox input:focus {
+	background:#FFFFFF !important;
+}
+textbox>hbox>textarea, textbox>hbox>input {
+	padding:2px 2px 2px 2px !important;
+	background:#FAFAFA !important;
+	color:#000000 !important;
+}
+
+textbox hbox input
+{
+	height:16px !important;
+}
+
+toolbox, toolbar
+{
+	border:none !important;
+	background-color:#F4F4F4 !important;
+}
+
+#preview, #submit {
+	padding-top:0px !important;
+	padding-bottom:0px !important;
+}
+
+/* Fixes problem with spacing in iFox */
+#defaultSmiliesToolbar * {
+  padding: .7px !important;
+  margin: 0px !important;
+}
+#convertSmilies, toolbarspacer, toolbaritem {
+  /* background color inforced due to Noia's darkened theme */
+  background-color: #F4F4F4 !important;
+  /* Black Japan theme showed Convert Smilies textbox faded */
+  color: #000000 !important;
+}
+/* added because flex was taken out in editor.xul due to iPox messing up submit button */
+#controls {
+ float: right !important;
+}
