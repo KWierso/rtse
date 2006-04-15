@@ -97,7 +97,7 @@ var editor={
 			 button.setAttribute('onclick','');
 			 button.addEventListener('click',function() {
 				var text=RTSE_evaluateXPath(doc,'//td[@class="comment"]/table/tbody/tr/td[2]/table/tbody/tr[2]/td')[0];
-				text=editor.HTMLParse(text);
+				text=editor.HTMLParse(text.innerHTML);
 				xul.getElementById('body').value+='[quote]'+text+'[/quote]\n\n';
 				editor._focus();
 			 },false);
@@ -658,6 +658,7 @@ var editor={
 		text=text.replace(/<i>(.*?)<\/i>/g,'[i]$1[/i]');
 		text=text.replace(/<u>(.*?)<\/u>/g,'[u]$1[/u]');
 		text=text.replace(/<del>(.*?)<\/del>/g,'[s]$1[/s]');
+		text=text.replace(/<a class="body" href="(.*?)" target="_blank">(.*?)<\/a>/g,'[link=$1]$2[/link]');
 		text=text.replace(/<a href="(.*?)" target="_blank">(.*?)<\/a>/g,'[link=$1]$2[/link]');
 		text=text.replace(/<a href="(.*?)">(.*?)<\/a>/g,'[link=$1]$2[/link]');
 		text=text.replace(/<font color=".*">(.*?)<\/font>/g,'$1'); /* Old way maybe? */
