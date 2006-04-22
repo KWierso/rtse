@@ -159,13 +159,13 @@ function RTSE_Config() {
 
 	this.observe=function(aSubject,aTopic,aData) {
 		/* Observer for a reloading config */
-		if(!RTSE) return;
-		var value=RTSE.prefs.get.bool(aData);
+		if(!gRTSE) return;
+		var value=gRTSE.prefsGetBool(aData);
 		if(value)
 			RTSE.config.load();
-		RTSE.prefs.observe.unregister(aData,RTSE.config);
-		RTSE.prefs.set.bool(aData,false);
-		RTSE.prefs.observe.register(aData,RTSE.config);
+		gRTSE.prefsUnregisterObserver(aData,RTSE.config);
+		gRTSE.prefsSetBool(aData,false);
+		gRTSE.prefsRegisterObserver(aData,RTSE.config);
 
 		return(true);
 	}

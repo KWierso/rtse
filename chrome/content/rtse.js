@@ -23,6 +23,8 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
+var gRTSE=Components.classes['@shawnwilsher.com/rtse;1']
+                    .createInstance(Components.interfaces.nsIRTSE);
 var RTSE = {
 	init: function() {
 		/* Load Config */
@@ -30,7 +32,7 @@ var RTSE = {
 		RTSE.config.load();
 
 		/* Add config listener */
-		RTSE.prefs.observe.register('config.reload',RTSE.config);
+		gRTSE.prefsRegisterObserver('config.reload',RTSE.config);
 
 		/* Check if wizard should run */
 		if( RTSE.config.get('firstInstall','true')=='true' )
@@ -47,15 +49,10 @@ var RTSE = {
 		if(menu)
 			menu.addEventListener("popupshowing",this._menu,false);
 
-		/* Checking Version Number Pref - Updating if need be
-		 *
-		 * ***DEV NOTE:  needs to be updated each release!***/
-		const UA_STRING='RTSE/1.0.6'
-		/* ***DEV NOTE:  needs to be updated each release!***
-		 *
-		 */
-		if( RTSE.prefs.get.string('rtse','general.useragent.extra.')!=UA_STRING )
-			RTSE.prefs.set.string('rtse',UA_STRING,'general.useragent.extra.');
+		/* Checking Version Number Pref - Updating if need be */
+		const UA_STRING='RTSE/'+gRTSE.version;
+		if( gRTSE.prefsGetString('rtse','general.useragent.extra.')!=UA_STRING )
+			gRTSE.prefsSetString('rtse',UA_STRING,'general.useragent.extra.');
 		
 	},
 
@@ -202,82 +199,6 @@ var RTSE = {
 			
 		} else {
 			gContextMenu.showItem("rtse-sub-menu",false);
-		}
-	},
-
-	prefs: {
-		observe: {
-			/* object used to observe changes in preferences */
-			register: function(pref,func) {
-				/* Used to register preference listeners */
-				var prefService=Components.classes["@mozilla.org/preferences-service;1"]
-                                          .getService(Components.interfaces.nsIPrefService);
-				this._branch=prefService.getBranch("extensions.rtse.");
-				this._branch.QueryInterface(Components.interfaces.nsIPrefBranch2);
-				this._branch.addObserver(pref,func,false);
-			},
-
-			unregister: function(pref,func) {
-				/* Used to unregister a preference listener */
-				if(!this._branch) return;
-    				this._branch.removeObserver(pref,func);
-			}
-		},
-
-		set: {
-			/* Object used to set preferences */
-			bool: function(name,value,root) {
-				/* Function sets a boolean preference of name with value */
-				var prefs=Components.classes["@mozilla.org/preferences-service;1"]
-                                    .getService(Components.interfaces.nsIPrefService);
-				if( !root ) {
-					/* if it isn't passed in, use the default root */
-					prefs=prefs.getBranch("extensions.rtse.");
-				} else {
-					prefs=prefs.getBranch(root);
-				}
-				prefs.setBoolPref(name,value);
-			},
-			string: function(name,value,root) {
-				/* Function sets a string preference of name with value */
-				var prefs=Components.classes["@mozilla.org/preferences-service;1"]
-                                    .getService(Components.interfaces.nsIPrefService);
-				if( !root ) {
-					/* if it isn't passed in, use the default root */
-					prefs=prefs.getBranch("extensions.rtse.");
-				} else {
-					prefs=prefs.getBranch(root);
-				}
-				prefs.setCharPref(name,value);
-			}
-		},
-
-		get: {
-			/* Object used to get preferences */
-			bool: function(name,root) {
-				/* Function gets a boolean preference of name */
-				var prefs=Components.classes["@mozilla.org/preferences-service;1"]
-                                    .getService(Components.interfaces.nsIPrefService);
-				if( !root ) {
-					/* if it isn't passed in, use the default root */
-					prefs=prefs.getBranch("extensions.rtse.");
-				} else {
-					prefs=prefs.getBranch(root);
-				}
-				return prefs.getBoolPref(name);
-			},
-			string: function(name,root) {
-				/* Function gets a string preference of name */ 
-				var prefs=Components.classes["@mozilla.org/preferences-service;1"]
-                                    .getService(Components.interfaces.nsIPrefService);
-				if( !root ) {
-					/* if it isn't passed in, use the default root */
-					prefs=prefs.getBranch("extensions.rtse.");
-				} else {
-					prefs=prefs.getBranch(root);
-				}
-				return prefs.getCharPref(name);
-			}
 		}
 	}
 }
