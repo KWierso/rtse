@@ -109,7 +109,7 @@ function apply() {
 
 	/* apply changes, change pref, and exit */
 	RTSE.config.setMult(names,values);
-	RTSE.prefs.set.bool('config.reload',true);
+	gRTSE.prefsSetBool('config.reload',true);
 	return true;
 }
 
