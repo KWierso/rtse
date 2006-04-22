@@ -40,7 +40,6 @@ var RTSE = {
 
 		/* Sign in */
 		if( RTSE.config.get('signin','false')=='true' )
-			RTSE_signin();
 
 		var appcontent=document.getElementById("appcontent");	/* This is the browser */
 		if(appcontent)
@@ -103,12 +102,21 @@ var RTSE = {
 				/* Editor */
 				RTSE_insertEditor(doc,'ejournal');
 			}
+
+			// Run on Journal Comment pages
+			if( /^https?:\/\/(www|rvb|sh|panics)\.roosterteeth\.com\/members\/journal\/entry\.php.*$/.test(doc.location.href) ) {
+				// Permalinks
+				RTSE_postPermalink(doc);
+			}
 		}
 
 		/* Run on all topic pages */
 		if( /^https?:\/\/(www|rvb|sh|panics)\.roosterteeth\.com\/forum\/viewTopic\.php(.*)?$/.test(doc.location.href) ) {
 			/* Editor */
 			RTSE_insertEditor(doc,'fcomment');
+
+			// Permalinks
+			RTSE_postPermalink(doc);
 		}
 
 		/* Run on topic reply page */

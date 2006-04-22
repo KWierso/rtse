@@ -254,10 +254,8 @@ function RTSE_insertEditor(doc,type) {
 					name=name.replace(new RegExp('\t','gmi'),'');
 					name=name.replace(new RegExp('\n','gmi'),'');
 					
-					var number=this.parentNode.parentNode.parentNode.parentNode.getElementsByTagName('td')[0].firstChild.data;
-					number=number.replace(new RegExp('\t','gmi'),'');
-					number=number.replace(new RegExp('\n','gmi'),'');
-					number=number.replace(/#([0-9]+).*/m,'$1');
+					var number=this.parentNode.parentNode.parentNode.parentNode.getElementsByTagName('td')[0].getElementsByTagName('a')[0].firstChild.data;
+					number=number.replace(/#([0-9]+)/,'$1');
 					var text='[i]In reply to '+name+', #'+number+':[/i]\n\n';
 
 					/* Append to editor */
@@ -342,5 +340,25 @@ function RTSE_addToSideBar(doc) {
 		td.appendChild(div);
 		tr.appendChild(td);
 		ref.parentNode.insertBefore(tr,ref.nextSibling);
+	}
+}
+
+function RTSE_postPermalink(aDoc)
+// EFFECTS: Adds a permalink to posts on a page in aDoc
+{
+	var elms=RTSE_evaluateXPath(aDoc,"//td[@id='pageContent']/table/tbody/tr[2]/td/table/tbody/tr[3]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[1]");
+	var a,text,num;
+	var base=(new String(aDoc.location.href)).replace(/.*\/forum\/viewTopic\.php\?id=([0-9]+)$/i,'/forum/viewTopic.php?id=$1');
+	for( var i in elms ) {
+		text=elms[i].firstChild.data;
+		a=aDoc.createElement('a');
+		a.setAttribute('title','Permalink');
+		text=text.replace(/(\n|\t)/gmi,'');
+		num=text.replace(/^.*#([0-9]+).*$/i,'$1');
+		a.setAttribute('href',base+'#t'+num);
+		a.appendChild(aDoc.createTextNode('#'+num));
+		text=' '+text.replace(/^#[0-9]+(.*?)$/,'$1');
+		elms[i].replaceChild(aDoc.createTextNode(text),elms[i].firstChild);
+		elms[i].insertBefore(a,elms[i].firstChild);
 	}
 }
