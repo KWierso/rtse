@@ -40,6 +40,7 @@ var RTSE = {
 
 		/* Sign in */
 		if( RTSE.config.get('signin','false')=='true' )
+			RTSE_signin();
 
 		var appcontent=document.getElementById("appcontent");	/* This is the browser */
 		if(appcontent)
