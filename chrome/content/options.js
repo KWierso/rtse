@@ -23,13 +23,14 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-
+var gRTSE=Components.classes['@shawnwilsher.com/rtse;1']
+                    .createInstance(Components.interfaces.nsIRTSE);
 function apply() {
 	var i;
 
 	/* Function used to store and changes to prefs */
-	RTSE.config=new RTSE_Config();
-	RTSE.config.load();
+	this.config=new RTSE_Config();
+	this.config.load();
 	
 	var names=new Array();
 	var values=new Array();
@@ -108,39 +109,39 @@ function apply() {
 	names.push('same_page_reply');
 
 	/* apply changes, change pref, and exit */
-	RTSE.config.setMult(names,values);
-	gRTSE.prefsSetBool('config.reload',true);
+	this.config.setMult(names,values);
+	gRTSE.prefsSetBool('reload',true,'extensions.rtse.config.');
 	return true;
 }
 
 function load() {
 	/* Function ran at load to set values */
-	RTSE.config=new RTSE_Config();
-	RTSE.config.load();
+	this.config=new RTSE_Config();
+	this.config.load();
 
 	var i;
 	
 	/* Username */
-	document.getElementById('username').value=RTSE.config.get('username','');
+	document.getElementById('username').value=this.config.get('username','');
 	
 	/* Password */
-	document.getElementById('pwd').value=RTSE.config.get('pwd','');
+	document.getElementById('pwd').value=this.config.get('pwd','');
 	
 	/* Auto-Login */
-	if( RTSE.config.get('signin','false')=='false' )
+	if( this.config.get('signin','false')=='false' )
 		document.getElementById('signin').checked=false;
 	else
 		document.getElementById('signin').checked=true;
 	
 	/* Sponsor */
-	if( RTSE.config.get('sponsor','false')=='false' )
+	if( this.config.get('sponsor','false')=='false' )
 		document.getElementById('sponsor').checked=false;
 	else
 		document.getElementById('sponsor').checked=true;
 	
 	/* Themer */
-	if( RTSE.config.get('theme','false')=='true' ) {
-		document.getElementById('themeType').value=RTSE.config.get('themeType','www');
+	if( this.config.get('theme','false')=='true' ) {
+		document.getElementById('themeType').value=this.config.get('themeType','www');
 		document.getElementById('theme').checked=true;
 	} else {
 		document.getElementById('themeType').disabled=true;
@@ -149,7 +150,7 @@ function load() {
 	document.getElementById('theme').addEventListener('CheckboxStateChange',theme,false);
 	
 	/* Link Fixer */
-	if( RTSE.config.get('linkFix','true')=='true' )
+	if( this.config.get('linkFix','true')=='true' )
 		document.getElementById('linkFix').checked=true;
 	else
 		document.getElementById('linkFix').checked=false;
@@ -157,26 +158,26 @@ function load() {
 	/* Topic Filter */
 	var ref=document.getElementById('forumList').childNodes;
 	for( i=(ref.length-1); i>=0; i-- ) {
-		if( ref[i].firstChild.tagName=='checkbox' && RTSE.config.get('show_ftopic_'+ref[i].firstChild.getAttribute('value'),'true')=='true' )
+		if( ref[i].firstChild.tagName=='checkbox' && this.config.get('show_ftopic_'+ref[i].firstChild.getAttribute('value'),'true')=='true' )
 			ref[i].firstChild.checked=true;
 		else
 			ref[i].firstChild.checked=false;
 	}
 
 	/* Editor */
-	if( RTSE.config.get('editor','true')=='true' )
+	if( this.config.get('editor','true')=='true' )
 		document.getElementById('editor').checked=true;
 	else
 		document.getElementById('editor').checked=false;
 
 	/* Smilies */
-	if( RTSE.config.get('smilies','true')=='true' )
+	if( this.config.get('smilies','true')=='true' )
 		document.getElementById('smilies').checked=true;
 	else
 		document.getElementById('smilies').checked=false;
 	
 	/* Same page reply */
-	if( RTSE.config.get('same_page_reply','false')=='true' )
+	if( this.config.get('same_page_reply','false')=='true' )
 		document.getElementById('same_page_reply').checked=true;
 	else
 		document.getElementById('same_page_reply').checked=false;

@@ -23,6 +23,9 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
+if( !gRTSE )
+	var gRTSE=Components.classes['@shawnwilsher.com/rtse;1']
+	                    .createInstance(Components.interfaces.nsIRTSE);
 function Smilies() {
 	/* Object used to load Smiley data */
 	
@@ -32,45 +35,49 @@ function Smilies() {
 
 	this.load=function() {
 		/* Code that loads config.xml */
-		var file=Components.classes["@mozilla.org/file/directory_service;1"]
-		                   .getService(Components.interfaces.nsIProperties)
-		                   .get("ProfD", Components.interfaces.nsIFile);
-		file.append("rtse");
-		file.append("smilies.xml");
-		if( !file.exists() ) {
-			this._createFile();
-		}
-		var src="";
-		var fstream=Components.classes["@mozilla.org/network/file-input-stream;1"]
-		                      .createInstance(Components.interfaces.nsIFileInputStream);
-		var sstream=Components.classes["@mozilla.org/scriptableinputstream;1"]
-		                      .createInstance(Components.interfaces.nsIScriptableInputStream);
-		fstream.init(file,1,0,false);
-		sstream.init(fstream); 
+		try {
+			var file=Components.classes["@mozilla.org/file/directory_service;1"]
+			                   .getService(Components.interfaces.nsIProperties)
+			                   .get("ProfD", Components.interfaces.nsIFile);
+			file.append("rtse");
+			file.append("smilies.xml");
+			if( !file.exists() ) {
+				this._createFile();
+			}
+			var src="";
+			var fstream=Components.classes["@mozilla.org/network/file-input-stream;1"]
+			                      .createInstance(Components.interfaces.nsIFileInputStream);
+			var sstream=Components.classes["@mozilla.org/scriptableinputstream;1"]
+			                      .createInstance(Components.interfaces.nsIScriptableInputStream);
+			fstream.init(file,1,0,false);
+			sstream.init(fstream); 
 		
-		var str = sstream.read(-1);
-		while( str.length>0 ) {
-			src+=str;
-			str=sstream.read(-1);
-		}
+			var str = sstream.read(-1);
+			while( str.length>0 ) {
+				src+=str;
+				str=sstream.read(-1);
+			}
 		
-		sstream.close();
-		fstream.close();
+			sstream.close();
+			fstream.close();
 
-		var parser=new DOMParser();
-		var doc=parser.parseFromString(src,'text/xml');
-		var smilies=RTSE_evaluateXPath(doc,'//smiley[@name and @path]');
-		var name,path,keys;
+			var parser=new DOMParser();
+			var doc=parser.parseFromString(src,'text/xml');
+			var smilies=RTSE_evaluateXPath(doc,'//smiley[@name and @path]');
+			var name,path,keys;
 		
-		for( var i in smilies ) {
-			name=smilies[i].getAttribute('name');
-			path=smilies[i].getAttribute('path');
-			this.names.push(name);
-			this._paths[name]=path;
-			keys=RTSE_evaluateXPath(smilies[i],'//smiley[@name="'+name+'" and @path="'+path+'"]/key');;
-			this._keys[name]=new Array();
-			for( var j in keys )
-				this._keys[name].push(keys[j].firstChild.nodeValue);
+			for( var i in smilies ) {
+				name=smilies[i].getAttribute('name');
+				path=smilies[i].getAttribute('path');
+				this.names.push(name);
+				this._paths[name]=path;
+				keys=RTSE_evaluateXPath(smilies[i],'//smiley[@name="'+name+'" and @path="'+path+'"]/key');;
+				this._keys[name]=new Array();
+				for( var j in keys )
+					this._keys[name].push(keys[j].firstChild.nodeValue);
+			}
+		} catch(e) {
+			gRTSE.sendReport(e);
 		}
 	}
 
@@ -86,21 +93,25 @@ function Smilies() {
 
 	this._createFile=function() {
 		/* Creates Directory (if needed) and copies the default smilies.xml file */
-		const id="RTSE@shawnwilsher.com"
-		var file=Components.classes["@mozilla.org/file/directory_service;1"]
-		                   .getService(Components.interfaces.nsIProperties)
-		                   .get("ProfD", Components.interfaces.nsIFile);
-		file.append("rtse");	// Directory Name
-		if( !file.exists() ) {	// If it doesn't exist, create
-			file.create(Components.interfaces.nsIFile.DIRECTORY_TYPE,0664);
-		}
+		try {
+			const id="RTSE@shawnwilsher.com"
+			var file=Components.classes["@mozilla.org/file/directory_service;1"]
+			                   .getService(Components.interfaces.nsIProperties)
+			                   .get("ProfD", Components.interfaces.nsIFile);
+			file.append("rtse");	// Directory Name
+			if( !file.exists() ) {	// If it doesn't exist, create
+				file.create(Components.interfaces.nsIFile.DIRECTORY_TYPE,0664);
+			}
 
-		var ext=Components.classes["@mozilla.org/extensions/manager;1"]
-		                  .getService(Components.interfaces.nsIExtensionManager)
-		                  .getInstallLocation(id)
-		                  .getItemLocation(id);
-		ext.append("defaults");
-		ext.append("smilies.xml");
-		ext.copyTo(file,"smilies.xml");
+			var ext=Components.classes["@mozilla.org/extensions/manager;1"]
+			                  .getService(Components.interfaces.nsIExtensionManager)
+			                  .getInstallLocation(id)
+			                  .getItemLocation(id);
+			ext.append("defaults");
+			ext.append("smilies.xml");
+			ext.copyTo(file,"smilies.xml");
+		} catch(e) {
+			gRTSE.sendReport(e);
+		}
 	}
 }

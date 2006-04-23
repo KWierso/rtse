@@ -23,6 +23,9 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
+if( !gRTSE )
+	var gRTSE=Components.classes['@shawnwilsher.com/rtse;1']
+	                    .createInstance(Components.interfaces.nsIRTSE);
 var editor={
 	load: function() {
 		/* Runs at load for editor.xul */
@@ -32,7 +35,9 @@ var editor={
 		/* Spellbound */
 		try {
 			editor._setupSpellBound();
-		} catch(e) { }
+		} catch(e) {
+			gRTSE.sendReport(e);
+		}
 
 		/* Loading Config */
 		editor.config=new RTSE_Config();
@@ -56,7 +61,9 @@ var editor={
 		/* Smilies */
 		try {
 			editor.smilies.load();
-		} catch(e) { }
+		} catch(e) {
+			gRTSE.sendReport(e);
+		}
 
 		/* Adding things if a sponsor */
 		if( this.config.get('sponsor','false')=='true' ) {

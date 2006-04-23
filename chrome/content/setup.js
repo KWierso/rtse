@@ -24,58 +24,63 @@
  * ***** END LICENSE BLOCK ***** */
 
 var RTSE=window.arguments[0];
-
+var gRTSE=Components.classes['@shawnwilsher.com/rtse;1']
+                    .createInstance(Components.interfaces.nsIRTSE);
 var wizard = {
 	/* used for the Setup Wizard */
 	apply: function() {
 		/* Applies Settings */
-		var names=new Array();
-		var values=new Array();
+		try {
+			var names=new Array();
+			var values=new Array();
 		
-		/* username */
-		names.push('username');
-		values.push(document.getElementById('username').value);
+			/* username */
+			names.push('username');
+			values.push(document.getElementById('username').value);
 
-		/* password */
-		names.push('pwd');
-		values.push(document.getElementById('pwd').value);
+			/* password */
+			names.push('pwd');
+			values.push(document.getElementById('pwd').value);
 
-		/* auto login */
-		if( document.getElementById('signin').checked )
-			values.push('true');
-		else
-			values.push('false');
-		names.push('signin');
+			/* auto login */
+			if( document.getElementById('signin').checked )
+				values.push('true');
+			else
+				values.push('false');
+			names.push('signin');
 		
-		/* sponsor */
-		if( document.getElementById('sponsor').checked )
-			values.push('true');
-		else
-			values.push('false');
-		names.push('sponsor');
+			/* sponsor */
+			if( document.getElementById('sponsor').checked )
+				values.push('true');
+			else
+				values.push('false');
+			names.push('sponsor');
 
-		/* themer */
-		if( document.getElementById('theme').checked ) {
-			values.push('true');
-			names.push('theme');
-			names.push('themeType');
-			values.push(document.getElementById('themeType').selectedItem.value);
-		} else {
+			/* themer */
+			if( document.getElementById('theme').checked ) {
+				values.push('true');
+				names.push('theme');
+				names.push('themeType');
+				values.push(document.getElementById('themeType').selectedItem.value);
+			} else {
+				values.push('false');
+				names.push('theme');
+			}
+
+			/* editor */
+			if( document.getElementById('editor').checked )
+				values.push('true');
+			else
+				values.push('false');
+			names.push('editor');
+
+			names.push('firstInstall');
 			values.push('false');
-			names.push('theme');
+			RTSE.config.setMult(names,values);
+
+			return(true);
+		} catch(e) {
+			gRTSE.sendReport(e);
 		}
-
-		/* editor */
-		if( document.getElementById('editor').checked )
-			values.push('true');
-		else
-			values.push('false');
-		names.push('editor');
-
-		names.push('firstInstall');
-		values.push('false');
-		RTSE.config.setMult(names,values);
-
-		return(true);
 	}
 }

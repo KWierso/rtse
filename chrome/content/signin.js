@@ -25,12 +25,16 @@
 
 function RTSE_signin() {
 	/* Auto Signs you in */
-	if( RTSE.config.get('username','')!='' && RTSE.config.get('pwd','')!='' ) {
-		var username=new String(RTSE.config.get('username',''));
-		var password=new String(RTSE.config.get('pwd',''));
-		var req=new XMLHttpRequest();
-		req.open("POST",'http://www.roosterteeth.com/members/signinPost.php',true);
-		req.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-        req.send('user='+username+'&pass='+password);
+	try {
+		if( RTSE.config.get('username','')!='' && RTSE.config.get('pwd','')!='' ) {
+			var username=new String(RTSE.config.get('username',''));
+			var password=new String(RTSE.config.get('pwd',''));
+			var req=new XMLHttpRequest();
+			req.open("POST",'http://www.roosterteeth.com/members/signinPost.php',true);
+			req.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+			req.send('user='+username+'&pass='+password);
+		}
+	} catch(e) {
+		gRTSE.sendReport(e);
 	}
 }

@@ -43,8 +43,6 @@
 	<script type="application/x-javascript" src="chrome://rtse/content/options.js" />
 	<script type="application/x-javascript" src="chrome://rtse/content/functions.js" />
 	<script type="application/x-javascript" src="chrome://rtse/content/config.js" />
-	<script type="application/x-javascript" src="chrome://rtse/content/rtse.js" />
-	<!--<script type="application/x-javascript" src="chrome://rtse/content/watchlist.js" />-->
 
 <popupset>
 	<tooltip id="tt_import_smilies">

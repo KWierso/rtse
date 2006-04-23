@@ -24,40 +24,51 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
+if( !gRTSE )
+	var gRTSE=Components.classes['@shawnwilsher.com/rtse;1']
+	                    .createInstance(Components.interfaces.nsIRTSE);
 function RTSE_linkFix(doc) {
 	/* removes all targets from links to RT sites and makes it go to your own flavor */
-	var links=RTSE_evaluateXPath(doc.getElementById('pageContent'),'//a[@target="_blank"]');
-	var regEx=/^http:\/\/(www|rvb|sh|panics).roosterteeth.com(.*)$/i;
-	for( var i=(links.length-1); i>=0; i-- ) {
-		if( links[i].href.match(regEx) ) {
-			links[i].removeAttribute('target');	/* Prevents new window */
-			links[i].href=links[i].href.replace(regEx,'$2');
-		} else if( links[i].href.match(/^\/(.*)$/i) ) {
-			links[i].removeAttribute('target'); /* Prevents new window */
+	try {
+		var links=RTSE_evaluateXPath(doc.getElementById('pageContent'),'//a[@target="_blank"]');
+		var regEx=/^http:\/\/(www|rvb|sh|panics).roosterteeth.com(.*)$/i;
+		for( var i=(links.length-1); i>=0; i-- ) {
+			if( links[i].href.match(regEx) ) {
+				links[i].removeAttribute('target');	/* Prevents new window */
+				links[i].href=links[i].href.replace(regEx,'$2');
+			} else if( links[i].href.match(/^\/(.*)$/i) ) {
+				links[i].removeAttribute('target'); /* Prevents new window */
+			}
 		}
-	}
 
-	/* Adds cursor for links without href */
-	var head=doc.getElementsByTagName('head')[0];
-	var css=doc.createElement('style');
-	css.setAttribute('type','text/css');
-	css.setAttribute('media','screen');
-	var text=doc.createTextNode('a:hover { cursor:pointer; }');
-	css.appendChild(text);
-	head.appendChild(css);
+		/* Adds cursor for links without href */
+		var head=doc.getElementsByTagName('head')[0];
+		var css=doc.createElement('style');
+		css.setAttribute('type','text/css');
+		css.setAttribute('media','screen');
+		var text=doc.createTextNode('a:hover { cursor:pointer; }');
+		css.appendChild(text);
+		head.appendChild(css);
+	} catch(e) {
+		gRTSE.sendReport(e);
+	}
 }
 
 function RTSE_themeIt(doc) {
 	/* changes the CSS to the right one for your flavor */
-	var theme=RTSE.config.get('themeType','www');
-	var css=RTSE_evaluateXPath(doc,'//link[@rel="stylesheet"]');
-	var regEx=new RegExp('/assets/'+theme+'.css','i');
-	if( !(regEx.test(css[0].href)) ) {
-		var link=doc.createElement('link');
-		link.setAttribute('type','text/css');
-		link.setAttribute('rel','stylesheet');
-		link.setAttribute('href','/assets/'+theme+'.css');
-		doc.getElementsByTagName('head')[0].appendChild(link);
+	try {
+		var theme=RTSE.config.get('themeType','www');
+		var css=RTSE_evaluateXPath(doc,'//link[@rel="stylesheet"]');
+		var regEx=new RegExp('/assets/'+theme+'.css','i');
+		if( !(regEx.test(css[0].href)) ) {
+			var link=doc.createElement('link');
+			link.setAttribute('type','text/css');
+			link.setAttribute('rel','stylesheet');
+			link.setAttribute('href','/assets/'+theme+'.css');
+			doc.getElementsByTagName('head')[0].appendChild(link);
+		}
+	} catch(e) {
+		gRTSE.sendReport(e);
 	}
 }
 
@@ -139,27 +150,31 @@ function RTSE_forumListBox(doc) {
 	ids.push('null');
 	names.push('Jump to forum...');
 	
-	/* Creating the listBox */
-	for( var i=(ids.length-1); i>=0; i-- ) {
-		if( RTSE.config.get('show_ftopic_'+ids[i],'true')=='true' ) {
-			option=doc.createElement('option');
-			option.setAttribute('value',ids[i]);
-			option.innerHTML=names[i];
-			listBox.appendChild(option);
+	try {
+		/* Creating the listBox */
+		for( var i=(ids.length-1); i>=0; i-- ) {
+			if( RTSE.config.get('show_ftopic_'+ids[i],'true')=='true' ) {
+				option=doc.createElement('option');
+				option.setAttribute('value',ids[i]);
+				option.innerHTML=names[i];
+				listBox.appendChild(option);
+			}
 		}
+
+		/* Adding redirector */
+		listBox.addEventListener('change',function() {
+			if( this.options[this.selectedIndex].value!='null' )
+				doc.location='/forum/forum.php?fid='+this.options[this.selectedIndex].value;
+		},false);
+
+		/* Now that we have the listBox all filled up... */
+		var ref=doc.getElementById('tabsHolder').parentNode;
+		var cont=doc.createElement('tr');
+		cont.appendChild(listBox);
+		ref.appendChild(cont);
+	} catch(e) {
+		gRTSE.sendReport(e);
 	}
-
-	/* Adding redirector */
-	listBox.addEventListener('change',function() {
-		if( this.options[this.selectedIndex].value!='null' )
-			doc.location='/forum/forum.php?fid='+this.options[this.selectedIndex].value;
-	},false);
-
-	/* Now that we have the listBox all filled up... */
-	var ref=doc.getElementById('tabsHolder').parentNode;
-	var cont=doc.createElement('tr');
-	cont.appendChild(listBox);
-	ref.appendChild(cont);
 }
 
 function RTSE_insertEditor(doc,type) {
@@ -169,196 +184,212 @@ function RTSE_insertEditor(doc,type) {
 	const TITLE_HEIGHT='287';
 	const BLANK_MESSAGE_HEIGHT='356';
 	
-	var frame=doc.createElement('iframe');
-	frame.setAttribute('id','rtseXULeditor');
-	frame.setAttribute('name','rtseXULeditor');
-	
+	try {
+		var frame=doc.createElement('iframe');
+		frame.setAttribute('id','rtseXULeditor');
+		frame.setAttribute('name','rtseXULeditor');
 
-	var form=doc.forms.namedItem('post');
-	var input=doc.createElement('input');
-	input.setAttribute('type','hidden');
-	input.setAttribute('value',type);
-	input.setAttribute('id','rtseType');
-	form.appendChild(input);
 
-	/* Lets add old body for everything */
-	input=doc.createElement('input');
-	input.setAttribute('name','oldBody');
-	input.setAttribute('type','hidden');
-	input.value=form.elements.namedItem('body').value;
-	form.appendChild(input);
-
-	/* and add oldTitle if title exists */
-	if( form.elements.namedItem('title') ) {
-		input=doc.createElement('input');
-		input.setAttribute('name','oldTitle');
+		var form=doc.forms.namedItem('post');
+		var input=doc.createElement('input');
 		input.setAttribute('type','hidden');
-		input.value=form.elements.namedItem('title').value;
+		input.setAttribute('value',type);
+		input.setAttribute('id','rtseType');
 		form.appendChild(input);
-	}
-	
-	var i;
-	switch(type) {
-		case 'comment':
-		 var ref=doc.getElementById('Add a Comment').firstChild;
-		 var width=ref.parentNode.clientWidth+2;
-		 frame.setAttribute('style','width:'+width+'px;height:'+DEFAULT_HEIGHT+'px;border:1px solid #000000;border-top-style:none;');
-		 break;
-		case 'atopic':
-		 var ref=doc.getElementById('Add a New Topic').firstChild;
-		 var width=ref.parentNode.clientWidth+2;
-		 frame.setAttribute('style','width:'+width+'px;height:'+TITLE_HEIGHT+'px;border:1px solid #000000;border-top-style:none;');
-		 break;
-		case 'journal':
-		 var ref=doc.getElementById('Make a Journal Entry').firstChild;
-		 var width=ref.parentNode.clientWidth+2;
-		 frame.setAttribute('style','width:'+width+'px;height:'+TITLE_HEIGHT+'px;border:1px solid #000000;border-top-style:none;');
-		 break;		
-		case 'ejournal':
-		 var ref=doc.getElementById('Edit Journal Entry').firstChild;
-		 var width=ref.parentNode.clientWidth+2;
-		 doc.getElementById('rtseType').value='journal';
-		 input=doc.createElement('input');
-		 input.setAttribute('name','oldFriendsOnly');
-		 input.setAttribute('type','hidden');
-		 input.value=form.elements.namedItem('friendsOnly').value;
-		 form.appendChild(input);
-		 frame.setAttribute('style','width:'+width+'px;height:'+TITLE_HEIGHT+'px;border:1px solid #000000;border-top-style:none;');
-		 break;
-		case 'rmessage':
-		 var ref=doc.getElementById('Reply').firstChild;
-		 var width=ref.parentNode.clientWidth+2;
-		 frame.setAttribute('style','width:'+width+'px;height:'+TITLE_HEIGHT+'px;border:1px solid #000000;border-top-style:none;');
-		 break;
-		case 'bmessage':
-		 var ref=doc.getElementById('Send a Message').firstChild;
-		 var width=ref.parentNode.clientWidth+2;
-		 frame.setAttribute('style','width:'+width+'px;height:'+BLANK_MESSAGE_HEIGHT+'px;border:1px solid #000000;border-top-style:none;');
-		 break;
-		case 'nmessage':
-		 var ref=doc.getElementById('Send a Message').firstChild;
-		 input=form.elements.namedItem('uid').cloneNode(true);
-		 form.appendChild(input);
-		 var width=ref.parentNode.clientWidth+2;
-		 frame.setAttribute('style','width:'+width+'px;height:'+TITLE_HEIGHT+'px;border:1px solid #000000;border-top-style:none;');
-		 break;
-		case 'fcomment':
-		 var elms=RTSE_evaluateXPath(doc,"//td[@id='pageContent']/table/tbody/tr[2]/td/table/tbody/tr[3]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/a[2]/b");
-		 if( RTSE.config.get('same_page_reply','false')=='true' ) {
-		 	 /* This is for the single page reply */
-			 for( i=(elms.length-1); i>=0; i-- ) {
-				elms[i].parentNode.setAttribute('href','#Post');
-				elms[i].addEventListener('click',function() {
-					/* Get post and what-not */
-					var name=this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.getElementsByTagName('td')[0].getElementsByTagName('table')[0].getElementsByTagName('tbody')[0].getElementsByTagName('tr')[1].getElementsByTagName('td')[0].getElementsByTagName('table')[0].getElementsByTagName('tbody')[0].getElementsByTagName('tr')[0].getElementsByTagName('td')[0].firstChild.firstChild.data;
-					name=name.replace(new RegExp('\t','gmi'),'');
-					name=name.replace(new RegExp('\n','gmi'),'');
-					
-					var number=this.parentNode.parentNode.parentNode.parentNode.getElementsByTagName('td')[0].getElementsByTagName('a')[0].firstChild.data;
-					number=number.replace(/#([0-9]+)/,'$1');
-					var text='[i]In reply to '+name+', #'+number+':[/i]\n\n';
 
-					/* Append to editor */
-					var editor=doc.getElementById('rtseXULeditor').contentDocument.wrappedJSObject.getElementById('body');
-					editor.value=editor.value+text;
-					editor.focus();
-				},false);
-			 }
-		 } /* end single page reply */
-		 var ref=doc.getElementById('Post').firstChild;
-		 var width=ref.parentNode.clientWidth+2;
-		 frame.setAttribute('style','width:'+width+'px;height:'+DEFAULT_HEIGHT+'px;border:1px solid #000000;border-top-style:none;');
-		 break;
-		case 'freply':
-		 var ref=doc.getElementById('Reply').firstChild;
-		 var width=ref.parentNode.clientWidth+2;
-		 frame.setAttribute('style','width:'+width+'px;height:'+DEFAULT_HEIGHT+'px;border:1px solid #000000;border-top-style:none;');
-		 break;
-		case 'cpreview':
-		 var test=form.elements.namedItem('to').value;
-		 var ref=doc.getElementById('Edit').firstChild;
-		 var width=ref.parentNode.clientWidth+2;
-		 if( test=='/members/journal/journalPost.php' ||
-			 /\/members\/journal\/editEntryPost.php\?id=[0-9]+/i.test(test) ) {
-		 	/* Hack for journals (*sigh*) */
-			doc.getElementById('rtseType').value='journal';
+		/* Lets add old body for everything */
+		input=doc.createElement('input');
+		input.setAttribute('name','oldBody');
+		input.setAttribute('type','hidden');
+		input.value=form.elements.namedItem('body').value;
+		form.appendChild(input);
+
+		/* and add oldTitle if title exists */
+		if( form.elements.namedItem('title') ) {
 			input=doc.createElement('input');
-		 	input.setAttribute('name','oldFriendsOnly');
-		 	input.setAttribute('type','hidden');
-		 	input.value=form.elements.namedItem('friendsOnly').value;
-		 	form.appendChild(input);
-			frame.setAttribute('style','width:'+width+'px;height:'+TITLE_HEIGHT+'px;border:1px solid #000000;border-top-style:none;');
-		 } else if( /\/forum\/addTopicPost.php\?fid=.*/ig.test(test) ) {
-		 	/* Hack for Adding Topic */
-			doc.getElementById('rtseType').value='atopic';
-		 	frame.setAttribute('style','width:'+width+'px;height:'+TITLE_HEIGHT+'px;border:1px solid #000000;border-top-style:none;');
-		 } else
-		 	frame.setAttribute('style','width:'+width+'px;height:'+DEFAULT_HEIGHT+'px;border:1px solid #000000;border-top-style:none;');
-		 break;
-		case 'cedit':
-		 var ref=doc.getElementById('Edit Post').firstChild;
-		 var width=ref.parentNode.clientWidth+2;
-		 frame.setAttribute('style','width:'+width+'px;height:'+DEFAULT_HEIGHT+'px;border:1px solid #000000;border-top-style:none;');
-		 break;
+			input.setAttribute('name','oldTitle');
+			input.setAttribute('type','hidden');
+			input.value=form.elements.namedItem('title').value;
+			form.appendChild(input);
+		}
+		
+		var i;
+		switch(type) {
+			case 'comment':
+			 var ref=doc.getElementById('Add a Comment').firstChild;
+			 var width=ref.parentNode.clientWidth+2;
+			 frame.setAttribute('style','width:'+width+'px;height:'+DEFAULT_HEIGHT+'px;border:1px solid #000000;border-top-style:none;');
+			 break;
+			case 'atopic':
+			 var ref=doc.getElementById('Add a New Topic').firstChild;
+			 var width=ref.parentNode.clientWidth+2;
+			 frame.setAttribute('style','width:'+width+'px;height:'+TITLE_HEIGHT+'px;border:1px solid #000000;border-top-style:none;');
+			 break;
+			case 'journal':
+			 var ref=doc.getElementById('Make a Journal Entry').firstChild;
+			 var width=ref.parentNode.clientWidth+2;
+			 frame.setAttribute('style','width:'+width+'px;height:'+TITLE_HEIGHT+'px;border:1px solid #000000;border-top-style:none;');
+			 break;		
+			case 'ejournal':
+			 var ref=doc.getElementById('Edit Journal Entry').firstChild;
+			 var width=ref.parentNode.clientWidth+2;
+			 doc.getElementById('rtseType').value='journal';
+			 input=doc.createElement('input');
+			 input.setAttribute('name','oldFriendsOnly');
+			 input.setAttribute('type','hidden');
+			 input.value=form.elements.namedItem('friendsOnly').value;
+			 form.appendChild(input);
+			 frame.setAttribute('style','width:'+width+'px;height:'+TITLE_HEIGHT+'px;border:1px solid #000000;border-top-style:none;');
+			 break;
+			case 'rmessage':
+			 var ref=doc.getElementById('Reply').firstChild;
+			 var width=ref.parentNode.clientWidth+2;
+			 frame.setAttribute('style','width:'+width+'px;height:'+TITLE_HEIGHT+'px;border:1px solid #000000;border-top-style:none;');
+			 break;
+			case 'bmessage':
+			 var ref=doc.getElementById('Send a Message').firstChild;
+			 var width=ref.parentNode.clientWidth+2;
+			 frame.setAttribute('style','width:'+width+'px;height:'+BLANK_MESSAGE_HEIGHT+'px;border:1px solid #000000;border-top-style:none;');
+			 break;
+			case 'nmessage':
+			 var ref=doc.getElementById('Send a Message').firstChild;
+			 input=form.elements.namedItem('uid').cloneNode(true);
+			 form.appendChild(input);
+			 var width=ref.parentNode.clientWidth+2;
+			 frame.setAttribute('style','width:'+width+'px;height:'+TITLE_HEIGHT+'px;border:1px solid #000000;border-top-style:none;');
+			 break;
+			case 'fcomment':
+			 var elms=RTSE_evaluateXPath(doc,"//td[@id='pageContent']/table/tbody/tr[2]/td/table/tbody/tr[3]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/a[2]/b");
+			 if( RTSE.config.get('same_page_reply','false')=='true' ) {
+			 	 /* This is for the single page reply */
+				 for( i=(elms.length-1); i>=0; i-- ) {
+					elms[i].parentNode.setAttribute('href','#Post');
+					elms[i].addEventListener('click',function() {
+						/* Get post and what-not */
+						var name=this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.getElementsByTagName('td')[0].getElementsByTagName('table')[0].getElementsByTagName('tbody')[0].getElementsByTagName('tr')[1].getElementsByTagName('td')[0].getElementsByTagName('table')[0].getElementsByTagName('tbody')[0].getElementsByTagName('tr')[0].getElementsByTagName('td')[0].firstChild.firstChild.data;
+						name=name.replace(new RegExp('\t','gmi'),'');
+						name=name.replace(new RegExp('\n','gmi'),'');
+						
+						var number=this.parentNode.parentNode.parentNode.parentNode.getElementsByTagName('td')[0].getElementsByTagName('a')[0].firstChild.data;
+						number=number.replace(/#([0-9]+)/,'$1');
+						var text='[i]In reply to '+name+', #'+number+':[/i]\n\n';
+
+						/* Append to editor */
+						var editor=doc.getElementById('rtseXULeditor').contentDocument.wrappedJSObject.getElementById('body');
+						editor.value=editor.value+text;
+						editor.focus();
+					},false);
+				 }
+			 } /* end single page reply */
+			 var ref=doc.getElementById('Post').firstChild;
+			 var width=ref.parentNode.clientWidth+2;
+			 frame.setAttribute('style','width:'+width+'px;height:'+DEFAULT_HEIGHT+'px;border:1px solid #000000;border-top-style:none;');
+			 break;
+			case 'freply':
+			 var ref=doc.getElementById('Reply').firstChild;
+			 var width=ref.parentNode.clientWidth+2;
+			 frame.setAttribute('style','width:'+width+'px;height:'+DEFAULT_HEIGHT+'px;border:1px solid #000000;border-top-style:none;');
+			 break;
+			case 'cpreview':
+			 var test=form.elements.namedItem('to').value;
+			 var ref=doc.getElementById('Edit').firstChild;
+			 var width=ref.parentNode.clientWidth+2;
+			 if( test=='/members/journal/journalPost.php' ||
+				 /\/members\/journal\/editEntryPost.php\?id=[0-9]+/i.test(test) ) {
+			 	/* Hack for journals (*sigh*) */
+				doc.getElementById('rtseType').value='journal';
+				input=doc.createElement('input');
+			 	input.setAttribute('name','oldFriendsOnly');
+			 	input.setAttribute('type','hidden');
+			 	input.value=form.elements.namedItem('friendsOnly').value;
+			 	form.appendChild(input);
+				frame.setAttribute('style','width:'+width+'px;height:'+TITLE_HEIGHT+'px;border:1px solid #000000;border-top-style:none;');
+			 } else if( /\/forum\/addTopicPost.php\?fid=.*/ig.test(test) ) {
+			 	/* Hack for Adding Topic */
+				doc.getElementById('rtseType').value='atopic';
+			 	frame.setAttribute('style','width:'+width+'px;height:'+TITLE_HEIGHT+'px;border:1px solid #000000;border-top-style:none;');
+			 } else
+			 	frame.setAttribute('style','width:'+width+'px;height:'+DEFAULT_HEIGHT+'px;border:1px solid #000000;border-top-style:none;');
+			 break;
+			case 'cedit':
+			 var ref=doc.getElementById('Edit Post').firstChild;
+			 var width=ref.parentNode.clientWidth+2;
+			 frame.setAttribute('style','width:'+width+'px;height:'+DEFAULT_HEIGHT+'px;border:1px solid #000000;border-top-style:none;');
+			 break;
+		}
+		ref.parentNode.replaceChild(frame,ref);
+		doc.getElementById('rtseXULeditor').contentWindow.location.href='chrome://rtse/content/editor.xul';
+	} catch(e) {
+		gRTSE.sendReport(e);
 	}
-	ref.parentNode.replaceChild(frame,ref);
-	doc.getElementById('rtseXULeditor').contentWindow.location.href='chrome://rtse/content/editor.xul';
 	return(true);
 }
 
 function RTSE_switchArrows(doc) {
 	/* Switches arrows to prevent issues */
-	var imgs=RTSE_evaluateXPath(doc,"//img[@src='/assets/images/smallBulletDown.gif']");
-	var img;
-	for( var i=(imgs.length-1); i>=0; i-- ) {
-		img=doc.createElement('img');
-		img.setAttribute('src','chrome://rtse/skin/images/global/bluebutton.png');
-		img.setAttribute('alt','RTSE');
-		img.setAttribute('style','margin:-4px 0px -4px 2px;padding-right:4px;');
-		imgs[i].parentNode.parentNode.replaceChild(img,imgs[i].parentNode);
+	try {
+		var imgs=RTSE_evaluateXPath(doc,"//img[@src='/assets/images/smallBulletDown.gif']");
+		var img;
+		for( var i=(imgs.length-1); i>=0; i-- ) {
+			img=doc.createElement('img');
+			img.setAttribute('src','chrome://rtse/skin/images/global/bluebutton.png');
+			img.setAttribute('alt','RTSE');
+			img.setAttribute('style','margin:-4px 0px -4px 2px;padding-right:4px;');
+			imgs[i].parentNode.parentNode.replaceChild(img,imgs[i].parentNode);
+		}
+	} catch(e) {
+		gRTSE.sendReport(e);
 	}
 }
 
 function RTSE_addToSideBar(doc) {
 	/* Adds My Stats and Mod history to side navigation panel */
-	if( RTSE.config.get('sponsor','false')=='false' ) return;
-	var ref=RTSE_evaluateXPath(doc,"//td[@id='navCol']/table/tbody/tr[17]");
-	ref=ref[0];
-	var tr,td,div,a;
-	var items=new Array('My Stats','Mod History');
-	var links=new Array('/members/stats/myStats.php','/members/modHistory.php');
-	for( var i=(items.length-1); i>=0; i-- ) {
-		tr=doc.createElement('tr');
-		td=doc.createElement('td');
-		td.setAttribute('class','nav');
-		div=doc.createElement('div');
-		div.setAttribute('class','navLink');
-		a=doc.createElement('a');
-		a.setAttribute('href',links[i]);
-		a.appendChild(doc.createTextNode(items[i]));
-		div.appendChild(a);
-		td.appendChild(div);
-		tr.appendChild(td);
-		ref.parentNode.insertBefore(tr,ref.nextSibling);
+	try {
+		if( RTSE.config.get('sponsor','false')=='false' ) return;
+		var ref=RTSE_evaluateXPath(doc,"//td[@id='navCol']/table/tbody/tr[17]");
+		ref=ref[0];
+		var tr,td,div,a;
+		var items=new Array('My Stats','Mod History');
+		var links=new Array('/members/stats/myStats.php','/members/modHistory.php');
+		for( var i=(items.length-1); i>=0; i-- ) {
+			tr=doc.createElement('tr');
+			td=doc.createElement('td');
+			td.setAttribute('class','nav');
+			div=doc.createElement('div');
+			div.setAttribute('class','navLink');
+			a=doc.createElement('a');
+			a.setAttribute('href',links[i]);
+			a.appendChild(doc.createTextNode(items[i]));
+			div.appendChild(a);
+			td.appendChild(div);
+			tr.appendChild(td);
+			ref.parentNode.insertBefore(tr,ref.nextSibling);
+		}
+	} catch(e) {
+		gRTSE.sendReport(e);
 	}
 }
 
 function RTSE_postPermalink(aDoc)
 // EFFECTS: Adds a permalink to posts on a page in aDoc
 {
-	var elms=RTSE_evaluateXPath(aDoc,"//td[@id='pageContent']/table/tbody/tr[2]/td/table/tbody/tr[3]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[1]");
-	var a,text,num;
-	var base=(new String(aDoc.location.href)).replace(/.*\/forum\/viewTopic\.php\?id=([0-9]+)$/i,'/forum/viewTopic.php?id=$1');
-	for( var i in elms ) {
-		text=elms[i].firstChild.data;
-		a=aDoc.createElement('a');
-		a.setAttribute('title','Permalink');
-		text=text.replace(/(\n|\t)/gmi,'');
-		num=text.replace(/^.*#([0-9]+).*$/i,'$1');
-		a.setAttribute('href',base+'#t'+num);
-		a.appendChild(aDoc.createTextNode('#'+num));
-		text=' '+text.replace(/^#[0-9]+(.*?)$/,'$1');
-		elms[i].replaceChild(aDoc.createTextNode(text),elms[i].firstChild);
-		elms[i].insertBefore(a,elms[i].firstChild);
+	try {
+		var elms=RTSE_evaluateXPath(aDoc,"//td[@id='pageContent']/table/tbody/tr[2]/td/table/tbody/tr[3]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[1]");
+		var a,text,num;
+		var base=(new String(aDoc.location.href)).replace(/.*\/forum\/viewTopic\.php\?id=([0-9]+)$/i,'/forum/viewTopic.php?id=$1');
+		for( var i in elms ) {
+			text=elms[i].firstChild.data;
+			a=aDoc.createElement('a');
+			a.setAttribute('title','Permalink');
+			text=text.replace(/(\n|\t)/gmi,'');
+			num=text.replace(/^.*#([0-9]+).*$/i,'$1');
+			a.setAttribute('href',base+'#t'+num);
+			a.appendChild(aDoc.createTextNode('#'+num));
+			text=' '+text.replace(/^#[0-9]+(.*?)$/,'$1');
+			elms[i].replaceChild(aDoc.createTextNode(text),elms[i].firstChild);
+			elms[i].insertBefore(a,elms[i].firstChild);
+		}
+	} catch(e) {
+		gRTSE.sendReport(e);
 	}
 }
