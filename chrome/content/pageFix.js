@@ -377,6 +377,7 @@ function RTSE_postPermalink(aDoc)
 		var elms=RTSE_evaluateXPath(aDoc,"//td[@id='pageContent']/table/tbody/tr[2]/td/table/tbody/tr[3]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[1]");
 		var a,text,num;
 		var base=(new String(aDoc.location.href)).replace(/.*\/forum\/viewTopic\.php\?id=([0-9]+)$/i,'/forum/viewTopic.php?id=$1');
+		base=base.replace(/.*(#[c|t][0-9]+)$/i,'');
 		for( var i in elms ) {
 			text=elms[i].firstChild.data;
 			a=aDoc.createElement('a');
