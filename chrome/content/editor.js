@@ -125,7 +125,21 @@ var editor={
 					document.getElementById('friendsOnly').checked=true;
 				else
 					document.getElementById('friendsOnly').checked=false;
-			 }	
+			 }
+			 // journal protection removal
+			 var text=editor.protectedJournalText();
+			 text=text.replace(/\[/g,'\\[');
+			 text=text.replace(/\]/g,'\\]');
+			 text=text.replace(/\?/g,'\\?');
+			 text=text.split('\n');
+			 var exp;
+			 for( var i=(text.length-1); (i>=0 && text[i]!='\n'); --i ) {
+			 	text[i]=text[i].replace(/\n/g,'');
+			 	exp=new RegExp(text[i],'gi');
+			 	document.getElementById('body').value=document.getElementById('body').value.replace(exp,'');
+			 }
+			 while( document.getElementById('body').value[0]=='\n' )
+			 	document.getElementById('body').value=document.getElementById('body').value.substring(1);
 			 break;
 			case 'rmessage':
 			 var button=document.createElement('toolbarbutton');
@@ -237,7 +251,8 @@ var editor={
 		input.setAttribute('name','body');
 		input.value=body;
 		form.appendChild(input);
-		
+		var text;
+
 		switch(type) {
 			case 'journal':
 			 input=doc.createElement('input');
@@ -249,9 +264,12 @@ var editor={
 			 input=doc.createElement('input');
 			 input.setAttribute('type','hidden');
 			 input.setAttribute('name','friendsOnly');
-			 if( document.getElementById('friendsOnly').checked )
+			 if( document.getElementById('friendsOnly').checked ) {
 				input.value='1';
-			 else
+				// Protecting Friends only journals!
+				text=form.elements.namedItem('body').value;
+				form.elements.namedItem('body').value=editor.protectedJournalText()+text;
+			 } else
 			 	input.value='0';
 			 form.appendChild(input);
 			 break;
@@ -691,7 +709,7 @@ var editor={
 			/* converts to RTSE BB */
 			var body=document.getElementById('body');
 
-			body.value=body.value.replace(/\[b\]Quoting ([a-zA-Z0-9]{4,12}):\[\/b\]\[quote\]([\s\S]+)\[\/quote\]/g,'[quote=$1]$2[/quote]');
+			body.value=body.value.replace(/\[b\]Quoting ([a-zA-Z0-9]{4,12}):\[\/b\]\[quote\]([\s\S]+)\[\/quote\]/g,'[quote=$1]$2[/quote]');;
 		}
 	},
 
@@ -779,6 +797,19 @@ var editor={
 				body.value=body.value.replace(regEx,keys[i]);
 			}
 		}
+	},
+
+	protectedJournalText: function()
+	// EFFECTS:  returns the text to indicate a protected journal
+	{
+		var text='[quote]What\'s this?\n'+
+		         'Well you see, even friends only journals can be read by '+
+		         'determined people, no matter if they are on your friends list'+
+		         ' or not.  But do not worry, RTSE protects you against even '+
+		         'the most prying eye.  The only thing they\'ll get to see is '+
+		         'the title of this journal.\n'+
+		         '-RTSE devs[/quote]\n\n';
+		return text;
 	}
 	
 }
