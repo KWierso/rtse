@@ -119,6 +119,9 @@ function load() {
 	this.config=new RTSE_Config();
 	this.config.load();
 
+	// Load Smilies Preview
+	displaySmilies();
+
 	var i;
 	
 	/* Username */
@@ -189,5 +192,51 @@ function theme() {
 		document.getElementById('themeType').disabled=false
 	} else {
 		document.getElementById('themeType').disabled=true;
+	}
+}
+
+function smilieFilePicker(aWin)
+// EFFECTS: Displays the dialog to select the file for a new smiley pack
+{
+	var picker=Components.classes['@mozilla.org/filepicker;1']
+	                     .createInstance(Components.interfaces.nsIFilePicker);
+	picker.appendFilters(picker.filterXML);
+	picker.init(aWin,'Select Smiley File',picker.modeOpen);
+	var ok=picker.show();
+	if( ok==picker.returnOK )
+		/* stuff that loads goes here */;
+}
+
+function displaySmilies()
+// EFFECTS: Generates preview of currently loaded smilies
+{
+	try {
+		var s=new Smilies();
+		s.load();
+	} catch(e) {
+		gRTSE.sendReport(e);
+	}
+	var ref=document.getElementById('smileyPreview');
+	// remove any existing children
+	while( ref.lastChild ) {
+		ref.removeChild(ref.lastChild);
+	}
+
+	// add new
+	var item,img,label,box;
+	for( var i in s.names ) {
+		item=document.createElement('richlistitem');
+		box=document.createElement('hbox');
+
+		img=document.createElement('image');
+		img.setAttribute('src',s.getPath(s.names[i]));
+		box.appendChild(img);
+
+		label=document.createElement('label');
+		label.setAttribute('value',s.names[i]);
+		box.appendChild(label);
+
+		item.appendChild(box);
+		ref.appendChild(item);
 	}
 }

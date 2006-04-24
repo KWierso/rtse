@@ -43,6 +43,7 @@
 	<script type="application/x-javascript" src="chrome://rtse/content/options.js" />
 	<script type="application/x-javascript" src="chrome://rtse/content/functions.js" />
 	<script type="application/x-javascript" src="chrome://rtse/content/config.js" />
+	<script type="application/x-javascript" src="chrome://rtse/content/smilies.js"/>
 
 <popupset>
 	<tooltip id="tt_import_smilies">
@@ -116,11 +117,14 @@
 			Notice: This will only give you Sponsor-only features if you are actually a sponsor.
 		</description>
 		<checkbox id="smilies" checked="true" label="Enable Smilies" />
-		<!--		<spacer style="height:10px;"/>
-		<hbox>
-			<button id="import_smilies" label="Import Smilies" width="100" tooltip="tt_import_smilies" />
-			<spacer flex="1"/>
-		</hbox>-->
+		<spacer style="height:10px;"/>
+		<vbox>
+			<hbox>	
+				<button id="import_smilies" label="Import Smilies" width="100" tooltip="tt_import_smilies" oncommand="smilieFilePicker(window);"/>
+				<spacer flex="1"/>
+			</hbox>
+			<richlistbox suppressonselect="true" id="smileyPreview" maxheight="30"/>
+		</vbox>
 	</groupbox>
 	<groupbox width="400">
 		<caption label="User Interface"/>
