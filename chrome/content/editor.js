@@ -707,8 +707,8 @@ var editor={
 			
 			// Numbers in forum
 			if( elm.value.match(/\[i\]In reply to [a-zA-Z0-9]+, #[0-9]+:\[\/i\]/g) ) {
-				elm.value=elm.value.replace(/\[i\]In reply to ([a-zA-Z0-9]+), (#[0-9]+):\[\/i\]/g,
-				                            '[i]In reply to $1, [link=$2]$2[/link]:[/i]');
+				elm.value=elm.value.replace(/\[i\]In reply to ([a-zA-Z0-9]+), #([0-9]+):\[\/i\]/g,
+				                            '[i]In reply to $1, [link=#t$2]#$2[/link]:[/i]');
 			}
 		},
 		deconvert: function() {
@@ -718,8 +718,8 @@ var editor={
 			body.value=body.value.replace(/\[b\]Quoting ([a-zA-Z0-9]{4,12}):\[\/b\]\[quote\]([\s\S]+)\[\/quote\]/g,'[quote=$1]$2[/quote]');
 
 			// Numbers in forum
-			if( body.value.match(/\[i\]In reply to [a-zA-Z0-9]+, \[link=#[0-9]+\]#[0-9]+\[\/link\]:\[\/i\]/g) ) {
-				body.value=body.value.replace(/\[i\]In reply to ([a-zA-Z0-9]+), \[link=#[0-9]+\](#[0-9]+)\[\/link\]:\[\/i\]/g,
+			if( body.value.match(/\[i\]In reply to [a-zA-Z0-9]+, \[link=#t[0-9]+\]#[0-9]+\[\/link\]:\[\/i\]/g) ) {
+				body.value=body.value.replace(/\[i\]In reply to ([a-zA-Z0-9]+), \[link=#t[0-9]+\](#[0-9]+)\[\/link\]:\[\/i\]/g,
 				                             '[i]In reply to $1, $2:[/i]');
 			}
 		}
