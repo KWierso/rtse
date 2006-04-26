@@ -43,21 +43,21 @@
 
 	<popupset>
 		<popup id="menu">
-			<menuitem label="Preview" command="cmd_preview"/>
-			<menuitem label="Submit" command="cmd_submit"/>	
+			<menuitem label="Preview" style="background-color:#D4D0C8 !important;" command="cmd_preview"/>
+			<menuitem label="Submit" style="background-color:#D4D0C8 !important;" command="cmd_submit"/>	
 			<menuseparator/>
-			<menu label="Formatting">
+			<menu label="Formatting" style="background-color:#D4D0C8 !important;">
 				<menupopup position="end_before">
-					<menuitem label="Bold" image="chrome://rtse/skin/images/editor/bold.png" class="menuitem-iconic" command="cmd_bold"/>
-					<menuitem label="Italic" image="chrome://rtse/skin/images/editor/italic.png" class="menuitem-iconic" command="cmd_italic"/>
-					<menuitem label="Underline" image="chrome://rtse/skin/images/editor/underline.png" class="menuitem-iconic" command="cmd_underline"/>
-					<menuitem label="Strikethrough" image="chrome://rtse/skin/images/editor/strike.png" class="menuitem-iconic" command="cmd_strike"/>
-					<menuitem label="Image" image="chrome://rtse/skin/images/editor/image.png" class="menuitem-iconic" command="cmd_image"/>
+					<menuitem label="Bold" image="chrome://rtse/skin/images/editor/bold.png" style="background-color:#D4D0C8 !important;" class="menuitem-iconic" command="cmd_bold"/>
+					<menuitem label="Italic" image="chrome://rtse/skin/images/editor/italic.png" style="background-color:#D4D0C8 !important;" class="menuitem-iconic" command="cmd_italic"/>
+					<menuitem label="Underline" image="chrome://rtse/skin/images/editor/underline.png" style="background-color:#D4D0C8 !important;" class="menuitem-iconic" command="cmd_underline"/>
+					<menuitem label="Strikethrough" image="chrome://rtse/skin/images/editor/strike.png" style="background-color:#D4D0C8 !important;" class="menuitem-iconic" command="cmd_strike"/>
+					<menuitem label="Image" image="chrome://rtse/skin/images/editor/image.png" style="background-color:#D4D0C8 !important;" class="menuitem-iconic" command="cmd_image"/>
 				</menupopup>
 			</menu>
-			<menuitem label="Cut" image="chrome://rtse/skin/images/editor/cut.png" class="menuitem-iconic" command="cmd_cut"/>
-			<menuitem label="Copy" image="chrome://rtse/skin/images/editor/copy.png" class="menuitem-iconic" command="cmd_copy"/>
-			<menuitem label="Paste" image="chrome://rtse/skin/images/editor/paste.png" class="menuitem-iconic" command="cmd_paste"/>
+			<menuitem label="Cut" image="chrome://rtse/skin/images/editor/cut.png" style="background-color:#D4D0C8 !important;" class="menuitem-iconic" command="cmd_cut"/>
+			<menuitem label="Copy" image="chrome://rtse/skin/images/editor/copy.png" style="background-color:#D4D0C8 !important;" class="menuitem-iconic" command="cmd_copy"/>
+			<menuitem label="Paste" image="chrome://rtse/skin/images/editor/paste.png" style="background-color:#D4D0C8 !important;" class="menuitem-iconic" command="cmd_paste"/>
 		</popup>
 		<tooltip id="tt_bold">
 			<description>Bold</description>
@@ -152,16 +152,16 @@
 	<toolbarbutton id="link" image="chrome://rtse/skin/images/editor/link.png" command="cmd_link" tooltip="tt_link"/>
 	<toolbarbutton id="color" image="chrome://rtse/skin/images/editor/color.png" type="menu" tooltip="tt_color" hidden="true">
 		<menupopup>
-			<menuitem label="Red" value="FF0000" style="color:#FF0000 !important;" oncommand="editor.addColor(this.value);"/>
-			<menuitem label="Orange" value="FFAA00" style="color:#FFAA00 !important;" oncommand="editor.addColor(this.value);"/>
-			<menuitem label="Yellow" value="DDFF00" style="color:#DDFF00 !important;" oncommand="editor.addColor(this.value);"/>
-			<menuitem label="Green" value="00FF00" style="color:#00FF00 !important;" oncommand="editor.addColor(this.value);"/>
-			<menuitem label="Blue" value="0000FF" style="color:#0000FF !important;" oncommand="editor.addColor(this.value);"/>
-			<menuitem label="Violet" value="AA00FF" style="color:#AA00FF !important;" oncommand="editor.addColor(this.value);"/>
-			<menuitem label="Brown" value="AA8800" style="color:#AA8800 !important;" oncommand="editor.addColor(this.value);"/>
-			<menuitem label="White" value="FFFFFF" style="color:#000000 !important;" oncommand="editor.addColor(this.value);"/>
+			<menuitem label="Red" value="FF0000" style="color:#FF0000 !important; background-color:#D4D0C8 !important;" oncommand="editor.addColor(this.value);"/>
+			<menuitem label="Orange" value="FFAA00" style="color:#FFAA00 !important; background-color:#D4D0C8 !important;" oncommand="editor.addColor(this.value);"/>
+			<menuitem label="Yellow" value="DDFF00" style="color:#DDFF00 !important; background-color:#D4D0C8 !important;" oncommand="editor.addColor(this.value);"/>
+			<menuitem label="Green" value="00FF00" style="color:#00FF00 !important; background-color:#D4D0C8 !important;" oncommand="editor.addColor(this.value);"/>
+			<menuitem label="Blue" value="0000FF" style="color:#0000FF !important; background-color:#D4D0C8 !important;" oncommand="editor.addColor(this.value);"/>
+			<menuitem label="Violet" value="AA00FF" style="color:#AA00FF !important; background-color:#D4D0C8 !important;" oncommand="editor.addColor(this.value);"/>
+			<menuitem label="Brown" value="AA8800" style="color:#AA8800 !important; background-color:#D4D0C8 !important;" oncommand="editor.addColor(this.value);"/>
+			<menuitem label="White" value="FFFFFF" style="color:#000000 !important; background-color:#D4D0C8 !important;" oncommand="editor.addColor(this.value);"/>
 			<menuseparator/>
-			<menuitem label="Custom Color" tooltip="tt_custom" command="cmd_customcolor"/>
+			<menuitem label="Custom Color" tooltip="tt_custom" style="color: #000000 !important; background-color:#D4D0C8 !important;" command="cmd_customcolor"/>
 		</menupopup>
 	</toolbarbutton>
 	<toolbarbutton id="smiley" image="chrome://rtse/skin/images/editor/happy.png" tooltip="tt_smilies"/>

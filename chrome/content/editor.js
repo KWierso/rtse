@@ -703,11 +703,11 @@ var editor={
 		/* Parses extra BBcode added by RTSE */
 		convert: function(elm) {
 			/* converts to site BB */
-			elm.value=elm.value.replace(/\[quote=([a-zA-Z0-9]{4,12})\]([\s\S]+)\[\/quote\]/g,'[b]Quoting $1:[/b][quote]$2[/quote]');
+			elm.value=elm.value.replace(/\[quote=([a-zA-Z0-9_]{4,12})\]([\s\S]+)\[\/quote\]/g,'[b]Quoting $1:[/b][quote]$2[/quote]');
 			
 			// Numbers in forum
-			if( elm.value.match(/\[i\]In reply to [a-zA-Z0-9]+, #[0-9]+:\[\/i\]/g) ) {
-				elm.value=elm.value.replace(/\[i\]In reply to ([a-zA-Z0-9]+), #([0-9]+):\[\/i\]/g,
+			if( elm.value.match(/\[i\]In reply to [a-zA-Z0-9_]+, #[0-9]+:\[\/i\]/g) ) {
+				elm.value=elm.value.replace(/\[i\]In reply to ([a-zA-Z0-9_]+), #([0-9]+):\[\/i\]/g,
 				                            '[i]In reply to $1, [link=#t$2]#$2[/link]:[/i]');
 			}
 		},
@@ -715,11 +715,11 @@ var editor={
 			/* converts to RTSE BB */
 			var body=document.getElementById('body');
 
-			body.value=body.value.replace(/\[b\]Quoting ([a-zA-Z0-9]{4,12}):\[\/b\]\[quote\]([\s\S]+)\[\/quote\]/g,'[quote=$1]$2[/quote]');
+			body.value=body.value.replace(/\[b\]Quoting ([a-zA-Z0-9_]{4,12}):\[\/b\]\[quote\]([\s\S]+)\[\/quote\]/g,'[quote=$1]$2[/quote]');
 
 			// Numbers in forum
-			if( body.value.match(/\[i\]In reply to [a-zA-Z0-9]+, \[link=#t[0-9]+\]#[0-9]+\[\/link\]:\[\/i\]/g) ) {
-				body.value=body.value.replace(/\[i\]In reply to ([a-zA-Z0-9]+), \[link=#t[0-9]+\](#[0-9]+)\[\/link\]:\[\/i\]/g,
+			if( body.value.match(/\[i\]In reply to [a-zA-Z0-9_]+, \[link=#t[0-9]+\]#[0-9]+\[\/link\]:\[\/i\]/g) ) {
+				body.value=body.value.replace(/\[i\]In reply to ([a-zA-Z0-9_]+), \[link=#t[0-9]+\](#[0-9]+)\[\/link\]:\[\/i\]/g,
 				                             '[i]In reply to $1, $2:[/i]');
 			}
 		}
@@ -748,7 +748,8 @@ var editor={
 				item=document.createElement('menuitem');
 				item.setAttribute('image',this.data.getPath(name));
 				item.setAttribute('label',name);
-				item.setAttribute('validate','never');
+				item.setAttribute('validate','never');				
+				item.setAttribute('style','background-color:#D4D0C8 !important;')
 				item.setAttribute('class','menuitem-iconic');
 				item.setAttribute('oncommand','editor.insertTag("'+key+'");');
 				menu.appendChild(item);
