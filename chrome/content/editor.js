@@ -727,10 +727,40 @@ var editor={
 
 	smilies: {
 		/* Object used for all smiley things */
-		load: function() {
-			/* Addes to menu */
-			this.data=new Smilies();
-			this.data.load();
+		load: function()
+		// EFFECTS: Loads the smilies from the componenet, and adds to the menu
+		{
+			
+			this.data=Components.classes["@shawnwilsher.com/smilies;1"]
+	                            .getService(Components.interfaces.nsISmilies);
+
+			
+			// Loading file
+			var file=Components.classes["@mozilla.org/file/directory_service;1"]
+			                   .getService(Components.interfaces.nsIProperties)
+			                   .get("ProfD",Components.interfaces.nsIFile);
+			file.append("rtse");
+			file.append("smilies.xml");
+			if( !file.exists() ) {
+				// Now we have to make the file
+				const id="RTSE@shawnwilsher.com"
+				var file=Components.classes["@mozilla.org/file/directory_service;1"]
+				                   .getService(Components.interfaces.nsIProperties)
+				                   .get("ProfD",Components.interfaces.nsIFile);
+				file.append("rtse");	// Directory Name
+				if( !file.exists() ) {	// If it doesn't exist, create
+					file.create(Components.interfaces.nsIFile.DIRECTORY_TYPE,0664);
+				}
+
+				var ext=Components.classes["@mozilla.org/extensions/manager;1"]
+				                  .getService(Components.interfaces.nsIExtensionManager)
+				                  .getInstallLocation(id)
+				                  .getItemLocation(id);
+				ext.append("defaults");
+				ext.append("smilies.xml");
+				ext.copyTo(file,"smilies.xml");
+			}
+			this.data.load(file);
 
 			editor.smilies._addToMenu();
 		},
@@ -741,12 +771,13 @@ var editor={
 			ref.setAttribute('type','menu');
 			var menu=document.createElement('menupopup');
 			var item,name,key;
-
-			for( var i in this.data.names ) {
-				name=this.data.names[i];
-				key=this.data.getKeys(name)[0];
+			
+			var names=editor.smilies.data.getNames({});
+			for( var i in names ) {
+				name=names[i];
+				key=editor.smilies.data.getKey(name);
 				item=document.createElement('menuitem');
-				item.setAttribute('image',this.data.getPath(name));
+				item.setAttribute('image',editor.smilies.data.getPath(name));
 				item.setAttribute('label',name);
 				item.setAttribute('validate','never');				
 				item.setAttribute('style','background-color:#D4D0C8 !important;')
@@ -763,52 +794,13 @@ var editor={
 		convert: function(elm) {
 			/* Converts text to smilies */
 			if( !document.getElementById('convertSmilies').checked ) return(false);
-			var items,key,path;
-			var keys=new Array();
-			var paths=new Array();
-			for( var i in editor.smilies.data.names ) {
-				items=editor.smilies.data.getKeys(editor.smilies.data.names[i]);
-				path=editor.smilies.data.getPath(editor.smilies.data.names[i]);
-				for( var j in items ) {
-					key=items[j];
-					key=key.replace(/\)/g,'\\)');
-					key=key.replace(/\(/g,'\\(');
-					key=key.replace(/\*/g,'\\*');
-					key=key.replace(/\?/g,'\\?');
-					keys.push(key);
-					paths.push(path);
-				}
-			}
-
-			var regEx;
-			for( i in keys ) {
-				regEx=new RegExp(keys[i],'gi');
-				elm.value=elm.value.replace(regEx,'[img]'+paths[i]+'[/img]');
-			}
-			return(true);
+			elm.value=this.data.convertText(elm.value);
 		},
 
 		deconvert: function() {
 			/* Reverses the change for smilies */
-			var key,path;
-			var keys=new Array();
-			var paths=new Array();
-			for( var i in editor.smilies.data.names ) {
-				key=editor.smilies.data.getKeys(editor.smilies.data.names[i])[0];
-				path=editor.smilies.data.getPath(editor.smilies.data.names[i]);
-				path='[img]'+path+'[/img]';
-				path=path.replace(/\[/g,'\\[');
-				path=path.replace(/\]/g,'\\]');
-				keys.push(key);
-				paths.push(path);
-			}
-
-			var body=document.getElementById('body');
-			var regEx;
-			for( i in keys ) {
-				regEx=new RegExp(paths[i],'gi');
-				body.value=body.value.replace(regEx,keys[i]);
-			}
+			var elm=document.getElementById('body');
+			elm.value=this.data.deconvertText(elm.value);
 		}
 	},
 
