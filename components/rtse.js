@@ -46,6 +46,16 @@ RTSE.prototype = {
 		return this.mVersion;
 	},
 
+	sendReport: function(aError)
+	// EFFECTS: Sends the error back to server to establish common problems people may be having.
+	{
+		var req=Components.classes["@mozilla.org/xmlextras/xmlhttprequest;1"]
+		                  .getService(Components.interfaces.nsIXMLHttpRequest);
+		req.open("POST",'http://services.shawnwilsher.com/errorlogging/rtse.php',true);
+		req.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+		req.send(aError);
+	},
+
 	prefsRegisterObserver: function(aPref,aFunc)
 	// EFFECTS: Registers aFunc as an observer to aPref on
 	//          extensions.rtse. branch.
