@@ -111,60 +111,56 @@ RTSE.prototype = {
     		this._branch.removeObserver(aPref,aFunc);
 	},
 	prefsSetBool: function(aName,aValue)
-	// EFFECTS: Sets a boolean preference aName with aValue.  If aRoot is
-	//          not passed in, it uses the default root of extensions.rtse.
+	// EFFECTS: Sets a boolean preference aName with aValue.
 	{
 		var prefs=Components.classes["@mozilla.org/preferences-service;1"]
 		                    .getService(Components.interfaces.nsIPrefService);
 		var temp=aName.split('.');
-		var root;
+		var root='';
 		for( var i=0; i<(temp.length-1); i++ ) {
 			root=root+temp[i]+'.';
 		}
 		prefs=prefs.getBranch(root);
-		prefs.setBoolPref(aName,aValue);
+		prefs.setBoolPref(temp[temp.length-1],aValue);
 	},
 	prefsSetString: function(aName,aValue)
-	// EFFECTS: Sets a string preference aName with aValue.  If aRoot is
-	//          not passed in, it uses the default root of extensions.rtse.
+	// EFFECTS: Sets a string preference aName with aValue.
 	{
 		var prefs=Components.classes["@mozilla.org/preferences-service;1"]
 		                    .getService(Components.interfaces.nsIPrefService);
 		var temp=aName.split('.');
-		var root;
+		var root='';
 		for( var i=0; i<(temp.length-1); i++ ) {
 			root=root+temp[i]+'.';
 		}
 		prefs=prefs.getBranch(root);
-		prefs.setCharPref(aName,aValue);
+		prefs.setCharPref(temp[temp.length-1],aValue);
 	},
 	prefsGetBool: function(aName)
-	// EFFECTS: Returns the value of aName.  If aRoot is not specified,
-	//          it defaults to extestensions.rtse.
+	// EFFECTS: Returns the value of aName.
 	{
 		var prefs=Components.classes["@mozilla.org/preferences-service;1"]
 		                    .getService(Components.interfaces.nsIPrefService);
 		var temp=aName.split('.');
-		var root;
+		var root='';
 		for( var i=0; i<(temp.length-1); i++ ) {
 			root=root+temp[i]+'.';
 		}
 		prefs=prefs.getBranch(root);
-		return prefs.getBoolPref(aName);
+		return prefs.getBoolPref(temp[temp.length-1]);
 	},
 	prefsGetString: function(aName)
-	// EFFECTS: Returns the value of aName.  If aRoot is not specified,
-	//          it defaults to extestensions.rtse.
+	// EFFECTS: Returns the value of aName.
 	{ 
 		var prefs=Components.classes["@mozilla.org/preferences-service;1"]
 		                    .getService(Components.interfaces.nsIPrefService);
 		var temp=aName.split('.');
-		var root;
+		var root='';
 		for( var i=0; i<(temp.length-1); i++ ) {
 			root=root+temp[i]+'.';
 		}
 		prefs=prefs.getBranch(root);
-		return prefs.getCharPref(aName);
+		return prefs.getCharPref(temp[temp.length-1]);
 	},
 
 	QueryInterface: function(aIID)

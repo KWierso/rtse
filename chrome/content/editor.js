@@ -689,6 +689,7 @@ var editor={
 		text=text.replace(/<a href="(.*?)">(.*?)<\/a>/g,'[link=$1]$2[/link]');
 		text=text.replace(/<font color=".*">(.*?)<\/font>/g,'$1'); /* Old way maybe? */
 		text=text.replace(/<span style="color:.*">(.*?)<\/span>/g,'$1');
+		text=text.replace(/<img .*?src="\/(.*?)".*?>/g,'[img]http://www.roosterteeth.com/$1[/img]');
 		text=text.replace(/<img.*? src="(.*?)".*?>/g,'[img]$1[/img]');
 		text=text.replace(/<br><br><span class="small"(.*?)>(.*?)<\/span>/g,'');
 		text=text.replace(/<blockquote(.*?)>(.*?)<\/blockquote>/g,'');

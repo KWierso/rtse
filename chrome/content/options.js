@@ -203,13 +203,10 @@ function smilieFilePicker(aWin)
 function displaySmilies()
 // EFFECTS: Generates preview of currently loaded smilies
 {
-	try {
-		var s=new Smilies();
-		s.load();
-	} catch(e) {
-		gRTSE.sendReport(e);
-	}
+	var s=Components.classes["@shawnwilsher.com/smilies;1"]
+	                .getService(Components.interfaces.nsISmilies);
 	var ref=document.getElementById('smileyPreview');
+	var names=s.getNames({});
 	// remove any existing children
 	while( ref.lastChild ) {
 		ref.removeChild(ref.lastChild);
@@ -217,16 +214,16 @@ function displaySmilies()
 
 	// add new
 	var item,img,label,box;
-	for( var i in s.names ) {
+	for( var i in names ) {
 		item=document.createElement('richlistitem');
 		box=document.createElement('hbox');
 
 		img=document.createElement('image');
-		img.setAttribute('src',s.getPath(s.names[i]));
+		img.setAttribute('src',s.getPath(names[i]));
 		box.appendChild(img);
 
 		label=document.createElement('label');
-		label.setAttribute('value',s.names[i]);
+		label.setAttribute('value',names[i]);
 		box.appendChild(label);
 
 		item.appendChild(box);
