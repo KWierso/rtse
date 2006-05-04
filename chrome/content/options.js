@@ -36,8 +36,7 @@ function apply() {
 	var values=new Array();
 	
 	/* Username */
-	names.push('username');
-	values.push(document.getElementById('username').value);
+	gRTSE.prefsSetString('extensions.rtse.username',document.getElementById('username').value);
 	
 	/* Password */
 	names.push('pwd');
@@ -45,27 +44,22 @@ function apply() {
 
 	/* Auto-Login */
 	if( document.getElementById('signin').checked )
-		values.push('true');
+		gRTSE.prefsSetBool('extensions.rtse.autologin',true);
 	else
-		values.push('false');
-	names.push('signin');
+		gRTSE.prefsSetBool('extensions.rtse.autologin',false);
 
 	/* Sponsor */
 	if( document.getElementById('sponsor').checked )
-		values.push('true');
+		gRTSE.prefsSetBool('extensions.rtse.sponsor',true);
 	else
-		values.push('false');
-	names.push('sponsor');
+		gRTSE.prefsSetBool('extensions.rtse.sponsor',false);
 
 	/* Themer */
 	if( document.getElementById('theme').checked ) {
-		values.push('true');
-		names.push('theme');
-		names.push('themeType');
-		values.push(document.getElementById('themeType').selectedItem.value);
+		gRTSE.prefsSetBool('extensions.rtse.themer',true);
+		gRTSE.prefsSetString('extensions.rtse.themeType',document.getElementById('themeType').selectedItem.value);
 	} else {
-		values.push('false');
-		names.push('theme');
+		gRTSE.prefsSetBool('extensions.rtse.themer',false);
 	}
 
 	/* Link Fixer */
@@ -89,10 +83,9 @@ function apply() {
 
 	/* Editor */
 	if( document.getElementById('editor').checked )
-		values.push('true');
+		gRTSE.prefsSetBool('extensions.rtse.editor',true);
 	else
-		values.push('false');
-	names.push('editor');
+		gRTSE.prefsSetBool('extensions.rtse.editor',false);
 
 	/* Smilies */
 	if( document.getElementById('smilies').checked )
@@ -125,26 +118,26 @@ function load() {
 	var i;
 	
 	/* Username */
-	document.getElementById('username').value=this.config.get('username','');
+	document.getElementById('username').value=gRTSE.prefsGetString('extensions.rtse.username');
 	
 	/* Password */
 	document.getElementById('pwd').value=this.config.get('pwd','');
 	
 	/* Auto-Login */
-	if( this.config.get('signin','false')=='false' )
+	if( gRTSE.prefsGetBool('extensions.rtse.autologin')==false )
 		document.getElementById('signin').checked=false;
 	else
 		document.getElementById('signin').checked=true;
 	
 	/* Sponsor */
-	if( this.config.get('sponsor','false')=='false' )
+	if( gRTSE.prefsGetBool('extensions.rtse.sponsor')==false )
 		document.getElementById('sponsor').checked=false;
 	else
 		document.getElementById('sponsor').checked=true;
 	
 	/* Themer */
-	if( this.config.get('theme','false')=='true' ) {
-		document.getElementById('themeType').value=this.config.get('themeType','www');
+	if( gRTSE.prefsGetBool('extensions.rtse.themer') ) {
+		document.getElementById('themeType').value=gRTSE.prefsGetString('extensions.rtse.themeType');
 		document.getElementById('theme').checked=true;
 	} else {
 		document.getElementById('themeType').disabled=true;
@@ -168,7 +161,7 @@ function load() {
 	}
 
 	/* Editor */
-	if( this.config.get('editor','true')=='true' )
+	if( gRTSE.prefsGetBool('extensions.rtse.editor') )
 		document.getElementById('editor').checked=true;
 	else
 		document.getElementById('editor').checked=false;

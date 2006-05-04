@@ -35,8 +35,7 @@ var wizard = {
 			var values=new Array();
 		
 			/* username */
-			names.push('username');
-			values.push(document.getElementById('username').value);
+			gRTSE.prefsSetString('extensions.rtse.username',document.getElementById('username').value);
 
 			/* password */
 			names.push('pwd');
@@ -44,38 +43,31 @@ var wizard = {
 
 			/* auto login */
 			if( document.getElementById('signin').checked )
-				values.push('true');
+				gRTSE.prefsSetBool('extensions.rtse.autologin',true);
 			else
-				values.push('false');
-			names.push('signin');
+				gRTSE.prefsSetBool('extensions.rtse.autologin',false);
 		
 			/* sponsor */
 			if( document.getElementById('sponsor').checked )
-				values.push('true');
+				gRTSE.prefsSetBool('extensions.rtse.sponsor',true);
 			else
-				values.push('false');
-			names.push('sponsor');
+				gRTSE.prefsSetBool('extensions.rtse.sponsor',false);
 
 			/* themer */
 			if( document.getElementById('theme').checked ) {
-				values.push('true');
-				names.push('theme');
-				names.push('themeType');
-				values.push(document.getElementById('themeType').selectedItem.value);
+				gRTSE.prefsSetBool('extensions.rtse.themer',true);
+				gRTSE.prefsSetString('extensions.rtse.themeType',document.getElementById('themeType').selectedItem.value);
 			} else {
-				values.push('false');
-				names.push('theme');
+				gRTSE.prefsSetBool('extensions.rtse.themer',false);
 			}
 
 			/* editor */
 			if( document.getElementById('editor').checked )
-				values.push('true');
+				gRTSE.prefsSetBool('extensions.rtse.editor',true);
 			else
-				values.push('false');
-			names.push('editor');
+				gRTSE.prefsSetBool('extensions.rtse.editor',false);
 
-			names.push('firstInstall');
-			values.push('false');
+			gRTSE.prefsSetBool('extensions.rtse.firstInstall',false);
 			RTSE.config.setMult(names,values);
 
 			return(true);

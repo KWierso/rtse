@@ -51,8 +51,8 @@ var RTSE = {
 
 		/* Checking Version Number Pref - Updating if need be */
 		const UA_STRING='RTSE/'+gRTSE.version;
-		if( gRTSE.prefsGetString('rtse','general.useragent.extra.')!=UA_STRING )
-			gRTSE.prefsSetString('rtse',UA_STRING,'general.useragent.extra.');
+		if( gRTSE.prefsGetString('general.useragent.extra.rtse')!=UA_STRING )
+			gRTSE.prefsSetString('general.useragent.extra.rtse',UA_STRING);
 		
 	},
 

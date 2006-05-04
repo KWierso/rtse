@@ -31,9 +31,9 @@ interface nsIRTSE:nsISupports
 	attribute string version;
 	void    prefsRegisterObserver(in string aPref,in nsIObserver aFunc);
 	void    prefsUnregisterObserver(in string aPref,in nsIObserver aFunc);
-	void    prefsSetBool(in string aName,in boolean aValue,in string aRoot);
-	void    prefsSetString(in string aName,in string aValue,in string aRoot);
-	boolean prefsGetBool(in string aName,in string aRoot);
-	string  prefsGetString(in string aName,in string aRoot);
+	void    prefsSetBool(in string aName,in boolean aValue);
+	void    prefsSetString(in string aName,in string aValue);
+	boolean prefsGetBool(in string aName);
+	string  prefsGetString(in string aName);
 	void    sendReport(in string aError);
 };

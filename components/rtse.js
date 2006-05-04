@@ -39,11 +39,48 @@ RTSE.prototype = {
 	// OVERVIEW: This is the class definition.  Defines the functions
 	//           that are exposed in the interface.
 	mVersion: '1.1.0a1',
+	mLoginSent: false,
 
 	get version()
 	// EFFECTS: returns the value of 'version' - used as an attribute
 	{
 		return this.mVersion;
+	},
+
+	login: function()
+	// EFFECTS: if the preference 'extensions.rtse.autologin' is set,
+	//          it will log you in to the site.
+	{
+		try {
+			if( !this.mLoginSent && this.prefsGetBool('autologin') && this.prefsGetString('username') ) {
+				// pulls from password manager
+				var pm=Components.classes["@mozilla.org/passwordmanager;1"]
+				                 .getService(Components.interfaces.nsIPasswordManager);
+				var nsIPwd,pwd;
+				var found=false;
+				var username=this.prefsGetString('username');
+				while( !found && pm.enumerator.hasMoreElements() ) {
+					nsIPwd=pm.enumerator.getNext();
+					if( nsIPwd.host=='rtse' && nsIPwd.user==username ) {
+						pwd=nsIPwd.password;
+						found=true;
+					}
+				}
+				if( ref && username && pwd ) {
+					var req=Components.classes["@mozilla.org/xmlextras/xmlhttprequest;1"]
+					                  .getService(Components.interfaces.nsIXMLHttpRequest);
+					req.open("POST",'http://www.roosterteeth.com/members/signinPost.php',true);
+					req.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+					req.send('user='+username+'&pass='+pwd);
+				} else {
+					throw NS_ERROR_FAILURE;
+				}
+				
+				this.mLoginSent=true;
+			}
+		} catch(e) {
+			this.sendReport(e);
+		}
 	},
 
 	sendReport: function(aError)
@@ -73,60 +110,60 @@ RTSE.prototype = {
 		if(!this._branch) return;
     		this._branch.removeObserver(aPref,aFunc);
 	},
-	prefsSetBool: function(aName,aValue,aRoot)
+	prefsSetBool: function(aName,aValue)
 	// EFFECTS: Sets a boolean preference aName with aValue.  If aRoot is
 	//          not passed in, it uses the default root of extensions.rtse.
 	{
 		var prefs=Components.classes["@mozilla.org/preferences-service;1"]
 		                    .getService(Components.interfaces.nsIPrefService);
-		if( !aRoot ) {
-			// if it isn't passed in, use the default root
-			prefs=prefs.getBranch("extensions.rtse.");
-		} else {
-			prefs=prefs.getBranch(aRoot);
+		var temp=aName.split('.');
+		var root;
+		for( var i=0; i<(temp.length-1); i++ ) {
+			root=root+temp[i]+'.';
 		}
+		prefs=prefs.getBranch(root);
 		prefs.setBoolPref(aName,aValue);
 	},
-	prefsSetString: function(aName,aValue,aRoot)
+	prefsSetString: function(aName,aValue)
 	// EFFECTS: Sets a string preference aName with aValue.  If aRoot is
 	//          not passed in, it uses the default root of extensions.rtse.
 	{
 		var prefs=Components.classes["@mozilla.org/preferences-service;1"]
 		                    .getService(Components.interfaces.nsIPrefService);
-		if( !aRoot ) {
-			// if it isn't passed in, use the default root
-			prefs=prefs.getBranch("extensions.rtse.");
-		} else {
-			prefs=prefs.getBranch(aRoot);
+		var temp=aName.split('.');
+		var root;
+		for( var i=0; i<(temp.length-1); i++ ) {
+			root=root+temp[i]+'.';
 		}
+		prefs=prefs.getBranch(root);
 		prefs.setCharPref(aName,aValue);
 	},
-	prefsGetBool: function(aName,aRoot)
+	prefsGetBool: function(aName)
 	// EFFECTS: Returns the value of aName.  If aRoot is not specified,
 	//          it defaults to extestensions.rtse.
 	{
 		var prefs=Components.classes["@mozilla.org/preferences-service;1"]
 		                    .getService(Components.interfaces.nsIPrefService);
-		if( !aRoot ) {
-			// if it isn't passed in, use the default root
-			prefs=prefs.getBranch("extensions.rtse.");
-		} else {
-			prefs=prefs.getBranch(aRoot);
+		var temp=aName.split('.');
+		var root;
+		for( var i=0; i<(temp.length-1); i++ ) {
+			root=root+temp[i]+'.';
 		}
+		prefs=prefs.getBranch(root);
 		return prefs.getBoolPref(aName);
 	},
-	prefsGetString: function(aName,aRoot)
+	prefsGetString: function(aName)
 	// EFFECTS: Returns the value of aName.  If aRoot is not specified,
 	//          it defaults to extestensions.rtse.
 	{ 
 		var prefs=Components.classes["@mozilla.org/preferences-service;1"]
 		                    .getService(Components.interfaces.nsIPrefService);
-		if( !aRoot ) {
-			// if it isn't passed in, use the default root
-			prefs=prefs.getBranch("extensions.rtse.");
-		} else {
-			prefs=prefs.getBranch(aRoot);
+		var temp=aName.split('.');
+		var root;
+		for( var i=0; i<(temp.length-1); i++ ) {
+			root=root+temp[i]+'.';
 		}
+		prefs=prefs.getBranch(root);
 		return prefs.getCharPref(aName);
 	},
 
