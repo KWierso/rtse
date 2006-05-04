@@ -701,14 +701,22 @@ var editor={
 
 	extraBB: {
 		/* Parses extra BBcode added by RTSE */
-		convert: function(elm) {
-			/* converts to site BB */
-			elm.value=elm.value.replace(/\[quote=([a-zA-Z0-9_]{4,12})\]([\s\S]+)\[\/quote\]/g,'[b]Quoting $1:[/b][quote]$2[/quote]');
+		convert: function(aElm)
+		// EFFECTS: converts to the site BBcode.  Takes an element in the parent document.
+		{
+			aElm.value=aElm.value.replace(/\[quote=([a-zA-Z0-9_]{4,12})\]([\s\S]+)\[\/quote\]/g,'[b]Quoting $1:[/b][quote]$2[/quote]');
 			
 			// Numbers in forum
-			if( elm.value.match(/\[i\]In reply to [a-zA-Z0-9_]+, #[0-9]+:\[\/i\]/g) ) {
-				elm.value=elm.value.replace(/\[i\]In reply to ([a-zA-Z0-9_]+), #([0-9]+):\[\/i\]/g,
-				                            '[i]In reply to $1, [link=#t$2]#$2[/link]:[/i]');
+			var doc=aElm.ownerDocument;
+			var loc=(!doc)?'':doc.location.href.replace(/^https?"\/\/(www|sh|rvb|panics)\.roosterteeth\.com(.*)$/i,'$2');
+			loc=loc.replace(/&page=[0-9]+/i,'');
+			loc=loc.replace(/#[a-z0-9]+/i,'');
+			var post,page
+			while( aElm.value.match(/\[i\]In reply to [a-zA-Z0-9_]{4,12}, #[0-9]+:\[\/i\]/i) ) {
+				post=aElm.value.replace(/^[\s\S]*\[i\]In reply to [a-zA-Z0-9_]{4,12}, #([0-9]+):\[\/i\][\s\S]*/i,'$1');alert(post);
+				page=(loc=='')?'':'&page='+Math.ceil(post/30);
+				aElm.value=aElm.value.replace(/\[i\]In reply to ([a-zA-Z0-9_]{4,12}), #([0-9]+):\[\/i\]/i,
+				                              '[i]In reply to $1, [link='+loc+page+'#t$2][i]#$2[/i][/link]:[/i]');
 			}
 		},
 		deconvert: function() {
@@ -718,8 +726,8 @@ var editor={
 			body.value=body.value.replace(/\[b\]Quoting ([a-zA-Z0-9_]{4,12}):\[\/b\]\[quote\]([\s\S]+)\[\/quote\]/g,'[quote=$1]$2[/quote]');
 
 			// Numbers in forum
-			if( body.value.match(/\[i\]In reply to [a-zA-Z0-9_]+, \[link=#t[0-9]+\]#[0-9]+\[\/link\]:\[\/i\]/g) ) {
-				body.value=body.value.replace(/\[i\]In reply to ([a-zA-Z0-9_]+), \[link=#t[0-9]+\](#[0-9]+)\[\/link\]:\[\/i\]/g,
+			if( body.value.match(/\[i\]In reply to [a-zA-Z0-9_]{4,12}, \[link=.*?#t[0-9]+\]\[i\]#[0-9]+\[\/i\]\[\/link\]:\[\/i\]/g) ) {
+				body.value=body.value.replace(/\[i\]In reply to ([a-zA-Z0-9_]{4,12}), \[link=.*?#t[0-9]+\]\[i\](#[0-9]+)\[\/i\]\[\/link\]:\[\/i\]/g,
 				                             '[i]In reply to $1, $2:[/i]');
 			}
 		}
