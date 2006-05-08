@@ -374,15 +374,17 @@ function RTSE_postPermalink(aDoc)
 		base=base.replace(/.*(#[c|t][0-9]+)$/i,'');
 		for( var i in elms ) {
 			text=elms[i].firstChild.data;
-			a=aDoc.createElement('a');
-			a.setAttribute('title','Permalink');
-			text=text.replace(/(\n|\t)/gmi,'');
-			num=text.replace(/^.*#([0-9]+).*$/i,'$1');
-			a.setAttribute('href',base+'#t'+num);
-			a.appendChild(aDoc.createTextNode('#'+num));
-			text=' '+text.replace(/^#[0-9]+(.*?)$/,'$1');
-			elms[i].replaceChild(aDoc.createTextNode(text),elms[i].firstChild);
-			elms[i].insertBefore(a,elms[i].firstChild);
+			if( text.match(/^.*#([0-9]+).*$/i) ) {
+				a=aDoc.createElement('a');
+				a.setAttribute('title','Permalink');
+				text=text.replace(/(\n|\t)/gmi,'');
+				num=text.replace(/^.*#([0-9]+).*$/i,'$1');
+				a.setAttribute('href',base+'#t'+num);
+				a.appendChild(aDoc.createTextNode('#'+num));
+				text=' '+text.replace(/^#[0-9]+(.*?)$/,'$1');
+				elms[i].replaceChild(aDoc.createTextNode(text),elms[i].firstChild);
+				elms[i].insertBefore(a,elms[i].firstChild);
+			}
 		}
 	} catch(e) {
 		gRTSE.sendReport(e);
