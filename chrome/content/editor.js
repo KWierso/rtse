@@ -704,23 +704,32 @@ var editor={
 		/* Parses extra BBcode added by RTSE */
 		convert: function(aElm)
 		// EFFECTS: converts to the site BBcode.  Takes an element in the parent document.
+		//          Looks for rtseLocation for a path for any 'in reply to...' sections.
 		{
 			aElm.value=aElm.value.replace(/\[quote=([a-zA-Z0-9_]{4,12})\]([\s\S]+)\[\/quote\]/g,'[b]Quoting $1:[/b][quote]$2[/quote]');
 			
 			// Numbers in forum
 			var doc=aElm.ownerDocument;
-			var loc=(!doc)?'':doc.location.href.replace(/^https?"\/\/(www|sh|rvb|panics)\.roosterteeth\.com(.*)$/i,'$2');
-			loc=loc.replace(/&page=[0-9]+/i,'');
-			loc=loc.replace(/#[a-z0-9]+/i,'');
-			var post,page
+			var loc;
+			if( doc.getElementById('rtseLocation') ) {
+				loc=doc.getElementById('rtseLocation').value;
+			} else {
+				loc=doc.location.href.replace(/^https?:\/\/(www|sh|rvb|panics)\.roosterteeth\.com(.*)$/i,'$2');
+				loc=loc.replace(/#[a-z0-9]+/i,''); // clears any anchors
+			}
+			loc=loc.replace(/&page=[0-9]+/i,''); // clears any currently set page
+			var post,page;
 			while( aElm.value.match(/\[i\]In reply to [a-zA-Z0-9_]{4,12}, #[0-9]+:\[\/i\]/i) ) {
-				post=aElm.value.replace(/^[\s\S]*\[i\]In reply to [a-zA-Z0-9_]{4,12}, #([0-9]+):\[\/i\][\s\S]*/i,'$1');alert(post);
+				post=aElm.value.replace(/^[\s\S]*\[i\]In reply to [a-zA-Z0-9_]{4,12}, #([0-9]+):\[\/i\][\s\S]*/i,'$1');
 				page=(loc=='')?'':'&page='+Math.ceil(post/30);
 				aElm.value=aElm.value.replace(/\[i\]In reply to ([a-zA-Z0-9_]{4,12}), #([0-9]+):\[\/i\]/i,
 				                              '[i]In reply to $1, [link='+loc+page+'#t$2][i]#$2[/i][/link]:[/i]');
 			}
 		},
-		deconvert: function() {
+		deconvert: function()
+		// EFFECTS: takes special BBcode from RTSE and converts it back to RT BBcode.  To preserve path's of 'in reply to...' text,
+		//          it will dump the location into a form field that convert will use.
+		{
 			/* converts to RTSE BB */
 			var body=document.getElementById('body');
 
@@ -728,6 +737,16 @@ var editor={
 
 			// Numbers in forum
 			if( body.value.match(/\[i\]In reply to [a-zA-Z0-9_]{4,12}, \[link=.*?#t[0-9]+\]\[i\]#[0-9]+\[\/i\]\[\/link\]:\[\/i\]/g) ) {
+				// creating a form element to preserve the path
+				var doc=window.parent.document;
+				var path=body.value.replace(/^[\s\S]*\[i\]In reply to ([a-zA-Z0-9_]{4,12}), \[link=(.*?)#t[0-9]+\]\[i\](#[0-9]+)\[\/i\]\[\/link\]:\[\/i\][\s\S]*$/i,
+				                            '$2');
+				var elm=doc.createElement('input');
+				elm.value=path;
+				elm.id='rtseLocation';
+				elm.setAttribute('type','hidden');
+				doc.forms.namedItem('post').appendChild(elm);
+				
 				body.value=body.value.replace(/\[i\]In reply to ([a-zA-Z0-9_]{4,12}), \[link=.*?#t[0-9]+\]\[i\](#[0-9]+)\[\/i\]\[\/link\]:\[\/i\]/g,
 				                             '[i]In reply to $1, $2:[/i]');
 			}
