@@ -422,7 +422,7 @@ function RTSE_addReply(aDoc)
 		a.addEventListener('click',RTSE_samePageReply,false);
 		b.appendChild(aDoc.createTextNode('Reply'))
 		a.appendChild(b);
-		span.appendChild(aDoc.createTextNode(' [ '));
+		span.appendChild(aDoc.createTextNode('&nbsp; [ '));
 		span.appendChild(a);
 		span.appendChild(aDoc.createTextNode(' ] '));
 		elms[i].appendChild(span);
