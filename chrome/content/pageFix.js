@@ -40,18 +40,25 @@ function RTSE_linkFix(doc) {
 				links[i].removeAttribute('target'); /* Prevents new window */
 			}
 		}
-
-		/* Adds cursor for links without href */
-		var head=doc.getElementsByTagName('head')[0];
-		var css=doc.createElement('style');
-		css.setAttribute('type','text/css');
-		css.setAttribute('media','screen');
-		var text=doc.createTextNode('a:hover { cursor:pointer; }');
-		css.appendChild(text);
-		head.appendChild(css);
 	} catch(e) {
 		gRTSE.sendReport(e);
 	}
+}
+
+function RTSE_addCSS(aDoc)
+// EFFECTS: adds special CSS instructions to the head of each RT page
+{
+	var head=aDoc.getElementsByTagName('head')[0];
+	var css=aDoc.createElement('style');
+	css.setAttribute('type','text/css');
+	css.setAttribute('media','screen');
+	
+	// fix for too long of text in textboxes
+	var text=aDoc.createTextNode('textarea { overflow-x:auto; }\n');
+	css.appendChild(text);
+	
+	// Appending
+	head.appendChild(css);
 }
 
 function RTSE_themeIt(doc) {
@@ -179,7 +186,7 @@ function RTSE_forumListBox(doc) {
 
 function RTSE_insertEditor(doc,type) {
 	/* Used to insert the editor in as opposed to the normal interface */
-	if( RTSE.config.get('editor','true')=='false' ) return(false);
+	if( gRTSE.prefsGetBool('extensions.rtse.editor')==false ) return;
 	const DEFAULT_HEIGHT='262';
 	const TITLE_HEIGHT='287';
 	const BLANK_MESSAGE_HEIGHT='356';
@@ -260,25 +267,11 @@ function RTSE_insertEditor(doc,type) {
 			 break;
 			case 'fcomment':
 			 var elms=RTSE_evaluateXPath(doc,"//td[@id='pageContent']/table/tbody/tr[2]/td/table/tbody/tr[3]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/a[2]/b");
-			 if( RTSE.config.get('same_page_reply','false')=='true' ) {
+			 if( gRTSE.prefsGetBool('extensions.rtse.editor') && RTSE.config.get('same_page_reply','false')=='true' ) {
 			 	 /* This is for the single page reply */
 				 for( i=(elms.length-1); i>=0; i-- ) {
 					elms[i].parentNode.setAttribute('href','#Post');
-					elms[i].addEventListener('click',function() {
-						/* Get post and what-not */
-						var name=this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.getElementsByTagName('td')[0].getElementsByTagName('table')[0].getElementsByTagName('tbody')[0].getElementsByTagName('tr')[1].getElementsByTagName('td')[0].getElementsByTagName('table')[0].getElementsByTagName('tbody')[0].getElementsByTagName('tr')[0].getElementsByTagName('td')[0].firstChild.firstChild.data;
-						name=name.replace(new RegExp('\t','gmi'),'');
-						name=name.replace(new RegExp('\n','gmi'),'');
-						
-						var number=this.parentNode.parentNode.parentNode.parentNode.getElementsByTagName('td')[0].getElementsByTagName('a')[0].firstChild.data;
-						number=number.replace(/#([0-9]+)/,'$1');
-						var text='[i]In reply to '+name+', #'+number+':[/i]\n\n';
-
-						/* Append to editor */
-						var editor=doc.getElementById('rtseXULeditor').contentDocument.wrappedJSObject.getElementById('body');
-						editor.value=editor.value+text;
-						editor.focus();
-					},false);
+					elms[i].addEventListener('click',RTSE_samePageReply,false);
 				 }
 			 } /* end single page reply */
 			 var ref=doc.getElementById('Post').firstChild;
@@ -374,9 +367,10 @@ function RTSE_postPermalink(aDoc)
 // EFFECTS: Adds a permalink to posts on a page in aDoc
 {
 	try {
-		var elms=RTSE_evaluateXPath(aDoc,"//td[@id='pageContent']/table/tbody/tr[2]/td/table/tbody/tr[3]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[1]");
+		var elms=RTSE_evaluateXPath(aDoc,"//table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[1]");
 		var a,text,num;
-		var base=(new String(aDoc.location.href)).replace(/.*\/forum\/viewTopic\.php\?id=([0-9]+)$/i,'/forum/viewTopic.php?id=$1');
+		var base=new String(aDoc.location.href);
+		base=base.replace(/^https?:\/\/(www|rvb|sh|panics)\.roosterteeth\.com(.*)$/,'$2');
 		base=base.replace(/.*(#[c|t][0-9]+)$/i,'');
 		for( var i in elms ) {
 			text=elms[i].firstChild.data;
@@ -392,5 +386,43 @@ function RTSE_postPermalink(aDoc)
 		}
 	} catch(e) {
 		gRTSE.sendReport(e);
+	}
+}
+
+function RTSE_samePageReply()
+// EFFECTS: Function called when clicking on reply when same page replies is enabled
+{
+	// Get post and what-not
+	var name=this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.getElementsByTagName('td')[0].getElementsByTagName('table')[0].getElementsByTagName('tbody')[0].getElementsByTagName('tr')[1].getElementsByTagName('td')[0].getElementsByTagName('table')[0].getElementsByTagName('tbody')[0].getElementsByTagName('tr')[0].getElementsByTagName('td')[0].firstChild.firstChild.data;
+	name=name.replace(new RegExp('\t','gmi'),'');
+	name=name.replace(new RegExp('\n','gmi'),'');
+						
+	var num=this.parentNode.parentNode.parentNode.parentNode.getElementsByTagName('td')[0].getElementsByTagName('a')[0].firstChild.data;
+	num=num.replace(/#([0-9]+)/,'$1');;
+
+	// Append to editor
+	var editor=this.ownerDocument.getElementById('rtseXULeditor').contentDocument.wrappedJSObject.getElementById('body');
+	editor.value=editor.value+'[i]In reply to '+name+', #'+num+':[/i]\n\n';
+	editor.focus();
+}
+
+function RTSE_addReply(aDoc)
+// EFFECTS: Adds the [ reply ] option to posts on a specifed aDoc
+{
+	var elms=RTSE_evaluateXPath(aDoc,"//table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div");
+	var span,a,b;
+	for( var i in elms ) {
+		span=aDoc.createElement('span');
+		a=aDoc.createElement('a');
+		b=aDoc.createElement('b');
+		a.setAttribute('href',(aDoc.getElementById('Post'))?'#Post':'#add');
+		a.setAttribute('class','small');
+		a.addEventListener('click',RTSE_samePageReply,false);
+		b.appendChild(aDoc.createTextNode('Reply'))
+		a.appendChild(b);
+		span.appendChild(aDoc.createTextNode(' [ '));
+		span.appendChild(a);
+		span.appendChild(aDoc.createTextNode(' ] '));
+		elms[i].appendChild(span);
 	}
 }
