@@ -374,7 +374,7 @@ function RTSE_postPermalink(aDoc)
 		base=base.replace(/.*(#[c|t][0-9]+)$/i,'');
 		for( var i in elms ) {
 			text=elms[i].firstChild.data;
-			if( text.match(/^.*#([0-9]+).*$/i) ) {
+			if( /^\s*#([0-9]+)[\s\S]*$/i.test(text) ) {
 				a=aDoc.createElement('a');
 				a.setAttribute('title','Permalink');
 				text=text.replace(/(\n|\t)/gmi,'');
@@ -422,7 +422,7 @@ function RTSE_addReply(aDoc)
 		a.addEventListener('click',RTSE_samePageReply,false);
 		b.appendChild(aDoc.createTextNode('Reply'))
 		a.appendChild(b);
-		span.appendChild(aDoc.createTextNode('&nbsp; [ '));
+		span.appendChild(aDoc.createTextNode(' [ '));
 		span.appendChild(a);
 		span.appendChild(aDoc.createTextNode(' ] '));
 		elms[i].appendChild(span);
