@@ -1,0 +1,188 @@
+<?xml version="1.0" ?>
+<!--
+/* ***** BEGIN LICENSE BLOCK *****
+ * Version: Open Software License v. 2.1
+ *
+ * The contents of this file are subject to the Open Software License Version
+ * 2.1 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ * http://www.opensource.org/licenses/osl-2.1.php
+ *
+ * Software distributed under the License is distributed on an "AS IS" basis,
+ * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+ * for the specific language governing rights and limitations under the
+ * License.
+ *
+ * The Original Code is the 'Rooster Teeth Site Extender'.
+ *
+ * The Initial Developer of the Original Code is
+ * Shawn Wilsher
+ *
+ * Portions created by the Initial Developer are Copyright (C) 2005-2006
+ * the Initial Developer. All Rights Reserved.
+ *
+ * Contributor(s):
+ *     Brandon Jernigan
+ *
+ * ***** END LICENSE BLOCK ***** */
+-->
+<bindings id="xulBindings"
+          xmlns="http://www.mozilla.org/xbl"
+          xmlns:xbl="http://www.mozilla.org/xbl"
+          xmlns:html="http://www.w3.org/1999/xhtml"
+          xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+	<binding id="editor">
+		<content>
+			<!-- Start of the Content -->
+			<xul:popupset>
+				<xul:popup id="menu">
+					<xul:menuitem label="Preview" command="cmd_preview"/>
+					<xul:menuitem label="Submit" command="cmd_submit"/>	
+					<xul:menuseparator/>
+					<xul:menu label="Formatting">
+						<xul:menupopup position="end_before">
+							<xul:menuitem label="Bold" image="chrome://rtse/skin/images/editor/bold.png" class="menuitem-iconic" command="cmd_bold"/>
+							<xul:menuitem label="Italic" image="chrome://rtse/skin/images/editor/italic.png" class="menuitem-iconic" command="cmd_italic"/>
+							<xul:menuitem label="Underline" image="chrome://rtse/skin/images/editor/underline.png" class="menuitem-iconic" command="cmd_underline"/>
+							<xul:menuitem label="Strikethrough" image="chrome://rtse/skin/images/editor/strike.png" class="menuitem-iconic" command="cmd_strike"/>
+							<xul:menuitem label="Image" image="chrome://rtse/skin/images/editor/image.png" class="menuitem-iconic" command="cmd_image"/>
+						</xul:menupopup>
+					</xul:menu>
+					<xul:menuitem label="Cut" image="chrome://rtse/skin/images/editor/cut.png" class="menuitem-iconic" command="cmd_cut"/>
+					<xul:menuitem label="Copy" image="chrome://rtse/skin/images/editor/copy.png" class="menuitem-iconic" command="cmd_copy"/>
+					<xul:menuitem label="Paste" image="chrome://rtse/skin/images/editor/paste.png" class="menuitem-iconic" command="cmd_paste"/>
+				</xul:popup>
+				<xul:tooltip id="tt_bold">
+					<xul:description>Bold</xul:description>
+				</xul:tooltip>
+				<xul:tooltip id="tt_italic">
+					<xul:description>Italic</xul:description>
+				</xul:tooltip>
+				<xul:tooltip id="tt_underline">
+					<xul:description>Underline</xul:description>
+				</xul:tooltip>
+				<xul:tooltip id="tt_strike">
+					<xul:description>StrikeThrough</xul:description>
+				</xul:tooltip>
+				<xul:tooltip id="tt_image">
+					<xul:description>Insert Image Code</xul:description>
+				</xul:tooltip>
+				<xul:tooltip id="tt_quote">
+					<xul:description>Quote</xul:description>
+				</xul:tooltip>
+				<xul:tooltip id="tt_color">
+					<xul:description>Color Menu</xul:description>
+				</xul:tooltip>
+				<xul:tooltip id="tt_customcolor">
+					<xul:description>Define A Custom Color</xul:description>
+				</xul:tooltip>
+				<xul:tooltip id="tt_link">
+					<xul:description>Link Tool</xul:description>
+				</xul:tooltip>
+				<xul:tooltip id="tt_smilies">
+					<xul:description>Smilies</xul:description>
+				</xul:tooltip>
+				<xul:tooltip id="tt_cut">
+					<xul:description>Cut</xul:description>
+				</xul:tooltip>
+				<xul:tooltip id="tt_copy">
+					<xul:description>Copy</xul:description>
+				</xul:tooltip>
+				<xul:tooltip id="tt_paste">
+					<xul:description>Paste</xul:description>
+				</xul:tooltip>
+				<xul:tooltip id="tt_title">
+					<xul:description>Title</xul:description>
+				</xul:tooltip>
+			</xul:popupset>
+			<xul:commandset id="cmds">
+				<xul:command id="cmd_cut" oncommand="editor.cut();"/>
+				<xul:command id="cmd_copy" oncommand="editor.copy();"/>
+				<xul:command id="cmd_paste" oncommand="editor.paste();"/>
+				<xul:command id="cmd_preview" oncommand="editor.preview();"/>
+				<xul:command id="cmd_submit" oncommand="editor.submit();"/>
+				<xul:command id="cmd_bold" oncommand="editor.insertTag('bold');"/>
+				<xul:command id="cmd_italic" oncommand="editor.insertTag('italic');"/>
+				<xul:command id="cmd_underline" oncommand="editor.insertTag('underline');"/>
+				<xul:command id="cmd_strike" oncommand="editor.insertTag('strike');"/>
+				<xul:command id="cmd_image" oncommand="editor.insertTag('image');"/>
+				<xul:command id="cmd_quote" oncommand="editor.insertTag('quote');"/>
+				<xul:command id="cmd_friendsOnly" oncommand="editor.switchJournal();"/>
+				<xul:command id="cmd_link" oncommand="editor.link();"/>
+				<xul:command id="cmd_customcolor" oncommand="editor.color();"/>
+			</xul:commandset>
+			<xul:vbox flex="1">
+				<xul:textbox id="title" multiline="false" style="height:22px;" value="Please Specify a Title " hidden="true" maxlength="40" tooltip="tt_title" tabindex="1"/>
+				<xul:toolbox pack="center">
+					<xul:toolbar id="toolbar">
+						<xul:toolbarbutton id="bold" image="chrome://rtse/skin/images/editor/bold.png" command="cmd_bold" tooltip="tt_bold"/>
+						<xul:toolbarbutton id="italic" image="chrome://rtse/skin/images/editor/italic.png" command="cmd_italic" tooltip="tt_italic"/>
+						<xul:toolbarbutton id="underline" image="chrome://rtse/skin/images/editor/underline.png" command="cmd_underline" tooltip="tt_underline"/>
+						<xul:toolbarbutton id="strike" image="chrome://rtse/skin/images/editor/strike.png" command="cmd_strike" tooltip="tt_strike"/>
+						<xul:toolbarbutton id="image" image="chrome://rtse/skin/images/editor/image.png" command="cmd_image" tooltip="tt_image"/>
+						<xul:toolbarbutton id="quote" image="chrome://rtse/skin/images/editor/quote.png" command="cmd_quote" tooltip="tt_quote"/>
+						<xul:toolbarbutton id="link" image="chrome://rtse/skin/images/editor/link.png" command="cmd_link" tooltip="tt_link"/>
+						<xul:toolbarbutton id="color" image="chrome://rtse/skin/images/editor/color.png" type="menu" tooltip="tt_color" hidden="true">
+							<xul:menupopup>
+								<xul:menuitem label="Red" value="FF0000" oncommand="editor.addColor(this.value);"/>
+								<xul:menuitem label="Orange" value="FFAA00" oncommand="editor.addColor(this.value);"/>
+								<xul:menuitem label="Yellow" value="DDFF00" oncommand="editor.addColor(this.value);"/>
+								<xul:menuitem label="Green" value="00FF00" oncommand="editor.addColor(this.value);"/>
+								<xul:menuitem label="Blue" value="0000FF" oncommand="editor.addColor(this.value);"/>
+								<xul:menuitem label="Violet" value="AA00FF" oncommand="editor.addColor(this.value);"/>
+								<xul:menuitem label="Brown" value="AA8800" oncommand="editor.addColor(this.value);"/>
+								<xul:menuitem label="White" value="FFFFFF" oncommand="editor.addColor(this.value);"/>
+								<xul:menuseparator/>
+								<xul:menuitem label="Custom Color" tooltip="tt_custom" command="cmd_customcolor"/>
+							</xul:menupopup>
+						</xul:toolbarbutton>
+						<xul:toolbarbutton id="smiley" image="chrome://rtse/skin/images/editor/happy.png" tooltip="tt_smilies"/>
+						<xul:toolbarbutton id="cut" image="chrome://rtse/skin/images/editor/cut.png" command="cmd_cut" tooltip="tt_cut"/>
+						<xul:toolbarbutton id="copy" image="chrome://rtse/skin/images/editor/copy.png" command="cmd_copy" tooltip="tt_copy"/>
+						<xul:toolbarbutton id="paste" image="chrome://rtse/skin/images/editor/paste.png" command="cmd_paste" tooltip="tt_paste"/>
+					</xul:toolbar>
+				</xul:toolbox>
+				<xul:textbox id="body" multiline='true' context="menu" tabindex="2"/>
+				<xul:toolbox orient="horizontal">
+					<xul:toolbar id="defaultSmiliesToolbar" hidden="true">
+						<xul:toolbarbutton image="http://www.roosterteeth.com/assets/images/emoticons/smiley0.gif" validate="never" oncommand="editor.insertTag('smiley0');"/>
+						<xul:toolbarbutton image="http://www.roosterteeth.com/assets/images/emoticons/smiley1.gif" validate="never" oncommand="editor.insertTag('smiley1');"/>
+						<xul:toolbarbutton image="http://www.roosterteeth.com/assets/images/emoticons/smiley2.gif" validate="never" oncommand="editor.insertTag('smiley2');"/>
+						<xul:toolbarbutton image="http://www.roosterteeth.com/assets/images/emoticons/smiley3.gif" validate="never" oncommand="editor.insertTag('smiley3');"/>
+						<xul:toolbarbutton image="http://www.roosterteeth.com/assets/images/emoticons/smiley4.gif" validate="never" oncommand="editor.insertTag('smiley4');"/>
+						<xul:toolbarbutton image="http://www.roosterteeth.com/assets/images/emoticons/smiley5.gif" validate="never" oncommand="editor.insertTag('smiley5');"/>
+						<xul:toolbarbutton image="http://www.roosterteeth.com/assets/images/emoticons/smiley6.gif" validate="never" oncommand="editor.insertTag('smiley6');"/>
+						<xul:toolbarbutton image="http://www.roosterteeth.com/assets/images/emoticons/smiley7.gif" validate="never" oncommand="editor.insertTag('smiley7');"/>
+						<xul:toolbarbutton image="http://www.roosterteeth.com/assets/images/emoticons/smiley8.gif" validate="never" oncommand="editor.insertTag('smiley8');"/>
+						<xul:toolbarbutton image="http://www.roosterteeth.com/assets/images/emoticons/smiley9.gif" validate="never" oncommand="editor.insertTag('smiley9');"/>
+						<xul:toolbarbutton image="http://www.roosterteeth.com/assets/images/emoticons/smiley10.gif" validate="never" oncommand="editor.insertTag('smiley10');"/>
+						<xul:toolbarbutton image="http://www.roosterteeth.com/assets/images/emoticons/smiley11.gif" validate="never" oncommand="editor.insertTag('smiley11');"/>
+						<xul:toolbarbutton image="http://www.roosterteeth.com/assets/images/emoticons/smiley12.gif" validate="never" oncommand="editor.insertTag('smiley12');"/>
+					</xul:toolbar>
+					<xul:toolbaritem>
+						<xul:checkbox id="convertSmilies" label="Convert Smilies" checked="true" tabindex="5"/>
+					</xul:toolbaritem>
+					<xul:toolbarspacer flex="1000"/>
+					<xul:toolbar id="controls">
+						<xul:toolbarbutton id="preview" image="chrome://rtse/skin/images/editor/rt-rvb_preview.png" command="cmd_preview" tabindex="3"/>
+						<xul:toolbarbutton id="submit" image="chrome://rtse/skin/images/editor/rt-rvb_submit.png" command="cmd_submit" tabindex="4"/>
+						<xul:toolbarspacer flex="1"/>
+					</xul:toolbar>
+				</xul:toolbox>
+			</xul:vbox>
+			<!-- End of the content -->
+		</content>
+		<implementation>
+			<field name="title">
+				
+			</field>
+			<property name="title"
+			          onget="return this.getAttribute('title');"
+					  onset="return this.setAttribute('title',val);"/>
+			<field name="body"></field>
+			<property name="body"
+			          onget="return this.getAttribute('body');"
+			          onset="return this.setAttribute('body',val);"/>
+		</implementation>
+	</binding>
+</bindings>
