@@ -32,6 +32,9 @@
           xmlns:html="http://www.w3.org/1999/xhtml"
           xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 	<binding id="editor">
+		<resources>
+			<stylesheet src="chrome://rtse/skin/editor.css"/>
+		</resources>
 		<content>
 			<!-- Start of the Content -->
 			<xul:commandset id="cmds">
@@ -48,7 +51,7 @@
 			</xul:commandset>
 			<xul:deck id="deck" selectedIndex="0">
 					<xul:vbox flex="1"><!-- Index 0 - Editor -->
-					<xul:textbox id="title" multiline="false" style="height:22px;" value="Please Specify a Title " hidden="true" maxlength="40" tooltipText="Title" tabindex="1" xbl:inherits="value=title,hidden=hideTitle"/>
+					<html:input id="title" type="text" maxlength="40" tabindex="1" xbl:inherits="value=title"/>
 					<xul:toolbox pack="center">
 						<xul:toolbar id="toolbar">
 							<xul:toolbarbutton id="b" image="chrome://rtse/skin/images/editor/bold.png" command="cmd_bold" tooltipText="Bold"/>
@@ -76,7 +79,7 @@
 							<xul:toolbarbutton id="smiley" image="chrome://rtse/skin/images/editor/happy.png" tooltip="tt_smilies"/>
 						</xul:toolbar>
 					</xul:toolbox>
-					<xul:textbox id="body" multiline='true' tabindex="2" xbl:inherits="value=body"/>
+					<html:textarea id="body" rows="1" cols="1" tabindex="2"><children/></html:textarea>
 					<xul:toolbox orient="horizontal">
 						<xul:toolbar id="defaultSmiliesToolbar" hidden="true">
 							<xul:toolbarbutton image="chrome://rtse/content/images/smiley0.gif" autoCheck="false" oncommand="insertTag('smiley0');"/>
@@ -114,8 +117,8 @@
 						<xul:textbox id="urlTextBox"/>
 					</xul:hbox>
 					<xul:hbox>
-						<xul:button label="Create" oncommand="insertLink();"/>
-						<xul:button label="Cancel" oncommand="cancel();"/>
+							<xul:button image="chrome://rtse/content/images/rt-rvb_create.png" oncommand="insertLink();"/>
+						<xul:button image="chrome://rtse/content/images/rt-rvb_cancel.png" oncommand="cancel();"/>
 					</xul:hbox>
 				</xul:vbox>
 				<xul:vbox flex="1"><!-- Index 2 - Color Picker -->
@@ -123,7 +126,7 @@
 			</xul:deck>
 			<!-- End of the content -->
 		</content>
-		<implementation>
+		<implementation name="rtseeditor">
 			<!-- Fields and Properties -->
 			<field name="title"/>
 			<field name="showTitle"/>
@@ -152,19 +155,19 @@
 				<parameter name="tagText"/>
 				<body>
 					<![CDATA[
-						var text = document.getElementById('body');
+						var text = this.getElementById('body');
 
 						if (text.selectionStart==text.selectionEnd) {
 							// No text selected
-							var elm = document.getElementById(tagText);
+							var elm = this.getElementById(tagText);
 							var bool;
-							if (elm) bool = document.getElementById(tagText).checked;
+							if (elm) bool = this.getElementById(tagText).checked;
 							if (bool)
 								tag = '[/'+tagText+']';
 							else
 								tag = '['+tagText+']';
 							var pos = text.selectionStart+tag.length;
-							if (elm) document.getElementById(tagText).checked = !bool;
+							if (elm) this.getElementById(tagText).checked = !bool;
 							text.value = text.value.substring(0,text.selectionStart)+tag+text.value.substring(text.selectionStart,text.textLength);
 							text.setSelectionRange(pos,pos);
 							text.focus();
@@ -199,14 +202,14 @@
 				<parameter name="hex"/>
 				<body>
 					<![CDATA[
-						var text=document.getElementById('body');
+						var text=this.getElementById('body');
 
 						if( text.selectionStart==text.selectionEnd ) {
 							// No text selected
-							var button = document.getElementById('color');
+							var button = this.getElementById('color');
 							var tag = '[color=#'+hex+']';
-							var other = document.getElementById('colorSwitch');
-							document.getElementById('color').hidden = true;
+							var other = this.getElementById('colorSwitch');
+							this.getElementById('color').hidden = true;
 							other.hidden = false;
 							other.checked = true;
 							var pos=text.selectionStart+tag.length;
@@ -239,10 +242,10 @@
 			<method name="switchColor">
 				<body>
 					<![CDATA[
-						var other = document.getElementById('colorSwitch');
+						var other = this.getElementById('colorSwitch');
 						other.checked = false;
 						other.hidden = true;
-						document.getElementById('color').hidden = false;
+						this.getElementById('color').hidden = false;
 						this.insertTag('/color');
 					]]>
 				</body>
@@ -256,15 +259,15 @@
 			<method name="link">
 				<body>
 					<![CDATA[
-						var text = document.getElementById('body');
+						var text = this.getElementById('body');
 						var value = '';
 						if (text.selectionStart!=text.selectionEnd) {
 							// text is selected
 							value = text.value.substring(text.selectionStart,text.selectionEnd);
 						}
-						document.getElementById('urlTextBox').value = value;
-						document.getElementById('urlBox').value = 'http://';
-						document.getElementById('deck').selectedIndex = "1";
+						this.getElementById('urlTextBox').value = value;
+						this.getElementById('urlBox').value = 'http://';
+						this.getElementById('deck').selectedIndex = "1";
 					]]>
 				</body>
 			</method>
@@ -277,9 +280,9 @@
 			<method name="insertLink">
 				<body>
 					<![CDATA[
-						var text = document.getElementById('body');
-						var url = document.getElementById('urlBox').value;
-						var txt = document.getElementById('urlTextBox').value;
+						var text = this.getElementById('body');
+						var url = this.getElementById('urlBox').value;
+						var txt = this.getElementById('urlTextBox').value;
 						var tag = '[link='+url+']'+txt+'[/link]';
 
 						var start = text.selectionStart;
@@ -287,7 +290,7 @@
 						text.value = text.value.substring(0,text.selectionStart)+tag
 						             +text.value.substring(text.selectionEnd,text.textLength);
 						text.setSelectionRange(start,end);
-						document.getElementById('deck').selectedIndex = "0";
+						this.getElementById('deck').selectedIndex = "0";
 						text.focus();
 					]]>
 				</body>
@@ -301,7 +304,7 @@
 			<method name="colorPicker">
 				<body>
 					<![CDATA[
-						document.getElementById('deck').selectedIndex = "2";
+						this.getElementById('deck').selectedIndex = "2";
 					]]>
 				</body>
 			</method>
@@ -315,8 +318,25 @@
 			<method name="cancel">
 				<body>
 					<![CDATA[
-						document.getElementById('deck').selectedIndex = "0";
-						document.getElementById('body').focus();
+						this.getElementById('deck').selectedIndex = "0";
+						this.getElementById('body').focus();
+					]]>
+				</body>
+			</method>
+			<!--
+			 /**
+			  * Method: getElementById
+			  *  Hack to let me use this DOM function.
+			  *
+			  * @id
+			  *  The id of the element desired.
+			  */
+			-->
+			<method name="getElementById">
+				<parameter name="id"/>
+				<body>
+					<![CDATA[
+						return document.getAnonymousElementByAttribute(this,'id',id);
 					]]>
 				</body>
 			</method>
@@ -324,23 +344,48 @@
 			<constructor>
 				<![CDATA[
 					if (this.getAttribute('sponsor')=='true') {
-						document.getElementById('color').hidden = false;
-						document.getElementById('defaultSmiliesToolbar').hidden = false;
+						this.getElementById('color').hidden = false;
+						this.getElementById('defaultSmiliesToolbar').hidden = false;
 					}
+
 				]]>
 			</constructor>
 			<destructor>
 				<![CDATA[
-					this.setAttribute('body',document.getElementById('body').value);
-					this.setAttribute('title',document.getElementById('title').value);
+					this.setAttribute('body',this.getElementById('body').value);
+					this.setAttribute('title',this.getElementById('title').value);
 				]]>
 			</destructor>
 		</implementation>
 		<handlers>
-			<handler event="keypress" key="b" modifiers="control" command="cmd_bold"/>
-			<handler event="keypress" key="i" modifiers="control" command="cmd_italic"/>
-			<handler event="keypress" key="u" modifiers="control" command="cmd_underline"/>
-			<handler event="keypress" key="s" modifiers="control" command="cmd_strike"/>
+			<handler event="keypress" key="b" modifiers="alt" phase="capturing">
+				<![CDATA[
+					event.stopPropagation();
+					event.preventDefault();
+					insertTag('b');
+				]]>
+			</handler>
+			<handler event="keypress" key="i" modifiers="alt" phase="capturing">
+				<![CDATA[
+					event.stopPropagation();
+					event.preventDefault();
+					insertTag('i');
+				]]>
+			</handler>
+			<handler event="keypress" key="u" modifiers="alt" phase="capturing">
+				<![CDATA[
+					event.stopPropagation();
+					event.preventDefault();
+					insertTag('u');
+				]]>
+			</handler>
+			<handler event="keypress" key="s" modifiers="alt" phase="capturing">
+				<![CDATA[
+					event.stopPropagation();
+					event.preventDefault();
+					insertTag('s');
+				]]>
+			</handler>
 		</handlers>
 	</binding>
 </bindings>
