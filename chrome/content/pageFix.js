@@ -327,23 +327,6 @@ function RTSE_insertEditor(doc,type) {
 	return(true);
 }
 
-function RTSE_switchArrows(doc) {
-	/* Switches arrows to prevent issues */
-	try {return;
-		var imgs=RTSE_evaluateXPath(doc,"//img[@src='/assets/images/smallBulletDown.gif']");
-		var img;
-		for( var i=(imgs.length-1); i>=0; i-- ) {
-			img=doc.createElement('img');
-			img.setAttribute('src','chrome://rtse/skin/images/global/bluebutton.png');
-			img.setAttribute('alt','RTSE');
-			img.setAttribute('style','margin:-4px 0px -4px 2px;padding-right:4px;');
-			imgs[i].parentNode.parentNode.replaceChild(img,imgs[i].parentNode);
-		}
-	} catch(e) {
-		gRTSE.sendReport(e);
-	}
-}
-
 function RTSE_addToSideBar(doc) {
 	/* Adds My Stats and Mod history to side navigation panel */
 	try {
