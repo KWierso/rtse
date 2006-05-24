@@ -37,7 +37,7 @@
 		</resources>
 		<content>
 			<!-- Start of the Content -->
-			<xul:deck id="deck" selectedIndex="0" style="border:1px solid #000000;border-top-style:none;">
+			<xul:deck id="deck" selectedIndex="0">
 					<xul:vbox flex="1"><!-- Index 0 - Editor -->
 					<html:input id="title" type="hidden" maxlength="40" tabindex="1" xbl:inherits="value=title"/>
 					<xul:toolbox pack="center">
@@ -67,47 +67,51 @@
 							<xul:toolbarbutton id="smiley" image="chrome://rtse/skin/images/editor/happy.png" tooltipText="Smilies"/>
 						</xul:toolbar>
 					</xul:toolbox>
-					<html:textarea id="body" rows="1" cols="1" tabindex="2"><children/></html:textarea>
+					<html:textarea id="body" rows="12" cols="1" tabindex="2"><children/></html:textarea>
 					<xul:toolbox id="bottomToolbar" orient="horizontal">
-						<xul:toolbar id="defaultSmiliesToolbar" hidden="true">
-							<xul:toolbarbutton image="chrome://rtse/content/images/smiley0.gif" autoCheck="false" oncommand="insertTag('smiley0');"/>
-							<xul:toolbarbutton image="chrome://rtse/content/images/smiley1.gif" autoCheck="false" oncommand="insertTag('smiley1');"/>
-							<xul:toolbarbutton image="chrome://rtse/content/images/smiley2.gif" autoCheck="false" oncommand="insertTag('smiley2');"/>
-							<xul:toolbarbutton image="chrome://rtse/content/images/smiley3.gif" autoCheck="false" oncommand="insertTag('smiley3');"/>
-							<xul:toolbarbutton image="chrome://rtse/content/images/smiley4.gif" autoCheck="false" oncommand="insertTag('smiley4');"/>
-							<xul:toolbarbutton image="chrome://rtse/content/images/smiley5.gif" autoCheck="false" oncommand="insertTag('smiley5');"/>
-							<xul:toolbarbutton image="chrome://rtse/content/images/smiley6.gif" autoCheck="false" oncommand="insertTag('smiley6');"/>
-							<xul:toolbarbutton image="chrome://rtse/content/images/smiley7.gif" autoCheck="false" oncommand="insertTag('smiley7');"/>
-							<xul:toolbarbutton image="chrome://rtse/content/images/smiley8.gif" autoCheck="false" oncommand="insertTag('smiley8');"/>
-							<xul:toolbarbutton image="chrome://rtse/content/images/smiley9.gif" autoCheck="false" oncommand="insertTag('smiley9');"/>
-							<xul:toolbarbutton image="chrome://rtse/content/images/smiley10.gif" autoCheck="false" oncommand="insertTag('smiley10');"/>
-							<xul:toolbarbutton image="chrome://rtse/content/images/smiley11.gif" autoCheck="false" oncommand="insertTag('smiley11');"/>
-							<xul:toolbarbutton image="chrome://rtse/content/images/smiley12.gif" autoCheck="false" oncommand="insertTag('smiley12');"/>
-						</xul:toolbar>
-						<xul:toolbaritem>
-							<xul:checkbox id="convertSmilies" label="Convert Smilies" checked="true" tabindex="5" xbl:inherits="checked=convertSmilies"/>
-						</xul:toolbaritem>
-						<xul:toolbarspacer flex="1000"/>
-						<xul:toolbar id="controls">
-							<xul:toolbarbutton id="preview" image="chrome://rtse/skin/images/editor/rt-rvb_preview.png" oncommand="preview();" tabindex="3"/>
-							<xul:toolbarbutton id="submit" image="chrome://rtse/skin/images/editor/rt-rvb_submit.png" oncommand="submit();" tabindex="4"/>
-							<xul:toolbarspacer flex="1"/>
+						<xul:toolbar align="stretch">
+							<xul:box id="defaultSmiliesToolbar" hidden="true">
+								<xul:toolbarbutton image="chrome://rtse/content/images/smiley0.gif" autoCheck="false" oncommand="insertTag('smiley0');"/>
+								<xul:toolbarbutton image="chrome://rtse/content/images/smiley1.gif" autoCheck="false" oncommand="insertTag('smiley1');"/>
+								<xul:toolbarbutton image="chrome://rtse/content/images/smiley2.gif" autoCheck="false" oncommand="insertTag('smiley2');"/>
+								<xul:toolbarbutton image="chrome://rtse/content/images/smiley3.gif" autoCheck="false" oncommand="insertTag('smiley3');"/>
+								<xul:toolbarbutton image="chrome://rtse/content/images/smiley4.gif" autoCheck="false" oncommand="insertTag('smiley4');"/>
+								<xul:toolbarbutton image="chrome://rtse/content/images/smiley5.gif" autoCheck="false" oncommand="insertTag('smiley5');"/>
+								<xul:toolbarbutton image="chrome://rtse/content/images/smiley6.gif" autoCheck="false" oncommand="insertTag('smiley6');"/>
+								<xul:toolbarbutton image="chrome://rtse/content/images/smiley7.gif" autoCheck="false" oncommand="insertTag('smiley7');"/>
+								<xul:toolbarbutton image="chrome://rtse/content/images/smiley8.gif" autoCheck="false" oncommand="insertTag('smiley8');"/>
+								<xul:toolbarbutton image="chrome://rtse/content/images/smiley9.gif" autoCheck="false" oncommand="insertTag('smiley9');"/>
+								<xul:toolbarbutton image="chrome://rtse/content/images/smiley10.gif" autoCheck="false" oncommand="insertTag('smiley10');"/>
+								<xul:toolbarbutton image="chrome://rtse/content/images/smiley11.gif" autoCheck="false" oncommand="insertTag('smiley11');"/>
+								<xul:toolbarbutton image="chrome://rtse/content/images/smiley12.gif" autoCheck="false" oncommand="insertTag('smiley12');"/>
+							</xul:box>
+							<xul:toolbarspacer flex="1000"/>
+							<xul:toolbaritem>
+								<xul:checkbox id="convertSmilies" label="Convert Smilies" checked="true" tabindex="5" xbl:inherits="checked=convertSmilies"/>
+							</xul:toolbaritem>
+							<xul:toolbarspacer flex="1000"/>
+							<xul:toolbarbutton class="image-button" image="chrome://rtse/skin/images/editor/rt-rvb_preview.png" oncommand="preview();" tabindex="3"/>
+							<xul:toolbarbutton class="image-button" image="chrome://rtse/skin/images/editor/rt-rvb_submit.png" oncommand="submit();" tabindex="4"/>
 						</xul:toolbar>
 					</xul:toolbox>
 				</xul:vbox>
-				<xul:vbox flex="1"><!-- Index 1 - Link Code -->
-					<xul:hbox>
-						<xul:label value="Link URL:" html:for="urlBox"/>
-						<html:input type="text" id="urlBox"/>
+				<xul:vbox flex="1" pack="center"><!-- Index 1 - Link Code -->
+					<xul:hbox pack="center">
+						<xul:vbox>
+							<xul:hbox>
+								<xul:label value="Link URL:" html:for="urlBox"/>
+								<html:input type="text" id="urlBox"/>
+							</xul:hbox>
+							<xul:hbox>
+								<xul:label value="Link Label:" html:for="urlTextBox"/>
+								<html:input type="text" id="urlTextBox"/>
+							</xul:hbox>
+							<xul:toolbar pack="end">
+								<xul:toolbarbutton class="image-button" image="chrome://rtse/content/images/rt-rvb_create.png" oncommand="insertLink();"/>
+								<xul:toolbarbutton class="image-button" image="chrome://rtse/content/images/rt-rvb_cancel.png" oncommand="cancel();"/>
+							</xul:toolbar>
+						</xul:vbox>
 					</xul:hbox>
-					<xul:hbox>
-						<xul:label value="Link Label:" html:for="urlTextBox"/>
-						<html:input type="text" id="urlTextBox"/>
-					</xul:hbox>
-					<xul:toolbar>
-						<xul:toolbarbutton image="chrome://rtse/content/images/rt-rvb_create.png" oncommand="insertLink();"/>
-						<xul:toolbarbutton image="chrome://rtse/content/images/rt-rvb_cancel.png" oncommand="cancel();"/>
-					</xul:toolbar>
 				</xul:vbox>
 				<xul:vbox flex="1"><!-- Index 2 - Color Picker -->
 				</xul:vbox>
@@ -123,8 +127,7 @@
 			<property name="body">
 				<setter>
 					<![CDATA[
-						this.getElementById('body').value = val;
-						return this.setAttribute('body',val);
+						return this.getElementById('body').value = val;
 					]]>
 				</setter>
 				<getter>
@@ -180,10 +183,10 @@
 				<setter>
 					<![CDATA[
 						if (val) {
-							this.getElementById('title').hidden = false;
+							this.getElementById('title').setAttribute('type','text');
 							return this.setAttribute('showTitle','true');
 						} else {
-							this.getElementById('title').hidden = true;
+							this.getElementById('title').setAttribute('type','hidden');
 							return this.setAttribute('showTitle','false');
 						}
 					]]>
@@ -191,6 +194,45 @@
 				<getter>
 					<![CDATA[
 						return this.getAttribute('showTitle');
+					]]>
+				</getter>
+			</property>
+			<field name="parentFormName"/>
+			<property name="parentFormName">
+				<setter>
+					<![CDATA[
+						return this.setAttribute('parentFormName');
+					]]>
+				</setter>
+				<getter>
+					<![CDATA[
+						return this.getAttribute('parentFormName');
+					]]>
+				</getter>
+			</property>
+			<field name="titleFormField"/>
+			<property name="titleFormField">
+				<setter>
+					<![CDATA[
+						return this.setAttribute('titleFormField');
+					]]>
+				</setter>
+				<getter>
+					<![CDATA[
+						return this.getAttribute('titleFormField');
+					]]>
+				</getter>
+			</property>
+			<field name="bodyFormField"/>
+			<property name="bodyFormField">
+				<setter>
+					<![CDATA[
+						return this.setAttribute('bodyFormField');
+					]]>
+				</setter>
+				<getter>
+					<![CDATA[
+						return this.getAttribute('bodyFormField');
 					]]>
 				</getter>
 			</property>
@@ -374,6 +416,45 @@
 					<![CDATA[
 						this.getElementById('deck').selectedIndex = "0";
 						this.getElementById('body').focus();
+					]]>
+				</body>
+			</method>
+			<!--
+			 /**
+			  * Method: submit
+			  *  Called when submitting the form.
+			  */
+			-->
+			<method name="submit">
+				<body>
+					<![CDATA[
+						// Dumping form data into the right place
+						var field;
+						var doc = this.ownerDocument;
+						var form = doc.forms.namedItem(this.getAttribute('parentFormName'));
+						var body = form.elements.namedItem(this.getAttribute('bodyFormField'));
+						if (body) {
+							body.value = this.getElementById('body').value;
+						} else {
+							field = doc.createElement('input');
+							field.setAttribute('type','hidden');
+							field.setAttribute('value',this.getElementById('body').value);
+							field.setAttribute('name',this.getAttribute('bodyFormField'));
+							form.appendChild(field);
+						}
+						var title = form.elements.namedItem(this.getAttribute('titleFormField'));
+						if (this.getAttribute('showTitle')=='true' && title) {
+							title.value = this.getElementById('title').value;
+						} else if (this.getAttribute('showTitle')=='true') {
+							field = doc.createElement('input');
+							field.setAttribute('type','hidden');
+							field.setAttribute('value',this.getElementById('title').value);
+							field.setAttribute('name',this.getAttribute('titleFormField'));
+							form.appendChild(field);
+						}
+
+						// and finally submitting
+						form.submit();
 					]]>
 				</body>
 			</method>

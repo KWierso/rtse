@@ -85,9 +85,6 @@ var RTSE = {
 			/* Forum Quick Jump */
 			RTSE_forumListBox(doc);
 
-			/* Replace Arrows */
-			RTSE_switchArrows(doc);
-
 			/* Add sidebar items */
 			RTSE_addToSideBar(doc);
 

@@ -54,8 +54,7 @@ function RTSE_addCSS(aDoc)
 	css.setAttribute('media','screen');
 	
 	// fix for too long of text in textboxes
-	var text=aDoc.createTextNode('textarea { overflow-x:auto; }\n');
-	css.appendChild(text);
+	css.appendChild(aDoc.createTextNode('textarea { overflow-x:auto; }\n'));
 	
 	// Appending
 	head.appendChild(css);
@@ -192,9 +191,12 @@ function RTSE_insertEditor(doc,type) {
 	const BLANK_MESSAGE_HEIGHT='356';
 	
 	try {
-		var frame=doc.createElement('iframe');
-		frame.setAttribute('id','rtseXULeditor');
-		frame.setAttribute('name','rtseXULeditor');
+		var editor=doc.createElement('rtseeditor');
+		editor.setAttribute('id','rtseXULeditor');
+		editor.setAttribute('name','rtseXULeditor');
+		editor.setAttribute('sponsor','true');
+		editor.setAttribute('parentFormName','post');
+		editor.setAttribute('bodyFormField','body');
 
 
 		var form=doc.forms.namedItem('post');
@@ -225,20 +227,23 @@ function RTSE_insertEditor(doc,type) {
 			case 'comment':
 			 var ref=doc.getElementById('Add a Comment').firstChild;
 			 var width=ref.parentNode.clientWidth+2;
-			 frame.setAttribute('style','width:'+width+'px;height:'+DEFAULT_HEIGHT+'px;border:1px solid #000000;border-top-style:none;');
+			 editor.setAttribute('style','width:'+width+'px;height:'+DEFAULT_HEIGHT+'px;');
 			 break;
 			case 'atopic':
 			 var ref=doc.getElementById('Add a New Topic').firstChild;
+			 editor.setAttribute('showTitle','true');
 			 var width=ref.parentNode.clientWidth+2;
-			 frame.setAttribute('style','width:'+width+'px;height:'+TITLE_HEIGHT+'px;border:1px solid #000000;border-top-style:none;');
+			 editor.setAttribute('style','width:'+width+'px;height:'+TITLE_HEIGHT+'px;');
 			 break;
 			case 'journal':
 			 var ref=doc.getElementById('Make a Journal Entry').firstChild;
+			 editor.setAttribute('showTitle','true');
 			 var width=ref.parentNode.clientWidth+2;
-			 frame.setAttribute('style','width:'+width+'px;height:'+TITLE_HEIGHT+'px;border:1px solid #000000;border-top-style:none;');
+			 editor.setAttribute('style','width:'+width+'px;height:'+TITLE_HEIGHT+'px;');
 			 break;		
 			case 'ejournal':
 			 var ref=doc.getElementById('Edit Journal Entry').firstChild;
+			 editor.setAttribute('showTitle','true');
 			 var width=ref.parentNode.clientWidth+2;
 			 doc.getElementById('rtseType').value='journal';
 			 input=doc.createElement('input');
@@ -246,24 +251,27 @@ function RTSE_insertEditor(doc,type) {
 			 input.setAttribute('type','hidden');
 			 input.value=form.elements.namedItem('friendsOnly').value;
 			 form.appendChild(input);
-			 frame.setAttribute('style','width:'+width+'px;height:'+TITLE_HEIGHT+'px;border:1px solid #000000;border-top-style:none;');
+			 editor.setAttribute('style','width:'+width+'px;height:'+TITLE_HEIGHT+'px;');
 			 break;
 			case 'rmessage':
 			 var ref=doc.getElementById('Reply').firstChild;
+			 editor.setAttribute('showTitle','true');
 			 var width=ref.parentNode.clientWidth+2;
-			 frame.setAttribute('style','width:'+width+'px;height:'+TITLE_HEIGHT+'px;border:1px solid #000000;border-top-style:none;');
+			 editor.setAttribute('style','width:'+width+'px;height:'+TITLE_HEIGHT+'px;');
 			 break;
 			case 'bmessage':
 			 var ref=doc.getElementById('Send a Message').firstChild;
+			 editor.setAttribute('showTitle','true');
 			 var width=ref.parentNode.clientWidth+2;
-			 frame.setAttribute('style','width:'+width+'px;height:'+BLANK_MESSAGE_HEIGHT+'px;border:1px solid #000000;border-top-style:none;');
+			 editor.setAttribute('style','width:'+width+'px;height:'+BLANK_MESSAGE_HEIGHT+'px;');
 			 break;
 			case 'nmessage':
 			 var ref=doc.getElementById('Send a Message').firstChild;
+			 editor.setAttribute('showTitle','true');
 			 input=form.elements.namedItem('uid').cloneNode(true);
 			 form.appendChild(input);
 			 var width=ref.parentNode.clientWidth+2;
-			 frame.setAttribute('style','width:'+width+'px;height:'+TITLE_HEIGHT+'px;border:1px solid #000000;border-top-style:none;');
+			 editor.setAttribute('style','width:'+width+'px;height:'+TITLE_HEIGHT+'px;');
 			 break;
 			case 'fcomment':
 			 var elms=RTSE_evaluateXPath(doc,"//td[@id='pageContent']/table/tbody/tr[2]/td/table/tbody/tr[3]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/a[2]/b");
@@ -276,12 +284,12 @@ function RTSE_insertEditor(doc,type) {
 			 } /* end single page reply */
 			 var ref=doc.getElementById('Post').firstChild;
 			 var width=ref.parentNode.clientWidth+2;
-			 frame.setAttribute('style','width:'+width+'px;height:'+DEFAULT_HEIGHT+'px;border:1px solid #000000;border-top-style:none;');
+			 editor.setAttribute('style','width:'+width+'px;height:'+DEFAULT_HEIGHT+'px;');
 			 break;
 			case 'freply':
 			 var ref=doc.getElementById('Reply').firstChild;
 			 var width=ref.parentNode.clientWidth+2;
-			 frame.setAttribute('style','width:'+width+'px;height:'+DEFAULT_HEIGHT+'px;border:1px solid #000000;border-top-style:none;');
+			 editor.setAttribute('style','width:'+width+'px;height:'+DEFAULT_HEIGHT+'px;');
 			 break;
 			case 'cpreview':
 			 var test=form.elements.namedItem('to').value;
@@ -296,22 +304,23 @@ function RTSE_insertEditor(doc,type) {
 			 	input.setAttribute('type','hidden');
 			 	input.value=form.elements.namedItem('friendsOnly').value;
 			 	form.appendChild(input);
-				frame.setAttribute('style','width:'+width+'px;height:'+TITLE_HEIGHT+'px;border:1px solid #000000;border-top-style:none;');
+			 	editor.setAttribute('showTitle','true');
+				editor.setAttribute('style','width:'+width+'px;height:'+TITLE_HEIGHT+'px;');
 			 } else if( /\/forum\/addTopicPost.php\?fid=.*/ig.test(test) ) {
 			 	/* Hack for Adding Topic */
 				doc.getElementById('rtseType').value='atopic';
-			 	frame.setAttribute('style','width:'+width+'px;height:'+TITLE_HEIGHT+'px;border:1px solid #000000;border-top-style:none;');
+			 	editor.setAttribute('showTitle','true');
+			 	editor.setAttribute('style','width:'+width+'px;height:'+TITLE_HEIGHT+'px;');
 			 } else
-			 	frame.setAttribute('style','width:'+width+'px;height:'+DEFAULT_HEIGHT+'px;border:1px solid #000000;border-top-style:none;');
+			 	editor.setAttribute('style','width:'+width+'px;height:'+DEFAULT_HEIGHT+'px;');
 			 break;
 			case 'cedit':
 			 var ref=doc.getElementById('Edit Post').firstChild;
 			 var width=ref.parentNode.clientWidth+2;
-			 frame.setAttribute('style','width:'+width+'px;height:'+DEFAULT_HEIGHT+'px;border:1px solid #000000;border-top-style:none;');
+			 editor.setAttribute('style','width:'+width+'px;height:'+DEFAULT_HEIGHT+'px;');
 			 break;
 		}
-		ref.parentNode.replaceChild(frame,ref);
-		doc.getElementById('rtseXULeditor').contentWindow.location.href='chrome://rtse/content/editor.xul';
+		ref.parentNode.replaceChild(editor,ref);
 	} catch(e) {
 		gRTSE.sendReport(e);
 	}
@@ -320,7 +329,7 @@ function RTSE_insertEditor(doc,type) {
 
 function RTSE_switchArrows(doc) {
 	/* Switches arrows to prevent issues */
-	try {
+	try {return;
 		var imgs=RTSE_evaluateXPath(doc,"//img[@src='/assets/images/smallBulletDown.gif']");
 		var img;
 		for( var i=(imgs.length-1); i>=0; i-- ) {

@@ -1,3 +1,4 @@
 rtseeditor {
  -moz-binding: url('chrome://rtse/content/bindings.xml#editor') !important;
+ border:none !important;
 }

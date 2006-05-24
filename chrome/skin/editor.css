@@ -110,7 +110,26 @@ toolbox, toolbar
   /* Black Japan theme showed Convert Smilies textbox faded */
   color: #000000 !important;
 }
-/* added because flex was taken out in editor.xul due to iPox messing up submit button */
-#controls {
- float: right !important;
+
+/* new stuff for new editor widget */
+#deck {
+ border:1px solid #000000 !important;
+ border-top-style:none !important;
+ padding:3px 3px 3px 3px !important;
+}
+textarea, input[type="text"] {
+	padding:2px 2px 2px 2px !important;
+	background:#FAFAFA !important;
+	color:#000000 !important;
+}
+textarea:focus, input[type="text"]:focus {
+	background:#FFFFFF !important;
+}
+toolbarbutton.image-button {
+	padding-top:0px !important;
+	padding-bottom:0px !important;
+}
+#defaultSmiliesToolbar {
+ margin:0 !important;
+ padding:0 !important;
 }
