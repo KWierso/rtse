@@ -132,7 +132,7 @@
 				</setter>
 				<getter>
 					<![CDATA[
-						return this.setAttribute('body',val);
+						return this.getElementById('body').value;
 					]]>
 				</getter>
 			</property>
@@ -421,6 +421,19 @@
 			</method>
 			<!--
 			 /**
+			  * Method: focus
+			  *  Focuses the body element.
+			  */
+			-->
+			<method name="focus">
+				<body>
+					<![CDATA[
+						this.getElementById('body').focus()
+					]]>
+				</body>
+			</method>
+			<!--
+			 /**
 			  * Method: submit
 			  *  Called when submitting the form.
 			  */
@@ -453,8 +466,10 @@
 							form.appendChild(field);
 						}
 
-						// and finally submitting
-						form.submit();
+						// and finally submitting (cannot use .submit() because event listeners are not dispatched)
+						var event = doc.createEvent('HTMLEvents');
+						event.initEvent('submit',true,true);
+						form.dispatchEvent(event);
 					]]>
 				</body>
 			</method>
@@ -489,12 +504,14 @@
 					var style = this.getAttribute('style');
 					var deck = this.getElementById('deck');
 					deck.style.height = style.replace(/^.*height: ([0-9]+px);.*$/i,'$1');
-					deck.style.width = style.replace(/^.*width: ([0-9]+px);.*$/i,'$1');
+					deck.style.width = style.replace(/^.*width: ([0-9]+)px;.*$/i,'$1')-8;
 
-					var height = style.replace(/^.*height: ([0-9]+)px;.*$/i,'$1')-50;
 					if (this.getAttribute('showTitle')=='true') {
 						this.getElementById('title').setAttribute('type','text');
 					}
+
+					// Setting the body to the right text
+					this.getElementById('body').value = this.getAttribute('body');
 
 					// The rest is a big hack to make this all work
 					var func = function() {

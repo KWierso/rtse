@@ -185,29 +185,26 @@ function RTSE_forumListBox(doc) {
 
 function RTSE_insertEditor(doc,type) {
 	/* Used to insert the editor in as opposed to the normal interface */
-	if( gRTSE.prefsGetBool('extensions.rtse.editor')==false ) return;
+	if (!gRTSE.prefsGetBool('extensions.rtse.editor')) return;
 	const DEFAULT_HEIGHT='262';
 	const TITLE_HEIGHT='287';
 	const BLANK_MESSAGE_HEIGHT='356';
+
+	// deconvert any text that needs to be
+	RTSE_deconvertExtraBB(doc);
 	
 	try {
+		var form=doc.forms.namedItem('post');
 		var editor=doc.createElement('rtseeditor');
-		editor.setAttribute('id','rtseXULeditor');
-		editor.setAttribute('name','rtseXULeditor');
+		editor.setAttribute('id','rtseEditor');
 		editor.setAttribute('sponsor','true');
 		editor.setAttribute('parentFormName','post');
 		editor.setAttribute('bodyFormField','body');
+		editor.setAttribute('body',form.elements.namedItem('body').value);
 
-
-		var form=doc.forms.namedItem('post');
-		var input=doc.createElement('input');
-		input.setAttribute('type','hidden');
-		input.setAttribute('value',type);
-		input.setAttribute('id','rtseType');
-		form.appendChild(input);
 
 		/* Lets add old body for everything */
-		input=doc.createElement('input');
+		var input=doc.createElement('input');
 		input.setAttribute('name','oldBody');
 		input.setAttribute('type','hidden');
 		input.value=form.elements.namedItem('body').value;
@@ -226,25 +223,25 @@ function RTSE_insertEditor(doc,type) {
 		switch(type) {
 			case 'comment':
 			 var ref=doc.getElementById('Add a Comment').firstChild;
-			 var width=ref.parentNode.clientWidth+2;
+			 var width=ref.parentNode.clientWidth;
 			 editor.setAttribute('style','width:'+width+'px;height:'+DEFAULT_HEIGHT+'px;');
 			 break;
 			case 'atopic':
 			 var ref=doc.getElementById('Add a New Topic').firstChild;
 			 editor.setAttribute('showTitle','true');
-			 var width=ref.parentNode.clientWidth+2;
+			 var width=ref.parentNode.clientWidth;
 			 editor.setAttribute('style','width:'+width+'px;height:'+TITLE_HEIGHT+'px;');
 			 break;
 			case 'journal':
 			 var ref=doc.getElementById('Make a Journal Entry').firstChild;
 			 editor.setAttribute('showTitle','true');
-			 var width=ref.parentNode.clientWidth+2;
+			 var width=ref.parentNode.clientWidth;
 			 editor.setAttribute('style','width:'+width+'px;height:'+TITLE_HEIGHT+'px;');
 			 break;		
 			case 'ejournal':
 			 var ref=doc.getElementById('Edit Journal Entry').firstChild;
 			 editor.setAttribute('showTitle','true');
-			 var width=ref.parentNode.clientWidth+2;
+			 var width=ref.parentNode.clientWidth;
 			 doc.getElementById('rtseType').value='journal';
 			 input=doc.createElement('input');
 			 input.setAttribute('name','oldFriendsOnly');
@@ -256,13 +253,13 @@ function RTSE_insertEditor(doc,type) {
 			case 'rmessage':
 			 var ref=doc.getElementById('Reply').firstChild;
 			 editor.setAttribute('showTitle','true');
-			 var width=ref.parentNode.clientWidth+2;
+			 var width=ref.parentNode.clientWidth;
 			 editor.setAttribute('style','width:'+width+'px;height:'+TITLE_HEIGHT+'px;');
 			 break;
 			case 'bmessage':
 			 var ref=doc.getElementById('Send a Message').firstChild;
 			 editor.setAttribute('showTitle','true');
-			 var width=ref.parentNode.clientWidth+2;
+			 var width=ref.parentNode.clientWidth;
 			 editor.setAttribute('style','width:'+width+'px;height:'+BLANK_MESSAGE_HEIGHT+'px;');
 			 break;
 			case 'nmessage':
@@ -270,7 +267,7 @@ function RTSE_insertEditor(doc,type) {
 			 editor.setAttribute('showTitle','true');
 			 input=form.elements.namedItem('uid').cloneNode(true);
 			 form.appendChild(input);
-			 var width=ref.parentNode.clientWidth+2;
+			 var width=ref.parentNode.clientWidth;
 			 editor.setAttribute('style','width:'+width+'px;height:'+TITLE_HEIGHT+'px;');
 			 break;
 			case 'fcomment':
@@ -283,18 +280,18 @@ function RTSE_insertEditor(doc,type) {
 				 }
 			 } /* end single page reply */
 			 var ref=doc.getElementById('Post').firstChild;
-			 var width=ref.parentNode.clientWidth+2;
+			 var width=ref.parentNode.clientWidth;
 			 editor.setAttribute('style','width:'+width+'px;height:'+DEFAULT_HEIGHT+'px;');
 			 break;
 			case 'freply':
 			 var ref=doc.getElementById('Reply').firstChild;
-			 var width=ref.parentNode.clientWidth+2;
+			 var width=ref.parentNode.clientWidth;
 			 editor.setAttribute('style','width:'+width+'px;height:'+DEFAULT_HEIGHT+'px;');
 			 break;
 			case 'cpreview':
 			 var test=form.elements.namedItem('to').value;
 			 var ref=doc.getElementById('Edit').firstChild;
-			 var width=ref.parentNode.clientWidth+2;
+			 var width=ref.parentNode.clientWidth;
 			 if( test=='/members/journal/journalPost.php' ||
 				 /\/members\/journal\/editEntryPost.php\?id=[0-9]+/i.test(test) ) {
 			 	/* Hack for journals (*sigh*) */
@@ -316,15 +313,16 @@ function RTSE_insertEditor(doc,type) {
 			 break;
 			case 'cedit':
 			 var ref=doc.getElementById('Edit Post').firstChild;
-			 var width=ref.parentNode.clientWidth+2;
+			 var width=ref.parentNode.clientWidth;
 			 editor.setAttribute('style','width:'+width+'px;height:'+DEFAULT_HEIGHT+'px;');
 			 break;
 		}
+		form.addEventListener('submit',RTSE_convertExtraBB,false);
 		ref.parentNode.replaceChild(editor,ref);
 	} catch(e) {
-		gRTSE.sendReport(e);
+		//gRTSE.sendReport(e);
+		throw e;
 	}
-	return(true);
 }
 
 function RTSE_addToSideBar(doc) {
@@ -395,8 +393,8 @@ function RTSE_samePageReply()
 	num=num.replace(/#([0-9]+)/,'$1');;
 
 	// Append to editor
-	var editor=this.ownerDocument.getElementById('rtseXULeditor').contentDocument.wrappedJSObject.getElementById('body');
-	editor.value=editor.value+'[i]In reply to '+name+', #'+num+':[/i]\n\n';
+	var editor=this.ownerDocument.getElementById('rtseEditor');
+	editor.body=editor.body+'[i]In reply to '+name+', #'+num+':[/i]\n\n';
 	editor.focus();
 }
 
@@ -418,5 +416,57 @@ function RTSE_addReply(aDoc)
 		span.appendChild(a);
 		span.appendChild(aDoc.createTextNode(' ] '));
 		elms[i].appendChild(span);
+	}
+}
+
+function RTSE_convertExtraBB(aEvent)
+// EFFECTS: converts to the site BBcode.  Takes an element in the parent document.
+//          Looks for rtseLocation for a path for any 'in reply to...' sections.
+{
+	var doc = aEvent.originalTarget.ownerDocument;
+	var body = doc.forms.namedItem('post').elements.namedItem('body');
+	
+	body.value = body.value.replace(/\[quote=([a-zA-Z0-9_]{4,12})\]([\s\S]+)\[\/quote\]/g,'[b]Quoting $1:[/b][quote]$2[/quote]');
+
+	var loc;
+	if( doc.getElementById('rtseLocation') ) {
+		loc = doc.getElementById('rtseLocation').value;
+	} else {
+		loc = doc.location.href.replace(/^https?:\/\/(www|sh|rvb|panics)\.roosterteeth\.com(.*)$/i,'$2');
+		loc = loc.replace(/#[a-z0-9]+/i,''); // clears any anchors
+	}
+	loc = loc.replace(/&page=[0-9]+/i,''); // clears any currently set page
+	var post,page;
+	while( body.value.match(/\[i\]In reply to [a-zA-Z0-9_]{4,12}, #[0-9]+:\[\/i\]/i) ) {
+		post = body.value.replace(/^[\s\S]*\[i\]In reply to [a-zA-Z0-9_]{4,12}, #([0-9]+):\[\/i\][\s\S]*/i,'$1');
+		page = (loc=='')?'':'&page='+Math.ceil(post/30);
+		body.value = body.value.replace(/\[i\]In reply to ([a-zA-Z0-9_]{4,12}), #([0-9]+):\[\/i\]/i,
+		                                '[i]In reply to $1, [link='+loc+page+'#t$2][i]#$2[/i][/link]:[/i]');
+	}
+}
+
+function RTSE_deconvertExtraBB(aDoc)
+// EFFECTS: takes special BBcode from RTSE and converts it back to RT BBcode.  To preserve path's of 'in reply to...' text,
+//          it will dump the location into a form field that convert will use.
+{
+	var form = aDoc.forms.namedItem('post');
+	// converts to RTSE BB
+	var body = form.elements.namedItem('body');
+
+	body.value = body.value.replace(/\[b\]Quoting ([a-zA-Z0-9_]{4,12}):\[\/b\]\[quote\]([\s\S]+)\[\/quote\]/g,'[quote=$1]$2[/quote]');
+
+	// Numbers in forum
+	if( body.value.match(/\[i\]In reply to [a-zA-Z0-9_]{4,12}, \[link=.*?#t[0-9]+\]\[i\]#[0-9]+\[\/i\]\[\/link\]:\[\/i\]/g) ) {
+		// creating a form element to preserve the path
+		var path = body.value.replace(/^[\s\S]*\[i\]In reply to ([a-zA-Z0-9_]{4,12}), \[link=(.*?)#t[0-9]+\]\[i\](#[0-9]+)\[\/i\]\[\/link\]:\[\/i\][\s\S]*$/i,
+		                              '$2');
+		var elm = aDoc.createElement('input');
+		elm.value = path;
+		elm.id = 'rtseLocation';
+		elm.setAttribute('type','hidden');
+		form.appendChild(elm);
+				
+		body.value = body.value.replace(/\[i\]In reply to ([a-zA-Z0-9_]{4,12}), \[link=.*?#t[0-9]+\]\[i\](#[0-9]+)\[\/i\]\[\/link\]:\[\/i\]/g,
+		                                '[i]In reply to $1, $2:[/i]');
 	}
 }
