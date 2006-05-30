@@ -51,14 +51,6 @@ toolbar {
 	padding:0px 0px 0px 0px;
 }
 
-window {
-	background:#F4F4F4;
-	font-family:arial,serif;
-	font-size:12px;
-	color:#000000;
-	padding:0px 2px 0px 2px;
-}
-
 toolbarbutton>image {
 	margin-right:3px !important;
 }
@@ -68,29 +60,9 @@ toolbarseparator {
 	-moz-binding: url(chrome://global/content/bindings/menu.xml#menuseparator) !important;
 }
 
-textbox {
-	-moz-appearance:none !important;
-	background:#FFFFFF !important;
-	border:1px solid Gray !important;
-	padding:0px 0px 0px 0px !important;
-}
-textbox>hbox textarea:focus, textbox hbox input:focus {
-	background:#FFFFFF !important;
-}
-textbox>hbox>textarea, textbox>hbox>input {
-	padding:2px 2px 2px 2px !important;
-	background:#FAFAFA !important;
-	color:#000000 !important;
-}
-
-textbox hbox input
-{
-	height:16px !important;
-}
-
 toolbox, toolbar
 {
-	border:none !important;
+	border:0px none !important;
 	background-color:#F4F4F4 !important;
 }
 
@@ -114,22 +86,26 @@ toolbox, toolbar
 /* new stuff for new editor widget */
 #deck {
  border:1px solid #000000 !important;
- border-top-style:none !important;
+ border-top:0px none !important;
  padding:3px 3px 3px 3px !important;
 }
 textarea, input[type="text"] {
-	padding:2px 2px 2px 2px !important;
-	background:#FAFAFA !important;
-	color:#000000 !important;
+ /*margin:2px 2px 2px 2px !important;*/
+ background:#FAFAFA !important;
+ color:#000000 !important;
 }
 textarea:focus, input[type="text"]:focus {
-	background:#FFFFFF !important;
+ background:#FFFFFF !important;
 }
 toolbarbutton.image-button {
-	padding-top:0px !important;
-	padding-bottom:0px !important;
+ padding-top:0px !important;
+ padding-bottom:0px !important;
 }
 #defaultSmiliesToolbar {
  margin:0 !important;
  padding:0 !important;
+}
+toolbox
+{
+ margin-right:-10px !important;
 }

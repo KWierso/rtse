@@ -503,9 +503,9 @@
 
 					var style = this.getAttribute('style');
 					var deck = this.getElementById('deck');
-					deck.style.height = style.replace(/^.*height: ([0-9]+px);.*$/i,'$1');
-					deck.style.width = style.replace(/^.*width: ([0-9]+)px;.*$/i,'$1')-8;
-
+					var width = style.replace(/^.*width: ([0-9]+)px ! important;.*$/i,'$1')-7;
+					deck.style.height = style.replace(/^.*height: ([0-9]+px) ! important;.*$/i,'$1');
+					deck.style.width = width;
 					if (this.getAttribute('showTitle')=='true') {
 						this.getElementById('title').setAttribute('type','text');
 					}
