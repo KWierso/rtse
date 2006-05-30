@@ -38,7 +38,7 @@
 		<content>
 			<!-- Start of the Content -->
 			<xul:deck id="deck" selectedIndex="0">
-					<xul:vbox flex="1"><!-- Index 0 - Editor -->
+					<xul:vbox flex="1" pack="end"><!-- Index 0 - Editor -->
 					<html:input id="title" type="hidden" maxlength="40" tabindex="1" xbl:inherits="value=title"/>
 					<xul:toolbox pack="center">
 						<xul:toolbar id="topToolbar">
@@ -90,8 +90,9 @@
 								<xul:checkbox id="convertSmilies" label="Convert Smilies" checked="true" tabindex="5" xbl:inherits="checked=convertSmilies"/>
 							</xul:toolbaritem>
 							<xul:toolbarspacer flex="1000"/>
-							<xul:toolbarbutton class="image-button" image="chrome://rtse/skin/images/editor/rt-rvb_preview.png" oncommand="preview();" tabindex="3"/>
+							<xul:toolbarbutton class="image-button" image="chrome://rtse/skin/images/editor/rt-rvb_preview.png" oncommand="previewSubmit();" tabindex="3"/>
 							<xul:toolbarbutton class="image-button" image="chrome://rtse/skin/images/editor/rt-rvb_submit.png" oncommand="submit();" tabindex="4"/>
+							<xul:toolbarspacer flex="1"/>
 						</xul:toolbar>
 					</xul:toolbox>
 				</xul:vbox>
@@ -470,6 +471,28 @@
 						var event = doc.createEvent('HTMLEvents');
 						event.initEvent('submit',true,true);
 						form.dispatchEvent(event);
+					]]>
+				</body>
+		</method>
+<!--
+			 /**
+			  * Method: previewSubmit
+			  *  Called when previewing the form.
+			  */
+			-->
+			<method name="previewSubmit">
+				<body>
+					<![CDATA[
+						// Dumping form data into the right place
+						var field;
+						var doc = this.ownerDocument;
+						var form = doc.forms.namedItem(this.getAttribute('parentFormName'));
+						if (this.getAttribute('preview')) {
+							form.setAttribute('action',this.getAttribute('preview'));
+							this.submit();
+						} else {
+							alert('Sorry.  No preview url was provided, so a preview cannot be generated');
+						}
 					]]>
 				</body>
 			</method>

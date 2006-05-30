@@ -330,6 +330,28 @@ function RTSE_insertEditor(doc,type) {
 			 ref.parentNode.setAttribute('style','width:'+width+'px !important;height:'+DEFAULT_HEIGHT+'px !important;');
 			 break;
 		}
+		// For previews
+		switch(type) {
+		 case 'comment':
+		 case 'freply':
+		 case 'fcomment':
+		 case 'cpreview':
+		 case 'cedit':
+		 case 'journal':
+		 case 'atopic':   editor.setAttribute('preview','/preview.php');
+		                  break;
+		 case 'rmessage':
+		 case 'nmessage': var pid = form.elements.namedItem('pid');
+		                  if (pid) {
+		                  	if (pid.value!='0') editor.setAttribute('preview','/members/messaging/previewReply.php');
+							else                editor.setAttribute('preview','/members/messaging/preview.php');
+						  } else
+						  	editor.setAttribute('preview','/members/messaging/preview.php');
+						  break;
+		 case 'bmessage': editor.setAttribute('preview','/members/messaging/preview.php');
+		                  break;
+		}
+		// Listener for Extra BB
 		form.addEventListener('submit',RTSE_convertExtraBB,false);
 		ref.parentNode.replaceChild(editor,ref);
 	} catch(e) {
