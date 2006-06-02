@@ -65,6 +65,7 @@
 							</xul:toolbarbutton>
 							<xul:toolbarbutton id="colorSwitch" image="chrome://rtse/skin/images/editor/color.png" oncommand="switchColor();" tooltipText="Color" hidden="true"/>
 							<xul:toolbarbutton id="smiley" image="chrome://rtse/skin/images/editor/happy.png" tooltipText="Smilies"/>
+							<xul:toolbarbutton id="friendsOnly" html:title="Friends Only" hidden="true" type="checkbox" label="friends only"/>
 						</xul:toolbar>
 					</xul:toolbox>
 					<html:textarea id="body" rows="12" cols="1" tabindex="2"><children/></html:textarea>
@@ -155,6 +156,26 @@
 				<getter>
 					<![CDATA[
 						return this.getAttribute('showTitle');
+					]]>
+				</getter>
+			</property>
+			<field name="journal"/>
+			<property name="journal">
+				<setter>
+					<![CDATA[
+						if (val) {
+							this.getElementById('friendsOnly').hidden = false;
+							return this.setAttribute('journal','true');
+						} else {
+							this.getElementById('friendsOnly').hidden = true;
+							return this.setAttribute('journal','false');
+						}
+					]]>
+				</setter>
+				<getter>
+					<![CDATA[
+						if (this.getAttribute('journal')) return this.getAttribute('journal');
+						else return 'false';
 					]]>
 				</getter>
 			</property>
@@ -466,6 +487,14 @@
 							field.setAttribute('name',this.getAttribute('titleFormField'));
 							form.appendChild(field);
 						}
+						// Only if a journal
+						if (this.getAttribute('journal')=='true') {
+							field = doc.createElement('input');
+							field.setAttribute('type','hidden');
+							field.setAttribute('value',(this.getElementById('friendsOnly').checked)?'1':'0');
+							field.setAttribute('name','friendsOnly');
+							form.appendChild(field);
+						}
 
 						// and finally submitting (cannot use .submit() because event listeners are not dispatched)
 						var event = doc.createEvent('HTMLEvents');
@@ -519,6 +548,9 @@
 					if (this.getAttribute('sponsor')=='true') {
 						this.getElementById('color').hidden = false;
 						this.getElementById('defaultSmiliesToolbar').hidden = false;
+					}
+					if (this.getAttribute('journal')=='true') {
+						this.getElementById('friendsOnly').hidden = false;
 					}
 					
 					this.body = this.textContent;

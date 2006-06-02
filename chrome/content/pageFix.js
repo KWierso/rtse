@@ -230,20 +230,25 @@ function RTSE_insertEditor(doc,type) {
 			case 'atopic':
 			 var ref=doc.getElementById('Add a New Topic').firstChild;
 			 editor.setAttribute('showTitle','true');
+			 editor.setAttribute('titleFormField','title');
 			 width=ref.parentNode.clientWidth;
 			 editor.setAttribute('style','width:'+width+'px !important;height:'+TITLE_HEIGHT+'px !important;');
 			 ref.parentNode.setAttribute('style','width:'+width+'px !important;height:'+TITLE_HEIGHT+'px !important;');
 			 break;
 			case 'journal':
 			 var ref=doc.getElementById('Make a Journal Entry').firstChild;
+			 editor.setAttribute('journal','true');
 			 editor.setAttribute('showTitle','true');
+			 editor.setAttribute('titleFormField','title');
 			 width=ref.parentNode.clientWidth;
 			 editor.setAttribute('style','width:'+width+'px !important;height:'+TITLE_HEIGHT+'px !important;');
 			 ref.parentNode.setAttribute('style','width:'+width+'px !important;height:'+TITLE_HEIGHT+'px !important;');
 			 break;		
 			case 'ejournal':
 			 var ref=doc.getElementById('Edit Journal Entry').firstChild;
+			 editor.setAttribute('journal','true');
 			 editor.setAttribute('showTitle','true');
+			 editor.setAttribute('titleFormField','title');
 			 width=ref.parentNode.clientWidth;
 			 doc.getElementById('rtseType').value='journal';
 			 input=doc.createElement('input');
@@ -257,6 +262,7 @@ function RTSE_insertEditor(doc,type) {
 			case 'rmessage':
 			 var ref=doc.getElementById('Reply').firstChild;
 			 editor.setAttribute('showTitle','true');
+			 editor.setAttribute('titleFormField','title');
 			 width=ref.parentNode.clientWidth;
 			 editor.setAttribute('style','width:'+width+'px !important;height:'+TITLE_HEIGHT+'px !important;');
 			 ref.parentNode.setAttribute('style','width:'+width+'px !important;height:'+TITLE_HEIGHT+'px !important;');
@@ -264,6 +270,7 @@ function RTSE_insertEditor(doc,type) {
 			case 'bmessage':
 			 var ref=doc.getElementById('Send a Message').firstChild;
 			 editor.setAttribute('showTitle','true');
+			 editor.setAttribute('titleFormField','title');
 			 width=ref.parentNode.clientWidth;
 			 editor.setAttribute('style','width:'+width+'px !important;height:'+BLANK_MESSAGE_HEIGHT+'px !important;');
 			 ref.parentNode.setAttribute('style','width:'+width+'px !important;height:'+BLANK_MESSAGE_HEIGHT+'px !important;');
@@ -271,6 +278,7 @@ function RTSE_insertEditor(doc,type) {
 			case 'nmessage':
 			 var ref=doc.getElementById('Send a Message').firstChild;
 			 editor.setAttribute('showTitle','true');
+			 editor.setAttribute('titleFormField','title');
 			 input=form.elements.namedItem('uid').cloneNode(true);
 			 form.appendChild(input);
 			 width=ref.parentNode.clientWidth;
@@ -311,12 +319,15 @@ function RTSE_insertEditor(doc,type) {
 			 	input.value=form.elements.namedItem('friendsOnly').value;
 			 	form.appendChild(input);
 			 	editor.setAttribute('showTitle','true');
+			 	editor.setAttribute('journal','true');
+			 	editor.setAttribute('titleFormField','title');
 				editor.setAttribute('style','width:'+width+'px !important;height:'+TITLE_HEIGHT+'px !important;');
 				ref.parentNode.setAttribute('style','width:'+width+'px !important;height:'+TITLE_HEIGHT+'px !important;');
 			 } else if( /\/forum\/addTopicPost.php\?fid=.*/ig.test(test) ) {
 			 	/* Hack for Adding Topic */
 				doc.getElementById('rtseType').value='atopic';
 			 	editor.setAttribute('showTitle','true');
+			 	editor.setAttribute('titleFormField','title');
 			 	editor.setAttribute('style','width:'+width+'px !important;height:'+TITLE_HEIGHT+'px !important;');
 			 	ref.parentNode.setAttribute('style','width:'+width+'px !important;height:'+TITLE_HEIGHT+'px !important;');
 			 } else
