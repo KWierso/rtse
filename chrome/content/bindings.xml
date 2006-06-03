@@ -65,7 +65,7 @@
 							</xul:toolbarbutton>
 							<xul:toolbarbutton id="colorSwitch" image="chrome://rtse/skin/images/editor/color.png" oncommand="switchColor();" tooltipText="Color" hidden="true"/>
 							<xul:toolbarbutton id="smiley" image="chrome://rtse/skin/images/editor/happy.png" tooltipText="Smilies"/>
-							<xul:toolbarbutton id="friendsOnly" html:title="Friends Only" hidden="true" type="checkbox" label="friends only"/>
+							<xul:toolbarbutton id="friendsOnly" hidden="true" type="checkbox" image="chrome://rtse/content/images/unlocked.png"/>
 						</xul:toolbar>
 					</xul:toolbox>
 					<html:textarea id="body" rows="12" cols="1" tabindex="2"><children/></html:textarea>
@@ -584,8 +584,14 @@
 						this.getElementById('color').hidden = false;
 						this.getElementById('defaultSmiliesToolbar').hidden = false;
 					}
+
+					// If this is a journal, do stuff
 					if (this.getAttribute('journal')=='true') {
 						this.getElementById('friendsOnly').hidden = false;
+						var toggle = function() {
+							this.image = (this.checked)?'chrome://rtse/content/images/locked.png':'chrome://rtse/content/images/unlocked.png';
+						};
+						this.getElementById('friendsOnly').addEventListener('command',toggle,false);
 					}
 					
 					var style = this.getAttribute('style');

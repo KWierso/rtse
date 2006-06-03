@@ -187,7 +187,7 @@ function RTSE_insertEditor(doc,type) {
 	/* Used to insert the editor in as opposed to the normal interface */
 	if (!gRTSE.prefsGetBool('extensions.rtse.editor')) return;
 	const DEFAULT_HEIGHT='256';
-	const TITLE_HEIGHT='287';
+	const TITLE_HEIGHT='279';
 	const BLANK_MESSAGE_HEIGHT='356';
 
 	// deconvert any text that needs to be
@@ -211,13 +211,7 @@ function RTSE_insertEditor(doc,type) {
 		form.appendChild(input);
 
 		/* and add oldTitle if title exists */
-		if( form.elements.namedItem('title') ) {
-			input=doc.createElement('input');
-			input.setAttribute('name','oldTitle');
-			input.setAttribute('type','hidden');
-			input.value=form.elements.namedItem('title').value;
-			form.appendChild(input);
-		}
+		if (form.elements.namedItem('title')) editor.setAttribute('title',form.elements.namedItem('title').value);
 		
 		var i,width;
 		switch(type) {
@@ -250,7 +244,6 @@ function RTSE_insertEditor(doc,type) {
 			 editor.setAttribute('showTitle','true');
 			 editor.setAttribute('titleFormField','title');
 			 width=ref.parentNode.clientWidth;
-			 doc.getElementById('rtseType').value='journal';
 			 input=doc.createElement('input');
 			 input.setAttribute('name','oldFriendsOnly');
 			 input.setAttribute('type','hidden');
@@ -312,12 +305,6 @@ function RTSE_insertEditor(doc,type) {
 			 if( test=='/members/journal/journalPost.php' ||
 				 /\/members\/journal\/editEntryPost.php\?id=[0-9]+/i.test(test) ) {
 			 	/* Hack for journals (*sigh*) */
-				doc.getElementById('rtseType').value='journal';
-				input=doc.createElement('input');
-			 	input.setAttribute('name','oldFriendsOnly');
-			 	input.setAttribute('type','hidden');
-			 	input.value=form.elements.namedItem('friendsOnly').value;
-			 	form.appendChild(input);
 			 	editor.setAttribute('showTitle','true');
 			 	editor.setAttribute('journal','true');
 			 	editor.setAttribute('titleFormField','title');
@@ -325,7 +312,6 @@ function RTSE_insertEditor(doc,type) {
 				ref.parentNode.previousSibling.setAttribute('style','width:'+width+'px !important;');
 			 } else if( /\/forum\/addTopicPost.php\?fid=.*/ig.test(test) ) {
 			 	/* Hack for Adding Topic */
-				doc.getElementById('rtseType').value='atopic';
 			 	editor.setAttribute('showTitle','true');
 			 	editor.setAttribute('titleFormField','title');
 			 	editor.setAttribute('style','width:'+width+'px !important;height:'+TITLE_HEIGHT+'px !important;');
@@ -498,6 +484,7 @@ function RTSE_deconvertExtraBB(aDoc)
 	var form = aDoc.forms.namedItem('post');
 	// converts to RTSE BB
 	var body = form.elements.namedItem('body');
+	if (!body) return;
 
 	body.value = body.value.replace(/\[b\]Quoting ([a-zA-Z0-9_]{4,12}):\[\/b\]\[quote\]([\s\S]+)\[\/quote\]/g,'[quote=$1]$2[/quote]');
 
