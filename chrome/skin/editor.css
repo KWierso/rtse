@@ -50,7 +50,10 @@ toolbar {
 	margin:0px 0px 0px 0px;
 	padding:0px 0px 0px 0px;
 }
-
+box > toolbarbutton > label {
+ width:0px !important;
+ padding:0 0 0 0 !important;
+}
 toolbarbutton>image {
 	margin-right:3px !important;
 }

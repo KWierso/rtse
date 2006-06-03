@@ -186,7 +186,7 @@ function RTSE_forumListBox(doc) {
 function RTSE_insertEditor(doc,type) {
 	/* Used to insert the editor in as opposed to the normal interface */
 	if (!gRTSE.prefsGetBool('extensions.rtse.editor')) return;
-	const DEFAULT_HEIGHT='262';
+	const DEFAULT_HEIGHT='256';
 	const TITLE_HEIGHT='287';
 	const BLANK_MESSAGE_HEIGHT='356';
 
@@ -197,7 +197,7 @@ function RTSE_insertEditor(doc,type) {
 		var form=doc.forms.namedItem('post');
 		var editor=doc.createElement('rtseeditor');
 		editor.setAttribute('id','rtseEditor');
-		editor.setAttribute('sponsor','true');
+		editor.setAttribute('sponsor',(gRTSE.prefsGetBool('extensions.rtse.sponsor'))?'true':'false');
 		editor.setAttribute('parentFormName','post');
 		editor.setAttribute('bodyFormField','body');
 		editor.setAttribute('body',form.elements.namedItem('body').value);
@@ -225,7 +225,7 @@ function RTSE_insertEditor(doc,type) {
 			 var ref=doc.getElementById('Add a Comment').firstChild;
 			 width=ref.parentNode.clientWidth;
 			 editor.setAttribute('style','width:'+width+'px !important;height:'+DEFAULT_HEIGHT+'px !important;');
-			 ref.parentNode.setAttribute('style','width:'+width+'px !important;height:'+DEFAULT_HEIGHT+'px !important;');
+			 ref.parentNode.previousSibling.setAttribute('style','width:'+width+'px !important;');
 			 break;
 			case 'atopic':
 			 var ref=doc.getElementById('Add a New Topic').firstChild;
@@ -233,7 +233,7 @@ function RTSE_insertEditor(doc,type) {
 			 editor.setAttribute('titleFormField','title');
 			 width=ref.parentNode.clientWidth;
 			 editor.setAttribute('style','width:'+width+'px !important;height:'+TITLE_HEIGHT+'px !important;');
-			 ref.parentNode.setAttribute('style','width:'+width+'px !important;height:'+TITLE_HEIGHT+'px !important;');
+			 ref.parentNode.previousSibling.setAttribute('style','width:'+width+'px !important;');
 			 break;
 			case 'journal':
 			 var ref=doc.getElementById('Make a Journal Entry').firstChild;
@@ -242,7 +242,7 @@ function RTSE_insertEditor(doc,type) {
 			 editor.setAttribute('titleFormField','title');
 			 width=ref.parentNode.clientWidth;
 			 editor.setAttribute('style','width:'+width+'px !important;height:'+TITLE_HEIGHT+'px !important;');
-			 ref.parentNode.setAttribute('style','width:'+width+'px !important;height:'+TITLE_HEIGHT+'px !important;');
+			 ref.parentNode.previousSibling.setAttribute('style','width:'+width+'px !important;');
 			 break;		
 			case 'ejournal':
 			 var ref=doc.getElementById('Edit Journal Entry').firstChild;
@@ -257,7 +257,7 @@ function RTSE_insertEditor(doc,type) {
 			 input.value=form.elements.namedItem('friendsOnly').value;
 			 form.appendChild(input);
 			 editor.setAttribute('style','width:'+width+'px !important;height:'+TITLE_HEIGHT+'px !important;');
-			 ref.parentNode.setAttribute('style','width:'+width+'px !important;height:'+TITLE_HEIGHT+'px !important;');
+			 ref.parentNode.previousSibling.setAttribute('style','width:'+width+'px !important;');
 			 break;
 			case 'rmessage':
 			 var ref=doc.getElementById('Reply').firstChild;
@@ -265,7 +265,7 @@ function RTSE_insertEditor(doc,type) {
 			 editor.setAttribute('titleFormField','title');
 			 width=ref.parentNode.clientWidth;
 			 editor.setAttribute('style','width:'+width+'px !important;height:'+TITLE_HEIGHT+'px !important;');
-			 ref.parentNode.setAttribute('style','width:'+width+'px !important;height:'+TITLE_HEIGHT+'px !important;');
+			 ref.parentNode.previousSibling.setAttribute('style','width:'+width+'px !important;');
 			 break;
 			case 'bmessage':
 			 var ref=doc.getElementById('Send a Message').firstChild;
@@ -273,7 +273,7 @@ function RTSE_insertEditor(doc,type) {
 			 editor.setAttribute('titleFormField','title');
 			 width=ref.parentNode.clientWidth;
 			 editor.setAttribute('style','width:'+width+'px !important;height:'+BLANK_MESSAGE_HEIGHT+'px !important;');
-			 ref.parentNode.setAttribute('style','width:'+width+'px !important;height:'+BLANK_MESSAGE_HEIGHT+'px !important;');
+			 ref.parentNode.previousSibling.setAttribute('style','width:'+width+'px !important;');
 			 break;
 			case 'nmessage':
 			 var ref=doc.getElementById('Send a Message').firstChild;
@@ -283,7 +283,7 @@ function RTSE_insertEditor(doc,type) {
 			 form.appendChild(input);
 			 width=ref.parentNode.clientWidth;
 			 editor.setAttribute('style','width:'+width+'px !important;height:'+TITLE_HEIGHT+'px !important;');
-			 ref.parentNode.setAttribute('style','width:'+width+'px !important;height:'+TITLE_HEIGHT+'px !important;');
+			 ref.parentNode.previousSibling.setAttribute('style','width:'+width+'px !important;');
 			 break;
 			case 'fcomment':
 			 var elms=RTSE_evaluateXPath(doc,"//td[@id='pageContent']/table/tbody/tr[2]/td/table/tbody/tr[3]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/a[2]/b");
@@ -297,13 +297,13 @@ function RTSE_insertEditor(doc,type) {
 			 var ref=doc.getElementById('Post').firstChild;
 			 width=ref.parentNode.clientWidth;
 			 editor.setAttribute('style','width:'+width+'px !important;height:'+DEFAULT_HEIGHT+'px !important;');
-			 ref.parentNode.setAttribute('style','width:'+width+'px !important;height:'+DEFAULT_HEIGHT+'px !important;');
+			 ref.parentNode.previousSibling.setAttribute('style','width:'+width+'px !important;');
 			 break;
 			case 'freply':
 			 var ref=doc.getElementById('Reply').firstChild;
 			 width=ref.parentNode.clientWidth;
 			 editor.setAttribute('style','width:'+width+'px !important;height:'+DEFAULT_HEIGHT+'px !important;');
-			 ref.parentNode.setAttribute('style','width:'+width+'px !important;height:'+DEFAULT_HEIGHT+'px !important;');
+			 ref.parentNode.previousSibling.setAttribute('style','width:'+width+'px !important;');
 			 break;
 			case 'cpreview':
 			 var test=form.elements.namedItem('to').value;
@@ -322,23 +322,23 @@ function RTSE_insertEditor(doc,type) {
 			 	editor.setAttribute('journal','true');
 			 	editor.setAttribute('titleFormField','title');
 				editor.setAttribute('style','width:'+width+'px !important;height:'+TITLE_HEIGHT+'px !important;');
-				ref.parentNode.setAttribute('style','width:'+width+'px !important;height:'+TITLE_HEIGHT+'px !important;');
+				ref.parentNode.previousSibling.setAttribute('style','width:'+width+'px !important;');
 			 } else if( /\/forum\/addTopicPost.php\?fid=.*/ig.test(test) ) {
 			 	/* Hack for Adding Topic */
 				doc.getElementById('rtseType').value='atopic';
 			 	editor.setAttribute('showTitle','true');
 			 	editor.setAttribute('titleFormField','title');
 			 	editor.setAttribute('style','width:'+width+'px !important;height:'+TITLE_HEIGHT+'px !important;');
-			 	ref.parentNode.setAttribute('style','width:'+width+'px !important;height:'+TITLE_HEIGHT+'px !important;');
+			 	ref.parentNode.previousSibling.setAttribute('style','width:'+width+'px !important;');
 			 } else
 			 	editor.setAttribute('style','width:'+width+'px !important;height:'+DEFAULT_HEIGHT+'px !important;');
-			 	ref.parentNode.setAttribute('style','width:'+width+'px !important;height:'+DEFAULT_HEIGHT+'px !important;');
+			 	ref.parentNode.previousSibling.setAttribute('style','width:'+width+'px !important;');
 			 break;
 			case 'cedit':
 			 var ref=doc.getElementById('Edit Post').firstChild;
 			 width=ref.parentNode.clientWidth;
 			 editor.setAttribute('style','width:'+width+'px !important;height:'+DEFAULT_HEIGHT+'px !important;');
-			 ref.parentNode.setAttribute('style','width:'+width+'px !important;height:'+DEFAULT_HEIGHT+'px !important;');
+			 ref.parentNode.previousSibling.setAttribute('style','width:'+width+'px !important;');
 			 break;
 		}
 		// For previews

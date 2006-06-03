@@ -70,7 +70,7 @@
 					</xul:toolbox>
 					<html:textarea id="body" rows="12" cols="1" tabindex="2"><children/></html:textarea>
 					<xul:toolbox id="bottomToolbar" orient="horizontal">
-						<xul:toolbar align="stretch">
+						<xul:toolbar>
 							<xul:box id="defaultSmiliesToolbar" hidden="true">
 								<xul:toolbarbutton image="chrome://rtse/content/images/smiley0.gif" autoCheck="false" oncommand="insertTag('smiley0');"/>
 								<xul:toolbarbutton image="chrome://rtse/content/images/smiley1.gif" autoCheck="false" oncommand="insertTag('smiley1');"/>
@@ -85,8 +85,8 @@
 								<xul:toolbarbutton image="chrome://rtse/content/images/smiley10.gif" autoCheck="false" oncommand="insertTag('smiley10');"/>
 								<xul:toolbarbutton image="chrome://rtse/content/images/smiley11.gif" autoCheck="false" oncommand="insertTag('smiley11');"/>
 								<xul:toolbarbutton image="chrome://rtse/content/images/smiley12.gif" autoCheck="false" oncommand="insertTag('smiley12');"/>
+								<xul:toolbarspacer flex="1000"/>
 							</xul:box>
-							<xul:toolbarspacer flex="1000"/>
 							<xul:toolbaritem>
 								<xul:checkbox id="convertSmilies" label="Convert Smilies" checked="true" tabindex="5" xbl:inherits="checked=convertSmilies"/>
 							</xul:toolbaritem>
@@ -463,6 +463,9 @@
 			<method name="submit">
 				<body>
 					<![CDATA[
+						// first things first, lets validate
+						if (!this.validate()) return;
+
 						// Dumping form data into the right place
 						var field;
 						var doc = this.ownerDocument;
@@ -502,8 +505,8 @@
 						form.dispatchEvent(event);
 					]]>
 				</body>
-		</method>
-<!--
+			</method>
+			<!--
 			 /**
 			  * Method: previewSubmit
 			  *  Called when previewing the form.
@@ -512,6 +515,9 @@
 			<method name="previewSubmit">
 				<body>
 					<![CDATA[
+						// first things first, lets validate
+						if (!this.validate()) return;
+						
 						// Dumping form data into the right place
 						var field;
 						var doc = this.ownerDocument;
@@ -522,6 +528,35 @@
 						} else {
 							alert('Sorry.  No preview url was provided, so a preview cannot be generated');
 						}
+					]]>
+				</body>
+			</method>
+			<!--
+			 /**
+			  * Method: validate
+			  *  Returns true if everything is OK, false and pops up an alert otherwise.
+			  */
+			-->
+			<method name="validate">
+				<body>
+					<![CDATA[
+						var body = this.getElementById('body');
+						var title = this.getElementById('title');
+
+						if (body.value=='') {
+							alert('You must enter a body');
+							body.focus();
+							return false;
+						}
+
+						if (this.getAttribute('title')=='true' && (title.value=='' || title.value=='Please Specify a Title')) {
+							alert('You must enter a title');
+							title.focus();
+							return false;
+						}
+
+						// should be all good
+						return true;
 					]]>
 				</body>
 			</method>
@@ -553,16 +588,39 @@
 						this.getElementById('friendsOnly').hidden = false;
 					}
 					
-					this.body = this.textContent;
-					this.textContent = '';
-
 					var style = this.getAttribute('style');
 					var deck = this.getElementById('deck');
-					var width = style.replace(/^.*width: ([0-9]+)px ! important;.*$/i,'$1')-7;
+					var width = style.replace(/^.*width: ([0-9]+)px ! important;.*$/i,'$1')-8;
 					deck.style.height = style.replace(/^.*height: ([0-9]+px) ! important;.*$/i,'$1');
 					deck.style.width = width;
+					
+					// Title code (only runs if there is a title)
 					if (this.getAttribute('showTitle')=='true') {
-						this.getElementById('title').setAttribute('type','text');
+						const defaultTitle = 'Please Specify a Title';
+						var title = this.getElementById('title');
+						title.setAttribute('type','text');
+						
+						// Setting the title to the right text
+						if (this.getAttribute('title')) {
+							title.value = this.getAttribute('title');
+						} else {
+							title.value = defaultTitle;
+							title.style.borderColor = '#FF0000';
+						}
+
+						// Fancy title code
+						var focus = function() {
+							if (this.value==defaultTitle) this.value = '';
+							this.style.borderColor = '';
+						};
+						var blur = function() {
+							if (this.value=='') {
+								this.value = defaultTitle;
+								this.style.borderColor = '#FF0000';
+							}
+						};
+						title.addEventListener('focus',focus,false);
+						title.addEventListener('blur',blur,false);
 					}
 
 					// Setting the body to the right text
