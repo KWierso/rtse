@@ -98,22 +98,29 @@
 						</xul:toolbar>
 					</xul:toolbox>
 				</xul:vbox>
-				<xul:vbox flex="1" pack="center"><!-- Index 1 - Link Code -->
-					<xul:hbox pack="center">
-						<xul:vbox>
-							<xul:hbox>
-								<xul:label value="Link URL:" html:for="urlBox"/>
+				<xul:vbox pack="center"><!-- Index 1 - Link Code -->
+					<xul:grid >
+						<xul:columns>
+							<xul:column width="75"/>
+							<xul:column flex="1"/>
+						</xul:columns>
+						<xul:rows>
+							<xul:row>
+								<xul:label value="Link URL:"/>
 								<html:input type="text" id="urlBox"/>
-							</xul:hbox>
-							<xul:hbox>
-								<xul:label value="Link Label:" html:for="urlTextBox"/>
+							</xul:row>
+							<xul:row height="5"/>
+							<xul:row>
+								<xul:label value="Link Label:"/>
 								<html:input type="text" id="urlTextBox"/>
-							</xul:hbox>
-							<xul:toolbar pack="end">
-								<xul:toolbarbutton class="image-button" image="chrome://rtse/content/images/rt-rvb_create.png" oncommand="insertLink();"/>
-								<xul:toolbarbutton class="image-button" image="chrome://rtse/content/images/rt-rvb_cancel.png" oncommand="cancel();"/>
-							</xul:toolbar>
-						</xul:vbox>
+							</xul:row>
+						</xul:rows>
+					</xul:grid>
+					<xul:hbox pack="end">
+						<xul:toolbar>
+							<xul:toolbarbutton class="image-button" image="chrome://rtse/content/images/rt-rvb_create.png" oncommand="insertLink();"/>
+							<xul:toolbarbutton class="image-button" image="chrome://rtse/content/images/rt-rvb_cancel.png" oncommand="cancel();"/>
+						</xul:toolbar>
 					</xul:hbox>
 				</xul:vbox>
 				<xul:vbox flex="1"><!-- Index 2 - Color Picker -->
