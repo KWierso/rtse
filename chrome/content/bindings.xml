@@ -66,6 +66,7 @@
 							<xul:toolbarbutton id="colorSwitch" image="chrome://rtse/skin/images/editor/color.png" oncommand="switchColor();" tooltipText="Color" hidden="true"/>
 							<xul:toolbarbutton id="smiley" image="chrome://rtse/skin/images/editor/happy.png" tooltipText="Smilies"/>
 							<xul:toolbarbutton id="friendsOnly" hidden="true" type="checkbox" image="chrome://rtse/content/images/unlocked.png"/>
+							<xul:toolbarbutton id="newConv" hidden="true" autoCheck="false" label="New Conversation"/>
 						</xul:toolbar>
 					</xul:toolbox>
 					<html:textarea id="body" rows="12" cols="1" tabindex="2"><children/></html:textarea>
@@ -593,7 +594,25 @@
 						};
 						this.getElementById('friendsOnly').addEventListener('command',toggle,false);
 					}
-					
+
+					// If this is a message, do stuff
+					if (this.getAttribute('message')=='true') {
+						if (this.getAttribute('lockTitle')=='true') { // this is message replies
+							this.getElementById('title').readonly = true;
+							var conv = this.getElementById('newConv');
+							conv.hidden = false;
+							var newConv = function() {
+							this.hidden = true;
+								this.ownerDocument.forms.namedItem('post').elements.namedItem('pid').value = '0';
+								var ref = this.parentNode.parentNode.previousSibling;
+								ref.readonly = false;
+								ref.value = '';
+								ref.focus();
+							};
+							conv.addEventListener('command',newConv,false);
+						}
+					}
+
 					var style = this.getAttribute('style');
 					var deck = this.getElementById('deck');
 					var width = style.replace(/^.*width: ([0-9]+)px ! important;.*$/i,'$1')-8;

@@ -201,19 +201,9 @@ function RTSE_insertEditor(doc,type) {
 		editor.setAttribute('parentFormName','post');
 		editor.setAttribute('bodyFormField','body');
 		editor.setAttribute('body',form.elements.namedItem('body').value);
-
-
-		/* Lets add old body for everything */
-		var input=doc.createElement('input');
-		input.setAttribute('name','oldBody');
-		input.setAttribute('type','hidden');
-		input.value=form.elements.namedItem('body').value;
-		form.appendChild(input);
-
-		/* and add oldTitle if title exists */
 		if (form.elements.namedItem('title')) editor.setAttribute('title',form.elements.namedItem('title').value);
-		
-		var i,width;
+
+		var i,width,input;
 		switch(type) {
 			case 'comment':
 			 var ref=doc.getElementById('Add a Comment').firstChild;
@@ -256,6 +246,8 @@ function RTSE_insertEditor(doc,type) {
 			 var ref=doc.getElementById('Reply').firstChild;
 			 editor.setAttribute('showTitle','true');
 			 editor.setAttribute('titleFormField','title');
+			 editor.setAttribute('message','true');
+			 editor.setAttribute('lockTitle','true');
 			 width=ref.parentNode.clientWidth;
 			 editor.setAttribute('style','width:'+width+'px !important;height:'+TITLE_HEIGHT+'px !important;');
 			 ref.parentNode.previousSibling.setAttribute('style','width:'+width+'px !important;');
@@ -264,6 +256,7 @@ function RTSE_insertEditor(doc,type) {
 			 var ref=doc.getElementById('Send a Message').firstChild;
 			 editor.setAttribute('showTitle','true');
 			 editor.setAttribute('titleFormField','title');
+			 editor.setAttribute('message','true');
 			 width=ref.parentNode.clientWidth;
 			 editor.setAttribute('style','width:'+width+'px !important;height:'+BLANK_MESSAGE_HEIGHT+'px !important;');
 			 ref.parentNode.previousSibling.setAttribute('style','width:'+width+'px !important;');
@@ -272,6 +265,7 @@ function RTSE_insertEditor(doc,type) {
 			 var ref=doc.getElementById('Send a Message').firstChild;
 			 editor.setAttribute('showTitle','true');
 			 editor.setAttribute('titleFormField','title');
+			 editor.setAttribute('message','true');
 			 input=form.elements.namedItem('uid').cloneNode(true);
 			 form.appendChild(input);
 			 width=ref.parentNode.clientWidth;
