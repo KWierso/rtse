@@ -433,11 +433,12 @@ function RTSE_addReply(aDoc)
 {
 	var elms=RTSE_evaluateXPath(aDoc,"//table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div");
 	var span,a,b;
+	var href = (aDoc.getElementById('Post'))?'#Post':'#add';
 	for( var i in elms ) {
 		span=aDoc.createElement('span');
 		a=aDoc.createElement('a');
 		b=aDoc.createElement('b');
-		a.setAttribute('href',(aDoc.getElementById('Post'))?'#Post':'#add');
+		a.setAttribute('href',href);
 		a.setAttribute('class','small');
 		a.addEventListener('click',RTSE_samePageReply,false);
 		b.appendChild(aDoc.createTextNode('Reply'))
@@ -454,11 +455,12 @@ function RTSE_addQuote(aDoc)
 {
 	var elms=RTSE_evaluateXPath(aDoc,"//table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div");
 	var span,a,b;
+	var href = (aDoc.getElementById('Post'))?'#Post':'#add';
 	for( var i in elms ) {
 		span=aDoc.createElement('span');
 		a=aDoc.createElement('a');
 		b=aDoc.createElement('b');
-		a.setAttribute('href',(aDoc.getElementById('Post'))?'#Post':'#add');
+		a.setAttribute('href',href);
 		a.setAttribute('class','small');
 		a.addEventListener('click',RTSE_quotePost,false);
 		b.appendChild(aDoc.createTextNode('Quote'))
