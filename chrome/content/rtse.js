@@ -120,6 +120,9 @@ var RTSE = {
 
 				// Replies
 				RTSE_addReply(doc);
+
+				// Quotes
+				RTSE_addQuote(doc)
 			}
 		}
 
@@ -130,6 +133,9 @@ var RTSE = {
 
 			// Permalinks
 			RTSE_postPermalink(doc);
+
+			// Quotes
+			RTSE_addQuote(doc)
 		}
 
 		/* Run on topic reply page */
@@ -193,6 +199,9 @@ var RTSE = {
 			
 			// Replies
 			RTSE_addReply(doc);
+
+			// Quotes
+			RTSE_addQuote(doc)
 		}
 	},
 	

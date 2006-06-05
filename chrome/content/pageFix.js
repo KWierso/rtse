@@ -273,14 +273,13 @@ function RTSE_insertEditor(doc,type) {
 			 ref.parentNode.previousSibling.setAttribute('style','width:'+width+'px !important;');
 			 break;
 			case 'fcomment':
+			 // Same page replies
 			 var elms=RTSE_evaluateXPath(doc,"//td[@id='pageContent']/table/tbody/tr[2]/td/table/tbody/tr[3]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/a[2]/b");
-			 if( gRTSE.prefsGetBool('extensions.rtse.editor') && RTSE.config.get('same_page_reply','false')=='true' ) {
-			 	 /* This is for the single page reply */
-				 for( i=(elms.length-1); i>=0; i-- ) {
-					elms[i].parentNode.setAttribute('href','#Post');
-					elms[i].addEventListener('click',RTSE_samePageReply,false);
-				 }
-			 } /* end single page reply */
+			 for( i=(elms.length-1); i>=0; i-- ) {
+				elms[i].parentNode.setAttribute('href','#Post');
+				elms[i].addEventListener('click',RTSE_samePageReply,false);
+			 }
+
 			 var ref=doc.getElementById('Post').firstChild;
 			 width=ref.parentNode.clientWidth;
 			 editor.setAttribute('style','width:'+width+'px !important;height:'+DEFAULT_HEIGHT+'px !important;');
@@ -420,8 +419,13 @@ function RTSE_samePageReply()
 
 	// Append to editor
 	var editor=this.ownerDocument.getElementById('rtseEditor');
-	editor.body=editor.body+'[i]In reply to '+name+', #'+num+':[/i]\n\n';
-	editor.focus();
+	var text = '[i]In reply to '+name+', #'+num+':[/i]\n\n';
+	if (editor) {
+		editor.body = editor.body + text;
+	} else {
+		var body = this.ownerDocument.forms.namedItem('post').elements.namedItem('body');
+		body.value = body.value + text;
+	}
 }
 
 function RTSE_addReply(aDoc)
@@ -442,6 +446,43 @@ function RTSE_addReply(aDoc)
 		span.appendChild(a);
 		span.appendChild(aDoc.createTextNode(' ] '));
 		elms[i].appendChild(span);
+	}
+}
+
+function RTSE_addQuote(aDoc)
+// EFFECTS: Adds the [ quote ] option to posts on a specifed aDoc
+{
+	var elms=RTSE_evaluateXPath(aDoc,"//table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div");
+	var span,a,b;
+	for( var i in elms ) {
+		span=aDoc.createElement('span');
+		a=aDoc.createElement('a');
+		b=aDoc.createElement('b');
+		a.setAttribute('href',(aDoc.getElementById('Post'))?'#Post':'#add');
+		a.setAttribute('class','small');
+		a.addEventListener('click',RTSE_quotePost,false);
+		b.appendChild(aDoc.createTextNode('Quote'))
+		a.appendChild(b);
+		span.appendChild(aDoc.createTextNode(' [ '));
+		span.appendChild(a);
+		span.appendChild(aDoc.createTextNode(' ] '));
+		elms[i].appendChild(span);
+	}
+}
+
+function RTSE_quotePost(aEvent)
+// EFFECTS: Quotes a post
+{
+	var ref = this.parentNode.parentNode.parentNode.parentNode.parentNode;
+	var post = RTSE_evaluateXPath(ref,'./tr[2]/td');
+	var text = '[quote]' + RTSE_HTMLtoBB(post[0].innerHTML) + '[/quote]\n\n';
+
+	var editor = this.ownerDocument.getElementById('rtseEditor');
+	if (editor) {
+		editor.body = editor.body + text;
+	} else {
+		var body = this.ownerDocument.forms.namedItem('post').elements.namedItem('body');
+		body.value = body.value + text;
 	}
 }
 
@@ -496,4 +537,27 @@ function RTSE_deconvertExtraBB(aDoc)
 		body.value = body.value.replace(/\[i\]In reply to ([a-zA-Z0-9_]{4,12}), \[link=.*?#t[0-9]+\]\[i\](#[0-9]+)\[\/i\]\[\/link\]:\[\/i\]/g,
 		                                '[i]In reply to $1, $2:[/i]');
 	}
+}
+
+function RTSE_HTMLtoBB(aText)
+// EFFECTS: Converts site HTML to BBcode
+{
+	aText=aText.replace(/<b>(.*?)<\/b>/g,'[b]$1[/b]');
+	aText=aText.replace(/<i>(.*?)<\/i>/g,'[i]$1[/i]');
+	aText=aText.replace(/<u>(.*?)<\/u>/g,'[u]$1[/u]');
+	aText=aText.replace(/<del>(.*?)<\/del>/g,'[s]$1[/s]');
+	aText=aText.replace(/<a class="body" href="(.*?)" target="_blank">(.*?)<\/a>/g,'[link=$1]$2[/link]');
+	aText=aText.replace(/<a href="(.*?)" target="_blank">(.*?)<\/a>/g,'[link=$1]$2[/link]');
+	aText=aText.replace(/<a href="(.*?)">(.*?)<\/a>/g,'[link=$1]$2[/link]');
+	aText=aText.replace(/<font color=".*">(.*?)<\/font>/g,'$1'); /* Old way maybe? */
+	aText=aText.replace(/<span style="color:.*">(.*?)<\/span>/g,'$1');
+	aText=aText.replace(/<img .*?src="\/(.*?)".*?>/g,'[img]http://www.roosterteeth.com/$1[/img]');
+	aText=aText.replace(/<img.*? src="(.*?)".*?>/g,'[img]$1[/img]');
+	aText=aText.replace(/<br><br><span class="small"(.*?)>(.*?)<\/span>/g,'');
+	aText=aText.replace(/<blockquote(.*?)>(.*?)<\/blockquote>/g,'');
+	aText=aText.replace(/\t/g,'');
+	aText=aText.replace(/\n/g,'');
+	aText=aText.replace(/<br>/g,'\n');
+
+	return aText;
 }
