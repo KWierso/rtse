@@ -477,8 +477,11 @@ function RTSE_quotePost(aEvent)
 {
 	var ref = this.parentNode.parentNode.parentNode.parentNode.parentNode;
 	var post = RTSE_evaluateXPath(ref,'./tr[2]/td');
-	var text = '[quote]' + RTSE_HTMLtoBB(post[0].innerHTML) + '[/quote]\n\n';
+	var text = new String(post[0].innerHTML);
 
+	text = '[quote]' + RTSE_HTMLtoBB(text) + '[/quote]\n\n';
+
+	// update the text of the body
 	var editor = this.ownerDocument.getElementById('rtseEditor');
 	if (editor) {
 		editor.body = editor.body + text;
@@ -544,22 +547,38 @@ function RTSE_deconvertExtraBB(aDoc)
 function RTSE_HTMLtoBB(aText)
 // EFFECTS: Converts site HTML to BBcode
 {
-	aText=aText.replace(/<b>(.*?)<\/b>/g,'[b]$1[/b]');
-	aText=aText.replace(/<i>(.*?)<\/i>/g,'[i]$1[/i]');
-	aText=aText.replace(/<u>(.*?)<\/u>/g,'[u]$1[/u]');
-	aText=aText.replace(/<del>(.*?)<\/del>/g,'[s]$1[/s]');
-	aText=aText.replace(/<a class="body" href="(.*?)" target="_blank">(.*?)<\/a>/g,'[link=$1]$2[/link]');
-	aText=aText.replace(/<a href="(.*?)" target="_blank">(.*?)<\/a>/g,'[link=$1]$2[/link]');
-	aText=aText.replace(/<a href="(.*?)">(.*?)<\/a>/g,'[link=$1]$2[/link]');
-	aText=aText.replace(/<font color=".*">(.*?)<\/font>/g,'$1'); /* Old way maybe? */
-	aText=aText.replace(/<span style="color:.*">(.*?)<\/span>/g,'$1');
-	aText=aText.replace(/<img .*?src="\/(.*?)".*?>/g,'[img]http://www.roosterteeth.com/$1[/img]');
-	aText=aText.replace(/<img.*? src="(.*?)".*?>/g,'[img]$1[/img]');
-	aText=aText.replace(/<br><br><span class="small"(.*?)>(.*?)<\/span>/g,'');
-	aText=aText.replace(/<blockquote(.*?)>(.*?)<\/blockquote>/g,'');
-	aText=aText.replace(/\t/g,'');
-	aText=aText.replace(/\n/g,'');
-	aText=aText.replace(/<br>/g,'\n');
+	// Takes care of nesting problems due to In Reply to...
+	aText = aText.replace(/<a href=".*?"><i>#([0-9]+)<\/i><\/a>/g,'#$1');
+
+	aText = aText.replace(/<(b|i|u)>/g,'[$1]');
+	aText = aText.replace(/<\/(b|i|u)>/g,'[/$1]');
+	aText = aText.replace(/<del>/g,'[s]');
+	aText = aText.replace(/<\/del>/g,'[/s]');
+	aText = aText.replace(/<a href="([^" \t\n<>]+)" target="_blank">/g,'[link=$1]');
+	aText = aText.replace(/<a href="(\/[^" \t\n<>]+)">/g,'[link=$1]');
+	aText = aText.replace(/<\/a>/g,'[/link]');
+
+	aText = aText.replace(/<img .*?src="\/(.*?)".*?>/g,'[img]http://www.roosterteeth.com/$1[/img]');
+	aText = aText.replace(/<img.*? src="(.*?)".*?>/g,'[img]$1[/img]');
+	aText = aText.replace(/<br><br><span class="small"(.*?)>(.*?)<\/span>/g,'');
+	aText = aText.replace(/<blockquote(.*?)>(.*?)<\/blockquote>/g,'');
+	aText = aText.replace(/\t/g,'');
+	aText = aText.replace(/\n/g,'');
+	aText = aText.replace(/<br>/g,'\n');
+
+	// Sponsor stuff for colors (preserves if you are a sponsor
+	if (gRTSE.prefsGetBool('extensions.rtse.sponsor')) {
+		aText = aText.replace(/<span style="color: (.*?);">/g,'[color=$1]');
+		aText = aText.replace(/<\/span>/g,'[/color]');
+	} else {
+		aText = aText.replace(/<span style="color:.*?">/g,'');
+		aText = aText.replace(/<\/span>/g,'');
+	}
+
+	// HTML entities
+	aText = aText.replace(/&amp;/g,'&');
+	aText = aText.replace(/&lt;/g,'<');
+	aText = aText.replace(/&gt;/g,'>');
 
 	return aText;
 }
