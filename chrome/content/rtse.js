@@ -47,9 +47,8 @@ var RTSE = {
 		if( RTSE.config.get('firstInstall','true')=='true' )
 			var win=window.openDialog('chrome://rtse/content/setupwizard.xul','RTSEsetup','chrome,centerscreen',RTSE);
 
-		/* Sign in */
-		if( RTSE.config.get('signin','false')=='true' )
-			RTSE_signin();
+		// Sign in
+		gRTSE.login();
 
 		var appcontent=document.getElementById("appcontent");	/* This is the browser */
 		if(appcontent)
