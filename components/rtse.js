@@ -52,28 +52,24 @@ RTSE.prototype = {
 	//          it will log you in to the site.
 	{
 		try {
-			if( !this.mLoginSent && this.prefsGetBool('autologin') && this.prefsGetString('username') ) {
+			if( !this.mLoginSent && this.prefsGetBool('extensions.rtse.autologin') && this.prefsGetString('extensions.rtse.username') ) {
 				// pulls from password manager
-				var pm=Components.classes["@mozilla.org/passwordmanager;1"]
-				                 .getService(Components.interfaces.nsIPasswordManager);
-				var nsIPwd,pwd;
-				var found=false;
-				var username=this.prefsGetString('username');
-				while( !found && pm.enumerator.hasMoreElements() ) {
-					nsIPwd=pm.enumerator.getNext();
-					if( nsIPwd.host=='rtse' && nsIPwd.user==username ) {
-						pwd=nsIPwd.password;
-						found=true;
-					}
-				}
-				if( ref && username && pwd ) {
+				var pm = Components.classes["@mozilla.org/passwordmanager;1"]
+				                   .getService(Components.interfaces.nsIPasswordManagerInternal);
+				var username = this.prefsGetString('extensions.rtse.username');
+				var usr = { value:"" };
+				var pwd = { value:"" };
+				var login = { value:"" };
+				pm.findPasswordEntry('rtse',username,"",usr,login,pwd);
+
+				if (username && usr.value && pwd.value) {
 					var req=Components.classes["@mozilla.org/xmlextras/xmlhttprequest;1"]
 					                  .getService(Components.interfaces.nsIXMLHttpRequest);
 					req.open("POST",'http://www.roosterteeth.com/members/signinPost.php',true);
 					req.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-					req.send('user='+username+'&pass='+pwd);
+					req.send('user='+username+'&pass='+pwd.value);
 				} else {
-					throw NS_ERROR_FAILURE;
+					throw 'RTSE :: Login Faluire';
 				}
 				
 				this.mLoginSent=true;
@@ -91,6 +87,7 @@ RTSE.prototype = {
 		req.open("POST",'http://services.shawnwilsher.com/errorlogging/rtse.php',true);
 		req.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
 		req.send(aError);
+		throw(aError);
 	},
 
 	prefsRegisterObserver: function(aPref,aFunc)
