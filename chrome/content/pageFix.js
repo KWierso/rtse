@@ -344,6 +344,26 @@ function RTSE_insertEditor(doc,type) {
 		// Listener for Extra BB
 		form.addEventListener('submit',RTSE_convertExtraBB,false);
 		ref.parentNode.replaceChild(editor,ref);
+
+    // Adding smilies
+    var smilies = RTSE.smilies.items;
+    const XUL = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
+    var menu = doc.createElementNS(XUL, "menupopup");
+    var mi, key;
+    for (var i in smilies) {
+      mi = doc.createElementNS(XUL, "menuitem");
+      mi.setAttribute("image", smilies[i].path);
+      mi.setAttribute("label", smilies[i].name);
+      mi.setAttribute("validate", "never");
+      mi.setAttribute("class", "menuitem-iconic");
+      mi.setAttribute("key", smilies[i].key);
+      mi.addEventListener("command", function() {
+        var editor = this.ownerDocument.getElementById("rtseEditor");
+        editor.insertTag(this.getAttribute('key'));
+      }, false);
+      menu.appendChild(mi);
+    }
+    doc.getElementById("rtseEditor").wrappedJSObject.addSmilies(menu);
 	} catch(e) {
 		//gRTSE.sendReport(e);
 		throw e;
@@ -497,6 +517,12 @@ function RTSE_convertExtraBB(aEvent)
 {
 	var doc = aEvent.originalTarget.ownerDocument;
 	var body = doc.forms.namedItem('post').elements.namedItem('body');
+
+  // Smilies
+  if (gRTSE.prefsGetBool('extensions.rtse.editor')) {
+    var editor = doc.getElementById('rtseEditor').wrappedJSObject;
+    if (editor.convertSmilies) body.value = RTSE.smilies.convert(body.value);
+  }
 	
 	body.value = body.value.replace(/\[quote=([a-zA-Z0-9_]{4,12})\]([\s\S]+)\[\/quote\]/g,'[b]Quoting $1:[/b][quote]$2[/quote]');
 
@@ -528,6 +554,11 @@ function RTSE_deconvertExtraBB(aDoc)
 	// converts to RTSE BB
 	var body = form.elements.namedItem('body');
 	if (!body) return;
+
+  // Smilies
+  if (gRTSE.prefsGetBool('extensions.rtse.editor')) {
+    body.value = RTSE.smilies.deconvert(body.value);
+  }
 
 	body.value = body.value.replace(/\[b\]Quoting ([a-zA-Z0-9_]{4,12}):\[\/b\]\[quote\]([\s\S]+)\[\/quote\]/g,'[quote=$1]$2[/quote]');
 

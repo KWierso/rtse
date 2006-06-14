@@ -28,8 +28,9 @@
 [scriptable,uuid(258adac0-d49a-11da-a94d-0800200c9a66)]
 interface nsISmilies:nsISupports
 {
-	readonly attribute string errorFileDNE;
-	readonly attribute string errorNameDNE;
+	readonly attribute string  errorFileDNE;
+	readonly attribute string  errorNameDNE;
+  readonly attribute boolean ok;
 	void    load(in nsIFile aFile);
 	string  getPath(in string aName);
 	string  getKey(in string aName);

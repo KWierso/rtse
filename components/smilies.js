@@ -46,6 +46,15 @@ Smilies.prototype = {
 	mErrorFileDNE: "File does not exist.",
 	mErrorNameDNE: "Name does not exist.",
 
+ /**
+  * The status of the component
+  * @return true if file loaded, false otherwise
+  */
+  get ok()
+  {
+    return this.mLoaded;
+  },
+
 	get errorFileDNE()
 	// EFFECTS: getter for mErrorFileDNE
 	{

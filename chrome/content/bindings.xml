@@ -64,7 +64,7 @@
 								</xul:menupopup>
 							</xul:toolbarbutton>
 							<xul:toolbarbutton id="colorSwitch" image="chrome://rtse/skin/images/editor/color.png" oncommand="switchColor();" tooltipText="Color" hidden="true"/>
-							<xul:toolbarbutton id="smiley" image="chrome://rtse/skin/images/editor/happy.png" tooltipText="Smilies"/>
+							<xul:toolbarbutton id="smiley" image="chrome://rtse/skin/images/editor/happy.png" tooltipText="Smilies" hidden="true"/>
 							<xul:toolbarbutton id="friendsOnly" hidden="true" type="checkbox" image="chrome://rtse/content/images/unlocked.png"/>
 							<xul:toolbarbutton id="newConv" hidden="true" autoCheck="false" image="chrome://rtse/content/images/newConv.png"/>
 						</xul:toolbar>
@@ -267,7 +267,24 @@
 				</getter>
 			</property>
 			<!-- Methods -->
-			<!--
+      <!--
+       /**
+        * Method: addSmilies
+        *  Takes a menupopup and places it in the smilies menu
+        *
+        * @param aMenu an xul:menupopup containing the smilies
+        */
+      -->
+      <method name="addSmilies">
+        <parameter name="aMenu"/>
+        <body><![CDATA[
+          var ref = this.getElementById('smiley');
+          ref.setAttribute('type', 'menu');
+          ref.hidden = false;
+          ref.appendChild(aMenu);
+        ]]></body>
+      </method>
+      <!--
 			 /**
 			  * Method: insertTag
 			  *  Method inserts the tag into the body.  This takes
@@ -282,16 +299,20 @@
 				<body>
 					<![CDATA[
 						var text = this.getElementById('body');
+						var elm = this.getElementById(tagText);
 
-						if (text.selectionStart==text.selectionEnd) {
+						if (text.selectionStart==text.selectionEnd || !elm) {
 							// No text selected
-							var elm = this.getElementById(tagText);
 							var bool;
-							if (elm) bool = this.getElementById(tagText).checked;
-							if (bool)
-								tag = '[/'+tagText+']';
-							else
-								tag = '['+tagText+']';
+              if (elm || tagText.match(/smiley[0-9]+/)) {
+                bool = elm ? this.getElementById(tagText).checked : false;
+							  if (bool)
+							    tag = '[/'+tagText+']';
+							  else
+                  tag = '['+tagText+']';
+              } else {
+                tag = tagText;
+              }
 							var pos = text.selectionStart+tag.length;
 							if (elm) this.getElementById(tagText).checked = !bool;
 							text.value = text.value.substring(0,text.selectionStart)+tag+text.value.substring(text.selectionStart,text.textLength);

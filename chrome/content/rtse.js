@@ -30,6 +30,9 @@ var RTSE = {
   * Function that initializes everything for each windows
   */
   init: function init() {
+    // Ininitialzing other data
+    this.smilies.init();
+
 		/* Load Config */
 		RTSE.config=new RTSE_Config();
 		RTSE.config.load();
@@ -232,5 +235,88 @@ var RTSE = {
 		} else {
 			gContextMenu.showItem("rtse-sub-menu",false);
 		}
-	}
+	},
+
+ /**
+  * Object that takes care of smilie conversion
+  */
+  smilies: {
+   /**
+    * Loads the smilies using the XPCOM component
+    * @return true if successful, false otherwise
+    */
+    init: function init()
+    {
+      this.data = Components.classes["@shawnwilsher.com/smilies;1"]
+                            .getService(Components.interfaces.nsISmilies);
+      if (!this.data) return false;
+      
+      // Loading file
+      var file=Components.classes["@mozilla.org/file/directory_service;1"]
+                         .getService(Components.interfaces.nsIProperties)
+                         .get("ProfD", Components.interfaces.nsIFile);
+      file.append("rtse");
+      file.append("smilies.xml");
+      if (!file.exists()) {
+        // Now we have to make the file
+        const ID = "RTSE@shawnwilsher.com"
+        var file = Components.classes["@mozilla.org/file/directory_service;1"]
+                             .getService(Components.interfaces.nsIProperties)
+                             .get("ProfD", Components.interfaces.nsIFile);
+        file.append("rtse");
+        if (!file.exists()) file.create(Components.interfaces.nsIFile.DIRECTORY_TYPE,0664);
+
+        var ext = Components.classes["@mozilla.org/extensions/manager;1"]
+                            .getService(Components.interfaces.nsIExtensionManager)
+                            .getInstallLocation(ID)
+                            .getItemLocation(ID);
+        ext.append("defaults");
+        ext.append("smilies.xml");
+        ext.copyTo(file, "smilies.xml");
+      }
+      this.data.load(file);
+      return this.data.ok;
+    },
+
+   /**
+    * Converts the suplied text using the XPCOM method
+    * @param aText the text to be converted
+    * @return the converted text
+    */
+    convert: function convert(aText)
+    {
+      return this.data.ok ? this.data.convertText(aText) : aText;
+    },
+
+   /**
+    * Removes an conversions that may have taken place from convert
+    * @param aText the text to be deconverted
+    * @return unconverted text
+    */
+    deconvert: function deconvert(aText)
+    {
+      return this.data.ok ? this.data.deconvertText(aText): aText;
+    },
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Attributes
+   
+   /**
+    * The names of the smilies
+    * @return an array of objects with the name, key, and path for each smiley
+    */
+    get items()
+    {
+      if (!this.data.ok) return [];
+      var names =  this.data.getNames({});
+      var out = [];
+      for (var i in names) {
+        out.push({ name: names[i],
+                   key:  this.data.getKey(names[i]),
+                   path: this.data.getPath(names[i])
+                 });
+      }
+      return out;
+    }
+  }
 }
