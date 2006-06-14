@@ -20,7 +20,7 @@
  * The Initial Developer of the Original Code is
  * Shawn Wilsher
  *
- * Portions created by the Initial Developer are Copyright (C) 2005
+ * Portions created by the Initial Developer are Copyright (C) 2005-2006
  * the Initial Developer. All Rights Reserved.
  *
  * Contributor(s):
@@ -29,67 +29,50 @@
  * ***** END LICENSE BLOCK ***** */
 -->
 
-<dialog id="OptionsDialog" title="Rooster Teeth Site Extender Settings"
-		orient="vertical"
-		xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
-		xmlns:html="http://www.w3.org/1999/xhtml"
-		maxwidth="500"
-		onload="return load();"
-        	buttons="accept,cancel"
-		ondialogaccept="return apply();"
-		buttonlabelaccept="Accept"
-		buttonlabelcancel="Cancel">
+<prefwindow id="Options"
+            title="Rooster Teeth Site Extender Settings"
+            xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+            maxwidth="500"
+            onload="return load();"
+            buttons="accept,cancel"
+            ondialogaccept="return apply();"
+            buttonlabelaccept="Accept"
+            buttonlabelcancel="Cancel">
 
 	<script type="application/x-javascript" src="chrome://rtse/content/options.js" />
 	<script type="application/x-javascript" src="chrome://rtse/content/functions.js" />
-	<script type="application/x-javascript" src="chrome://rtse/content/config.js" />
-	<script type="application/x-javascript" src="chrome://rtse/content/smilies.js"/>
 
-<popupset>
-	<tooltip id="tt_import_smilies">
-		<description>Browse for a custom smilies.xml file</description>
-	</tooltip>
-</popupset>
+  <popupset>
+  	<tooltip id="tt_import_smilies">
+  		<description>Browse for a custom smilies.xml file</description>
+  	</tooltip>
+  </popupset>
 
-
-<tabbox id="maintabbox">
-	<tabs>
-		<tab label="Authentication"/>
-		<tab label="Site Preferences"/>
-		<tab label="Site Extensions"/>
-		<tab label="Forum Jump List Filter"/>
-		<!--<tab label="Watchlist Manager"/>-->
-	</tabs>
-	<tabpanels>
-	<tabpanel>
-	<groupbox width="400">
-		<caption label="Auto-Login"/>
+  <prefpane id="auth" label="Authentication" selected="true">
+    <preferences>
+      <preference id="pref_username" name="extensions.rtse.username" type="string"/>
+      <preference id="pref_signin" name="extensions.rtse.signin" type="bool"/>
+    </preferences>
 		<hbox>
 			<label value="Username:" control="username" />
-			<textbox id="username" maxlength="12" size="12" width="120"/>
+			<textbox id="username" maxlength="12" size="12" width="120" preference="pref_username"/>
 			<label value="Password:" control="pwd" />
 			<textbox id="pwd" maxlength="16" size="16" type="password" width="120"/>
 		</hbox>
 		<spacer style="height: 10px"/>
-		<description>
-			Notice: Your password is stored in plain text in your profile directory. You
-			are storing this at your own risk. If your account on this computer is protected
-			with a password, you should be fine. As it is, your password is sent as plain
-			text when you submit it to log in normally.
-		</description>
-		<spacer style="height: 10px"/>
-		<checkbox id="signin" label="Enable Auto-Login" />
-	</groupbox>
-	</tabpanel>
-	<tabpanel flex="1">
-	<vbox>
-	<groupbox width="400">
-		<caption label="Links"/>
+		<checkbox id="signin" label="Enable Automatic Sign In" preference="pref_signin"/>
+	</prefpane>
+  <prefpane id="prefs" label="Site Preferences" orient="vertical">
+    <preferences>
+      <preference id="pref_theme" name="extensions.rtse.themeType" type="string"/>
+      <preference id="pref_themer" name="extensions.rtse.themer" type="bool"/>
+      <preference id="pref_links" name="extensions.rtse.fixLinks" type="bool"/>
+    </preferences>
 		<hbox>
 			<label value="Prefered site skin:"/>
-			<menulist id="themeType">
+			<menulist id="themeType" preference="pref_theme">
 				<menupopup>
-					<menuitem label="Rooster Teeth" value="www" selected="true"/>
+					<menuitem label="Rooster Teeth" value="www"/>
 					<menuitem label="Red vs Blue" value="rvb"/>
 					<menuitem label="Stangerhood" value="sh"/>
 					<menuitem label="PANICS" value="panics"/>
@@ -103,20 +86,23 @@
 				sites) links.
 		</description>
 		<spacer style="height: 10px"/>
-		<checkbox id="theme" label="Enable Themer"/>
-		<checkbox id="linkFix" label="External Fixing links"/>
-	</groupbox>
-	</vbox>
-	</tabpanel>
-	<tabpanel flex="1">
-	<vbox>
+		<checkbox id="theme" label="Enable Themer" preference="pref_themer" onchange="theme();"/>
+		<checkbox id="linkFix" label="External Fixing links" preference="pref_links"/>
+	</prefpane>
+  <prefpane id="extensions" label="Site Extensions" orient="vertical">
+    <preferences>
+      <preference id="pref_sponsor" name="extensions.rtse.sponsor" type="bool"/>
+      <preference id="pref_smilies" name="extensions.rtse.smilies" type="bool"/>
+      <preference id="pref_editor" name="extensions.rtse.editor" type="bool"/>
+      <preference id="pref_SPR" name="extensions.rtse.samePageReply" type="bool"/>
+    </preferences>
 	<groupbox width="400">
 		<caption label="Added Features"/>
-		<checkbox id="sponsor" label="Enable Sponsor-only features" />
+		<checkbox id="sponsor" label="Enable Sponsor-only features" preference="pref_sponsor"/>
 		<description>
 			Notice: This will only give you Sponsor-only features if you are actually a sponsor.
 		</description>
-		<checkbox id="smilies" checked="true" label="Enable Smilies" />
+		<checkbox id="smilies" checked="true" label="Enable Smilies" preference="pref_smilies"/>
 		<spacer style="height:10px;"/>
 		<vbox>
 			<hbox>	
@@ -128,51 +114,186 @@
 	</groupbox>
 	<groupbox width="400">
 		<caption label="User Interface"/>
-		<checkbox id="editor" checked="true" label="Enable Advanced Text Editing"/>
-		<checkbox id="same_page_reply" label="Use Same Page for Post Replies"/>
+		<checkbox id="editor" checked="true" label="Enable Advanced Text Editing" preference="pref_editor"/>
+		<checkbox id="same_page_reply" label="Use Same Page for Post Replies" preference="pref_SPR"/>
 	</groupbox>
-	</vbox>
-	</tabpanel>
-	<tabpanel flex="1">
-		<groupbox width="400">
-		<caption label="Select Forums to Display"/>
-		<richlistbox id="forumList" maxheight="200">
-			<richlistitem><checkbox label="Sponsors" value="101"/></richlistitem>
-			<richlistitem><checkbox label="Level 20" value="103"/></richlistitem>
-			<richlistitem><checkbox label="18 and Up" value="104"/></richlistitem>
-			<richlistitem><checkbox label="First Stop" value="1"/></richlistitem>
-			<richlistitem><checkbox label="Website Forum" value="8"/></richlistitem>
-			<richlistitem><checkbox label="Rooster Teeth" value="9"/></richlistitem>
-			<richlistitem><checkbox label="Red vs Blue" value="2"/></richlistitem>
-			<richlistitem><checkbox label="The Strangerhood" value="10"/></richlistitem>
-			<richlistitem><checkbox label="PANICS" value="30"/></richlistitem>
-			<richlistitem><checkbox label="General Gaming" value="3"/></richlistitem>
-			<richlistitem><checkbox label="PC Gaming" value="18"/></richlistitem>
-			<richlistitem><checkbox label="Halo" value="19"/></richlistitem>
-			<richlistitem><checkbox label="The Sims" value="26"/></richlistitem>
-			<richlistitem><checkbox label="Xbox" value="20"/></richlistitem>
-			<richlistitem><checkbox label="Xbox 360" value="31"/></richlistitem>
-			<richlistitem><checkbox label="Playststion" value="21"/></richlistitem>
-			<richlistitem><checkbox label="Gamecube" value="22"/></richlistitem>
-			<richlistitem><checkbox label="Classics and Handhelds" value="23"/></richlistitem>
-			<richlistitem><checkbox label="Board Games and Tabletop Games" value="24"/></richlistitem>
-			<richlistitem><checkbox label="Movies" value="5"/></richlistitem>
-			<richlistitem><checkbox label="Film Making and Machinima" value="13"/></richlistitem>
-			<richlistitem><checkbox label="Television" value="16"/></richlistitem>
-			<richlistitem><checkbox label="Music" value="4"/></richlistitem>
-			<richlistitem><checkbox label="Books" value="15"/></richlistitem>
-			<richlistitem><checkbox label="Comics and Anime" value="25"/></richlistitem>
-			<richlistitem><checkbox label="The Billboard" value="28"/></richlistitem>
-			<richlistitem><checkbox label="Art" value="29"/></richlistitem>
-			<richlistitem><checkbox label="Sports" value="12"/></richlistitem>
-			<richlistitem><checkbox label="Politics and Current Events" value="14"/></richlistitem>
-			<richlistitem><checkbox label="Technical" value="11"/></richlistitem>
-			<richlistitem><checkbox label="Lopez's Garage" value="17"/></richlistitem>
-			<richlistitem><checkbox label="Forum Games" value="27"/></richlistitem>
-			<richlistitem><checkbox label="The Basement" value="7"/></richlistitem>
+	</prefpane>
+  <prefpane id="forumJump" label="Forum Jump List Filter">
+    <preferences>
+      <preference id="pref_forum101" name="extensions.rtse.forum.101" type="bool"/>
+      <preference id="pref_forum103" name="extensions.rtse.forum.103" type="bool"/>
+      <preference id="pref_forum104" name="extensions.rtse.forum.104" type="bool"/>
+      <preference id="pref_forum1" name="extensions.rtse.forum.1" type="bool"/>
+      <preference id="pref_forum8" name="extensions.rtse.forum.8" type="bool"/>
+      <preference id="pref_forum9" name="extensions.rtse.forum.9" type="bool"/>
+      <preference id="pref_forum2" name="extensions.rtse.forum.2" type="bool"/>
+      <preference id="pref_forum10" name="extensions.rtse.forum.10" type="bool"/>
+      <preference id="pref_forum30" name="extensions.rtse.forum.30" type="bool"/>
+      <preference id="pref_forum3" name="extensions.rtse.forum.3" type="bool"/>
+      <preference id="pref_forum18" name="extensions.rtse.forum.18" type="bool"/>
+      <preference id="pref_forum19" name="extensions.rtse.forum.19" type="bool"/>
+      <preference id="pref_forum26" name="extensions.rtse.forum.26" type="bool"/>
+      <preference id="pref_forum20" name="extensions.rtse.forum.20" type="bool"/>
+      <preference id="pref_forum31" name="extensions.rtse.forum.31" type="bool"/>
+      <preference id="pref_forum21" name="extensions.rtse.forum.21" type="bool"/>
+      <preference id="pref_forum22" name="extensions.rtse.forum.22" type="bool"/>
+      <preference id="pref_forum23" name="extensions.rtse.forum.23" type="bool"/>
+      <preference id="pref_forum24" name="extensions.rtse.forum.24" type="bool"/>
+      <preference id="pref_forum5" name="extensions.rtse.forum.5" type="bool"/>
+      <preference id="pref_forum13" name="extensions.rtse.forum.13" type="bool"/>
+      <preference id="pref_forum16" name="extensions.rtse.forum.16" type="bool"/>
+      <preference id="pref_forum4" name="extensions.rtse.forum.4" type="bool"/>
+      <preference id="pref_forum15" name="extensions.rtse.forum.15" type="bool"/>
+      <preference id="pref_forum25" name="extensions.rtse.forum.25" type="bool"/>
+      <preference id="pref_forum28" name="extensions.rtse.forum.28" type="bool"/>
+      <preference id="pref_forum29" name="extensions.rtse.forum.29" type="bool"/>
+      <preference id="pref_forum12" name="extensions.rtse.forum.12" type="bool"/>
+      <preference id="pref_forum14" name="extensions.rtse.forum.14" type="bool"/>
+      <preference id="pref_forum11" name="extensions.rtse.forum.11" type="bool"/>
+      <preference id="pref_forum17" name="extensions.rtse.forum.17" type="bool"/>
+      <preference id="pref_forum27" name="extensions.rtse.forum.27" type="bool"/>
+      <preference id="pref_forum7" name="extensions.rtse.forum.7" type="bool"/>
+    </preferences>
+		<richlistbox maxheight="200">
+      <richlistitem><label value="Special" style="font-weight:bold;"/></richlistitem>
+      <richlistitem orient="vertical">
+        <checkbox label="Sponsors" preference="pref_forum101"/>
+        <description>You know you're cool.</description>
+      </richlistitem>
+      <richlistitem orient="vertical">
+        <checkbox label="Level 20" preference="pref_forum103"/>
+        <description>If you've got more karma than you know what to do with.</description>
+      </richlistitem>
+      <richlistitem orient="vertical">
+        <checkbox label="18 and Up" preference="pref_forum104"/>
+        <description>The place to get down and dirty.</description>
+      </richlistitem>
+      <richlistitem><label value="General Forums" style="font-weight:bold;"/></richlistitem>
+      <richlistitem orient="vertical">
+        <checkbox label="First Stop" preference="pref_forum1"/>
+        <description>Don't be a moronic noob. Come here first. Then go be a moron.</description>
+      </richlistitem>
+      <richlistitem orient="vertical">
+        <checkbox label="Website Forum" preference="pref_forum8"/>
+        <description>For info and questions about the community website</description>
+      </richlistitem>
+      <richlistitem><label value="Project Forums" style="font-weight:bold;"/></richlistitem>
+      <richlistitem orient="vertical">
+        <checkbox label="Rooster Teeth" preference="pref_forum9"/>
+        <description>The main Rooster Teeth forum</description>
+      </richlistitem>
+      <richlistitem orient="vertical">
+        <checkbox label="Red vs Blue" preference="pref_forum2"/>
+        <description>It's just one big RvB love fest in here.</description>
+      </richlistitem>
+      <richlistitem orient="vertical">
+        <checkbox label="The Strangerhood" preference="pref_forum10"/>
+        <description>Rooster Teeth's Sims 2 project.</description>
+      </richlistitem>
+      <richlistitem orient="vertical">
+        <checkbox label="PANICS" preference="pref_forum30"/>
+        <description>People Acting Normal in Crazy ass Situations</description>
+      </richlistitem>
+      <richlistitem><label value="Gaming" style="font-weight:bold;"/></richlistitem>
+      <richlistitem orient="vertical">
+        <checkbox label="General Gaming" preference="pref_forum3"/>
+        <description>Non platform specific cultural jibberjabber</description>
+      </richlistitem>
+      <richlistitem orient="vertical">
+        <checkbox label="PC Gaming" preference="pref_forum18"/>
+        <description>You should be using your computer for better things.</description>
+      </richlistitem>
+      <richlistitem orient="vertical">
+        <checkbox label="Halo" preference="pref_forum19"/>
+        <description>Yes, it has its own forum.</description>
+      </richlistitem>
+      <richlistitem orient="vertical">
+        <checkbox label="The Sims" preference="pref_forum26"/>
+        <description>Even if you don't have a real life, you can still have a virtual life in these games.</description>
+      </richlistitem>
+      <richlistitem orient="vertical">
+        <checkbox label="Xbox" preference="pref_forum20"/>
+        <description>Like a PC, only way heavier.</description>
+      </richlistitem>
+      <richlistitem orient="vertical">
+        <checkbox label="Xbox 360" preference="pref_forum31"/>
+        <description>Come in here and pretend like you have one.</description>
+      </richlistitem>
+      <richlistitem orient="vertical">
+        <checkbox label="Playststion" preference="pref_forum21"/>
+        <description>It plays things while remaining stationary.</description>
+      </richlistitem>
+      <richlistitem orient="vertical">
+        <checkbox label="Gamecube" preference="pref_forum22"/>
+        <description>Just like your mom's purse.</description>
+      </richlistitem>
+      <richlistitem orient="vertical">
+        <checkbox label="Classics and Handhelds" preference="pref_forum23"/>
+        <description>Because handhelds play classic games. Get it?</description>
+      </richlistitem>
+      <richlistitem orient="vertical">
+        <checkbox label="Board Games and Tabletop Games" preference="pref_forum24"/>
+        <description>Because electricity is for n00bs.</description>
+      </richlistitem>
+      <richlistitem><label value="Media" style="font-weight:bold;"/></richlistitem>
+      <richlistitem orient="vertical">
+        <checkbox label="Movies" preference="pref_forum5"/>
+        <description>Like games without the joysticks.</description>
+      </richlistitem>
+      <richlistitem orient="vertical">
+        <checkbox label="Film Making and Machinima" preference="pref_forum13"/>
+        <description>Discuss projects, concepts, stories and the like.</description>
+      </richlistitem>
+      <richlistitem orient="vertical">
+        <checkbox label="Television" preference="pref_forum16"/>
+        <description>Just like movies, only smaller and more square.</description>
+      </richlistitem>
+      <richlistitem orient="vertical">
+        <checkbox label="Music" preference="pref_forum4"/>
+        <description>No, no one has ever heard of that band. Yes, you are very cool for knowing about them. Now shut up.</description>
+      </richlistitem>
+      <richlistitem orient="vertical">
+        <checkbox label="Books" preference="pref_forum15"/>
+        <description>For people who don't like to hear stuff.</description>
+      </richlistitem>
+      <richlistitem orient="vertical">
+        <checkbox label="Comics and Anime" preference="pref_forum25"/>
+        <description>Still only 75 cents</description>
+      </richlistitem>
+      <richlistitem orient="vertical">
+        <checkbox label="The Billboard" preference="pref_forum28"/>
+        <description>Do your pimping here, yo.</description>
+      </richlistitem>
+      <richlistitem orient="vertical">
+        <checkbox label="Art" preference="pref_forum29"/>
+        <description>So that you kids will stop drawing on the walls.</description>
+      </richlistitem>
+      <richlistitem><label value="Other Stuff" style="font-weight:bold;"/></richlistitem>
+      <richlistitem orient="vertical">
+        <checkbox label="Sports" preference="pref_forum12"/>
+        <description>Where you are always picked last to post.</description>
+      </richlistitem>
+      <richlistitem orient="vertical">
+        <checkbox label="Politics and Current Events" preference="pref_forum14"/>
+        <description>Where people who live in the same country come to hate each other.</description>
+      </richlistitem>
+      <richlistitem orient="vertical">
+        <checkbox label="Technical" preference="pref_forum11"/>
+        <description>Hardware, gadgets, etc. Pretend like you know what you are talking about in here.</description>
+      </richlistitem>
+      <richlistitem orient="vertical">
+        <checkbox label="Lopez's Garage" preference="pref_forum17"/>
+        <description>If it has an engine, bring it here.</description>
+      </richlistitem>
+      <richlistitem><label value="Rock Bottom" style="font-weight:bold;"/></richlistitem>
+      <richlistitem orient="vertical">
+        <checkbox label="Forum Games" preference="pref_forum27"/>
+        <description>Not a Gaming Forum but a forum for games</description>
+      </richlistitem>
+      <richlistitem orient="vertical">
+        <checkbox label="The Basement" preference="pref_forum7"/>
+        <description>If you get offended by words on a monitor, you should stay out of here.</description>
+      </richlistitem>
 		</richlistbox>
-		</groupbox>
-	</tabpanel>
-	</tabpanels>
-</tabbox>
-</dialog>
+	</prefpane>
+</prefwindow>

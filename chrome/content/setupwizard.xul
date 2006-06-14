@@ -40,7 +40,6 @@
 	height="500"
 	width="400">
 	<script type="application/x-javascript" src="chrome://rtse/content/setup.js"/>
-	<script type="application/x-javascript" src="chrome://rtse/content/signin.js"/>
 	<wizardpage id="disclaimer" description="&Welcome.name;">
 		<description maxwidth="300">&Welcome.text;</description>
 	</wizardpage>
