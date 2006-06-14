@@ -1,3 +1,4 @@
 overlay	chrome://browser/content/browser.xul	chrome://rtse/content/browser.xul
 content	rtse	jar:chrome/rtse.jar!/content/
 skin	rtse	classic/1.0	jar:chrome/rtse.jar!/skin/
+locale	rtse	en-US jar:chrome/rtse.jar!/locale/en-US/

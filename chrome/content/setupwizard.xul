@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
 
+<!DOCTYPE wizard SYSTEM "chrome://rtse/locale/setupwizard.dtd">
+
 <!--
 /* ***** BEGIN LICENSE BLOCK *****
  * Version: Open Software License v. 2.1
@@ -25,12 +27,13 @@
  *
  * Contributor(s):
  *     Shawn Wilsher
+ *     Reed Martz
  *
  * ***** END LICENSE BLOCK ***** */
 -->
 
 <wizard id="SetupWizard"
-	title="Rooster Teeth Site Extender Initial Setup"
+	title="&Wizard.title;"
 	xmlns:html="http://www.w3.org/1999/xhtml"
 	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
 	onwizardfinish="return wizard.apply();"
@@ -38,53 +41,53 @@
 	width="400">
 	<script type="application/x-javascript" src="chrome://rtse/content/setup.js"/>
 	<script type="application/x-javascript" src="chrome://rtse/content/signin.js"/>
-	<wizardpage id="disclaimer" description="Welcome">
-		<description maxwidth="300">Thank you for downloading and installing the Rooster Teeth Site Extender.  This wizard will help you get the extension setup just the way you want it. We will be collecting some information about you and setting your preferences according to your specifications.  Please note that these settings can be changed at any time by selecting 'Rooster Teeth Site Extender' and clicking the 'options' button in the extension manager.  If you are wnodering why you are seeing this window again, it is because you recently updated the extension, and regretably some data was lost.</description>
+	<wizardpage id="disclaimer" description="&Welcome.name;">
+		<description maxwidth="300">&Welcome.text;</description>
 	</wizardpage>
-	<wizardpage id="auto-signin" description="Automatic Sign In">
-		<description maxwidth="300">This feature can be used to remember your username and password, and automatically log you into the Rooster Teeth site. The method used to accomplish this is the EXACT same as if you typed the data in yourself, only faster, and easier.  This feature is optional, just like everything in the extension.  Passwords are now encrypted with Firefox's password manager, so no more plain text storage (yeah, I know it was a stupid idea initially...).</description>
+	<wizardpage id="auto-signin" description="&Signin.name;">
+		<description maxwidth="300">&Signin.text;</description>
 		<spacer style="height:10px"/>
-		<checkbox checked="true" label="Enable Automatic Sign In" id="signin"/>
+		<checkbox checked="true" label="&Signin.enablelabel;" id="signin"/>
 		<spacer style="height:10px"/>
 		<hbox>
-		<label value="Username:" control="username" />
+		<label value="&Signin.usernamelabel;" control="username" />
 		<textbox id="username" maxlength="12" size="12" width="120"/>
 		</hbox>
 		<hbox>
-		<label value="Password:" control="pwd" />
+		<label value="&Signin.passwordlabel;" control="pwd" />
 		<textbox id="pwd" maxlength="16" size="16" type="password" width="120"/>
 		</hbox>
 		<hbox>
-			<checkbox checked="false" label="I am a sponsor" id="sponsor"/>
+			<checkbox checked="false" label="&Signin.sponsorlabel;" id="sponsor"/>
 		</hbox>
-		<description maxwidth="300">This only enables certain features if you are a sponsor, but realize that these features are useless if you are not a sponsor.</description>
+		<description maxwidth="300">&Signin.sponsortext;</description>
 	</wizardpage>
-	<wizardpage id="sitepreferences" description="Site Preferences">
-		<description maxwidth="300">This extension can maintain a constant theme on the Rooster Teeth site. Example: If you click on a link to a page on the Strangerhood subdomain, and you set your preferred theme to PANICS, it will apply the PANICS theme to the page instead of the Strangerhood one.</description>
+	<wizardpage id="sitepreferences" description="&Sitepref.name;">
+		<description maxwidth="300">&Sitepref.text;</description>
 		<spacer style="height:20px"/>
-		<checkbox checked="true" id="theme" label="Enable Themer"/>
+		<checkbox checked="true" id="theme" label="&Sitepref.enablethemer;"/>
 		<spacer style="height:10px"/>
 		<hbox>
-			<label value="Prefered site skin:"/>
+			<label value="&Sitepref.skinlabel;"/>
 			<menulist id="themeType">
 				<menupopup>
-					<menuitem label="Rooster Teeth" value="www" selected="true"/>
-					<menuitem label="Red vs Blue" value="rvb"/>
-					<menuitem label="Stangerhood" value="sh"/>
-					<menuitem label="PANICS" value="panics"/>
+					<menuitem label="&Sitepref.RTskinoption;" value="www" selected="true"/>
+					<menuitem label="&Sitepref.RvBskinoption;" value="rvb"/>
+					<menuitem label="&Sitepref.SHskinoption;" value="sh"/>
+					<menuitem label="&Sitepref.Panicsskinoption;" value="panics"/>
 				</menupopup>
 			</menulist>
 		</hbox>
 		<spacer style="height:20px"/>
-		<description>This feature will enable an advanced editing box, instead of the default posting area. It includes many new features, such as: a link creation tool, styling buttons, an integrated spell checker (if <html:a href="http://spellbound.sourceforge.net" target="_blank">Spellbound</html:a> is installed), and much more.</description>
+		<description>&Sitepref.ATElabel;</description>
 		<spacer style="height:10px"/>
-		<checkbox id="editor" checked="true" label="Enable Advanced Text Editing"/>
+		<checkbox id="editor" checked="true" label="&Sitepref.ATEenable;"/>
   </wizardpage>
-  <wizardpage id="pageTalkback" description="Talkback">
-    <description maxwidth="300">Talkback is a new feature to the extension that reports the errors you get while using RTSE to the devs so they can fix them.  This is optional, but appreciated if you decided to participate.</description>
-    <checkbox id="talkback" label="Enable Talkback"/>
+  <wizardpage id="pageTalkback" description="&Talkback.name;">
+    <description maxwidth="300">&Talkback.text;</description>
+    <checkbox id="talkback" label="&Talkback.checkboxlabel;"/>
   </wizardpage>
-	<wizardpage id="finished" description="Finished">
-		<description maxwidth="300">The Rooster Teeth Site Extender is now configured.  The settings that you just entered can be changed at any time by selecting 'Rooster Teeth Site Extender' and clicking the options button in the extension manager.  If you have enabled auto-sign in, you will be signed in automatically the next time the browser starts.</description>
+	<wizardpage id="finished" description="&Finished.name;">
+		<description maxwidth="300">&Finished.text;</description>
 	</wizardpage>
 </wizard>

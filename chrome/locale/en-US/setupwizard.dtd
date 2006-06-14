@@ -1,0 +1,53 @@
+<!--
+/* ***** BEGIN LICENSE BLOCK *****
+ * Version: Open Software License v. 2.1
+ *
+ * The contents of this file are subject to the Open Software License Version
+ * 2.1 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ * http://www.opensource.org/licenses/osl-2.1.php
+ *
+ * Software distributed under the License is distributed on an "AS IS" basis,
+ * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+ * for the specific language governing rights and limitations under the
+ * License.
+ *
+ * The Original Code is the 'Rooster Teeth Site Extender'.
+ *
+ * The Initial Developer of the Original Code is
+ * Reed Martz <reed@reedmartz.com>
+ *
+ * Portions created by the Initial Developer are Copyright (C) 2006
+ * the Initial Developer. All Rights Reserved.
+ *
+ * Contributor(s):
+ * Shawn Wilsher <me@shawnwilsher.com>
+ *
+ * ***** END LICENSE BLOCK ***** */
+-->
+
+<!ENTITY Wizard.title "Rooster Teeth Site Extender Initial Setup">
+<!ENTITY Welcome.name "Welcome">
+<!ENTITY Welcome.text "Thank you for downloading and installing the Rooster Teeth Site Extender.  This wizard will help you get the extension setup just the way you want it. We will be collecting some information about you and setting your preferences according to your specifications.  Please note that these settings can be changed at any time by selecting 'Rooster Teeth Site Extender' and clicking the 'options' button in the extension manager.  If you are wondering why you are seeing this window again, it is because you recently updated the extension, and regrettably some data was lost.">
+<!ENTITY Signin.name "Automatic Sign In">
+<!ENTITY Signin.text "This feature can be used to remember your username and password, and automatically log you into the Rooster Teeth site. The method used to accomplish this is the EXACT same as if you typed the data in yourself, only faster, and easier.  This feature is optional, just like everything in the extension.  Passwords are now encrypted with Firefox's password manager, so no more plain text storage (yeah, I know it was a stupid idea initially...).">
+<!ENTITY Signin.enablelabel "Enable Automatic Sign In">
+<!ENTITY Signin.usernamelabel "Username:">
+<!ENTITY Signin.passwordlabel "Password:">
+<!ENTITY Signin.sponsorlabel "I am a sponsor">
+<!ENTITY Signin.sponsortext "This only enables certain features if you are a sponsor, but realize that these features are useless if you are not a sponsor.">
+<!ENTITY Sitepref.name "Site Preferences">
+<!ENTITY Sitepref.text "This extension can maintain a constant theme on the Rooster Teeth site. Example: If you click on a link to a page on the Strangerhood subdomain, and you set your preferred theme to PANICS, it will apply the PANICS theme to the page instead of the Strangerhood one.">
+<!ENTITY Sitepref.enablethemer "Enable Themer">
+<!ENTITY Sitepref.skinlabel "Prefered site skin:">
+<!ENTITY Sitepref.RTskinoption "Rooster Teeth">
+<!ENTITY Sitepref.RvBskinoption "Red vs Blue">
+<!ENTITY Sitepref.SHskinoption "Stranger Hood">
+<!ENTITY Sitepref.Panicsskinoption "PANICS">
+<!ENTITY Sitepref.ATElabel "This feature will enable an advanced editing box, instead of the default posting area. It includes many new features, such as: a link creation tool, styling buttons, an integrated spell checker (if Spellbound is installed), and much more.">
+<!ENTITY Sitepref.ATEenable "Enable Advanced Text Editing">
+<!ENTITY Talkback.name "Talkback">
+<!ENTITY Talkback.text "Talkback is a new feature to the extension that reports the errors you get while using RTSE to the devs so they can fix them.  This is optional, but appreciated if you decided to participate.">
+<!ENTITY Talkback.checkboxlabel "Enable Talkback">
+<!ENTITY Finished.name "Finished">
+<!ENTITY Finished.text "The Rooster Teeth Site Extender is now configured.  The settings that you just entered can be changed at any time by selecting 'Rooster Teeth Site Extender' and clicking the options button in the extension manager.  If you have enabled auto-sign in, you will be signed in automatically the next time the browser starts.">
