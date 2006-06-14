@@ -19,17 +19,12 @@
  * The Initial Developer of the Original Code is
  * Shawn Wilsher
  *
- * Portions created by the Initial Developer are Copyright (C) 2005
+ * Portions created by the Initial Developer are Copyright (C) 2005-2006
  * the Initial Developer. All Rights Reserved.
  *
  * Contributor(s):
  *
  * ***** END LICENSE BLOCK ***** */
 -->
-
-<config>
-		<setting name="fixLinks">true</setting>
-		<setting name="signin">false</setting>
-		<setting name="theme">false</setting>
-		<setting name="firstInstall">true</setting>
-</config>
+<!--XXX To be phased out -->
+<config/>

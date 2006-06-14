@@ -16,63 +16,59 @@
  * The Initial Developer of the Original Code is
  * Shawn Wilsher
  *
- * Portions created by the Initial Developer are Copyright (C) 2005
+ * Portions created by the Initial Developer are Copyright (C) 2005-2006
  * the Initial Developer. All Rights Reserved.
  *
  * Contributor(s):
  *
  * ***** END LICENSE BLOCK ***** */
 
-var RTSE=window.arguments[0];
 var gRTSE=Components.classes['@shawnwilsher.com/rtse;1']
                     .createInstance(Components.interfaces.nsIRTSE);
 var wizard = {
-	/* used for the Setup Wizard */
-	apply: function() {
-		/* Applies Settings */
+	// used for the Setup Wizard
+
+ /**
+  * Applies the settins from the Setup Wizard
+  * @return true if successful, false if failure.
+  */
+	apply: function apply() {
 		try {
-			var names=new Array();
-			var values=new Array();
+			// Username
+			var user = document.getElementById('username').value;
+      gRTSE.prefsSetString('extensions.rtse.username', user);
+
+			// Password
+			var pm = Components.classes["@mozilla.org/passwordmanager;1"]
+                         .getService(Components.interfaces.nsIPasswordManager);
+      pm.addUser('rtse', user, document.getElementById('pwd').value);
+
+			// Auto Sign In
+			gRTSE.prefsSetBool('extensions.rtse.signin', document.getElementById('signin').checked);
 		
-			/* username */
-			gRTSE.prefsSetString('extensions.rtse.username',document.getElementById('username').value);
+			// Sponsor
+			gRTSE.prefsSetBool('extensions.rtse.sponsor', document.getElementById('sponsor').checked);
 
-			/* password */
-			names.push('pwd');
-			values.push(document.getElementById('pwd').value);
-
-			/* auto login */
-			if( document.getElementById('signin').checked )
-				gRTSE.prefsSetBool('extensions.rtse.autologin',true);
-			else
-				gRTSE.prefsSetBool('extensions.rtse.autologin',false);
-		
-			/* sponsor */
-			if( document.getElementById('sponsor').checked )
-				gRTSE.prefsSetBool('extensions.rtse.sponsor',true);
-			else
-				gRTSE.prefsSetBool('extensions.rtse.sponsor',false);
-
-			/* themer */
-			if( document.getElementById('theme').checked ) {
-				gRTSE.prefsSetBool('extensions.rtse.themer',true);
-				gRTSE.prefsSetString('extensions.rtse.themeType',document.getElementById('themeType').selectedItem.value);
+			// themer
+			if (document.getElementById('theme').checked) {
+				gRTSE.prefsSetBool('extensions.rtse.themer', true);
+				gRTSE.prefsSetString('extensions.rtse.themeType', document.getElementById('themeType').selectedItem.value);
 			} else {
-				gRTSE.prefsSetBool('extensions.rtse.themer',false);
+				gRTSE.prefsSetBool('extensions.rtse.themer', false);
 			}
 
-			/* editor */
-			if( document.getElementById('editor').checked )
-				gRTSE.prefsSetBool('extensions.rtse.editor',true);
-			else
-				gRTSE.prefsSetBool('extensions.rtse.editor',false);
+			// Editor
+			gRTSE.prefsSetBool('extensions.rtse.editor', document.getElementById('editor').checked);
 
-			gRTSE.prefsSetBool('extensions.rtse.firstInstall',false);
-			RTSE.config.setMult(names,values);
+      // Talkback
+      gRTSE.prefsSetBool('extensions.rtse.talkback', document.getElementById('talkback').checked);
 
-			return(true);
+			// Finishing up
+      gRTSE.prefsSetBool('extensions.rtse.firstInstall',false);
+			return true;
 		} catch(e) {
-			gRTSE.sendReport(e);
+			alert("We're sorry, but an error occured.");
+      return false;
 		}
 	}
 }

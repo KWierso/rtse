@@ -26,16 +26,10 @@
 var gRTSE=Components.classes['@shawnwilsher.com/rtse;1']
                     .createInstance(Components.interfaces.nsIRTSE);
 var RTSE = {
-	init: function() {
-		// load binding
-		var ios = Components.classes["@mozilla.org/network/io-service;1"]
-		                    .getService(Components.interfaces.nsIIOService);
-		var uri = ios.newURI("chrome://rtse/content/bindings.css",null,null);
-		var sss = Components.classes["@mozilla.org/content/style-sheet-service;1"]
-		                    .getService(Components.interfaces.nsIStyleSheetService);
-		if( !sss.sheetRegistered(uri,sss.USER_SHEET) )
-			sss.loadAndRegisterSheet(uri,sss.USER_SHEET);
-
+ /**
+  * Function that initializes everything for each windows
+  */
+  init: function init() {
 		/* Load Config */
 		RTSE.config=new RTSE_Config();
 		RTSE.config.load();
@@ -43,9 +37,9 @@ var RTSE = {
 		/* Add config listener */
 		gRTSE.prefsRegisterObserver('config.reload',RTSE.config);
 
-		/* Check if wizard should run */
-		if( RTSE.config.get('firstInstall','true')=='true' )
-			var win=window.openDialog('chrome://rtse/content/setupwizard.xul','RTSEsetup','chrome,centerscreen',RTSE);
+		// Check if wizard should run
+		if (gRTSE.prefsGetBool('extensions.rtse.firstInstall'))
+			window.openDialog('chrome://rtse/content/setupwizard.xul','RTSEsetup','chrome,centerscreen');
 
 		// Sign in
 		gRTSE.login();

@@ -20,7 +20,7 @@
  * The Initial Developer of the Original Code is
  * Brandon Jernigan
  *
- * Portions created by the Initial Developer are Copyright (C) 2005
+ * Portions created by the Initial Developer are Copyright (C) 2005-2006
  * the Initial Developer. All Rights Reserved.
  *
  * Contributor(s):
@@ -39,14 +39,12 @@
 	<script type="application/x-javascript" src="chrome://rtse/content/setup.js"/>
 	<script type="application/x-javascript" src="chrome://rtse/content/signin.js"/>
 	<wizardpage id="disclaimer" description="Welcome">
-		<description maxwidth="300">Thank you for downloading and installing the Rooster Teeth Site Extender.  This wizard will help you get the extension setup just the way you want it. We will be collecting some information about you and setting your preferences according to your specifications.  Please note that these settings can be changed at any time by selecting 'Rooster Teeth Site Extender' and clicking the options button in the extension manager.</description>
-		<spacer style="height:20px"/>
-		<description maxwidth="300">DISCLAIMER: A few items of personal data will be collected, such as your username and password. You may rest assured that this information is not misused in anyway. Lying is for CockBites.</description>
+		<description maxwidth="300">Thank you for downloading and installing the Rooster Teeth Site Extender.  This wizard will help you get the extension setup just the way you want it. We will be collecting some information about you and setting your preferences according to your specifications.  Please note that these settings can be changed at any time by selecting 'Rooster Teeth Site Extender' and clicking the 'options' button in the extension manager.  If you are wnodering why you are seeing this window again, it is because you recently updated the extension, and regretably some data was lost.</description>
 	</wizardpage>
-	<wizardpage id="auto-login" description="Auto-Login">
-		<description maxwidth="300">This feature can be used to remember your username and password, and automatically log you into the Rooster Teeth site. The method used to accomplish this is the EXACT same as if you typed the data in yourself, only faster, and easier.  This feature is optional, just like everything in the extension.  Please realize that if you choose to enable this feature, it will be stored in plain text in your profile and could possibly be read by someone else on your computer.  This isn't a huge security risk though if you have a password for your profile.  Besides, everytime you sign into the RT network, your password is transmitted over the internet in plain text (scary isn't it?).</description>
+	<wizardpage id="auto-signin" description="Automatic Sign In">
+		<description maxwidth="300">This feature can be used to remember your username and password, and automatically log you into the Rooster Teeth site. The method used to accomplish this is the EXACT same as if you typed the data in yourself, only faster, and easier.  This feature is optional, just like everything in the extension.  Passwords are now encrypted with Firefox's password manager, so no more plain text storage (yeah, I know it was a stupid idea initially...).</description>
 		<spacer style="height:10px"/>
-		<checkbox checked="true" label="Enable Auto-Login" id="signin"/>
+		<checkbox checked="true" label="Enable Automatic Sign In" id="signin"/>
 		<spacer style="height:10px"/>
 		<hbox>
 		<label value="Username:" control="username" />
@@ -81,17 +79,11 @@
 		<description>This feature will enable an advanced editing box, instead of the default posting area. It includes many new features, such as: a link creation tool, styling buttons, an integrated spell checker (if <html:a href="http://spellbound.sourceforge.net" target="_blank">Spellbound</html:a> is installed), and much more.</description>
 		<spacer style="height:10px"/>
 		<checkbox id="editor" checked="true" label="Enable Advanced Text Editing"/>
-
-	</wizardpage>
-	<!--<wizardpage id="watchlist" description="Sync Your Watchlist">
-	<vbox>
-		<description minwidth="275" maxwidth="275">Here you are given the opportunity to synchronize your watchlists with the Rooster Teeth server. We have localized this data to make it a bit more manageable. The Watchlist manager is accessible through the Options dialog.</description>
-		<spacer style="height:20px"/>
-	</vbox>
-	<vbox pack="end">
-		<button label="Sync Watchlist" maxwidth="100" oncommand="forumWatchlist.loadSite();forumWatchlist.load();"/>
-	</vbox>
-	</wizardpage>-->
+  </wizardpage>
+  <wizardpage id="pageTalkback" description="Talkback">
+    <description maxwidth="300">Talkback is a new feature to the extension that reports the errors you get while using RTSE to the devs so they can fix them.  This is optional, but appreciated if you decided to participate.</description>
+    <checkbox id="talkback" label="Enable Talkback"/>
+  </wizardpage>
 	<wizardpage id="finished" description="Finished">
 		<description maxwidth="300">The Rooster Teeth Site Extender is now configured.  The settings that you just entered can be changed at any time by selecting 'Rooster Teeth Site Extender' and clicking the options button in the extension manager.  If you have enabled auto-sign in, you will be signed in automatically the next time the browser starts.</description>
 	</wizardpage>

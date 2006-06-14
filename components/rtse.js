@@ -34,6 +34,14 @@ const CONTRACT_ID="@shawnwilsher.com/rtse;1";
 function RTSE()
 // OVERVIEW: This is the constructor function
 {
+  // Loading stylesheet for binding
+  var ios = Components.classes["@mozilla.org/network/io-service;1"]
+                      .getService(Components.interfaces.nsIIOService);
+  var uri = ios.newURI("chrome://rtse/content/bindings.css",null,null);
+  var sss = Components.classes["@mozilla.org/content/style-sheet-service;1"]
+                      .getService(Components.interfaces.nsIStyleSheetService);
+  if( !sss.sheetRegistered(uri,sss.USER_SHEET) )
+    sss.loadAndRegisterSheet(uri,sss.USER_SHEET);
 };
 RTSE.prototype = {
 	// OVERVIEW: This is the class definition.  Defines the functions
@@ -52,7 +60,7 @@ RTSE.prototype = {
 	//          it will log you in to the site.
 	{
 		try {
-			if( !this.mLoginSent && this.prefsGetBool('extensions.rtse.autologin') && this.prefsGetString('extensions.rtse.username') ) {
+			if( !this.mLoginSent && this.prefsGetBool('extensions.rtse.signin') && this.prefsGetString('extensions.rtse.username') ) {
 				// pulls from password manager
 				var pm = Components.classes["@mozilla.org/passwordmanager;1"]
 				                   .getService(Components.interfaces.nsIPasswordManagerInternal);
@@ -79,15 +87,22 @@ RTSE.prototype = {
 		}
 	},
 
-	sendReport: function(aError)
-	// EFFECTS: Sends the error back to server to establish common problems people may be having.
+ /**
+  * Function that sends the error report if the preference is set to do so
+  *  regardless, it logs a message to the error console.
+  */
+	sendReport: function sendReport(aError)
 	{
-		var req=Components.classes["@mozilla.org/xmlextras/xmlhttprequest;1"]
-		                  .getService(Components.interfaces.nsIXMLHttpRequest);
-		req.open("POST",'http://services.shawnwilsher.com/errorlogging/rtse.php',true);
-		req.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-		req.send(aError);
-		throw(aError);
+		if (this.prefsGetBool('extensions.rtse.talkback')) {
+      var req=Components.classes["@mozilla.org/xmlextras/xmlhttprequest;1"]
+                        .getService(Components.interfaces.nsIXMLHttpRequest);
+      req.open("POST",'http://services.shawnwilsher.com/errorlogging/rtse.php',true);
+      req.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+      req.send(aError);
+    }
+    var cs = Components.classes["@mozilla.org/consoleservice;1"]
+                       .getService(Components.interfaces.nsIConsoleService);
+    cs.logStringMessage(aError);
 	},
 
 	prefsRegisterObserver: function(aPref,aFunc)
