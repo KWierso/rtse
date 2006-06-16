@@ -63,7 +63,7 @@ function RTSE_addCSS(aDoc)
 function RTSE_themeIt(doc) {
 	/* changes the CSS to the right one for your flavor */
 	try {
-		var theme=RTSE.config.get('themeType','www');
+		var theme = gRTSE.prefsGetString("extensions.rtse.themeType");
 		var css=RTSE_evaluateXPath(doc,'//link[@rel="stylesheet"]');
 		var regEx=new RegExp('/assets/'+theme+'.css','i');
 		if( !(regEx.test(css[0].href)) ) {
@@ -80,89 +80,31 @@ function RTSE_themeIt(doc) {
 
 function RTSE_forumListBox(doc) {
 	/* Used to create and insert the list box to jump to a forum */
+  // doesn't work for at least one build until localization is done, so return early
+  return;
 	var listBox=doc.createElement('select');
-	var ids=new Array();
-	var names=new Array();
+	var ids=new Array(7,27,17,11,14,12,29,28,25,15,4,16,13,5,24,23,22,21,31,20,
+                    26,19,18,3,30,10,2,9,8,1,104,103,101);
+  var bundle = Components.classes["@mozilla.org/intl/stringbundle;1"]
+                         .getService(Components.interfaces.nsIStringBundleService)
+                         .createBundle("chrome://rtse/locale/forums.properties");
+  var getName = function getName(aName) {
+    return bundle.GetStringFromName(aName);
+  };
 	var option;
-	var text;
 	
 	/* Declaring all forums */
-	ids.push(7);
-	names.push('The Basement');
-	ids.push(27);
-	names.push('Forum Games');
-	ids.push(17);
-	names.push('Lopez\'s Garage');
-	ids.push(11);
-	names.push('Technical');
-	ids.push(14);
-	names.push('Politics & Current Events');
-	ids.push(12);
-	names.push('Sports');
-	ids.push(29);
-	names.push('Art');
-	ids.push(28);
-	names.push('The Billboard');
-	ids.push(25);
-	names.push('Comics & Anime');
-	ids.push(15);
-	names.push('Books');
-	ids.push(4);
-	names.push('Music');
-	ids.push(16);
-	names.push('Television');
-	ids.push(13);
-	names.push('Film Making & Machinima');
-	ids.push(5);
-	names.push('Movies');
-	ids.push(24);
-	names.push('Board Games & Tabletop Games');
-	ids.push(23);
-	names.push('Classics & Handhelds');
-	ids.push(22);
-	names.push('Gamecube');
-	ids.push(21);
-	names.push('Playstation');
-	ids.push(31);
-	names.push('Xbox 360');
-	ids.push(20);
-	names.push('Xbox');
-	ids.push(26);
-	names.push('The Sims');
-	ids.push(19);
-	names.push('Halo');
-	ids.push(18);
-	names.push('PC Gaming');
-	ids.push(3);
-	names.push('General Gaming');
-	ids.push(30);
-	names.push('PANICS');
-	ids.push(10);
-	names.push('The Strangerhood');
-	ids.push(2);
-	names.push('Red vs Blue');
-	ids.push(9);
-	names.push('Rooster Teeth');
-	ids.push(8);
-	names.push('Website Forum');
-	ids.push(1);
-	names.push('First Stop');
-	ids.push(104);
-	names.push('18 and Up');
-	ids.push(103);
-	names.push('Level 20+');
-	ids.push(101);
-	names.push('Sponsors');
-	ids.push('null');
-	names.push('Jump to forum...');
+//	ids.push('null');
+//	names.push('Jump to forum...');
 	
 	try {
 		/* Creating the listBox */
-		for( var i=(ids.length-1); i>=0; i-- ) {
-			if( RTSE.config.get('show_ftopic_'+ids[i],'true')=='true' ) {
+		for (var i=(ids.length-1); i>=0; i--) {
+			if ((ids[i] && gRTSE.prefsGetBool("extensions.rtse.forum" + ids[i])) ||
+          ids[i]=='null') {
 				option=doc.createElement('option');
 				option.setAttribute('value',ids[i]);
-				option.innerHTML=names[i];
+				option.innerHTML=getName(ids[i]);
 				listBox.appendChild(option);
 			}
 		}
@@ -373,7 +315,7 @@ function RTSE_insertEditor(doc,type) {
 function RTSE_addToSideBar(doc) {
 	/* Adds My Stats and Mod history to side navigation panel */
 	try {
-		if( RTSE.config.get('sponsor','false')=='false' ) return;
+		if (!gRTSE.prefsGetBool("extensions.rtse.sponsor")) return;
 		var ref=RTSE_evaluateXPath(doc,"//td[@id='navCol']/table/tbody/tr[17]");
 		ref=ref[0];
 		var tr,td,div,a;

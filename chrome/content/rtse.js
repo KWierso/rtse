@@ -33,13 +33,6 @@ var RTSE = {
     // Ininitialzing other data
     this.smilies.init();
 
-		/* Load Config */
-		RTSE.config=new RTSE_Config();
-		RTSE.config.load();
-
-		/* Add config listener */
-		gRTSE.prefsRegisterObserver('config.reload',RTSE.config);
-
 		// Check if wizard should run
 		if (gRTSE.prefsGetBool('extensions.rtse.firstInstall'))
 			window.openDialog('chrome://rtse/content/setupwizard.xul','RTSEsetup','chrome,centerscreen');
@@ -70,12 +63,12 @@ var RTSE = {
 			// Add custom CSS
 			RTSE_addCSS(doc);
 
-			/* Fix Links */
-			if( RTSE.config.get('fixLinks','true')=='true' )
+			// Fix Links
+			if (gRTSE.prefsGetBool("extensions.rtse.fixLinks"))
 				RTSE_linkFix(doc);
 			
-			/* Theme */
-			if( RTSE.config.get('theme','false')=='true' )
+			// Themer
+			if (gRTSE.prefsGetBool("extensions.rtse.themer"))
 				RTSE_themeIt(doc);
 			
 			/* Forum Quick Jump */
@@ -223,13 +216,13 @@ var RTSE = {
 			
 			/* Send PM */
 			document.getElementById('rtse-user-sendPM').setAttribute('oncommand','gBrowser.addTab("http://'+
-				    RTSE.config.get('themeType','www')+'.roosterteeth.com/members/messaging/send.php?to='+uid+'");');
+				    gRTSE.prefsGetString("extensions.rtse.themeType")+'.roosterteeth.com/members/messaging/send.php?to='+uid+'");');
 			/* Add Friend */
 			document.getElementById('rtse-user-friends').setAttribute('oncommand','gBrowser.addTab("http://'+
-				    RTSE.config.get('themeType','www')+'.roosterteeth.com/members/addFriend.php?uid='+uid+'");');
+				    gRTSE.prefsGetString("extensions.rtse.themeType")+'.roosterteeth.com/members/addFriend.php?uid='+uid+'");');
 			/* Watch */
 			document.getElementById('rtse-user-watch').setAttribute('oncommand','gBrowser.addTab("http://'+
-				    RTSE.config.get('themeType','www')+'.roosterteeth.com/members/addWatch.php?uid='+uid+'");');
+				    gRTSE.prefsGetString("extensions.rtse.themeType")+'.roosterteeth.com/members/addWatch.php?uid='+uid+'");');
 			
 			
 		} else {
