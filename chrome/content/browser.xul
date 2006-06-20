@@ -35,4 +35,12 @@
 	</menu>
 </popup>
 
+<statusbar id="status-bar">
+  <statusbarpanel id="rtse-editor"
+                  insertbefore="statusbar-display"
+                  label="rtse"
+                  crop="none"
+                  hidden="true"/>
+</statusbar>
+
 </overlay>

@@ -127,10 +127,11 @@ function RTSE_forumListBox(doc) {
 
 function RTSE_insertEditor(doc,type) {
 	/* Used to insert the editor in as opposed to the normal interface */
-	if (!gRTSE.prefsGetBool('extensions.rtse.editor')) return;
+	if (!gRTSE.prefsGetBool('extensions.rtse.editor') && !RTSE) return;
 	const DEFAULT_HEIGHT='256';
 	const TITLE_HEIGHT='279';
 	const BLANK_MESSAGE_HEIGHT='356';
+  RTSE.editor.toggleIcon();
 
 	// deconvert any text that needs to be
 	RTSE_deconvertExtraBB(doc);

@@ -32,6 +32,7 @@ var RTSE = {
   init: function init() {
     // Ininitialzing other data
     this.smilies.init();
+    this.editor.init();
 
 		// Check if wizard should run
 		if (gRTSE.prefsGetBool('extensions.rtse.firstInstall'))
@@ -292,7 +293,7 @@ var RTSE = {
     },
 
     ///////////////////////////////////////////////////////////////////////////
-    // Attributes
+    //// Attributes
    
    /**
     * The names of the smilies
@@ -310,6 +311,55 @@ var RTSE = {
                  });
       }
       return out;
+    }
+  },
+
+ /**
+  * Object used to manage the editor
+  */
+  editor: {
+    ///////////////////////////////////////////////////////////////////////////
+    //// Private Variables
+
+    mOk: false,
+    mSm: null,
+    mToggle: false,
+    mIcon: true,
+
+    ///////////////////////////////////////////////////////////////////////////
+    //// Functions
+
+   /**
+    * Initializes everything for the editor to work properly
+    */
+    init: function init()
+    {
+      this.mSm = Components.classes["@mozilla.org/gfx/screenmanager;1"]
+                           .getService(Components.interfaces.nsIScreenManager);
+      var elm = document.getElementById("rtse-editor");
+      elm.addEventListener("command",function() {
+        RTSE.editor.toggleEditor();
+      },false);
+      this.mOk = this.mSm ? true : false;
+    },
+
+   /**
+    * Shows/hides the toggle button on the statusbar
+    */
+    toggleIcon: function toggleIcon()
+    {
+      document.getElementById("rtse-editor").hidden = this.mIcon = !this.mIcon;
+    },
+
+    ///////////////////////////////////////////////////////////////////////////
+    //// Attributes
+
+   /**
+    * Indicates if the object is ready yet
+    */
+    get ok()
+    {
+      return this.mOk;
     }
   }
 }
