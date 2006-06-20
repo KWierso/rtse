@@ -27,22 +27,42 @@
 if( !gRTSE )
 	var gRTSE=Components.classes['@shawnwilsher.com/rtse;1']
 	                    .createInstance(Components.interfaces.nsIRTSE);
-function RTSE_linkFix(doc) {
-	/* removes all targets from links to RT sites and makes it go to your own flavor */
-	try {
-		var links=RTSE_evaluateXPath(doc.getElementById('pageContent'),'//a[@target="_blank"]');
-		var regEx=/^http:\/\/(www|rvb|sh|panics).roosterteeth.com(.*)$/i;
-		for( var i=(links.length-1); i>=0; i-- ) {
-			if( links[i].href.match(regEx) ) {
-				links[i].removeAttribute('target');	/* Prevents new window */
-				links[i].href=links[i].href.replace(regEx,'$2');
-			} else if( links[i].href.match(/^\/(.*)$/i) ) {
-				links[i].removeAttribute('target'); /* Prevents new window */
-			}
-		}
-	} catch(e) {
-		gRTSE.sendReport(e);
-	}
+
+function RTSE_linkFix(aDoc)
+// EFFECTS: removes all targets from links and prevents links from opening in a
+//          new flavor.  In addition, it changes an anchors for that page to
+//          scroll into view as opposed to loading a new url.
+{
+  // Scroll Into view for links on same page
+  var loc = aDoc.location.href
+                .replace(/^https?:\/\/(www|rvb|sh|panics)\.roosterteeth\.com(.*)$/i,'$2');
+  var func = function showMe(aEvent) {
+    var id = this.href.replace(/^.*?#([\S\s]+)$/i,'$1');
+    var doc = this.ownerDocument;
+    var elm = doc.getElementById(id) ? doc.getElementById(id) :
+                                       doc.getElementsByName(id)[0];
+    if (elm) {
+      elm.scrollIntoView(true);
+      aEvent.preventDefault();
+    }
+  };
+  var links = RTSE_evaluateXPath(aDoc,"//a[contains(@href,'#') and contains(@href,'" + loc + "')]");
+  for (var i = (links.length - 1); i >= 0; --i) {
+    links[i].addEventListener("click", func, false);
+  }
+
+  // Remove target and keep same flavor
+  if (!gRTSE.prefsGetBool("extensions.rtse.fixLinks")) return;
+  links = RTSE_evaluateXPath(aDoc,'//a[@target="_blank"]');
+  var regEx = /^http:\/\/(www|rvb|sh|panics).roosterteeth.com(.*)$/i;
+  for (var i = (links.length - 1); i >= 0; --i) {
+    if (links[i].href.match(regEx)) {
+      links[i].removeAttribute('target');
+      links[i].href=links[i].href.replace(regEx, '$2');
+    } else if (links[i].href.match(/^\/(.*)$/i)) {
+      links[i].removeAttribute('target');
+    }
+  }
 }
 
 function RTSE_addCSS(aDoc)
@@ -131,7 +151,6 @@ function RTSE_insertEditor(doc,type) {
 	const DEFAULT_HEIGHT='256';
 	const TITLE_HEIGHT='279';
 	const BLANK_MESSAGE_HEIGHT='356';
-  RTSE.editor.toggleIcon();
 
 	// deconvert any text that needs to be
 	RTSE_deconvertExtraBB(doc);
@@ -558,4 +577,25 @@ function RTSE_HTMLtoBB(aText)
 	aText = aText.replace(/&gt;/g,'>');
 
 	return aText;
+}
+
+function RTSE_addSearchPlugins(aDoc)
+// EFFECTS: Adds the proper link tags for the search plugins
+{
+  var head = aDoc.getElementsByTagName("head")[0];
+  var titles = ["RT User Search",
+                "RT Forum Thread Search",
+                "RT Forum Post Search"];
+  var hrefs = ["http://files.shawnwilsher.com/projects/rtse/search/users.xml",
+               "http://files.shawnwilsher.com/projects/rtse/search/threads.xml",
+               "http://files.shawnwilsher.com/projects/rtse/search/posts.xml"];
+  var link;
+  for (var i = (titles.length - 1); i >= 0; --i) {
+    link = aDoc.createElement("link");
+    link.setAttribute("rel", "search");
+    link.setAttribute("type", "application/opensearchdescription+xml");
+    link.setAttribute("title", titles[i]);
+    link.setAttribute("href", hrefs[i]);
+    head.appendChild(link);
+  }
 }

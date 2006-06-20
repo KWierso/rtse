@@ -32,7 +32,8 @@ var RTSE = {
   init: function init() {
     // Ininitialzing other data
     this.smilies.init();
-    this.editor.init();
+    if (gRTSE.prefsGetBool("extensions.rtse.editor"))
+      this.editor.init();
 
 		// Check if wizard should run
 		if (gRTSE.prefsGetBool('extensions.rtse.firstInstall'))
@@ -65,8 +66,7 @@ var RTSE = {
 			RTSE_addCSS(doc);
 
 			// Fix Links
-			if (gRTSE.prefsGetBool("extensions.rtse.fixLinks"))
-				RTSE_linkFix(doc);
+      RTSE_linkFix(doc);
 			
 			// Themer
 			if (gRTSE.prefsGetBool("extensions.rtse.themer"))
@@ -77,6 +77,9 @@ var RTSE = {
 
 			/* Add sidebar items */
 			RTSE_addToSideBar(doc);
+
+      // MozSearch
+      RTSE_addSearchPlugins(doc);
 
 			/* Editor */
 			if( doc.getElementById('Add a Comment') )
@@ -324,7 +327,6 @@ var RTSE = {
     mOk: false,
     mSm: null,
     mToggle: false,
-    mIcon: true,
 
     ///////////////////////////////////////////////////////////////////////////
     //// Functions
@@ -337,18 +339,39 @@ var RTSE = {
       this.mSm = Components.classes["@mozilla.org/gfx/screenmanager;1"]
                            .getService(Components.interfaces.nsIScreenManager);
       var elm = document.getElementById("rtse-editor");
-      elm.addEventListener("command",function() {
+      elm.addEventListener("command", function() {
         RTSE.editor.toggleEditor();
-      },false);
+      }, false);
+
+      gBrowser.mPanelContainer.addEventListener("DOMContentLoaded",
+                                                RTSE.editor.toggleIcon,
+                                                false);
+
       this.mOk = this.mSm ? true : false;
     },
 
    /**
-    * Shows/hides the toggle button on the statusbar
+    * Determines if the icon should be visable.  Should only be called from an
+    *  event listener
+    * @param aEvent The event passed to the function
     */
-    toggleIcon: function toggleIcon()
+    toggleIcon: function toggleIcon(aEvent)
     {
-      document.getElementById("rtse-editor").hidden = this.mIcon = !this.mIcon;
+      var show = false;
+      var doc = gBrowser.getBrowserAtIndex(gBrowser.mTabContainer.selectedIndex)
+                        .contentDocument;
+      if (/^https?:\/\/(www|rvb|sh|panics)\.roosterteeth\.com(.*)?$/.test(doc.location.href)) {
+        show = doc.getElementById("Add a Comment") ||
+               doc.getElementById("Make a Journal Entry") ||
+               doc.getElementById("Edit Journal Entry") ||
+               doc.getElementById("Add a New Topic") ||
+               doc.getElementById("Reply") ||
+               doc.getElementById("Send a Message") ||
+               doc.getElementById("Post") ||
+               doc.getElementById("Edit") ||
+               doc.getElementById("Edit Post");
+      }
+      document.getElementById("rtse-editor").hidden = !show;
     },
 
     ///////////////////////////////////////////////////////////////////////////

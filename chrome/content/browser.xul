@@ -40,7 +40,8 @@
                   insertbefore="statusbar-display"
                   label="rtse"
                   crop="none"
-                  hidden="true"/>
+                  hidden="true"
+                  tooltiptext="The RTSE editor is enabled on this page"/>
 </statusbar>
 
 </overlay>
