@@ -35,15 +35,15 @@
     <vbox id="rtse-editor" flex="4">
       <textbox id="rtse-editor-title" hidden="true" maxlength="40"/>
         <toolbox pack="center">
-          <toolbar id="topToolbar">
-            <toolbarbutton id="b" image="chrome://rtse/skin/images/editor/bold.png"/>
-            <toolbarbutton id="i" image="chrome://rtse/skin/images/editor/italic.png"/>
-            <toolbarbutton id="u" image="chrome://rtse/skin/images/editor/underline.png"/>
-            <toolbarbutton id="s" image="chrome://rtse/skin/images/editor/strike.png"/>
-            <toolbarbutton id="img" image="chrome://rtse/skin/images/editor/image.png"/>
-            <toolbarbutton id="quote" image="chrome://rtse/skin/images/editor/quote.png"/>
-            <toolbarbutton id="link" image="chrome://rtse/skin/images/editor/link.png"/>
-            <toolbarbutton id="color" image="chrome://rtse/skin/images/editor/color.png" type="menu" autoCheck="false" hidden="true">
+          <toolbar id="rtse-editor-topToolbar">
+            <toolbarbutton id="rtse-editor-b" image="chrome://rtse/skin/images/editor/bold.png"/>
+            <toolbarbutton id="rtse-editor-i" image="chrome://rtse/skin/images/editor/italic.png"/>
+            <toolbarbutton id="rtse-editor-u" image="chrome://rtse/skin/images/editor/underline.png"/>
+            <toolbarbutton id="rtse-editor-s" image="chrome://rtse/skin/images/editor/strike.png"/>
+            <toolbarbutton id="rtse-editor-img" image="chrome://rtse/skin/images/editor/image.png"/>
+            <toolbarbutton id="rtse-editor-quote" image="chrome://rtse/skin/images/editor/quote.png"/>
+            <toolbarbutton id="rtse-editor-link" image="chrome://rtse/skin/images/editor/link.png"/>
+            <toolbarbutton id="rtse-editor-color" image="chrome://rtse/skin/images/editor/color.png" type="menu" autoCheck="false" hidden="true">
               <menupopup>
                 <menuitem label="Red" value="FF0000"/>
                 <menuitem label="Orange" value="FFAA00"/>
@@ -57,16 +57,16 @@
                 <menuitem label="Custom Color"/>
               </menupopup>
             </toolbarbutton>
-            <toolbarbutton id="colorSwitch" image="chrome://rtse/skin/images/editor/color.png" hidden="true"/>
-            <toolbarbutton id="smiley" image="chrome://rtse/skin/images/editor/happy.png" hidden="true"/>
-            <toolbarbutton id="friendsOnly" hidden="true" type="checkbox" image="chrome://rtse/content/images/unlocked.png"/>
-            <toolbarbutton id="newConv" hidden="true" autoCheck="false" image="chrome://rtse/content/images/newConv.png"/>
+            <toolbarbutton id="rtse-editor-colorSwitch" image="chrome://rtse/skin/images/editor/color.png" hidden="true"/>
+            <toolbarbutton id="rtse-editor-smiley" image="chrome://rtse/skin/images/editor/happy.png" hidden="true"/>
+            <toolbarbutton id="rtse-editor-friendsOnly" hidden="true" type="checkbox" image="chrome://rtse/content/images/unlocked.png"/>
+            <toolbarbutton id="rtse-editor-newConv" hidden="true" autoCheck="false" image="chrome://rtse/content/images/newConv.png"/>
           </toolbar>
         </toolbox>
-        <textbox id="body" flex="1"/>
-        <toolbox id="bottomToolbar" orient="horizontal">
+        <textbox id="rtse-editor-body" flex="1"/>
+        <toolbox id="rtse-editor-bottomToolbar" orient="horizontal">
         <toolbar>
-          <box id="defaultSmiliesToolbar" hidden="true">
+          <box id="rtse-editor-defaultSmiliesToolbar" hidden="true">
             <toolbarbutton image="chrome://rtse/content/images/smiley0.gif" autoCheck="false"/>
             <toolbarbutton image="chrome://rtse/content/images/smiley1.gif" autoCheck="false"/>
             <toolbarbutton image="chrome://rtse/content/images/smiley2.gif" autoCheck="false"/>
@@ -83,11 +83,11 @@
             <toolbarspacer flex="1000"/>
           </box>
           <toolbaritem>
-            <checkbox id="convertSmilies" label="Convert Smilies" checked="true"/>
+            <checkbox id="rtse-editor-convertSmilies" label="Convert Smilies" checked="true"/>
           </toolbaritem>
           <toolbarspacer flex="1000"/>
-          <toolbarbutton id="editorSubmit" class="image-button" image="chrome://rtse/skin/images/editor/rt-rvb_preview.png"/>
-          <toolbarbutton id="editorPreview" class="image-button" image="chrome://rtse/skin/images/editor/rt-rvb_submit.png"/>
+          <toolbarbutton class="image-button" image="chrome://rtse/skin/images/editor/rt-rvb_preview.png"/>
+          <toolbarbutton class="image-button" image="chrome://rtse/skin/images/editor/rt-rvb_submit.png"/>
           <toolbarspacer flex="1"/>
         </toolbar>
       </toolbox>

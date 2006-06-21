@@ -335,15 +335,19 @@ var RTSE = {
     init: function init()
     {
       var elm = document.getElementById("rtse-statusbar-editor");
-      elm.addEventListener("click", function() {
-        RTSE.editor.toggleEditor();
-      }, false);
+      elm.addEventListener("click", RTSE.editor.toggleEditor, false);
 
       gBrowser.mPanelContainer.addEventListener("DOMContentLoaded",
                                                 RTSE.editor.toggleIcon,
                                                 false);
       gBrowser.mPanelContainer.addEventListener("select",
                                                 RTSE.editor.toggleIcon,
+                                                false);
+      gBrowser.mPanelContainer.addEventListener("DOMContentLoaded",
+                                                RTSE.editor.toggleEditor,
+                                                false);
+      gBrowser.mPanelContainer.addEventListener("select",
+                                                RTSE.editor.toggleEditor,
                                                 false);
 
       this.mOk = true;
@@ -376,19 +380,30 @@ var RTSE = {
 
    /**
     * Shows/hides the editor and preview pane
+    * @param aEvent The event passed to the function
     */
-    toggleEditor: function toggleEditor()
+    toggleEditor: function toggleEditor(aEvent)
     {
       var doc = gBrowser.getBrowserAtIndex(gBrowser.mTabContainer.selectedIndex)
                         .contentDocument;
-      if (!doc.editor) return;
+      var pane = document.getElementById("rtse-realtimeEditor");
+      if (!doc.editor) {
+        pane.hidden = true;
+        return;
+      }
       var win = {
         height: gBrowser.contentWindow.innerHeight,
         width: gBrowser.contentWindow.innerWidth
       };
-      var pane = document.getElementById("rtse-realtimeEditor");
-      pane.setAttribute("style", "height:" + Math.floor(win.height/4) + "px;");
-      pane.hidden = !pane.hidden;
+      pane.setAttribute("height", Math.floor(win.height/4));
+
+      // updating values
+      document.getElementById("rtse-editor-body").value = doc.editor.body;
+      document.getElementById("rtse-editor-title").value = doc.editor.title;
+
+      // toggle visibility
+      pane.hidden = aEvent.type == "click" ? !pane.hidden : !doc.editor.visible;
+      doc.editor.visible = !pane.hidden;
     },
 
     ///////////////////////////////////////////////////////////////////////////

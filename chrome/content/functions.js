@@ -22,6 +22,7 @@ RTSE_editor.prototype = {
   mTitle: "",
   mFO: false,
   mTo: "",
+  mVisible: false,
 
   /////////////////////////////////////////////////////////////////////////////
   //// Attributes
@@ -73,7 +74,7 @@ RTSE_editor.prototype = {
     return this.mTo;
   },
  /**
-  * Sets the text of the to feild
+  * Sets the text of the to field
   * @param aVal The new string value to be stored
   * @return The value that is now stored
   */
@@ -92,14 +93,33 @@ RTSE_editor.prototype = {
     return this.mFO;
   },
  /**
-  * Sets the value of the friends only feild
-  * @param aVal The new string value to be stored
+  * Sets the value of the friends only field
+  * @param aVal The new boolean value to be stored
   * @return The value that is now stored
   */
   set friendsOnly(aVal)
   {
     this.mFO = aVal;
     return this.mFO;
+  },
+
+ /**
+  * Whether or not the editor should be visible
+  * @return A boolean value of the visibility of the editor
+  */
+  get visible()
+  {
+    return this.mVisible;
+  },
+ /**
+  * Sets whether or not the editor should be visible
+  * @param aVal The new value to be stored
+  * @return A boolean value of the visibility of the editor
+  */
+  set visible(aVal)
+  {
+    this.mVisible = aVal;
+    return this.mVisible;
   }
 };
 // Adding the editor to the standard HTML Document
