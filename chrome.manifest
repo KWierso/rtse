@@ -1,4 +1,5 @@
 overlay	chrome://browser/content/browser.xul	chrome://rtse/content/browser.xul
+overlay chrome://browser/content/browser.xul	chrome://rtse/content/editor.xul
 content	rtse	chrome/content/
 skin	rtse	classic/1.0	chrome/skin/
 locale	rtse	en-US chrome/locale/en-US/

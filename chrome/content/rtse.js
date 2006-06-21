@@ -325,8 +325,6 @@ var RTSE = {
     //// Private Variables
 
     mOk: false,
-    mSm: null,
-    mToggle: false,
 
     ///////////////////////////////////////////////////////////////////////////
     //// Functions
@@ -336,18 +334,19 @@ var RTSE = {
     */
     init: function init()
     {
-      this.mSm = Components.classes["@mozilla.org/gfx/screenmanager;1"]
-                           .getService(Components.interfaces.nsIScreenManager);
-      var elm = document.getElementById("rtse-editor");
-      elm.addEventListener("command", function() {
+      var elm = document.getElementById("rtse-statusbar-editor");
+      elm.addEventListener("click", function() {
         RTSE.editor.toggleEditor();
       }, false);
 
       gBrowser.mPanelContainer.addEventListener("DOMContentLoaded",
                                                 RTSE.editor.toggleIcon,
                                                 false);
+      gBrowser.mPanelContainer.addEventListener("select",
+                                                RTSE.editor.toggleIcon,
+                                                false);
 
-      this.mOk = this.mSm ? true : false;
+      this.mOk = true;
     },
 
    /**
@@ -370,8 +369,26 @@ var RTSE = {
                doc.getElementById("Post") ||
                doc.getElementById("Edit") ||
                doc.getElementById("Edit Post");
+        if (!doc.editor) doc.editor = new RTSE_editor();
       }
-      document.getElementById("rtse-editor").hidden = !show;
+      document.getElementById("rtse-statusbar-editor").hidden = !show;
+    },
+
+   /**
+    * Shows/hides the editor and preview pane
+    */
+    toggleEditor: function toggleEditor()
+    {
+      var doc = gBrowser.getBrowserAtIndex(gBrowser.mTabContainer.selectedIndex)
+                        .contentDocument;
+      if (!doc.editor) return;
+      var win = {
+        height: gBrowser.contentWindow.innerHeight,
+        width: gBrowser.contentWindow.innerWidth
+      };
+      var pane = document.getElementById("rtse-realtimeEditor");
+      pane.setAttribute("style", "height:" + Math.floor(win.height/4) + "px;");
+      pane.hidden = !pane.hidden;
     },
 
     ///////////////////////////////////////////////////////////////////////////
@@ -379,6 +396,7 @@ var RTSE = {
 
    /**
     * Indicates if the object is ready yet
+    * @return The status of the object (true or false)
     */
     get ok()
     {

@@ -7,13 +7,20 @@
     <em:version>1.1.0a1</em:version>
     <em:type>2</em:type>
    
-    <!-- Target Application this extension can install into, 
-         with minimum and maximum supported versions. --> 
+    <!-- Firefox --> 
     <em:targetApplication>
       <Description>
         <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
         <em:minVersion>1.5</em:minVersion>
         <em:maxVersion>2.0a3</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+    <!-- Flock -->
+    <em:targetApplication>
+      <Description>
+        <em:id>{a463f10c-3994-11da-9945-000d60ca027b}</em:id>
+        <em:minVersion>0.4</em:minVersion>
+        <em:maxVersion>0.8</em:maxVersion>
       </Description>
     </em:targetApplication>
    
@@ -24,7 +31,7 @@
     <em:contributor>Brandon Jernigan</em:contributor>
     <em:contributor>Amadeus Sterl; http://unknown.1l.com/</em:contributor>
     <em:contributor>Ian Shepard; http://ianshepard.com/</em:contributor>
-    <em:contributor>Matt Shaver</em:contirbutor>
+    <em:contributor>Matt Shaver</em:contributor>
     <em:contributor>Reed Martz; http://reedmartz.com/</em:contributor>
     <em:homepageURL>http://www.shawnwilsher.com/extensions/rtse/</em:homepageURL>
     <em:updateURL>http://extensions.shawnwilsher.com/get/RTSE@shawnwilsher.com/update/</em:updateURL>

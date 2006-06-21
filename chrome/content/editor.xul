@@ -1,0 +1,96 @@
+<?xml version="1.0" ?>
+<!--
+/* ***** BEGIN LICENSE BLOCK *****
+ * Version: Open Software License v. 2.1
+ *
+ * The contents of this file are subject to the Open Software License Version
+ * 2.1 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ * http://www.opensource.org/licenses/osl-2.1.php
+ *
+ * Software distributed under the License is distributed on an "AS IS" basis,
+ * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+ * for the specific language governing rights and limitations under the
+ * License.
+ *
+ * The Original Code is the 'Rooster Teeth Site Extender'.
+ *
+ * The Initial Developer of the Original Code is
+ * Shawn Wilsher
+ *
+ * Portions created by the Initial Developer are Copyright (C) 2006
+ * the Initial Developer. All Rights Reserved.
+ *
+ * Contributor(s):
+ *
+ * ***** END LICENSE BLOCK ***** */
+-->
+<overlay id="rtse-editor-overlay"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+         xmlns:html="http://www.w3.org/1999/xhtml">
+  <script type="application/x-javascript"
+          src="chrome://rtse/content/editor.js"/>
+  <hbox id="rtse-realtimeEditor">
+    <vbox id="rtse-preview" flex="2"/>
+    <vbox id="rtse-editor" flex="4">
+      <textbox id="rtse-editor-title" hidden="true" maxlength="40"/>
+        <toolbox pack="center">
+          <toolbar id="topToolbar">
+            <toolbarbutton id="b" image="chrome://rtse/skin/images/editor/bold.png"/>
+            <toolbarbutton id="i" image="chrome://rtse/skin/images/editor/italic.png"/>
+            <toolbarbutton id="u" image="chrome://rtse/skin/images/editor/underline.png"/>
+            <toolbarbutton id="s" image="chrome://rtse/skin/images/editor/strike.png"/>
+            <toolbarbutton id="img" image="chrome://rtse/skin/images/editor/image.png"/>
+            <toolbarbutton id="quote" image="chrome://rtse/skin/images/editor/quote.png"/>
+            <toolbarbutton id="link" image="chrome://rtse/skin/images/editor/link.png"/>
+            <toolbarbutton id="color" image="chrome://rtse/skin/images/editor/color.png" type="menu" autoCheck="false" hidden="true">
+              <menupopup>
+                <menuitem label="Red" value="FF0000"/>
+                <menuitem label="Orange" value="FFAA00"/>
+                <menuitem label="Yellow" value="DDFF00"/>
+                <menuitem label="Green" value="00FF00"/>
+                <menuitem label="Blue" value="0000FF"/>
+                <menuitem label="Violet" value="AA00FF"/>
+                <menuitem label="Brown" value="AA8800"/>
+                <menuitem label="White" value="FFFFFF"/>
+                <menuseparator/>
+                <menuitem label="Custom Color"/>
+              </menupopup>
+            </toolbarbutton>
+            <toolbarbutton id="colorSwitch" image="chrome://rtse/skin/images/editor/color.png" hidden="true"/>
+            <toolbarbutton id="smiley" image="chrome://rtse/skin/images/editor/happy.png" hidden="true"/>
+            <toolbarbutton id="friendsOnly" hidden="true" type="checkbox" image="chrome://rtse/content/images/unlocked.png"/>
+            <toolbarbutton id="newConv" hidden="true" autoCheck="false" image="chrome://rtse/content/images/newConv.png"/>
+          </toolbar>
+        </toolbox>
+        <textbox id="body" flex="1"/>
+        <toolbox id="bottomToolbar" orient="horizontal">
+        <toolbar>
+          <box id="defaultSmiliesToolbar" hidden="true">
+            <toolbarbutton image="chrome://rtse/content/images/smiley0.gif" autoCheck="false"/>
+            <toolbarbutton image="chrome://rtse/content/images/smiley1.gif" autoCheck="false"/>
+            <toolbarbutton image="chrome://rtse/content/images/smiley2.gif" autoCheck="false"/>
+            <toolbarbutton image="chrome://rtse/content/images/smiley3.gif" autoCheck="false"/>
+            <toolbarbutton image="chrome://rtse/content/images/smiley4.gif" autoCheck="false"/>
+            <toolbarbutton image="chrome://rtse/content/images/smiley5.gif" autoCheck="false"/>
+            <toolbarbutton image="chrome://rtse/content/images/smiley6.gif" autoCheck="false"/>
+            <toolbarbutton image="chrome://rtse/content/images/smiley7.gif" autoCheck="false"/>
+            <toolbarbutton image="chrome://rtse/content/images/smiley8.gif" autoCheck="false"/>
+            <toolbarbutton image="chrome://rtse/content/images/smiley9.gif" autoCheck="false"/>
+            <toolbarbutton image="chrome://rtse/content/images/smiley10.gif" autoCheck="false"/>
+            <toolbarbutton image="chrome://rtse/content/images/smiley11.gif" autoCheck="false"/>
+            <toolbarbutton image="chrome://rtse/content/images/smiley12.gif" autoCheck="false"/>
+            <toolbarspacer flex="1000"/>
+          </box>
+          <toolbaritem>
+            <checkbox id="convertSmilies" label="Convert Smilies" checked="true"/>
+          </toolbaritem>
+          <toolbarspacer flex="1000"/>
+          <toolbarbutton id="editorSubmit" class="image-button" image="chrome://rtse/skin/images/editor/rt-rvb_preview.png"/>
+          <toolbarbutton id="editorPreview" class="image-button" image="chrome://rtse/skin/images/editor/rt-rvb_submit.png"/>
+          <toolbarspacer flex="1"/>
+        </toolbar>
+      </toolbox>
+    </vbox>
+  </hbox>
+</overlay>

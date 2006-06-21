@@ -13,3 +13,94 @@ function RTSE_evaluateXPath(aNode, aExpr) {
     found.push(res);
   return found;
 }
+
+function RTSE_editor() {}
+RTSE_editor.prototype = {
+  /////////////////////////////////////////////////////////////////////////////
+  //// Local Data
+  mBody: "",
+  mTitle: "",
+  mFO: false,
+  mTo: "",
+
+  /////////////////////////////////////////////////////////////////////////////
+  //// Attributes
+
+ /**
+  * Gets the text of the body
+  * @return The text of the body of the content
+  */
+  get body()
+  {
+    return this.mBody;
+  },
+ /**
+  * Sets the text of the body
+  * @param aVal The new string value to be stored
+  * @return The value that is now stored
+  */
+  set body(aVal)
+  {
+    this.mBody = aVal;
+    return this.mBody;
+  },
+
+ /**
+  * Gets the text of the title
+  * @return The text of the title of the content
+  */
+  get title()
+  {
+    return this.mTitle;
+  },
+ /**
+  * Sets the text of the title
+  * @param aVal The new string value to be stored
+  * @return The value that is now stored
+  */
+  set title(aVal)
+  {
+    this.mTitle = aVal;
+    return this.mTitle;
+  },
+
+ /**
+  * Gets the text of the to field
+  * @return The text of the to field
+  */
+  get to()
+  {
+    return this.mTo;
+  },
+ /**
+  * Sets the text of the to feild
+  * @param aVal The new string value to be stored
+  * @return The value that is now stored
+  */
+  set to(aVal)
+  {
+    this.mTo = aVal;
+    return this.mTo;
+  },
+
+ /**
+  * Gets the value of the friends only field
+  * @return The text of the to field
+  */
+  get friendsOnly()
+  {
+    return this.mFO;
+  },
+ /**
+  * Sets the value of the friends only feild
+  * @param aVal The new string value to be stored
+  * @return The value that is now stored
+  */
+  set friendsOnly(aVal)
+  {
+    this.mFO = aVal;
+    return this.mFO;
+  }
+};
+// Adding the editor to the standard HTML Document
+HTMLDocument.prototype.editor = {};

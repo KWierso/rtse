@@ -36,12 +36,19 @@
 </popup>
 
 <statusbar id="status-bar">
-  <statusbarpanel id="rtse-editor"
+  <statusbarpanel id="rtse-statusbar-editor"
                   insertbefore="statusbar-display"
                   label="rtse"
                   crop="none"
                   hidden="true"
                   tooltiptext="The RTSE editor is enabled on this page"/>
 </statusbar>
+
+<window id="main-window">
+  <hbox id="rtse-realtimeEditor"
+        insertbefore="status-bar"
+        flex="1"
+        hidden="true"/>
+</window>
 
 </overlay>
