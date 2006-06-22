@@ -270,6 +270,9 @@ var RTSE = {
         ext.append("defaults");
         ext.append("smilies.xml");
         ext.copyTo(file, "smilies.xml");
+        // XXX this takes care of an initial install where the code seems to
+        // die outside of this
+        return this.init();
       }
       this.data.load(file);
       return this.data.ok;

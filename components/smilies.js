@@ -195,27 +195,29 @@ Smilies.prototype = {
 			return false;
 	},
 
-	grabData: function(aFile)
-	// EFFECTS: retunrs the string data located in aFile
+ /**
+  * Obtains the string data from the given file
+  * @param aFile A nsIFile that the data will be pulled from
+  * @return The text of the file
+  */
+	grabData: function grabData(aFile)
 	{
 		// Checking to make sure it's there
-		if( !aFile.exists() ) {
-			throw this.mErrorFileDNE;
-		}
+		if (!aFile.exists()) throw this.mErrorFileDNE;
 
-		var src="";
-		var fstream=Components.classes["@mozilla.org/network/file-input-stream;1"]
-		                      .createInstance(Components.interfaces.nsIFileInputStream);
-		var sstream=Components.classes["@mozilla.org/scriptableinputstream;1"]
-		                      .createInstance(Components.interfaces.nsIScriptableInputStream);
-		fstream.init(aFile,1,0,false);
+		var src = "";
+		var fstream = Components.classes["@mozilla.org/network/file-input-stream;1"]
+		                        .createInstance(Components.interfaces.nsIFileInputStream);
+		var sstream = Components.classes["@mozilla.org/scriptableinputstream;1"]
+		                        .createInstance(Components.interfaces.nsIScriptableInputStream);
+		fstream.init(aFile, 1, 0, false);
 		sstream.init(fstream); 
 
 		// Grabbing data
 		var str = sstream.read(-1);
-		while( str.length>0 ) {
-			src+=str;
-			str=sstream.read(-1);
+		while (str.length > 0) {
+			src += str;
+			str = sstream.read(-1);
 		}
 		
 		sstream.close();
