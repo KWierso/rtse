@@ -100,11 +100,9 @@ function RTSE_themeIt(doc) {
 
 function RTSE_forumListBox(doc) {
 	/* Used to create and insert the list box to jump to a forum */
-  // doesn't work for at least one build until localization is done, so return early
-  return;
 	var listBox=doc.createElement('select');
 	var ids=new Array(7,27,17,11,14,12,29,28,25,15,4,16,13,5,24,23,22,21,31,20,
-                    26,19,18,3,30,10,2,9,8,1,104,103,101);
+                    26,19,18,3,30,10,2,9,8,1,104,103,101,'null');
   var bundle = Components.classes["@mozilla.org/intl/stringbundle;1"]
                          .getService(Components.interfaces.nsIStringBundleService)
                          .createBundle("chrome://rtse/locale/forums.properties");
@@ -112,16 +110,12 @@ function RTSE_forumListBox(doc) {
     return bundle.GetStringFromName(aName);
   };
 	var option;
-	
-	/* Declaring all forums */
-//	ids.push('null');
-//	names.push('Jump to forum...');
-	
 	try {
 		/* Creating the listBox */
-		for (var i=(ids.length-1); i>=0; i--) {
-			if ((ids[i] && gRTSE.prefsGetBool("extensions.rtse.forum" + ids[i])) ||
-          ids[i]=='null') {
+		for (var i = (ids.length - 1); i >= 0; --i) {
+			if ((typeof(ids[i]) == "number" &&
+           gRTSE.prefsGetBool("extensions.rtse.forum." + ids[i])) ||
+          ids[i] == 'null') {
 				option=doc.createElement('option');
 				option.setAttribute('value',ids[i]);
 				option.innerHTML=getName(ids[i]);

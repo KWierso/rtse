@@ -33,6 +33,18 @@ function apply() {
 function load() {
 	// Load Smilies Preview
 	displaySmilies();
+
+  // Forum Names
+  var bundle = document.getElementById('bundle_forums');
+  var ref = document.getElementById('forums').children;
+  var topic, id;
+  for (var i = (ref.length - 1); i >= 0; --i) {
+    topic = ref[i].getElementsByTagName('checkbox');
+    if (topic.length) {
+      id = topic[0].id.replace(/^forum([0-9]+)$/i, '$1');
+      topic[0].setAttribute('label', bundle.getString(id));
+    }
+  }
 }
 
 function theme() {
