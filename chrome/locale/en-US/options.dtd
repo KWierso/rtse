@@ -26,6 +26,7 @@
 <!ENTITY Extension.samepagereplies "Use Same Page for Post Replies">
 <!ENTITY Extension.forumjumpcaption "Forum Jump List Filter">
 
+<!ENTITY Extension.forum.special "Special">
 <!ENTITY Extension.forum.sponsor "You know you're cool.">
 <!ENTITY Extension.forum.lvl20 "If you've got more karma than you know what to do with.">
 <!ENTITY Extension.forum.18andup "The place to get down and dirty.">
