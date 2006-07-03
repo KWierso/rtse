@@ -35,7 +35,7 @@
     <em:contributor>Reed Martz; http://reedmartz.com/</em:contributor>
     <em:homepageURL>http://www.shawnwilsher.com/extensions/rtse/</em:homepageURL>
     <em:updateURL>http://extensions.shawnwilsher.com/get/RTSE@shawnwilsher.com/update/</em:updateURL>
-    <em:optionsURL>chrome://rtse/content/options.xul</em:optionsURL>
+    <em:optionsURL>chrome://rtse/content/options/options.xul</em:optionsURL>
     <em:aboutURL>chrome://rtse/content/about.xul</em:aboutURL>
     <em:iconURL>chrome://rtse/skin/images/icon.png</em:iconURL>
   </Description>      

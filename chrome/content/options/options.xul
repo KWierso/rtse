@@ -1,5 +1,6 @@
 <?xml version="1.0" ?>
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<?xml-stylesheet href="chrome://rtse/content/options/options.css" type="text/css"?>
 
 <!DOCTYPE prefwindow SYSTEM "chrome://rtse/locale/options.dtd">
 
@@ -46,7 +47,7 @@
   <prefpane id="auth" label="&Authentication.name;" selected="true" flex="1">
     <!-- Why is this here?  I don't know either... -->
     <script type="application/x-javascript"
-            src="chrome://rtse/content/options.js"/>
+            src="chrome://rtse/content/options/options.js"/>
     <script type="application/x-javascript"
             src="chrome://rtse/content/functions.js"/>
     <preferences>

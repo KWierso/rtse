@@ -69,7 +69,7 @@
 							<xul:toolbarbutton id="newConv" hidden="true" autoCheck="false" image="chrome://rtse/content/images/newConv.png"/>
 						</xul:toolbar>
 					</xul:toolbox>
-					<html:textarea id="body" rows="12" cols="1" tabindex="2"><children/></html:textarea>
+					<html:textarea id="body" rows="12" cols="1" tabindex="2" onfocus="updateTabIndex('2');"><children/></html:textarea>
 					<xul:toolbox id="bottomToolbar" orient="horizontal">
 						<xul:toolbar>
 							<xul:box id="defaultSmiliesToolbar" hidden="true">
@@ -89,11 +89,11 @@
 								<xul:toolbarspacer flex="1000"/>
 							</xul:box>
 							<xul:toolbaritem>
-								<xul:checkbox id="convertSmilies" label="Convert Smilies" checked="true" tabindex="5" xbl:inherits="checked=convertSmilies"/>
+								<xul:checkbox id="convertSmilies" label="Convert Smilies" checked="true" tabindex="5" xbl:inherits="checked=convertSmilies"  onfocus="updateTabIndex(5);"/>
 							</xul:toolbaritem>
 							<xul:toolbarspacer flex="1000"/>
-							<xul:toolbarbutton class="image-button" image="chrome://rtse/skin/images/editor/rt-rvb_preview.png" oncommand="previewSubmit();" tabindex="3"/>
-							<xul:toolbarbutton class="image-button" image="chrome://rtse/skin/images/editor/rt-rvb_submit.png" oncommand="submit();" tabindex="4"/>
+							<xul:toolbarbutton id="editorSubmit" class="image-button" image="chrome://rtse/skin/images/editor/rt-rvb_preview.png" oncommand="previewSubmit();" tabindex="3" onfocus="updateTabIndex(3);"/>
+							<xul:toolbarbutton id="editorPreview" class="image-button" image="chrome://rtse/skin/images/editor/rt-rvb_submit.png" oncommand="submit();" tabindex="4" onfocus="updateTabIndex(4);"/>
 							<xul:toolbarspacer flex="1"/>
 						</xul:toolbar>
 					</xul:toolbox>
@@ -107,19 +107,19 @@
 						<xul:rows>
 							<xul:row>
 								<xul:label value="Link URL:"/>
-								<html:input type="text" id="urlBox"/>
+								<html:input type="text" id="urlBox" tabindex="6" onfocus="updateTabIndex(6);"/>
 							</xul:row>
 							<xul:row height="5"/>
 							<xul:row>
 								<xul:label value="Link Label:"/>
-								<html:input type="text" id="urlTextBox"/>
+								<html:input type="text" id="urlTextBox" tabindex="7" onfocus="updateTabIndex(7);"/>
 							</xul:row>
 						</xul:rows>
 					</xul:grid>
 					<xul:hbox pack="end">
 						<xul:toolbar>
-							<xul:toolbarbutton class="image-button" image="chrome://rtse/content/images/rt-rvb_create.png" oncommand="insertLink();"/>
-							<xul:toolbarbutton class="image-button" image="chrome://rtse/content/images/rt-rvb_cancel.png" oncommand="cancel();"/>
+							<xul:toolbarbutton id="linkOK" class="image-button" image="chrome://rtse/content/images/rt-rvb_create.png" oncommand="insertLink();" tabindex="8" onfocus="updateTabIndex(8);"/>
+							<xul:toolbarbutton id="linkCancel" class="image-button" image="chrome://rtse/content/images/rt-rvb_cancel.png" oncommand="cancel();" tabindex="9" onfocus="updateTabIndex(9);"/>
 						</xul:toolbar>
 					</xul:hbox>
 				</xul:vbox>
@@ -231,7 +231,7 @@
 			<property name="parentFormName">
 				<setter>
 					<![CDATA[
-						return this.setAttribute('parentFormName');
+						return this.setAttribute('parentFormName', val);
 					]]>
 				</setter>
 				<getter>
@@ -244,7 +244,7 @@
 			<property name="titleFormField">
 				<setter>
 					<![CDATA[
-						return this.setAttribute('titleFormField');
+						return this.setAttribute('titleFormField', val);
 					]]>
 				</setter>
 				<getter>
@@ -257,7 +257,7 @@
 			<property name="bodyFormField">
 				<setter>
 					<![CDATA[
-						return this.setAttribute('bodyFormField');
+						return this.setAttribute('bodyFormField', val);
 					]]>
 				</setter>
 				<getter>
@@ -265,8 +265,30 @@
 						return this.getAttribute('bodyFormField');
 					]]>
 				</getter>
-			</property>
-			<!-- Methods -->
+      </property>
+      <field name="mFocusedPane"/>
+      <property name="mFocusedPane"
+                onget="return this.getAttribute('mFocusedPane');"
+                onset="return this.setAttribute('mFocusedPane', val);"/>
+      <field name="mTabIndex"/>
+      <property name="mTabIndex"
+                onget="return this.getAttribute('mTabIndex');"
+                onset="return this.setAttribute('mTabIndex', val);"/>
+      <!-- Methods -->
+      <!--
+       /**
+        * Method: updateTabIndex
+        *  Hack used to make tab indexing work.  Updates the tabindex
+        *
+        * @param aNum the number the tab inxed should be set to
+        */
+      -->
+      <method name="updateTabIndex">
+        <parameter name="aNum"/>
+        <body><![CDATA[alert(this.mTabIndex);
+          this.mTabIndex = aNum;
+        ]]></body>
+      </method>
       <!--
        /**
         * Method: addSmilies
@@ -416,7 +438,11 @@
 						}
 						this.getElementById('urlTextBox').value = value;
 						this.getElementById('urlBox').value = 'http://';
-						this.getElementById('deck').selectedIndex = "1";
+            this.getElementById('deck').selectedIndex = "1";
+
+            this.mFocusedPane = "link";
+            this.mTabIndex = 6;
+            this.getElementById('urlBox').focus();
 					]]>
 				</body>
 			</method>
@@ -453,7 +479,10 @@
 			<method name="colorPicker">
 				<body>
 					<![CDATA[
-						this.getElementById('deck').selectedIndex = "2";
+            this.getElementById('deck').selectedIndex = "2";
+            
+            this.mFocusedPane = "color";
+            this.mTabIndex = 10;
 					]]>
 				</body>
 			</method>
@@ -468,7 +497,9 @@
 				<body>
 					<![CDATA[
 						this.getElementById('deck').selectedIndex = "0";
-						this.getElementById('body').focus();
+            this.getElementById('body').focus();
+            this.mFocusedPane = "editor";
+            this.mTabIndex = 2;
 					]]>
 				</body>
 			</method>
@@ -611,7 +642,7 @@
 			<!-- Constructor and Destructor -->
 			<constructor>
 				<![CDATA[
-					if (this.getAttribute('sponsor')=='true') {
+          if (this.getAttribute('sponsor')=='true') {
 						this.getElementById('color').hidden = false;
 						this.getElementById('defaultSmiliesToolbar').hidden = false;
 					}
@@ -649,10 +680,11 @@
 					deck.style.height = style.replace(/^.*height: ([0-9]+px) ! important;.*$/i,'$1');
 					deck.style.width = width;
 					
-					// Title code (only runs if there is a title)
+          // Title code (only runs if there is a title)
+          var title = null;
 					if (this.getAttribute('showTitle')=='true') {
 						const defaultTitle = 'Please Specify a Title';
-						var title = this.getElementById('title');
+						title = this.getElementById('title');
 						title.setAttribute('type','text');
 						
 						// Setting the title to the right text
@@ -704,7 +736,12 @@
 					var elms = this.getElementById('deck').getElementsByTagName('toolbarbutton');
 					addListener(elms);
 					elms = this.getElementById('deck').getElementsByTagName('menuitem');
-					addListener(elms);
+          addListener(elms);
+
+          // Tab hack
+          this.mFocusedPane = "editor";
+          this.mTabIndex = this.getElementById('title').getAttribute('type') == "hidden" ?
+                           2 : 1;
 				]]>
 			</constructor>
 			<destructor>
@@ -719,44 +756,69 @@
 				<![CDATA[
 					event.stopPropagation();
 					event.preventDefault();
-					insertTag('b');
+          if (this.mTabIndex == 2)
+            insertTag('b');
 				]]>
 			</handler>
 			<handler event="keypress" key="i" modifiers="alt" phase="capturing">
 				<![CDATA[
 					event.stopPropagation();
 					event.preventDefault();
-					insertTag('i');
+          if (this.mTabIndex == 2)
+            insertTag('i');
 				]]>
 			</handler>
 			<handler event="keypress" key="u" modifiers="alt" phase="capturing">
 				<![CDATA[
 					event.stopPropagation();
 					event.preventDefault();
-					insertTag('u');
+          if (this.mTabIndex == 2)
+            insertTag('u');
 				]]>
 			</handler>
 			<handler event="keypress" key="s" modifiers="alt" phase="capturing">
 				<![CDATA[
 					event.stopPropagation();
 					event.preventDefault();
-					insertTag('s');
+          if (this.mTabIndex == 2)
+            insertTag('s');
 				]]>
 			</handler>
 			<handler event="keypress" key="l" modifiers="alt" phase="capturing">
 				<![CDATA[
 					event.stopPropagation();
 					event.preventDefault();
-					link();
+          if (this.mTabIndex == 2)
+            link();
 				]]>
 			</handler>
 			<handler event="keypress" key="p" modifiers="alt" phase="capturing">
 				<![CDATA[
 					event.stopPropagation();
-					event.preventDefault();
-					insertTag('img');
+          event.preventDefault();
+          if (this.mTabIndex == 2)
+            insertTag('img');
 				]]>
-			</handler>
+      </handler>
+      <handler event="keypress" keycode="VK_TAB" phase="capturing"><![CDATA[
+        // This is a hack to get tab to work since for whatever reason is doesn't in a binding
+        event.stopPropagation();
+        event.preventDefault();
+
+        if (this.mFocusedPane == "editor") {
+          this.mTabIndex = (this.mTabIndex * 1 + 1) % 6;
+          this.mTabIndex = this.mTabIndex == 0 ? 1 : this.mTabIndex;
+          if (this.getElementById('title').getAttribute('type') == "hidden" &&
+              this.mTabIndex == 1)
+            this.mTabIndex = this.mTabIndex * 1 + 1;
+        } else if (this.mFocusedPane == "link") {
+          this.mTabIndex = (this.mTabIndex * 1 + 1) % 10;
+          this.mTabIndex = this.mTabIndex == 0 ? 6 : this.mTabIndex;
+        }
+
+        var elm = document.getAnonymousElementByAttribute(this,'tabindex',this.mTabIndex);
+        elm.focus();
+      ]]></handler>
 		</handlers>
 	</binding>
 </bindings>
