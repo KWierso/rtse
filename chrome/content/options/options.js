@@ -40,6 +40,9 @@ function load() {
       topic[0].setAttribute('label', bundle.getString(id));
     }
   }
+
+  theme();
+  forumJump();
 }
 
 /**
@@ -47,7 +50,19 @@ function load() {
  */
 function theme()
 {
-  document.getElementById('pref_theme').disabled = !document.getElementById('theme').checked;
+  document.getElementById('pref_theme').disabled =
+    !document.getElementById('theme').checked;
+}
+
+/**
+ * Function to disable/enable the forum jump filter
+ */
+function forumJump()
+{
+  document.getElementById('forums').hidden =
+    !document.getElementById('forum').checked;
+  document.getElementById('forums_desc').hidden =
+    !document.getElementById('forum').checked;
 }
 
 /**

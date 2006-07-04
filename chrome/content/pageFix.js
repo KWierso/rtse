@@ -100,6 +100,7 @@ function RTSE_themeIt(doc) {
 
 function RTSE_forumListBox(doc) {
 	/* Used to create and insert the list box to jump to a forum */
+  if (!gRTSE.prefsGetBool("extensions.rtse.forum")) return;
 	var listBox=doc.createElement('select');
 	var ids=new Array(7,27,17,11,14,12,29,28,25,15,4,16,13,5,24,23,22,21,31,20,
                     26,19,18,3,30,10,2,9,8,1,104,103,101,'null');

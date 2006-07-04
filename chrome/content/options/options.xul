@@ -277,14 +277,23 @@
       <preference id="pref_forum7"
                   name="extensions.rtse.forum.7"
                   type="bool"/>
+      <preference id="pref_forum"
+                  name="extensions.rtse.forum"
+                  type="bool"/>
     </preferences>
-    <vbox flex="1">
-      <description>&ForumJump.desc;</description>
+    <groupbox>
+      <caption label="&FoumJump.caption;"/>
       <stringbundleset>
         <stringbundle id="bundle_forums"
                       src="chrome://rtse/locale/forums.properties"/>
       </stringbundleset>
-      <richlistbox id="forums" maxheight="250" flex="1">
+      <checkbox id="forum"
+                label="&ForumJump.enable;"
+                preference="pref_forum"
+                oncommand="forumJump();"/>
+      <spacer style="height:10px;"/>
+      <description id="forums_desc">&ForumJump.desc;</description>
+      <richlistbox id="forums" maxheight="200" flex="1">
         <richlistitem><label value="&ForumJump.special;" style="font-weight:bold;"/></richlistitem>
         <richlistitem orient="vertical">
           <checkbox id="forum101" preference="pref_forum101"/>
@@ -425,6 +434,6 @@
           <description>&ForumJump.basement;</description>
         </richlistitem>
       </richlistbox>
-    </vbox>
+    </groupbox>
   </prefpane>
 </prefwindow>
