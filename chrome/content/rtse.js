@@ -33,7 +33,7 @@ var RTSE = {
     // Ininitialzing other data
     this.smilies.init();
     if (gRTSE.prefsGetBool("extensions.rtse.editor"))
-      this.editor.init();
+      RTSE.editor.init();
 
 		// Check if wizard should run
 		if (gRTSE.prefsGetBool('extensions.rtse.firstInstall'))
@@ -198,14 +198,6 @@ var RTSE = {
 		}
 	},
 	
-	_notify: function(title,text,image) {
-		/* Used to notify user of something */
-		var alertsService=Components.classes["@mozilla.org/alerts-service;1"]
-		                            .getService(Components.interfaces.nsIAlertsService);
-		if(alertsService)
-			alertsService.showAlertNotification(image,title,text,false,"",null);
-	},
-
 	_menu: function() {
 		/* Context Menu Goodies */
 		var url=gBrowser.getBrowserAtIndex(gBrowser.mTabContainer.selectedIndex).contentDocument.location.href;
@@ -317,108 +309,6 @@ var RTSE = {
                  });
       }
       return out;
-    }
-  },
-
- /**
-  * Object used to manage the editor
-  */
-  editor: {
-    ///////////////////////////////////////////////////////////////////////////
-    //// Private Variables
-
-    mOk: false,
-
-    ///////////////////////////////////////////////////////////////////////////
-    //// Functions
-
-   /**
-    * Initializes everything for the editor to work properly
-    */
-    init: function init()
-    {
-      var elm = document.getElementById("rtse-statusbar-editor");
-      elm.addEventListener("click", RTSE.editor.toggleEditor, false);
-
-      gBrowser.mPanelContainer.addEventListener("DOMContentLoaded",
-                                                RTSE.editor.toggleIcon,
-                                                false);
-      gBrowser.mPanelContainer.addEventListener("select",
-                                                RTSE.editor.toggleIcon,
-                                                false);
-      gBrowser.mPanelContainer.addEventListener("DOMContentLoaded",
-                                                RTSE.editor.toggleEditor,
-                                                false);
-      gBrowser.mPanelContainer.addEventListener("select",
-                                                RTSE.editor.toggleEditor,
-                                                false);
-
-      this.mOk = true;
-    },
-
-   /**
-    * Determines if the icon should be visable.  Should only be called from an
-    *  event listener
-    * @param aEvent The event passed to the function
-    */
-    toggleIcon: function toggleIcon(aEvent)
-    {
-      var show = false;
-      var doc = gBrowser.getBrowserAtIndex(gBrowser.mTabContainer.selectedIndex)
-                        .contentDocument;
-      if (/^https?:\/\/(www|rvb|sh|panics)\.roosterteeth\.com(.*)?$/.test(doc.location.href)) {
-        show = doc.getElementById("Add a Comment") ||
-               doc.getElementById("Make a Journal Entry") ||
-               doc.getElementById("Edit Journal Entry") ||
-               doc.getElementById("Add a New Topic") ||
-               doc.getElementById("Reply") ||
-               doc.getElementById("Send a Message") ||
-               doc.getElementById("Post") ||
-               doc.getElementById("Edit") ||
-               doc.getElementById("Edit Post");
-        if (!doc.editor) doc.editor = new RTSE_editor();
-      }
-      document.getElementById("rtse-statusbar-editor").hidden = !show;
-    },
-
-   /**
-    * Shows/hides the editor and preview pane
-    * @param aEvent The event passed to the function
-    */
-    toggleEditor: function toggleEditor(aEvent)
-    {
-      var doc = gBrowser.getBrowserAtIndex(gBrowser.mTabContainer.selectedIndex)
-                        .contentDocument;
-      var pane = document.getElementById("rtse-realtimeEditor");
-      if (!doc.editor) {
-        pane.hidden = true;
-        return;
-      }
-      var win = {
-        height: gBrowser.contentWindow.innerHeight,
-        width: gBrowser.contentWindow.innerWidth
-      };
-      pane.setAttribute("height", Math.floor(win.height/4));
-
-      // updating values
-      document.getElementById("rtse-editor-body").value = doc.editor.body;
-      document.getElementById("rtse-editor-title").value = doc.editor.title;
-
-      // toggle visibility
-      pane.hidden = aEvent.type == "click" ? !pane.hidden : !doc.editor.visible;
-      doc.editor.visible = !pane.hidden;
-    },
-
-    ///////////////////////////////////////////////////////////////////////////
-    //// Attributes
-
-   /**
-    * Indicates if the object is ready yet
-    * @return The status of the object (true or false)
-    */
-    get ok()
-    {
-      return this.mOk;
     }
   }
 }
