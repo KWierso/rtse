@@ -90,12 +90,15 @@ Smilies.prototype = {
 		return this.mKeys[aName][0];
 	},
 
+ /**
+  * Sets the object to a fresh state
+  */
 	init: function()
-	// EFFECTS: Resets invariant
 	{
-		this.mNames=new Array();
-		this.mKeys=new Array();
-		this.mPaths=new Array();
+		this.mNames = new Array();
+		this.mKeys = new Array();
+		this.mPaths = new Array();
+    this.mLoaded = false;
 	},
 
 	convertText: function(aText)
@@ -177,26 +180,29 @@ Smilies.prototype = {
 		this.mLoaded=true;
 	},
 
-	validateFile: function(aFile)
-	// EFFECTS: returns true if the file passed is a valid smiley file, false otherwise
-	{
-		var data=this.grabData(aFile);
+ /**
+  * Function determines if a file is a valid smiley file
+  *
+  * @param aFile The nsIFile of the file to be tested.
+  * @return Boolean value indiciating if aFile is valid.
+  */
+  validateFile: function(aFile)
+  {
+    var data = this.grabData(aFile);
 
-		// Parsing data
-		var parser=Components.classes["@mozilla.org/xmlextras/domparser;1"]
-		                     .createInstance(Components.interfaces.nsIDOMParser);
-		var doc=parser.parseFromString(src,'text/xml');
-		var smilies=this.evaluateXPath(doc,'//smiley[@name and @path]/key');
+    // Parsing data
+    var parser = Components.classes["@mozilla.org/xmlextras/domparser;1"]
+                           .createInstance(Components.interfaces.nsIDOMParser);
+    var doc = parser.parseFromString(data, 'text/xml');
+    var smilies = this.evaluateXPath(doc, '//smiley[@name and @path]/key');
 
-		// Checking
-		if( smilies.lenght>=1 )
-			return true;
-		else
-			return false;
+    // Checking
+    return smilies.length >= 1;
 	},
 
  /**
   * Obtains the string data from the given file
+  *
   * @param aFile A nsIFile that the data will be pulled from
   * @return The text of the file
   */

@@ -50,16 +50,54 @@ function theme()
   document.getElementById('pref_theme').disabled = !document.getElementById('theme').checked;
 }
 
-function smilieFilePicker(aWin)
-// EFFECTS: Displays the dialog to select the file for a new smiley pack
+/**
+ * Function loads the file picker to select the file and the processes the new
+ *  file.
+ *
+ * @param aWin The window that is opening the file picker.
+ */
+function smileyFilePicker(aWin)
 {
-	var picker=Components.classes['@mozilla.org/filepicker;1']
-	                     .createInstance(Components.interfaces.nsIFilePicker);
-	picker.appendFilters(picker.filterXML);
-	picker.init(aWin,'Select Smiley File',picker.modeOpen);
-	var ok=picker.show();
-	if( ok==picker.returnOK )
-		/* stuff that loads goes here */;
+  var picker = Components.classes['@mozilla.org/filepicker;1']
+                         .createInstance(Components.interfaces.nsIFilePicker);
+  picker.appendFilters(picker.filterXML);
+  picker.init(aWin, 'Select Smiley File', picker.modeOpen);
+  var ok = picker.show();
+  if (ok == picker.returnOK) {
+    var file = picker.file;
+    var smilies = Components.classes['@shawnwilsher.com/smilies;1']
+                            .getService(Components.interfaces.nsISmilies);
+    
+    if (!smilies.validateFile(file)) {
+      alert("Sorry, but this is not a valid smiley file");
+      return;
+    }
+
+    // can old file
+    var old = Components.classes["@mozilla.org/file/directory_service;1"]
+                        .createInstance(Components.interfaces.nsIProperties)
+                        .get("ProfD", Components.interfaces.nsIFile);
+    old.append("rtse");
+    old.append("smilies.xml");
+    if (old.exists()) old.remove(false);
+    
+    // let's copy the file over
+    var dir = Components.classes["@mozilla.org/file/directory_service;1"]
+                        .createInstance(Components.interfaces.nsIProperties)
+                        .get("ProfD", Components.interfaces.nsIFile);
+    dir.append("rtse");
+    file.copyTo(dir, "smilies.xml");
+
+    var nFile = Components.classes["@mozilla.org/file/directory_service;1"]
+                          .createInstance(Components.interfaces.nsIProperties)
+                          .get("ProfD", Components.interfaces.nsIFile);
+    nFile.append("rtse");
+    nFile.append("smilies.xml");
+
+    // reloading and display
+    smilies.load(nFile);
+    window.setTimeout('displaySmilies()', 1000);
+  }
 }
 
 function displaySmilies()
@@ -68,7 +106,10 @@ function displaySmilies()
 	var s=Components.classes["@shawnwilsher.com/smilies;1"]
 	                .getService(Components.interfaces.nsISmilies);
 	var ref=document.getElementById('smileyPreview');
-	var names=s.getNames({});
+	if (!s.ok) {
+    alert('not ok');
+  }
+  var names=s.getNames({});
 	// remove any existing children
 	while( ref.lastChild ) {
 		ref.removeChild(ref.lastChild);

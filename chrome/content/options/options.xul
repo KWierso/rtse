@@ -158,7 +158,7 @@
                     label="&Extension.importsmiley;"
                     width="100"
                     tooltiptext="&Tooltip.smileys;"
-                    oncommand="smilieFilePicker(window);"/>
+                    oncommand="smileyFilePicker(window);"/>
           </hbox>
           <richlistbox suppressonselect="true"
                        id="smileyPreview"
