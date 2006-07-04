@@ -39,7 +39,6 @@
             maxwidth="500"
             onload="return load();"
             buttons="accept,cancel"
-            ondialogaccept="return apply();"
             buttonlabelaccept="&Options.accept;"
             buttonlabelcancel="&Options.cancel;">
 
@@ -59,26 +58,30 @@
                   type="bool"/>
     </preferences>
     <vbox flex="1">
-      <hbox>
-        <label value="&Authentication.usernamelabel;" control="username"/>
-        <textbox id="username"
-                 maxlength="12"
-                 size="12"
-                 width="120"
-                 preference="pref_username"/>
-      </hbox>
-      <hbox>
-        <label value="&Authentication.passwordlabel;" control="pwd"/>
-        <textbox id="pwd"
-                 maxlength="16"
-                 size="16"
-                 type="password"
-                 width="120"/>
-      </hbox>
-      <spacer style="height: 10px"/>
-      <checkbox id="signin"
-                label="&Authentication.enableloginlabel;"
-                preference="pref_signin"/>
+      <groupbox>
+        <caption label="&Authentication.credentialscaption;"/>
+        <description>&Authentication.credentialsdesc;</description>
+        <hbox align="center">
+          <label value="&Authentication.usernamelabel;" control="username"/>
+          <textbox id="username"
+                   maxlength="12"
+                   size="12"
+                   width="120"
+                   preference="pref_username"/>
+        </hbox>
+        <hbox align="center">
+          <label value="&Authentication.passwordlabel;" control="pwd"/>
+          <textbox id="pwd"
+                   maxlength="16"
+                   size="16"
+                   type="password"
+                   width="120"/>
+        </hbox>
+        <spacer style="height: 10px"/>
+        <checkbox id="signin"
+                  label="&Authentication.enableloginlabel;"
+                  preference="pref_signin"/>
+      </groupbox>
     </vbox>
   </prefpane>
   <prefpane id="prefs" label="&Preferences.name;" flex="1">
@@ -94,27 +97,33 @@
                   type="bool"/>
     </preferences>
     <vbox flex="1">
-      <hbox>
-        <label value="&Preferences.prefskinlabel;"/>
-        <menulist id="themeType" preference="pref_theme">
-          <menupopup>
-            <menuitem label="&Preferences.RTskinoption;" value="www"/>
-            <menuitem label="&Preferences.RvBskinoption;" value="rvb"/>
-            <menuitem label="&Preferences.SHskinoption;" value="sh"/>
-            <menuitem label="&Preferences.Panicsskinoption;" value="panics"/>
-          </menupopup>
-        </menulist>
-      </hbox>
-      <spacer style="height: 10px"/>
-      <description>&Preferences.linkfixinglabel;</description>
-      <spacer style="height: 10px"/>
-      <checkbox id="theme"
-                label="&Preferences.enableskinlabel;"
-                preference="pref_themer"
-                onchange="theme();"/>
-      <checkbox id="linkFix"
-                label="&Preferences.enablelinkfixing;"
-                preference="pref_links"/>
+      <groupbox>
+        <caption label="&Preferences.themegroupcaption;"/>
+        <description>&Preferences.themerlabel;</description>
+        <spacer style="height: 10px"/>
+        <checkbox id="theme"
+                  label="&Preferences.enableskinlabel;"
+                  preference="pref_themer"
+                  oncommand="theme();"/>
+        <hbox align="center">
+          <label value="&Preferences.prefskinlabel;"/>
+          <menulist id="themeType" preference="pref_theme">
+            <menupopup>
+              <menuitem label="&Preferences.RTskinoption;" value="www"/>
+              <menuitem label="&Preferences.RvBskinoption;" value="rvb"/>
+              <menuitem label="&Preferences.SHskinoption;" value="sh"/>
+              <menuitem label="&Preferences.Panicsskinoption;" value="panics"/>
+            </menupopup>
+          </menulist>
+        </hbox>
+      </groupbox>
+      <groupbox>
+        <caption label="&Preferences.linkfixgroupcaption;"/>
+        <description>&Preferences.linkfixdesc;</description>
+        <checkbox id="linkFix"
+                  label="&Preferences.enablelinkfixing;"
+                  preference="pref_links"/>
+      </groupbox>
     </vbox>
   </prefpane>
   <prefpane id="extensions" label="&Extension.name;" flex="1">
@@ -139,22 +148,21 @@
                   label="&Extension.enablesponsoronly;"
                   preference="pref_sponsor"/>
         <description>&Extension.sponsoronlylabel;</description>
-        <checkbox id="smilies"
-                  label="&Extension.enablesmiley;"
-                  preference="pref_smilies"/>
         <spacer style="height:10px;"/>
         <vbox>
           <hbox>  
+            <checkbox id="smilies"
+                      label="&Extension.enablesmiley;"
+                      preference="pref_smilies"/>
             <button id="import_smilies"
                     label="&Extension.importsmiley;"
                     width="100"
                     tooltiptext="&Tooltip.smileys;"
                     oncommand="smilieFilePicker(window);"/>
-            <spacer flex="1"/>
           </hbox>
           <richlistbox suppressonselect="true"
                        id="smileyPreview"
-                       maxheight="30"/>
+                       maxheight="60"/>
         </vbox>
       </groupbox>
       <groupbox width="400">
@@ -168,7 +176,7 @@
       </groupbox>
     </vbox>
   </prefpane>
-  <prefpane id="forumJump" label="&Extension.forumjumpcaption;" flex="1">
+  <prefpane id="forumJump" label="&ForumJump.name;" flex="1">
     <preferences>
       <preference id="pref_forum101"
                   name="extensions.rtse.forum.101"
@@ -271,149 +279,150 @@
                   type="bool"/>
     </preferences>
     <vbox flex="1">
+      <description>&ForumJump.desc;</description>
       <stringbundleset>
         <stringbundle id="bundle_forums"
                       src="chrome://rtse/locale/forums.properties"/>
       </stringbundleset>
-      <richlistbox id="forums" maxheight="200" flex="1">
-        <richlistitem><label value="&Extension.forum.special;" style="font-weight:bold;"/></richlistitem>
+      <richlistbox id="forums" maxheight="250" flex="1">
+        <richlistitem><label value="&ForumJump.special;" style="font-weight:bold;"/></richlistitem>
         <richlistitem orient="vertical">
           <checkbox id="forum101" preference="pref_forum101"/>
-          <description>&Extension.forum.sponsor;</description>
+          <description>&ForumJump.sponsor;</description>
         </richlistitem>
         <richlistitem orient="vertical">
           <checkbox id="forum103" preference="pref_forum103"/>
-          <description>&Extension.forum.lvl20;</description>
+          <description>&ForumJump.lvl20;</description>
         </richlistitem>
         <richlistitem orient="vertical">
           <checkbox id="forum104" preference="pref_forum104"/>
-          <description>&Extension.forum.18andup;</description>
+          <description>&ForumJump.18andup;</description>
         </richlistitem>
-        <richlistitem><label value="&Extension.forum.general;" style="font-weight:bold;"/></richlistitem>
+        <richlistitem><label value="&ForumJump.general;" style="font-weight:bold;"/></richlistitem>
         <richlistitem orient="vertical">
           <checkbox id="forum1" preference="pref_forum1"/>
-          <description>&Extension.forum.firststop;</description>
+          <description>&ForumJump.firststop;</description>
         </richlistitem>
         <richlistitem orient="vertical">
           <checkbox id="forum8" preference="pref_forum8"/>
-          <description>&Extension.forum.website;</description>
+          <description>&ForumJump.website;</description>
         </richlistitem>
         <richlistitem><label value="Project Forums" style="font-weight:bold;"/></richlistitem>
         <richlistitem orient="vertical">
           <checkbox id="forum9" preference="pref_forum9"/>
-          <description>&Extension.forum.roosterteeth;</description>
+          <description>&ForumJump.roosterteeth;</description>
         </richlistitem>
         <richlistitem orient="vertical">
           <checkbox id="forum2" preference="pref_forum2"/>
-          <description>&Extension.forum.redvsblue;</description>
+          <description>&ForumJump.redvsblue;</description>
         </richlistitem>
         <richlistitem orient="vertical">
           <checkbox id="forum10" preference="pref_forum10"/>
-          <description>&Extension.forum.stangerhood;</description>
+          <description>&ForumJump.stangerhood;</description>
         </richlistitem>
         <richlistitem orient="vertical">
           <checkbox id="forum30" preference="pref_forum30"/>
-          <description>&Extension.forum.panics;</description>
+          <description>&ForumJump.panics;</description>
         </richlistitem>
-        <richlistitem><label value="&Extension.forum.gaming;" style="font-weight:bold;"/></richlistitem>
+        <richlistitem><label value="&ForumJump.gaming;" style="font-weight:bold;"/></richlistitem>
         <richlistitem orient="vertical">
           <checkbox id="forum3" preference="pref_forum3"/>
-          <description>&Extension.forum.generalgaming;</description>
+          <description>&ForumJump.generalgaming;</description>
         </richlistitem>
         <richlistitem orient="vertical">
           <checkbox id="forum18" preference="pref_forum18"/>
-          <description>&Extension.forum.pcgaming;</description>
+          <description>&ForumJump.pcgaming;</description>
         </richlistitem>
         <richlistitem orient="vertical">
           <checkbox id="forum19" preference="pref_forum19"/>
-          <description>&Extension.forum.halo;</description>
+          <description>&ForumJump.halo;</description>
         </richlistitem>
         <richlistitem orient="vertical">
           <checkbox id="forum26" preference="pref_forum26"/>
-          <description>&Extension.forum.thesims;</description>
+          <description>&ForumJump.thesims;</description>
         </richlistitem>
         <richlistitem orient="vertical">
           <checkbox id="forum20" preference="pref_forum20"/>
-          <description>&Extension.forum.xbox;</description>
+          <description>&ForumJump.xbox;</description>
         </richlistitem>
         <richlistitem orient="vertical">
           <checkbox id="forum31" preference="pref_forum31"/>
-          <description>&Extension.forum.xbox360;</description>
+          <description>&ForumJump.xbox360;</description>
         </richlistitem>
         <richlistitem orient="vertical">
           <checkbox id="forum21" preference="pref_forum21"/>
-          <description>&Extension.forum.playstation;</description>
+          <description>&ForumJump.playstation;</description>
         </richlistitem>
         <richlistitem orient="vertical">
           <checkbox id="forum22" preference="pref_forum22"/>
-          <description>&Extension.forum.gamecube;</description>
+          <description>&ForumJump.gamecube;</description>
         </richlistitem>
         <richlistitem orient="vertical">
           <checkbox id="forum23" preference="pref_forum23"/>
-          <description>&Extension.forum.classic;</description>
+          <description>&ForumJump.classic;</description>
         </richlistitem>
         <richlistitem orient="vertical">
           <checkbox id="forum24" preference="pref_forum24"/>
-          <description>&Extension.forum.boardgames;</description>
+          <description>&ForumJump.boardgames;</description>
         </richlistitem>
-        <richlistitem><label value="&Extension.forum.media;" style="font-weight:bold;"/></richlistitem>
+        <richlistitem><label value="&ForumJump.media;" style="font-weight:bold;"/></richlistitem>
         <richlistitem orient="vertical">
           <checkbox id="forum5" preference="pref_forum5"/>
-          <description>&Extension.forum.movies;</description>
+          <description>&ForumJump.movies;</description>
         </richlistitem>
         <richlistitem orient="vertical">
           <checkbox id="forum13" preference="pref_forum13"/>
-          <description>&Extension.forum.machinima;</description>
+          <description>&ForumJump.machinima;</description>
         </richlistitem>
         <richlistitem orient="vertical">
           <checkbox id="forum16" preference="pref_forum16"/>
-          <description>&Extension.forum.television;</description>
+          <description>&ForumJump.television;</description>
         </richlistitem>
         <richlistitem orient="vertical">
           <checkbox id="forum4" preference="pref_forum4"/>
-          <description>&Extension.forum.music;</description>
+          <description>&ForumJump.music;</description>
         </richlistitem>
         <richlistitem orient="vertical">
           <checkbox id="forum15" preference="pref_forum15"/>
-          <description>&Extension.forum.books;</description>
+          <description>&ForumJump.books;</description>
         </richlistitem>
         <richlistitem orient="vertical">
           <checkbox id="forum25" preference="pref_forum25"/>
-          <description>&Extension.forum.comics;</description>
+          <description>&ForumJump.comics;</description>
         </richlistitem>
         <richlistitem orient="vertical">
           <checkbox id="forum28" preference="pref_forum28"/>
-          <description>&Extension.forum.billboard;</description>
+          <description>&ForumJump.billboard;</description>
         </richlistitem>
         <richlistitem orient="vertical">
           <checkbox id="forum29" preference="pref_forum29"/>
-          <description>&Extension.forum.art;</description>
+          <description>&ForumJump.art;</description>
         </richlistitem>
-        <richlistitem><label value="&Extension.forum.other;" style="font-weight:bold;"/></richlistitem>
+        <richlistitem><label value="&ForumJump.other;" style="font-weight:bold;"/></richlistitem>
         <richlistitem orient="vertical">
           <checkbox id="forum12" preference="pref_forum12"/>
-          <description>&Extension.forum.sports;</description>
+          <description>&ForumJump.sports;</description>
         </richlistitem>
         <richlistitem orient="vertical">
           <checkbox id="forum14" preference="pref_forum14"/>
-          <description>&Extension.forum.politics;</description>
+          <description>&ForumJump.politics;</description>
         </richlistitem>
         <richlistitem orient="vertical">
           <checkbox id="forum11" preference="pref_forum11"/>
-          <description>&Extension.forum.technical;</description>
+          <description>&ForumJump.technical;</description>
         </richlistitem>
         <richlistitem orient="vertical">
           <checkbox id="forum17" preference="pref_forum17"/>
-          <description>&Extension.forum.garage;</description>
+          <description>&ForumJump.garage;</description>
         </richlistitem>
-        <richlistitem><label value="&Extension.forum.bottom;" style="font-weight:bold;"/></richlistitem>
+        <richlistitem><label value="&ForumJump.bottom;" style="font-weight:bold;"/></richlistitem>
         <richlistitem orient="vertical">
           <checkbox id="forum27" preference="pref_forum27"/>
-          <description>&Extension.forum.forumgames;</description>
+          <description>&ForumJump.forumgames;</description>
         </richlistitem>
         <richlistitem orient="vertical">
           <checkbox id="forum7" preference="pref_forum7"/>
-          <description>&Extension.forum.basement;</description>
+          <description>&ForumJump.basement;</description>
         </richlistitem>
       </richlistbox>
     </vbox>

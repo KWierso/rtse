@@ -1,67 +1,76 @@
 <!ENTITY Options.name "Rooster Teeth Site Extender Settings">
 <!ENTITY Options.accept "Accept">
 <!ENTITY Options.cancel "Cancel">
-<!ENTITY Tooltip.smileys "Browse for a custom smilies.xml file">
+
+<!ENTITY Authentication.credentialscaption "User Credentials">
+<!ENTITY Authentication.credentialsdesc "These are required in order to have the extension sign you in automatically.  They are stored in the browser's password manager, so you can always clear them there.">
 <!ENTITY Authentication.name "Authentication">
 <!ENTITY Authentication.usernamelabel "Username:">
 <!ENTITY Authentication.passwordlabel "Password:">
-<!ENTITY Authentication.enableloginlabel "Enable Automatic Sign In">
+<!ENTITY Authentication.enableloginlabel "Sign me in when my browser starts">
 <!ENTITY Preferences.name "Site Preferences">
+
+<!ENTITY Preferences.themegroupcaption "RT Theme Controls">
 <!ENTITY Preferences.prefskinlabel "Prefered site skin:">
 <!ENTITY Preferences.RTskinoption "Rooster Teeth">
 <!ENTITY Preferences.RvBskinoption "Red vs Blue">
 <!ENTITY Preferences.SHskinoption "Stranger Hood">
 <!ENTITY Preferences.Panicsskinoption "PANICS">
-<!ENTITY Preferences.linkfixinglabel "This will redirect all links pointing to pages on the *.roosterteeth.com domain to your prefered skin, fixing poorly coded links, and/or external (from other sites) links.">
+<!ENTITY Preferences.themerlabel "This forces all pages to load with your preferred theme.  If you ever get annoyed with a different theme opening up when you click a link, this preference is for you.">
 <!ENTITY Preferences.enableskinlabel "Enable Themer">
-<!ENTITY Preferences.enablelinkfixing "External Fixing links">
+<!ENTITY Preferences.linkfixgroupcaption "Link Fixing">
+<!ENTITY Preferences.linkfixdesc "This prevents any links to content on this site from opening in a new window.">
+<!ENTITY Preferences.enablelinkfixing "Enable link fixing">
+
 <!ENTITY Extension.name "Site Extensions">
 <!ENTITY Extension.addedfeatures "Added Features">
 <!ENTITY Extension.enablesponsoronly "Enable Sponsor-only features">
 <!ENTITY Extension.sponsoronlylabel "Notice: This will only give you Sponsor-only features if you are actually a sponsor.">
 <!ENTITY Extension.enablesmiley "Enable Smilies">
 <!ENTITY Extension.importsmiley "Import Smilies">
+<!ENTITY Tooltip.smileys "Browse for a custom smilies.xml file">
 <!ENTITY Extension.uicaption "User Interface">
-<!ENTITY Extension.enableadvancededitor "Enable Advanced Text Editing">
-<!ENTITY Extension.samepagereplies "Use Same Page for Post Replies">
-<!ENTITY Extension.forumjumpcaption "Forum Jump List Filter">
+<!ENTITY Extension.enableadvancededitor "Enable Advanced Text Editor">
+<!ENTITY Extension.samepagereplies "Use Same Page for Replies">
 
-<!ENTITY Extension.forum.special "Special">
-<!ENTITY Extension.forum.sponsor "You know you're cool.">
-<!ENTITY Extension.forum.lvl20 "If you've got more karma than you know what to do with.">
-<!ENTITY Extension.forum.18andup "The place to get down and dirty.">
-<!ENTITY Extension.forum.general "General Forums">
-<!ENTITY Extension.forum.firststop "Don't be a moronic noob. Come here first. Then go be a moron.">
-<!ENTITY Extension.forum.website "For info and questions about the community website.">
-<!ENTITY Extension.forum.roosterteeth "The main Rooster Teeth forum.">
-<!ENTITY Extension.forum.redvsblue "It's just one big RvB love fest in here.">
-<!ENTITY Extension.forum.stangerhood "Rooster Teeth's Sims 2 project.">
-<!ENTITY Extension.forum.panics "People Acting Normal in Crazy ass Situations.">
-<!ENTITY Extension.forum.gaming "Gaming">
-<!ENTITY Extension.forum.generalgaming "Non platform specific cultural jibberjabber">
-<!ENTITY Extension.forum.pcgaming "You should be using your computer for better things.">
-<!ENTITY Extension.forum.halo "Yes, it has its own forum.">
-<!ENTITY Extension.forum.thesims "Even if you don't have a real life, you can still have a virtual life in these games.">
-<!ENTITY Extension.forum.xbox "Like a PC, only way heavier.">
-<!ENTITY Extension.forum.xbox360 "Come in here and pretend like you have one.">
-<!ENTITY Extension.forum.playstation "It plays things while remaining stationary.">
-<!ENTITY Extension.forum.gamecube "Just like your mom's purse.">
-<!ENTITY Extension.forum.classic "Because handhelds play classic games. Get it?">
-<!ENTITY Extension.forum.boardgames "Because electricity is for n00bs.">
-<!ENTITY Extension.forum.media "Media">
-<!ENTITY Extension.forum.movies "Like games without the joysticks.">
-<!ENTITY Extension.forum.machinima "Discuss projects, concepts, stories and the like.">
-<!ENTITY Extension.forum.television "Just like movies, only smaller and more square.">
-<!ENTITY Extension.forum.music "No, no one has ever heard of that band. Yes, you are very cool for knowing about them. Now shut up.">
-<!ENTITY Extension.forum.books "For people who don't like to hear stuff.">
-<!ENTITY Extension.forum.comics "Still only 75 cents.">
-<!ENTITY Extension.forum.billboard "Do your pimping here, yo.">
-<!ENTITY Extension.forum.art "So that you kids will stop drawing on the walls.">
-<!ENTITY Extension.forum.other "Other Stuff">
-<!ENTITY Extension.forum.sports "Where you are always picked last to post.">
-<!ENTITY Extension.forum.politics "Where people who live in the same country come to hate each other.">
-<!ENTITY Extension.forum.technical "Hardware, gadgets, etc. Pretend like you know what you are talking about in here.">
-<!ENTITY Extension.forum.garage "If it has an engine, bring it here.">
-<!ENTITY Extension.forum.bottom "Rock Bottom">
-<!ENTITY Extension.forum.forumgames "Not a Gaming Forum but a forum for games">
-<!ENTITY Extension.forum.basement "If you get offended by words on a monitor, you should stay out of here.">
+<!ENTITY ForumJump.name "Forum Jump List">
+<!ENTITY ForumJump.desc "This allows you to filter what is shown in the Forum Jump list.">
+<!ENTITY ForumJump.special "Special">
+<!ENTITY ForumJump.sponsor "You know you're cool.">
+<!ENTITY ForumJump.lvl20 "If you've got more karma than you know what to do with.">
+<!ENTITY ForumJump.18andup "The place to get down and dirty.">
+<!ENTITY ForumJump.general "General Forums">
+<!ENTITY ForumJump.firststop "Don't be a moronic noob. Come here first. Then go be a moron.">
+<!ENTITY ForumJump.website "For info and questions about the community website.">
+<!ENTITY ForumJump.roosterteeth "The main Rooster Teeth forum.">
+<!ENTITY ForumJump.redvsblue "It's just one big RvB love fest in here.">
+<!ENTITY ForumJump.stangerhood "Rooster Teeth's Sims 2 project.">
+<!ENTITY ForumJump.panics "People Acting Normal in Crazy ass Situations.">
+<!ENTITY ForumJump.gaming "Gaming">
+<!ENTITY ForumJump.generalgaming "Non platform specific cultural jibberjabber">
+<!ENTITY ForumJump.pcgaming "You should be using your computer for better things.">
+<!ENTITY ForumJump.halo "Yes, it has its own forum.">
+<!ENTITY ForumJump.thesims "Even if you don't have a real life, you can still have a virtual life in these games.">
+<!ENTITY ForumJump.xbox "Like a PC, only way heavier.">
+<!ENTITY ForumJump.xbox360 "Come in here and pretend like you have one.">
+<!ENTITY ForumJump.playstation "It plays things while remaining stationary.">
+<!ENTITY ForumJump.gamecube "Just like your mom's purse.">
+<!ENTITY ForumJump.classic "Because handhelds play classic games. Get it?">
+<!ENTITY ForumJump.boardgames "Because electricity is for n00bs.">
+<!ENTITY ForumJump.media "Media">
+<!ENTITY ForumJump.movies "Like games without the joysticks.">
+<!ENTITY ForumJump.machinima "Discuss projects, concepts, stories and the like.">
+<!ENTITY ForumJump.television "Just like movies, only smaller and more square.">
+<!ENTITY ForumJump.music "No, no one has ever heard of that band. Yes, you are very cool for knowing about them. Now shut up.">
+<!ENTITY ForumJump.books "For people who don't like to hear stuff.">
+<!ENTITY ForumJump.comics "Still only 75 cents.">
+<!ENTITY ForumJump.billboard "Do your pimping here, yo.">
+<!ENTITY ForumJump.art "So that you kids will stop drawing on the walls.">
+<!ENTITY ForumJump.other "Other Stuff">
+<!ENTITY ForumJump.sports "Where you are always picked last to post.">
+<!ENTITY ForumJump.politics "Where people who live in the same country come to hate each other.">
+<!ENTITY ForumJump.technical "Hardware, gadgets, etc. Pretend like you know what you are talking about in here.">
+<!ENTITY ForumJump.garage "If it has an engine, bring it here.">
+<!ENTITY ForumJump.bottom "Rock Bottom">
+<!ENTITY ForumJump.forumgames "Not a Gaming Forum but a forum for games">
+<!ENTITY ForumJump.basement "If you get offended by words on a monitor, you should stay out of here.">

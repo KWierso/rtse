@@ -25,11 +25,6 @@
 
 var gRTSE=Components.classes['@shawnwilsher.com/rtse;1']
                     .createInstance(Components.interfaces.nsIRTSE);
-function apply() {
-
-	return true;
-}
-
 function load() {
 	// Load Smilies Preview
 	displaySmilies();
@@ -47,13 +42,12 @@ function load() {
   }
 }
 
-function theme() {
-	/* Function called when 'theme' is enabled or disabled */
-	if( document.getElementById('theme').checked ) {
-		document.getElementById('themeType').disabled=false
-	} else {
-		document.getElementById('themeType').disabled=true;
-	}
+/**
+ * Function to disable/enable the theme type selector
+ */
+function theme()
+{
+  document.getElementById('pref_theme').disabled = !document.getElementById('theme').checked;
 }
 
 function smilieFilePicker(aWin)
