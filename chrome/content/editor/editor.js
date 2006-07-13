@@ -55,20 +55,50 @@ RTSE.editor = {
     gBrowser.mPanelContainer.addEventListener("select",
                                               RTSE.editor.toggleEditor,
                                               false);
+    gBrowser.mPanelContainer.addEventListener("DOMContentLoaded",
+                                              RTSE.editor.initDoc,
+                                              false);
 
     this.mOk = true;
   },
 
  /**
+  * Initializes a document for the editor
+  *
+  * @param aEvent The event passed to the function
+  */
+  initDoc: function initDoc(aEvent)
+  {
+    var doc = aEvent.originalTarget;
+    if (!/^https?:\/\/(www|rvb|sh|panics)\.roosterteeth\.com(.*)?$/.test(doc.location.href))
+      return;
+    var form = doc.createElement("form");
+    form.setAttribute("name", "rtse");
+    form.setAttribute("style", "display: none;");
+    doc.getElementsByTagName("body")[0].appendChild(form);
+
+    form = doc.forms.namedItem("rtse");
+    var elms = ["visible", "body", "title"];
+    var vals = ["false", "", ""];
+    for (var i in elms) {
+      var elm = doc.createElement("input");
+      elm.setAttribute("type", "hidden");
+      elm.setAttribute("name", elms[i]);
+      form.appendChild(elm);
+    }
+  },
+
+ /**
   * Determines if the icon should be visable.  Should only be called from an
   *  event listener
+  *
   * @param aEvent The event passed to the function
   */
   toggleIcon: function toggleIcon(aEvent)
   {
     var show = false;
-    var doc = gBrowser.getBrowserAtIndex(gBrowser.mTabContainer.selectedIndex)
-                      .contentDocument;
+    var browser = gBrowser.getBrowserForTab(gBrowser.selectedTab);
+    var doc = browser.contentDocument;
     if (/^https?:\/\/(www|rvb|sh|panics)\.roosterteeth\.com(.*)?$/.test(doc.location.href)) {
       show = doc.getElementById("Add a Comment") ||
              doc.getElementById("Make a Journal Entry") ||
@@ -79,37 +109,74 @@ RTSE.editor = {
              doc.getElementById("Post") ||
              doc.getElementById("Edit") ||
              doc.getElementById("Edit Post");
-      if (!doc.editor) doc.editor = new RTSE_editor();
     }
     document.getElementById("rtse-statusbar-editor").hidden = !show;
   },
 
  /**
   * Shows/hides the editor and preview pane
+  *
   * @param aEvent The event passed to the function
   */
   toggleEditor: function toggleEditor(aEvent)
   {
-    var doc = gBrowser.getBrowserAtIndex(gBrowser.mTabContainer.selectedIndex)
-                      .contentDocument;
+    var browser = gBrowser.getBrowserForTab(gBrowser.selectedTab);
+    var doc = browser.contentDocument;
     var pane = document.getElementById("rtse-realtimeEditor");
-    if (!doc.editor) {
+    if (!doc.forms.namedItem("rtse")) {
       pane.hidden = true;
       return;
     }
-    var win = {
+    /*var win = {
       height: gBrowser.contentWindow.innerHeight,
       width: gBrowser.contentWindow.innerWidth
     };
-    pane.setAttribute("height", Math.floor(win.height/4));
+    pane.setAttribute("height", Math.floor(win.height/4));*/
 
     // updating values
-    document.getElementById("rtse-editor-body").value = doc.editor.body;
-    document.getElementById("rtse-editor-title").value = doc.editor.title;
+    if (pane.hidden) {
+      document.getElementById("rtse-editor-body").value =
+        RTSE.editor.getProperty(doc, "body");
+      document.getElementById("rtse-editor-title").value =
+        RTSE.editor.getProperty(doc, "title");
+    } else {
+      RTSE.editor.setProperty(doc, "body",
+                    document.getElementById("rtse-editor-body").value);
+      RTSE.editor.setProperty(doc, "title",
+                    document.getElementById("rtse-editor-title").value);
+    }
 
     // toggle visibility
-    pane.hidden = aEvent.type == "click" ? !pane.hidden : !doc.editor.visible;
-    doc.editor.visible = !pane.hidden;
+    pane.hidden = aEvent.type == "click" ? !pane.hidden :
+                    RTSE.editor.getProperty(doc, "visible") != "true";
+    RTSE.editor.setProperty(doc, "visible", !pane.hidden);
+  },
+
+ /**
+  * Obtains the specified property for the editor
+  *
+  * @param aDoc The document which we are checking
+  * @param aProp The property to be gotten
+  * @return The value of the property
+  */
+  getProperty: function getProperty(aDoc, aProp)
+  {
+    var form = aDoc.forms.namedItem("rtse");
+    return form.elements.namedItem(aProp).value;
+  },
+
+ /**
+  * Sets the specified property for the editor
+  *
+  * @param aDoc The document which we are using
+  * @param aProp The property to be set
+  * @param aValue The value the property is to be set to
+  * @return The value of the property
+  */
+  setProperty: function setProperty(aDoc, aProp, aValue)
+  {
+    var form = aDoc.forms.namedItem("rtse");
+    return form.elements.namedItem(aProp).value = aValue;
   },
 
   /////////////////////////////////////////////////////////////////////////////
@@ -117,6 +184,7 @@ RTSE.editor = {
 
  /**
   * Indicates if the object is ready yet
+  *
   * @return The status of the object (true or false)
   */
   get ok()
