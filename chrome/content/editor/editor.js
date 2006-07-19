@@ -59,6 +59,27 @@ RTSE.editor = {
                                               RTSE.editor.initDoc,
                                               false);
 
+    // Visibility
+    if (gRTSE.prefsGetBool("extensions.rtse.sponsor")) {
+      document.getElementById("rtse-editor-sponsorSmilies").hidden = false;
+    }
+
+    // Event Listeners
+    var focus, blur;
+    var title = document.getElementById("rtse-editor-title").inputField;
+    focus = function focus() {
+      if (this.value == RTSE.editor.defaultTitle) this.value = "";
+        this.style.borderColor = "";
+    };
+    blur = function blur() {
+        if (this.value == "") {
+          this.value = RTSE.editor.defaultTitle;
+          this.style.borderColor = '#FF0000';
+        }
+    };
+    title.addEventListener("focus", focus, false);
+    title.addEventListener("blur", blur, false);
+
     this.mOk = true;
   },
 
@@ -78,14 +99,18 @@ RTSE.editor = {
     doc.getElementsByTagName("body")[0].appendChild(form);
 
     form = doc.forms.namedItem("rtse");
-    var elms = ["visible", "body", "title"];
-    var vals = ["false", "", ""];
+    var elms = ["visible", "body", "show-body", "title", "show-title",
+                "friendsOnly", "show-friendsOnly"];
+    var vals = ["false", "", "true", "", "false", "", "false"];
     for (var i in elms) {
       var elm = doc.createElement("input");
       elm.setAttribute("type", "hidden");
       elm.setAttribute("name", elms[i]);
       form.appendChild(elm);
     }
+
+    // Inserting
+    RTSE.editor.insert(doc);
   },
 
  /**
@@ -146,10 +171,17 @@ RTSE.editor = {
                     document.getElementById("rtse-editor-title").value);
     }
 
+    // Visibility of certain elements
+    document.getElementById("rtse-editor-title").hidden =
+      RTSE.editor.getProperty(doc, "show-title") != "true";
+    document.getElementById("rtse-editor-friendsOnly").hidden =
+      RTSE.editor.getProperty(doc, "show-friendsOnly") != "true";
+
     // toggle visibility
     pane.hidden = aEvent.type == "click" ? !pane.hidden :
                     RTSE.editor.getProperty(doc, "visible") != "true";
     RTSE.editor.setProperty(doc, "visible", !pane.hidden);
+    document.getElementById("rtse-editor-body").focus();
   },
 
  /**
@@ -179,6 +211,42 @@ RTSE.editor = {
     return form.elements.namedItem(aProp).value = aValue;
   },
 
+ /**
+  * Inserts the editor box into the document
+  *
+  * @param aDoc The document to be checked to insert the editor
+  */
+  insert: function insert(aDoc)
+  {
+    if (!gRTSE.prefsGetBool('extensions.rtse.editor')) return;
+    const DATA = new Array("body", "title", "friendsOnly");
+    var form = aDoc.forms.namedItem('post');
+    if (!form) throw 'Form not available';
+
+    var ref = aDoc.getElementById("Add a Comment") ||
+              aDoc.getElementById("Make a Journal Entry") ||
+              aDoc.getElementById("Edit Journal Entry") ||
+              aDoc.getElementById("Add a New Topic") ||
+              aDoc.getElementById("Reply") ||
+              aDoc.getElementById("Send a Message") ||
+              aDoc.getElementById("Post") ||
+              aDoc.getElementById("Edit") ||
+              aDoc.getElementById("Edit Post");
+    if (!ref) throw 'Editor cannot be inserted';
+
+    for (var i = (DATA.length - 1); i >= 0; --i) {
+      if (form.elements.namedItem(DATA[i])) {
+        var value = form.elements.namedItem(DATA[i]).value
+        RTSE.editor.setProperty(aDoc, DATA[i], value);
+        RTSE.editor.setProperty(aDoc, "show-" + DATA[i], "true");
+      } else
+        RTSE.editor.setProperty(aDoc, "show-" + DATA[i], "false");
+    }
+    if (RTSE.editor.getProperty(aDoc, "show-title") == "true" &&
+        RTSE.editor.getProperty(aDoc, "title") == "")
+      RTSE.editor.setProperty(aDoc, "title", RTSE.editor.defaultTitle);
+  },
+
   /////////////////////////////////////////////////////////////////////////////
   //// Attributes
 
@@ -190,5 +258,15 @@ RTSE.editor = {
   get ok()
   {
     return this.mOk;
+  },
+
+ /**
+  * The default text for a title
+  *
+  * @return The text for an unentered title
+  */
+  get defaultTitle()
+  {
+    return "Please Specify a Title";
   }
 };

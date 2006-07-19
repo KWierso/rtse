@@ -48,12 +48,6 @@ var RTSE = {
 		var menu=document.getElementById("contentAreaContextMenu");	/* This is the context menu */
 		if(menu)
 			menu.addEventListener("popupshowing",this._menu,false);
-
-		/* Checking Version Number Pref - Updating if need be */
-		const UA_STRING='RTSE/'+gRTSE.version;
-		if( gRTSE.prefsGetString('general.useragent.extra.rtse')!=UA_STRING )
-			gRTSE.prefsSetString('general.useragent.extra.rtse',UA_STRING);
-		
 	},
 
 	onPageLoad: function(aEvent) {

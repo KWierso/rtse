@@ -66,7 +66,7 @@
         <textbox id="rtse-editor-body" flex="1"/>
         <toolbox id="rtse-editor-bottomToolbar" orient="horizontal">
         <toolbar>
-          <box id="rtse-editor-defaultSmiliesToolbar" hidden="true">
+          <box id="rtse-editor-sponsorSmilies" hidden="true">
             <toolbarbutton image="chrome://rtse/content/images/smiley0.gif" autoCheck="false"/>
             <toolbarbutton image="chrome://rtse/content/images/smiley1.gif" autoCheck="false"/>
             <toolbarbutton image="chrome://rtse/content/images/smiley2.gif" autoCheck="false"/>

@@ -42,6 +42,11 @@ function RTSE()
                       .getService(Components.interfaces.nsIStyleSheetService);
   if( !sss.sheetRegistered(uri,sss.USER_SHEET) )
     sss.loadAndRegisterSheet(uri,sss.USER_SHEET);
+
+  // Version
+  const UA_STRING = "RTSE/" + this.version;
+  if (this.prefsGetString("general.useragent.extra.rtse") != UA_STRING)
+    this.prefsSetString("general.useragent.extra.rtse", UA_STRING);
 };
 RTSE.prototype = {
 	// OVERVIEW: This is the class definition.  Defines the functions
