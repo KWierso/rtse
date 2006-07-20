@@ -79,6 +79,39 @@ RTSE.editor = {
     };
     title.addEventListener("focus", focus, false);
     title.addEventListener("blur", blur, false);
+    var toggle = function toggle() {
+      this.image = (this.checked) ? "chrome://rtse/content/images/locked.png" :
+                                   "chrome://rtse/content/images/unlocked.png";
+    };
+    document.getElementById("rtse-editor-friendsOnly")
+            .addEventListener("command", toggle, false);
+
+    // Smilies
+    if (gRTSE.prefsGetBool("extensions.rtse.smilies")) {
+      var smilies = RTSE.smilies.items;
+      const XUL = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
+      var menu = document.createElementNS(XUL, "menupopup");
+      var mi, key;
+      for (var i in smilies) {
+        mi = document.createElementNS(XUL, "menuitem");
+        mi.setAttribute("image", smilies[i].path);
+        mi.setAttribute("label", smilies[i].name);
+        mi.setAttribute("validate", "never");
+        mi.setAttribute("class", "menuitem-iconic");
+        mi.setAttribute("key", smilies[i].key);
+        mi.addEventListener("command", function() {
+          RTSE.editor.insertTag(this.getAttribute("key"));
+        }, false);
+        menu.appendChild(mi);
+      }
+
+      var elm = document.getElementById("rtse-editor-smiley")
+      elm.appendChild(menu);
+      elm.setAttribute("type", "menu");
+      elm.setAttribute("autoCheck", "false");
+      elm.hidden = false;
+      document.getElementById("rtse-editor-convertSmilies").hidden = false;
+    }
 
     this.mOk = true;
   },
@@ -108,6 +141,9 @@ RTSE.editor = {
       elm.setAttribute("name", elms[i]);
       form.appendChild(elm);
     }
+
+    // Event Listeners
+    form.addEventListener("submit", RTSE_convertExtraBB, false);
 
     // Inserting
     RTSE.editor.insert(doc);
@@ -219,7 +255,7 @@ RTSE.editor = {
   insert: function insert(aDoc)
   {
     if (!gRTSE.prefsGetBool('extensions.rtse.editor')) return;
-    const DATA = new Array("body", "title", "friendsOnly");
+    const DATA = RTSE.editor.dataFields;
     var form = aDoc.forms.namedItem('post');
     if (!form) throw 'Form not available';
 
@@ -247,6 +283,67 @@ RTSE.editor = {
       RTSE.editor.setProperty(aDoc, "title", RTSE.editor.defaultTitle);
   },
 
+ /**
+  * Submits the data from the editor to the right place
+  */
+  submit: function submit()
+  {
+    var doc = gBrowser.getBrowserForTab(gBrowser.selectedTab)
+                      .contentDocument;
+    if (!RTSE.editor.validate(doc)) return;
+
+    var form = doc.forms.namedItem("post");
+    // Copying values
+    const DATA = RTSE.editor.dataFields;
+    for (var i = (DATA.length - 1); i >= 0; --i) {alert(RTSE.editor.getProperty(doc, "show-" + DATA[i]));
+      if (form.elements.namedItem(DATA[i])) {
+        form.elements.namedItem(DATA[i])
+            .value = document.getElementById("rtse-editor-" + DATA[i]).value;
+      } else if (RTSE.editor.getProperty(doc, "show-" + DATA[i]) == "true") {
+        var elm = doc.createElement("input");
+        elm.setAttribute("type", "hidden");
+        elm.setAttribute("name", DATA[i]);
+        elm.setAttribute("value",
+                      document.getElementById("rtse-editor-" + DATA[i]).value);
+        form.appendChild(elm);
+      }
+    }
+
+    RTSE.editor.toggleEditor({type: "click"});
+
+    var e = doc.createEvent("HTMLEvents");
+    e.initEvent("submit", true, true);
+    form.dispatchEvent(e);
+  },
+
+ /**
+  * Validates the entered data before submission
+  *
+  * @param aDoc The document that we are checking
+  * @return True if ok, false otherwise
+  */
+  validate: function validate(aDoc)
+  {
+    var body  = document.getElementById("rtse-editor-body");
+    var title = document.getElementById("rtse-editor-title");
+
+    if (body.value == "") {
+      alert('You must enter a body');
+      body.focus();
+      return false;
+    }
+
+    if (RTSE.editor.getProperty(aDoc, "show-title") == "true" &&
+        (title.value == "" || title.value == RTSE.editor.defaultTitle)) {
+      alert('You must enter a title');
+      title.focus();
+      return false;
+    }
+
+    // should be all good
+    return true;
+  },
+
   /////////////////////////////////////////////////////////////////////////////
   //// Attributes
 
@@ -268,5 +365,15 @@ RTSE.editor = {
   get defaultTitle()
   {
     return "Please Specify a Title";
+  },
+
+ /**
+  * The array of all fields used
+  *
+  * @return An array of the data fields used in the editor
+  */
+  get dataFields()
+  {
+    return ["body", "title", "friendsOnly"];
   }
 };

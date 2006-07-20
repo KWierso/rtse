@@ -143,6 +143,7 @@ function RTSE_forumListBox(doc) {
 function RTSE_insertEditor(doc,type) {
 	/* Used to insert the editor in as opposed to the normal interface */
 	if (!gRTSE.prefsGetBool('extensions.rtse.editor') && !RTSE) return;
+  if (gRTSE.prefsGetBool("extensions.rtse.smilies")) return; // Temporary to enable users to view new editor.
 	const DEFAULT_HEIGHT='256';
 	const TITLE_HEIGHT='279';
 	const BLANK_MESSAGE_HEIGHT='356';
@@ -301,26 +302,6 @@ function RTSE_insertEditor(doc,type) {
 		// Listener for Extra BB
 		form.addEventListener('submit',RTSE_convertExtraBB,false);
 		ref.parentNode.replaceChild(editor,ref);
-
-    // Adding smilies
-    var smilies = RTSE.smilies.items;
-    const XUL = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
-    var menu = doc.createElementNS(XUL, "menupopup");
-    var mi, key;
-    for (var i in smilies) {
-      mi = doc.createElementNS(XUL, "menuitem");
-      mi.setAttribute("image", smilies[i].path);
-      mi.setAttribute("label", smilies[i].name);
-      mi.setAttribute("validate", "never");
-      mi.setAttribute("class", "menuitem-iconic");
-      mi.setAttribute("key", smilies[i].key);
-      mi.addEventListener("command", function() {
-        var editor = this.ownerDocument.getElementById("rtseEditor");
-        editor.insertTag(this.getAttribute('key'));
-      }, false);
-      menu.appendChild(mi);
-    }
-    doc.getElementById("rtseEditor").wrappedJSObject.addSmilies(menu);
 	} catch(e) {
 		//gRTSE.sendReport(e);
 		throw e;

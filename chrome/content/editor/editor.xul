@@ -63,7 +63,7 @@
             <toolbarbutton id="rtse-editor-newConv" hidden="true" autoCheck="false" image="chrome://rtse/content/images/newConv.png"/>
           </toolbar>
         </toolbox>
-        <textbox id="rtse-editor-body" flex="1"/>
+        <textbox id="rtse-editor-body" flex="1" multiline="true"/>
         <toolbox id="rtse-editor-bottomToolbar" orient="horizontal">
         <toolbar>
           <box id="rtse-editor-sponsorSmilies" hidden="true">
@@ -83,11 +83,13 @@
             <toolbarspacer flex="1000"/>
           </box>
           <toolbaritem>
-            <checkbox id="rtse-editor-convertSmilies" label="Convert Smilies" checked="true"/>
+            <checkbox id="rtse-editor-convertSmilies" label="Convert Smilies" checked="true" hidden="true"/>
           </toolbaritem>
           <toolbarspacer flex="1000"/>
           <toolbarbutton class="image-button" image="chrome://rtse/skin/images/editor/rt-rvb_preview.png"/>
-          <toolbarbutton class="image-button" image="chrome://rtse/skin/images/editor/rt-rvb_submit.png"/>
+          <toolbarbutton class="image-button"
+                         image="chrome://rtse/skin/images/editor/rt-rvb_submit.png"
+                         oncommand="RTSE.editor.submit();"/>
           <toolbarspacer flex="1"/>
         </toolbar>
       </toolbox>
