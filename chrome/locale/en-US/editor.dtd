@@ -6,6 +6,8 @@
 <!ENTITY Tooltip.quote "quoted text">
 <!ENTITY Tooltip.link "link name">
 <!ENTITY Tooltip.color "colored text">
+<!ENTITY Tooltip.locked "This is a Friends Only journal.">
+<!ENTITY Tooltip.unlocked "This journal is viewable to everyone.">
 
 <!ENTITY Color.red "Red">
 <!ENTITY Color.orange "Orange">
@@ -17,4 +19,4 @@
 <!ENTITY Color.white "White">
 <!ENTITY Color.custom "Custom Color">
 
-<!ENTITY Control.converSmilies.label "Convert Smilies">
+<!ENTITY Control.convertSmilies.label "Convert Smilies">

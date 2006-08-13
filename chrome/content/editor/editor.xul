@@ -80,6 +80,12 @@
       </description>
       <label value="alt + c"/>
     </tooltip>
+    <tooltip id="rtse-editor-tooltip-unlocked">
+      <label value="&Tooltip.unlocked;"/>
+    </tooltip>
+    <tooltip id="rtse-editor-tooltip-locked">
+      <label value="&Tooltip.locked;"/>
+    </tooltip>
     <vbox id="rtse-preview" flex="2"/>
     <vbox id="rtse-editor" flex="4">
       <textbox id="rtse-editor-title" hidden="true" maxlength="40"/>
@@ -139,10 +145,20 @@
             <toolbarbutton id="rtse-editor-smiley"
                            image="chrome://rtse/skin/images/editor/happy.png"
                            hidden="true"/>
+            <toolbarbutton id="rtse-editor-cut"
+                           image="chrome://rtse/content/editor/cut.png"
+                           command="cmd_cut"/>
+            <toolbarbutton id="rtse-editor-copy"
+                           image="chrome://rtse/content/editor/copy.png"
+                           command="cmd_copy"/>
+            <toolbarbutton id="rtse-editor-paste"
+                           image="chrome://rtse/content/editor/paste.png"
+                           command="cmd_paste"/>
             <toolbarbutton id="rtse-editor-friendsOnly"
                            image="chrome://rtse/content/images/unlocked.png"
                            hidden="true"
-                           type="checkbox"/>
+                           type="checkbox"
+                           tooltip="rtse-editor-tooltip-unlocked"/>
             <toolbarbutton id="rtse-editor-newConv"
                            image="chrome://rtse/content/images/newConv.png"
                            hidden="true"
@@ -196,7 +212,7 @@
           </box>
           <toolbaritem>
             <checkbox id="rtse-editor-convertSmilies"
-                      label="&Control.converSmilies.label;"
+                      label="&Control.convertSmilies.label;"
                       checked="true"
                       hidden="true"/>
           </toolbaritem>

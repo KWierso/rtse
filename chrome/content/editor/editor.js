@@ -80,8 +80,13 @@ RTSE.editor = {
     title.addEventListener("focus", focus, false);
     title.addEventListener("blur", blur, false);
     var toggle = function toggle() {
-      this.image = (this.checked) ? "chrome://rtse/content/images/locked.png" :
-                                   "chrome://rtse/content/images/unlocked.png";
+      if (this.checked) {
+        this.image = "chrome://rtse/content/images/locked.png";
+        this.tooltip = "rtse-editor-tooltip-locked";
+      } else {
+        this.image = "chrome://rtse/content/images/unlocked.png";
+        this.tooltip = "rtse-editor-tooltip-unlocked";
+      }
     };
     document.getElementById("rtse-editor-friendsOnly")
             .addEventListener("command", toggle, false);
@@ -129,6 +134,8 @@ RTSE.editor = {
     var doc = aEvent.originalTarget;
     if (!/^https?:\/\/(www|rvb|sh|panics)\.roosterteeth\.com(.*)?$/.test(doc.location.href))
       return;
+    if (!RTSE.editor.replaceableElements)
+      return;
     var form = doc.createElement("form");
     form.setAttribute("name", "rtse");
     form.setAttribute("style", "display: none;");
@@ -153,7 +160,7 @@ RTSE.editor = {
   },
 
  /**
-  * Determines if the icon should be visable.  Should only be called from an
+  * Determines if the icon should be visible.  Should only be called from an
   *  event listener
   *
   * @param aEvent The event passed to the function
@@ -163,17 +170,8 @@ RTSE.editor = {
     var show = false;
     var browser = gBrowser.getBrowserForTab(gBrowser.selectedTab);
     var doc = browser.contentDocument;
-    if (/^https?:\/\/(www|rvb|sh|panics)\.roosterteeth\.com(.*)?$/.test(doc.location.href)) {
-      show = doc.getElementById("Add a Comment") ||
-             doc.getElementById("Make a Journal Entry") ||
-             doc.getElementById("Edit Journal Entry") ||
-             doc.getElementById("Add a New Topic") ||
-             doc.getElementById("Reply") ||
-             doc.getElementById("Send a Message") ||
-             doc.getElementById("Post") ||
-             doc.getElementById("Edit") ||
-             doc.getElementById("Edit Post");
-    }
+    if (/^https?:\/\/(www|rvb|sh|panics)\.roosterteeth\.com(.*)?$/.test(doc.location.href))
+      show = RTSE.editor.replaceableElements;
     document.getElementById("rtse-statusbar-editor").hidden = !show;
   },
 
@@ -260,17 +258,9 @@ RTSE.editor = {
     if (!gRTSE.prefsGetBool('extensions.rtse.editor')) return;
     const DATA = RTSE.editor.dataFields;
     var form = aDoc.forms.namedItem('post');
-    if (!form) throw 'Form not available';
+    if (!form) throw "Form not available - " + aDoc.location.href;
 
-    var ref = aDoc.getElementById("Add a Comment") ||
-              aDoc.getElementById("Make a Journal Entry") ||
-              aDoc.getElementById("Edit Journal Entry") ||
-              aDoc.getElementById("Add a New Topic") ||
-              aDoc.getElementById("Reply") ||
-              aDoc.getElementById("Send a Message") ||
-              aDoc.getElementById("Post") ||
-              aDoc.getElementById("Edit") ||
-              aDoc.getElementById("Edit Post");
+    var ref = RTSE.editor.replaceableElements;
     if (!ref) throw 'Editor cannot be inserted';
 
     for (var i = (DATA.length - 1); i >= 0; --i) {
@@ -284,6 +274,11 @@ RTSE.editor = {
     if (RTSE.editor.getProperty(aDoc, "show-title") == "true" &&
         RTSE.editor.getProperty(aDoc, "title") == "")
       RTSE.editor.setProperty(aDoc, "title", RTSE.editor.defaultTitle);
+
+    editor = aDoc.createElement("textarea");
+    editor.addEventListener("click", RTSE.editor.toggleEditor, false);
+
+    ref.parentNode.replaceChild(editor, ref);
   },
 
  /**
@@ -449,5 +444,25 @@ RTSE.editor = {
   get dataFields()
   {
     return ["body", "title", "friendsOnly"];
+  },
+
+ /**
+  * The document elements that could be replaced for the editor.
+  *
+  * @return The element to be used.
+  */
+  get replaceableElements()
+  {
+    var doc = gBrowser.getBrowserForTab(gBrowser.selectedTab)
+                      .contentDocument;
+    return doc.getElementById("Add a Comment") ||
+           doc.getElementById("Make a Journal Entry") ||
+           doc.getElementById("Edit Journal Entry") ||
+           doc.getElementById("Add a New Topic") ||
+           doc.getElementById("Reply") ||
+           doc.getElementById("Send a Message") ||
+           doc.getElementById("Post") ||
+           doc.getElementById("Edit") ||
+           doc.getElementById("Edit Post");
   }
 };

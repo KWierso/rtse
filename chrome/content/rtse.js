@@ -74,30 +74,16 @@ var RTSE = {
 
       // MozSearch
       RTSE_addSearchPlugins(doc);
-
-			/* Editor */
-			if( doc.getElementById('Add a Comment') )
-				RTSE_insertEditor(doc,'comment');
 		} else
 			return;
 		
 		/* Run on journal pages */
 		if( /^https?:\/\/(www|rvb|sh|panics)\.roosterteeth\.com\/members\/journal(.*)?$/.test(doc.location.href) ) {
-			/* Editor */
-			if( doc.getElementById('Make a Journal Entry') )
-				RTSE_insertEditor(doc,'journal');
-
 			/* Run on your journal page */
 			if( /^https?:\/\/(www|rvb|sh|panics)\.roosterteeth\.com\/members\/journal\/?$/.test(doc.location.href) ||
 				/^https?:\/\/(www|rvb|sh|panics)\.roosterteeth\.com\/members\/journal\/index\.php.*$/.test(doc.location.href) ) {
 				/* Editor */
 				RTSE_insertEditor(doc,'journal');
-			}
-
-			/* Run on edit Journal page */
-			if( /^https?:\/\/(www|rvb|sh|panics)\.roosterteeth\.com\/members\/journal\/editEntry\.php.*$/.test(doc.location.href) ) {
-				/* Editor */
-				RTSE_insertEditor(doc,'ejournal');
 			}
 
 			// Run on Journal Comment pages
@@ -115,68 +101,11 @@ var RTSE = {
 
 		/* Run on all topic pages */
 		if( /^https?:\/\/(www|rvb|sh|panics)\.roosterteeth\.com\/forum\/viewTopic\.php(.*)?$/.test(doc.location.href) ) {
-			/* Editor */
-			RTSE_insertEditor(doc,'fcomment');
-
 			// Permalinks
 			RTSE_postPermalink(doc);
 
 			// Quotes
 			RTSE_addQuote(doc)
-		}
-
-		/* Run on topic reply page */
-		if( /^https?:\/\/(www|rvb|sh|panics)\.roosterteeth\.com\/forum\/reply\.php(.*)?$/.test(doc.location.href) ) {
-			/* Editor */
-			RTSE_insertEditor(doc,'freply');
-		}
-
-		/* Run on add topic page */
-		if( /^https?:\/\/(www|rvb|sh|panics)\.roosterteeth\.com\/forum\/addTopic\.php\?fid=([0-9]+)$/.test(doc.location.href) ) {
-			/* Editor */
-			RTSE_insertEditor(doc,'atopic');
-		}
-
-		/* Run on Homepage */
-		if( /^https?:\/\/(www|rvb|sh|panics)\.roosterteeth\.com\/members\/?$/.test(doc.location.href) ||
-			/^https?:\/\/(www|rvb|sh|panics)\.roosterteeth\.com\/members\/index\.php.*$/.test(doc.location.href) ) {
-			/* Editor */
-			RTSE_insertEditor(doc,'journal');
-		}
-
-		/* Run on preview page */
-		if( /^https?:\/\/(www|rvb|sh|panics)\.roosterteeth\.com\/preview\.php$/.test(doc.location.href) ) {
-			/* Editor */
-			RTSE_insertEditor(doc,'cpreview');
-		}
-
-		/* Run on edit page */
-		if( /^https?:\/\/(www|rvb|sh|panics)\.roosterteeth\.com\/editMe\.php.*$/.test(doc.location.href) ) {
-			/* Editor */
-			RTSE_insertEditor(doc,'cedit');
-		}
-
-		/* Messaging */
-		if( /^https?:\/\/(www|rvb|sh|panics)\.roosterteeth\.com\/members\/messaging.*$/.test(doc.location.href) ) {
-			/* Reply to message */
-			if( /^https?:\/\/(www|rvb|sh|panics)\.roosterteeth\.com\/members\/messaging\/reply\.php.*$/.test(doc.location.href) ||
-			    /^https?:\/\/(www|rvb|sh|panics)\.roosterteeth\.com\/members\/messaging\/previewReply\.php.*$/.test(doc.location.href) ) {
-				/* Editor */
-				RTSE_insertEditor(doc,'rmessage');
-			}
-
-			/* Messaging */
-			if( /^https?:\/\/(www|rvb|sh|panics)\.roosterteeth\.com\/members\/messaging\/send\.php\?.*$/.test(doc.location.href) ||
-				/^https?:\/\/(www|rvb|sh|panics)\.roosterteeth\.com\/members\/messaging\/preview\.php.*$/.test(doc.location.href) ) {
-				/* Editor */
-				RTSE_insertEditor(doc,'nmessage');
-			}
-
-			/* Messaging (blank) */
-			if( /^https?:\/\/(www|rvb|sh|panics)\.roosterteeth\.com\/members\/messaging\/send\.php$/.test(doc.location.href) ) {
-				/* Editor */
-				RTSE_insertEditor(doc,'bmessage');
-			}
 		}
 
 		// Run on Image comment Pages
