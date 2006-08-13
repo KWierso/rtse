@@ -1,4 +1,5 @@
 <?xml version="1.0" ?>
+<!DOCTYPE overlay SYSTEM "chrome://rtse/locale/browser.dtd">
 <overlay id="rtse-browser-overlay"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
@@ -14,41 +15,37 @@
           src="chrome://rtse/content/browser.js"/>
 
 <popup id="contentAreaContextMenu">
-	<menu
-		id="rtse-sub-menu"	
-		hidden="true"
-		label="RTSE"
-		position="1">
-		<menupopup>
-			<menuitem
-				id="rtse-user-sendPM"
-				label="Send PM"
-				position="1"
-				image="chrome://rtse/skin/images/global/message.png"
-				class="menuitem-iconic"/>
-			<menuitem
-				id="rtse-user-watch"
-				label="Watch User"
-				position="2"
-				image="chrome://rtse/skin/images/global/add-watch.png"
-				class="menuitem-iconic"/>
-			<menuitem
-				id="rtse-user-friends"
-				label="Add to friends"
-				position="3"
-				image="chrome://rtse/skin/images/global/add-friend.png"
-				class="menuitem-iconic"/>
-		</menupopup>
-	</menu>
+  <menu id="rtse-sub-menu"  
+        hidden="true"
+        label="&Extension.shortName;"
+        position="1">
+    <menupopup>
+      <menuitem id="rtse-user-sendPM"
+                label="&ContextMenu.sendPM.label;"
+                position="1"
+                image="chrome://rtse/skin/images/global/message.png"
+                class="menuitem-iconic"/>
+      <menuitem id="rtse-user-watch"
+                label="&ContextMenu.watch.label;"
+                position="2"
+                image="chrome://rtse/skin/images/global/add-watch.png"
+                class="menuitem-iconic"/>
+      <menuitem id="rtse-user-friends"
+                label="&ContextMenu.addFriend.label;"
+                position="3"
+                image="chrome://rtse/skin/images/global/add-friend.png"
+                class="menuitem-iconic"/>
+    </menupopup>
+  </menu>
 </popup>
 
 <statusbar id="status-bar">
   <statusbarpanel id="rtse-statusbar-editor"
                   insertbefore="statusbar-display"
-                  label="rtse"
+                  label="&Extension.shortName;"
                   crop="none"
                   hidden="true"
-                  tooltiptext="The RTSE editor is enabled on this page"/>
+                  tooltiptext="&Statusbar.editor.tooltip;"/>
 </statusbar>
 
 <window id="main-window">

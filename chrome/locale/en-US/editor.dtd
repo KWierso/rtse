@@ -1,0 +1,20 @@
+<!ENTITY Tooltip.bold "bold text">
+<!ENTITY Tooltip.italic "italic text">
+<!ENTITY Tooltip.underline "underlined text">
+<!ENTITY Tooltip.strike "striken text">
+<!ENTITY Tooltip.image "image url">
+<!ENTITY Tooltip.quote "quoted text">
+<!ENTITY Tooltip.link "link name">
+<!ENTITY Tooltip.color "colored text">
+
+<!ENTITY Color.red "Red">
+<!ENTITY Color.orange "Orange">
+<!ENTITY Color.yellow "Yellow">
+<!ENTITY Color.green "Green">
+<!ENTITY Color.blue "Blue">
+<!ENTITY Color.violet "Violet">
+<!ENTITY Color.brown "Brown">
+<!ENTITY Color.white "White">
+<!ENTITY Color.custom "Custom Color">
+
+<!ENTITY Control.converSmilies.label "Convert Smilies">

@@ -1,4 +1,5 @@
 <?xml version="1.0" ?>
+<!DOCTYPE overlay SYSTEM "chrome://rtse/locale/editor.dtd">
 <!--
 /* ***** BEGIN LICENSE BLOCK *****
  * Version: Open Software License v. 2.1
@@ -33,49 +34,49 @@
   <hbox id="rtse-realtimeEditor">
     <tooltip id="rtse-editor-tooltip-b" orient="vertical">
       <description>
-        [b]<html:strong>bold text</html:strong>[/b]
+        [b]<html:strong>&Tooltip.bold;</html:strong>[/b]
       </description>
       <label value="alt + b"/>
     </tooltip>
     <tooltip id="rtse-editor-tooltip-i" orient="vertical">
       <description>
-        [i]<html:i>italic text</html:i>[/i]
+        [i]<html:i>&Tooltip.italic;</html:i>[/i]
       </description>
       <label value="alt + i"/>
     </tooltip>
     <tooltip id="rtse-editor-tooltip-u" orient="vertical">
       <description>
-        [u]<html:u>underlined text</html:u>[/u]
+        [u]<html:u>&Tooltip.underline;</html:u>[/u]
       </description>
       <label value="alt + u"/>
     </tooltip>
     <tooltip id="rtse-editor-tooltip-s" orient="vertical">
       <description>
-        [s]<html:del>striken text</html:del>[/s]
+        [s]<html:del>&Tooltip.strike;</html:del>[/s]
       </description>
       <label value="alt + s"/>
     </tooltip>
     <tooltip id="rtse-editor-tooltip-img" orient="vertical">
       <description>
-        [img]<html:strong>image url</html:strong>[/img]
+        [img]<html:strong>&Tooltip.image;</html:strong>[/img]
       </description>
       <label value="alt + p"/>
     </tooltip>
     <tooltip id="rtse-editor-tooltip-quote" orient="vertical">
       <description>
-        [quote]<html:strong>quoted text</html:strong>[/quote]
+        [quote]<html:strong>&Tooltip.quote;</html:strong>[/quote]
       </description>
       <label value="alt + q"/>
     </tooltip>
     <tooltip id="rtse-editor-tooltip-link" orient="vertical">
       <description>
-        [link=url]<html:strong>name</html:strong>[/link]
+        [link=url]<html:strong>&Tooltip.link;</html:strong>[/link]
       </description>
       <label value="alt + l"/>
     </tooltip>
     <tooltip id="rtse-editor-tooltip-color" orient="vertical">
       <description>
-        [color=value]<html:strong>colored text</html:strong>[/color]
+        [color=value]<html:strong>&Tooltip.color;</html:strong>[/color]
       </description>
       <label value="alt + c"/>
     </tooltip>
@@ -119,21 +120,22 @@
                            hidden="true"
                            tooltip="rtse-editor-tooltip-color">
               <menupopup>
-                <menuitem label="Red" value="FF0000"/>
-                <menuitem label="Orange" value="FFAA00"/>
-                <menuitem label="Yellow" value="DDFF00"/>
-                <menuitem label="Green" value="00FF00"/>
-                <menuitem label="Blue" value="0000FF"/>
-                <menuitem label="Violet" value="AA00FF"/>
-                <menuitem label="Brown" value="AA8800"/>
-                <menuitem label="White" value="FFFFFF"/>
+                <menuitem label="&Color.red;" value="FF0000"/>
+                <menuitem label="&Color.orange;" value="FFAA00"/>
+                <menuitem label="&Color.yellow;" value="DDFF00"/>
+                <menuitem label="&Color.green;" value="00FF00"/>
+                <menuitem label="&Color.blue;" value="0000FF"/>
+                <menuitem label="&Color.violet;" value="AA00FF"/>
+                <menuitem label="&Color.brown;" value="AA8800"/>
+                <menuitem label="&Color.white;" value="FFFFFF"/>
                 <menuseparator/>
-                <menuitem label="Custom Color"/>
+                <menuitem label="&Color.custom;"/>
               </menupopup>
             </toolbarbutton>
             <toolbarbutton id="rtse-editor-colorSwitch"
                            image="chrome://rtse/skin/images/editor/color.png"
-                           hidden="true"/>
+                           hidden="true"
+                           tooltip="rtse-editor-tooltip-color"/>
             <toolbarbutton id="rtse-editor-smiley"
                            image="chrome://rtse/skin/images/editor/happy.png"
                            hidden="true"/>
@@ -194,7 +196,7 @@
           </box>
           <toolbaritem>
             <checkbox id="rtse-editor-convertSmilies"
-                      label="Convert Smilies"
+                      label="&Control.converSmilies.label;"
                       checked="true"
                       hidden="true"/>
           </toolbaritem>
