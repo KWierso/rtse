@@ -1,11 +1,17 @@
 <?xml version="1.0" ?>
-<overlay id="rtse-browser-overlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<overlay id="rtse-browser-overlay"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-	<script type="application/x-javascript" src="chrome://rtse/content/pageFix.js" />
-	<script type="application/x-javascript" src="chrome://rtse/content/functions.js" />
-	<script type="application/x-javascript" src="chrome://rtse/content/rtse.js" />
-  <script type="application/x-javascript" src="chrome://rtse/content/editor/editor.js" />
-	<script type="application/x-javascript" src="chrome://rtse/content/browser.js" />
+  <script type="application/javascript"
+          src="chrome://rtse/content/pageFix.js"/>
+  <script type="application/javascript"
+          src="chrome://rtse/content/functions.js"/>
+  <script type="application/javascript"
+          src="chrome://rtse/content/rtse.js"/>
+  <script type="application/javascript"
+          src="chrome://rtse/content/editor/editor.js"/>
+  <script type="application/javascript"
+          src="chrome://rtse/content/browser.js"/>
 
 <popup id="contentAreaContextMenu">
 	<menu

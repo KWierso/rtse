@@ -86,6 +86,9 @@ RTSE.editor = {
     document.getElementById("rtse-editor-friendsOnly")
             .addEventListener("command", toggle, false);
 
+    document.getElementById("rtse-editor-body")
+            .addEventListener("keypress", RTSE.editor.keypressListener, false);
+
     // Smilies
     if (gRTSE.prefsGetBool("extensions.rtse.smilies")) {
       var smilies = RTSE.smilies.items;
@@ -295,7 +298,7 @@ RTSE.editor = {
     var form = doc.forms.namedItem("post");
     // Copying values
     const DATA = RTSE.editor.dataFields;
-    for (var i = (DATA.length - 1); i >= 0; --i) {alert(RTSE.editor.getProperty(doc, "show-" + DATA[i]));
+    for (var i = (DATA.length - 1); i >= 0; --i) {
       if (form.elements.namedItem(DATA[i])) {
         form.elements.namedItem(DATA[i])
             .value = document.getElementById("rtse-editor-" + DATA[i]).value;
@@ -342,6 +345,77 @@ RTSE.editor = {
 
     // should be all good
     return true;
+  },
+
+ /**
+  * Inserts a BBcode tag into the editor
+  *
+  * @param aID The id of the element that was clicked.
+  */
+  insertTag: function insertTag(aID)
+  {
+    var text = document.getElementById("rtse-editor-body");
+    var elm  = document.getElementById("rtse-editor-" + aID);
+
+    if (text.selectionStart == text.selectionEnd || !elm) {
+      // No text selected or tag has no closing
+      var bool;
+      if (elm || aID.match(/smiley[0-9]+/)) {
+        bool = elm ? elm.checked : false;
+        tag = bool ? "[/" + aID + "]" :  "[" + aID + "]"
+      } else {
+        tag = tagText;
+      }
+      var pos = text.selectionStart + tag.length;
+      if (elm)
+        elm.checked = !bool;
+      text.value = text.value.substring(0, text.selectionStart) + tag +
+                   text.value.substring(text.selectionStart, text.textLength);
+      text.setSelectionRange(pos, pos);
+    } else {
+      // Text is selected 
+      var tag = "[" + aID + "]";
+      var length = tag.length;
+      var data = text.value.substring(0, text.selectionStart) + tag;
+      tag = "[/" + aID + "]";
+      length += tag.length;
+      var start = text.selectionStart;
+      var end = text.selectionEnd;
+      data += text.value.substring(text.selectionStart, text.selectionEnd) +
+              tag + text.value.substring(text.selectionEnd, text.textLength);
+      text.value = data;
+      text.setSelectionRange(start, end + length);
+    }
+    
+    text.focus();
+  },
+
+ /**
+  * Event Listener for shortcut keys in editor
+  *
+  * @param aEvent The event passed to the function.
+  */
+  keypressListener: function keypressListener(aEvent)
+  {
+    if (!aEvent.altKey)
+      return;
+
+    aEvent.stopPropagation();
+    aEvent.preventDefault();
+
+    switch (aEvent.keyCode) {
+      case "b":
+      case "i":
+      case "u":
+      case "s":
+        RTSE.editor.insertTag(aEvent.keyCode);
+        break;
+      case "p":
+        RTSE.editor.insertTag("img");
+        break;
+      default:
+        break;
+    }
   },
 
   /////////////////////////////////////////////////////////////////////////////
