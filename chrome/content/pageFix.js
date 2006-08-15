@@ -131,9 +131,13 @@ function RTSE_forumListBox(doc) {
 		},false);
 
 		/* Now that we have the listBox all filled up... */
-		var ref=doc.getElementById('tabsHolder').parentNode;
-		var cont=doc.createElement('tr');
+		var ref=doc.getElementById('tabsHolder').getElementsByTagName("table")[0]
+               .firstChild.firstChild;
+		var cont=doc.createElement('td');
+    listBox.setAttribute("style", "position:relative;right:1px;top:-1px;");
 		cont.appendChild(listBox);
+    cont.setAttribute("align", "right");
+    cont.setAttribute("valign", "top");
 		ref.appendChild(cont);
 	} catch(e) {
 		gRTSE.sendReport(e);
