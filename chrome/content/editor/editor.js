@@ -170,7 +170,8 @@ RTSE.editor = {
     var show = false;
     var browser = gBrowser.getBrowserForTab(gBrowser.selectedTab);
     var doc = browser.contentDocument;
-    if (/^https?:\/\/(www|rvb|sh|panics)\.roosterteeth\.com(.*)?$/.test(doc.location.href))
+    if (gRTSE.prefsGetBool("extensions.rtse.editor") &&
+        /^https?:\/\/(www|rvb|sh|panics)\.roosterteeth\.com(.*)?$/.test(doc.location.href))
       show = RTSE.editor.replaceableElements;
     document.getElementById("rtse-statusbar-editor").hidden = !show;
   },
@@ -258,6 +259,17 @@ RTSE.editor = {
 
     var ref = RTSE.editor.replaceableElements;
     if (!ref) throw 'Editor cannot be inserted';
+
+    // Taking care of hidden fields that get removed
+    var elms = ["uid"];
+    var elm, clone;
+    for (var i = (elms.length - 1); i >= 0; --i)
+      elm = form.elements.namedItem(elms[i]);
+      if (elm) {
+        clone = elm.cloneNode(true);
+        elm.parentNode.removeChild(elm);
+        form.appendChild(clone);
+      }
 
     for (var i = (DATA.length - 1); i >= 0; --i) {
       if (form.elements.namedItem(DATA[i])) {
