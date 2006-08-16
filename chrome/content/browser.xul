@@ -48,11 +48,11 @@
                   tooltiptext="&Statusbar.editor.tooltip;"/>
 </statusbar>
 
-<window id="main-window">
+<vbox id="appcontent">
+  <splitter id="rtse-ContentSplitter" collapsed="true"/>
   <hbox id="rtse-realtimeEditor"
-        insertbefore="status-bar"
-        flex="1"
-        hidden="true"/>
-</window>
+        collapsed="true"
+        persist="height"/>
+</vbox>
 
 </overlay>

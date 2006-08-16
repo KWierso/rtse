@@ -186,17 +186,12 @@ RTSE.editor = {
     var doc = browser.contentDocument;
     var pane = document.getElementById("rtse-realtimeEditor");
     if (!doc.forms.namedItem("rtse")) {
-      pane.hidden = true;
+      pane.collapsed = true;
       return;
     }
-    /*var win = {
-      height: gBrowser.contentWindow.innerHeight,
-      width: gBrowser.contentWindow.innerWidth
-    };
-    pane.setAttribute("height", Math.floor(win.height/4));*/
 
     // updating values
-    if (pane.hidden) {
+    if (pane.collapsed) {
       document.getElementById("rtse-editor-body").value =
         RTSE.editor.getProperty(doc, "body");
       document.getElementById("rtse-editor-title").value =
@@ -215,9 +210,10 @@ RTSE.editor = {
       RTSE.editor.getProperty(doc, "show-friendsOnly") != "true";
 
     // toggle visibility
-    pane.hidden = aEvent.type == "click" ? !pane.hidden :
-                    RTSE.editor.getProperty(doc, "visible") != "true";
-    RTSE.editor.setProperty(doc, "visible", !pane.hidden);
+    pane.collapsed = aEvent.type == "click" ? !pane.collapsed :
+                       RTSE.editor.getProperty(doc, "visible") != "true";
+    document.getElementById("rtse-ContentSplitter").collapsed = pane.collapsed;
+    RTSE.editor.setProperty(doc, "visible", !pane.collapsed);
     document.getElementById("rtse-editor-body").focus();
   },
 
