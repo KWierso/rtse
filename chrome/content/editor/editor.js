@@ -394,6 +394,39 @@ RTSE.editor = {
   },
 
  /**
+  * Gets the link URI and Label
+  */
+  link: function link()
+  {
+    var body = document.getElementById("rtse-editor-body");
+
+    var out = {
+      url:      "http://",
+      label:    body.selectionStart == body.selectionEnd ? "" :
+                  body.value.substring(body.selectionStart,
+                                       body.selectionEnd),
+      accepted: false
+    };
+
+    window.openDialog("chrome://rtse/content/editor/link.xul",
+                      "link",
+                      "chrome,modal,centerscreen",
+                      out);
+
+    if (!out.accepted) return;
+
+    var tag = "[link=" + out.url + "]" + out.label + "[/link]";
+
+    var start  = body.selectionStart;
+    var end    = body.selectionStart + tag.length;
+    body.value = body.value.substring(0, start) + tag +
+                   body.value.substring(body.selectionEnd,
+                                        body.textLength);
+    body.setSelectionRange(start, end);
+    body.focus();
+  },
+
+ /**
   * Event Listener for shortcut keys in editor
   *
   * @param aEvent The event passed to the function.

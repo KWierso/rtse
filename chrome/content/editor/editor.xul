@@ -117,7 +117,7 @@
                            tooltip="rtse-editor-tooltip-quote"/>
             <toolbarbutton id="rtse-editor-link"
                            image="chrome://rtse/skin/images/editor/link.png"
-                           oncommand=""
+                           oncommand="RTSE.editor.link();"
                            tooltip="rtse-editor-tooltip-link"/>
             <toolbarbutton id="rtse-editor-color"
                            image="chrome://rtse/skin/images/editor/color.png"

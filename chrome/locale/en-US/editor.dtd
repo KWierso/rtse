@@ -20,3 +20,7 @@
 <!ENTITY Color.custom "Custom Color">
 
 <!ENTITY Control.convertSmilies.label "Convert Smilies">
+
+<!ENTITY Link.title "Create a Link">
+<!ENTITY Link.url.label "Link URL:">
+<!ENTITY Link.text.label "Link Text:">
