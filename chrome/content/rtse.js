@@ -105,7 +105,10 @@ var RTSE = {
 			RTSE_postPermalink(doc);
 
 			// Quotes
-			RTSE_addQuote(doc)
+			RTSE_addQuote(doc);
+
+      // Modify Replies
+      RTSE_modifyReply(doc);
 		}
 
 		// Run on Image comment Pages

@@ -200,26 +200,39 @@ function RTSE_postPermalink(aDoc)
 	}
 }
 
-function RTSE_samePageReply()
+function RTSE_samePageReply(aEvent)
 // EFFECTS: Function called when clicking on reply when same page replies is enabled
 {
 	// Get post and what-not
-	var name=this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.getElementsByTagName('td')[0].getElementsByTagName('table')[0].getElementsByTagName('tbody')[0].getElementsByTagName('tr')[1].getElementsByTagName('td')[0].getElementsByTagName('table')[0].getElementsByTagName('tbody')[0].getElementsByTagName('tr')[0].getElementsByTagName('td')[0].firstChild.firstChild.data;
+  var name = this.parentNode.parentNode.parentNode.parentNode.parentNode
+                 .parentNode.parentNode.parentNode
+                 .getElementsByTagName('td')[0]
+                 .getElementsByTagName('table')[0]
+                 .getElementsByTagName('tbody')[0]
+                 .getElementsByTagName('tr')[1].getElementsByTagName('td')[0]
+                 .getElementsByTagName('table')[0]
+                 .getElementsByTagName('tbody')[0]
+                 .getElementsByTagName('tr')[0].getElementsByTagName('td')[0]
+                 .firstChild.firstChild.data;
 	name=name.replace(new RegExp('\t','gmi'),'');
 	name=name.replace(new RegExp('\n','gmi'),'');
 						
-	var num=this.parentNode.parentNode.parentNode.parentNode.getElementsByTagName('td')[0].getElementsByTagName('a')[0].firstChild.data;
-	num=num.replace(/#([0-9]+)/,'$1');;
+  var num = this.parentNode.parentNode.parentNode.parentNode
+                .getElementsByTagName('td')[0].getElementsByTagName('a')[0]
+                .firstChild.data;
+	num = num.replace(/#([0-9]+)/,'$1');
 
 	// Append to editor
-	var editor=this.ownerDocument.getElementById('rtseEditor');
-	var text = '[i]In reply to '+name+', #'+num+':[/i]\n\n';
-	if (editor) {
-		editor.body = editor.body + text;
-	} else {
-		var body = this.ownerDocument.forms.namedItem('post').elements.namedItem('body');
-		body.value = body.value + text;
-	}
+  var editor;
+  var text = '[i]In reply to '+name+', #'+num+':[/i]\n\n';
+  if (gRTSE.prefsGetBool("extensions.rtse.editor")) {
+    editor = document.getElementById("rtse-editor-body");
+    RTSE.editor.toggleEditor(aEvent);
+  } else {
+    editor = this.ownerDocument.forms.namedItem('post').elements.namedItem('body');
+  }
+  editor.value = editor.value + text;
+  editor.focus();
 }
 
 function RTSE_addReply(aDoc)
@@ -242,6 +255,22 @@ function RTSE_addReply(aDoc)
 		span.appendChild(aDoc.createTextNode(' ] '));
 		elms[i].appendChild(span);
 	}
+}
+
+/**
+ * Modifies all replies to keep them on the same page.
+ *
+ * @param aDoc The document to be modified.
+ */
+function RTSE_modifyReply(aDoc)
+{
+  if (!gRTSE.prefsGetBool("extensions.rtse.samePageReply")) return;
+  var elms = RTSE_evaluateXPath(aDoc, "//td[@id='pageContent']/table/tbody/tr[2]/td/table/tbody/tr[3]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/a[2]/b");
+  var href = aDoc.getElementById("Post") ? "#Post" : "#add";
+  for (i = (elms.length - 1); i >= 0; --i ) { 	 
+    elms[i].parentNode.setAttribute("href", href);
+    elms[i].addEventListener("click", RTSE_samePageReply, false);
+  }
 }
 
 function RTSE_addQuote(aDoc)
@@ -275,14 +304,17 @@ function RTSE_quotePost(aEvent)
 
 	text = '[quote]' + RTSE_HTMLtoBB(text) + '[/quote]\n\n';
 
-	// update the text of the body
-	var editor = this.ownerDocument.getElementById('rtseEditor');
-	if (editor) {
-		editor.body = editor.body + text;
-	} else {
-		var body = this.ownerDocument.forms.namedItem('post').elements.namedItem('body');
-		body.value = body.value + text;
-	}
+  // update the text of the body
+  var editor;
+  if (gRTSE.prefsGetBool("extensions.rtse.editor")) {
+    editor = document.getElementById("rtse-editor-body");
+    RTSE.editor.toggleEditor(aEvent);
+  } else {
+    editor = this.ownerDocument.forms.namedItem("post").elements
+                 .namedItem("body");
+  }
+  editor.value = editor.value + text;
+  editor.focus();
 }
 
 function RTSE_convertExtraBB(aEvent)
@@ -294,8 +326,8 @@ function RTSE_convertExtraBB(aEvent)
 
   // Smilies
   if (gRTSE.prefsGetBool('extensions.rtse.editor')) {
-    var editor = doc.getElementById('rtseEditor').wrappedJSObject;
-    if (editor.convertSmilies) body.value = RTSE.smilies.convert(body.value);
+    var checkbox = document.getElementById("rtse-editor-convertSmilies");
+    if (checkbox.checked) body.value = RTSE.smilies.convert(body.value);
   }
 	
 	body.value = body.value.replace(/\[quote=([a-zA-Z0-9_]{4,12})\]([\s\S]+)\[\/quote\]/g,'[b]Quoting $1:[/b][quote]$2[/quote]');
