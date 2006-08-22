@@ -92,7 +92,7 @@ RTSE.editor = {
             .addEventListener("command", toggle, false);
 
     document.getElementById("rtse-editor-body")
-            .addEventListener("keypress", RTSE.editor.keypressListener, false);
+            .addEventListener("keypress", RTSE.editor.keypressListener, true);
 
     // Smilies
     if (gRTSE.prefsGetBool("extensions.rtse.smilies")) {
@@ -439,15 +439,23 @@ RTSE.editor = {
     aEvent.stopPropagation();
     aEvent.preventDefault();
 
-    switch (aEvent.keyCode) {
+    var key = String.fromCharCode(aEvent.charCode);
+
+    switch (key) {
       case "b":
       case "i":
       case "u":
       case "s":
-        RTSE.editor.insertTag(aEvent.keyCode);
+        RTSE.editor.insertTag(key);
         break;
       case "p":
         RTSE.editor.insertTag("img");
+        break;
+      case "q":
+        RTSE.editor.insertTag("quote");
+        break;
+      case "l":
+        RTSE.editor.link();
         break;
       default:
         break;
