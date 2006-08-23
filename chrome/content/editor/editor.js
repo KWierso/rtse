@@ -31,7 +31,8 @@ RTSE.editor = {
   //// Private Variables
 
   mOk: false,
-
+  mCurrentDoc: null,
+  
   /////////////////////////////////////////////////////////////////////////////
   //// Functions
 
@@ -41,7 +42,14 @@ RTSE.editor = {
   init: function init()
   {
     var elm = document.getElementById("rtse-statusbar-editor");
-    elm.addEventListener("click", RTSE.editor.toggleEditor, false);
+    var click = function toggle() {
+      var pane = document.getElementById("rtse-realtimeEditor");
+      if (pane.collapsed)
+        RTSE.editor.ensureEditorIsVisible();
+      else
+        RTSE.editor.ensureEditorIsHidden();
+    };
+    elm.addEventListener("click", click, false);
 
     gBrowser.mPanelContainer.addEventListener("DOMContentLoaded",
                                               RTSE.editor.toggleIcon,
@@ -183,39 +191,69 @@ RTSE.editor = {
   */
   toggleEditor: function toggleEditor(aEvent)
   {
-    var browser = gBrowser.getBrowserForTab(gBrowser.selectedTab);
-    var doc = browser.contentDocument;
+    var doc = gBrowser.getBrowserForTab(gBrowser.selectedTab).contentDocument;
     var pane = document.getElementById("rtse-realtimeEditor");
+
     if (!doc.forms.namedItem("rtse")) {
-      pane.collapsed = true;
+      RTSE.editor.ensureEditorIsHidden();
       return;
     }
 
-    // updating values
-    if (pane.collapsed) {
-      document.getElementById("rtse-editor-body").value =
-        RTSE.editor.getProperty(doc, "body");
-      document.getElementById("rtse-editor-title").value =
-        RTSE.editor.getProperty(doc, "title");
+    if (RTSE.editor.getProperty(doc, "visible") == "true") {
+      RTSE.editor.ensureEditorIsVisible();
     } else {
-      RTSE.editor.setProperty(doc, "body",
-                    document.getElementById("rtse-editor-body").value);
-      RTSE.editor.setProperty(doc, "title",
-                    document.getElementById("rtse-editor-title").value);
+      RTSE.editor.ensureEditorIsHidden();
     }
+  },
+
+ /**
+  * Makes sure that the editor is visible in the window.
+  */
+  ensureEditorIsVisible: function ensureEditorIsVisible()
+  {
+    var pane = document.getElementById("rtse-realtimeEditor");
+    var doc  = gBrowser.getBrowserForTab(gBrowser.selectedTab).contentDocument;
+    
+    if (!pane.collapsed)
+      RTSE.editor.ensureEditorIsHidden();
+
+    RTSE.editor.mCurrentDoc = doc;
 
     // Visibility of certain elements
     document.getElementById("rtse-editor-title").hidden =
       RTSE.editor.getProperty(doc, "show-title") != "true";
     document.getElementById("rtse-editor-friendsOnly").hidden =
-      RTSE.editor.getProperty(doc, "show-friendsOnly") != "true";
+      RTSE.editor.getProperty(doc, "show-friendsOnly") != "true"
 
-    // toggle visibility
-    pane.collapsed = aEvent.type == "click" ? !pane.collapsed :
-                       RTSE.editor.getProperty(doc, "visible") != "true";
-    document.getElementById("rtse-ContentSplitter").collapsed = pane.collapsed;
-    RTSE.editor.setProperty(doc, "visible", !pane.collapsed);
+    document.getElementById("rtse-editor-body").value =
+      RTSE.editor.getProperty(doc, "body");
+    document.getElementById("rtse-editor-title").value =
+      RTSE.editor.getProperty(doc, "title");
+    RTSE.editor.setProperty(doc, "visible", "true");
+    document.getElementById("rtse-ContentSplitter")
+            .collapsed = pane.collapsed = false;
     document.getElementById("rtse-editor-body").focus();
+  },
+
+ /**
+  * Makes sure that the editor is hidden in the window.
+  */
+  ensureEditorIsHidden: function ensureEditorIsHidden()
+  {
+    var pane = document.getElementById("rtse-realtimeEditor");
+    var doc  = RTSE.editor.mCurrentDoc;
+
+    if (doc === null)
+      return;
+
+    if (!pane.collapsed) {
+      RTSE.editor.setProperty(doc, "body",
+                    document.getElementById("rtse-editor-body").value);
+      RTSE.editor.setProperty(doc, "title",
+                    document.getElementById("rtse-editor-title").value);
+    }
+    document.getElementById("rtse-ContentSplitter")
+            .collapsed = pane.collapsed = true;
   },
 
  /**
@@ -284,7 +322,8 @@ RTSE.editor = {
       RTSE.editor.setProperty(aDoc, "title", RTSE.editor.defaultTitle);
 
     editor = aDoc.createElement("textarea");
-    editor.addEventListener("click", RTSE.editor.toggleEditor, false);
+    editor.setAttribute("id", ref.getAttribute("id"));
+    editor.addEventListener("click", RTSE.editor.ensureEditorIsVisible, false);
 
     ref.parentNode.replaceChild(editor, ref);
   },
@@ -294,8 +333,7 @@ RTSE.editor = {
   */
   submit: function submit()
   {
-    var doc = gBrowser.getBrowserForTab(gBrowser.selectedTab)
-                      .contentDocument;
+    var doc = gBrowser.getBrowserForTab(gBrowser.selectedTab).contentDocument;
     if (!RTSE.editor.validate(doc)) return;
 
     var form = doc.forms.namedItem("post");
