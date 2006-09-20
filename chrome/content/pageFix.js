@@ -227,7 +227,7 @@ function RTSE_samePageReply(aEvent)
   var text = '[i]In reply to '+name+', #'+num+':[/i]\n\n';
   if (gRTSE.prefsGetBool("extensions.rtse.editor")) {
     editor = document.getElementById("rtse-editor-body");
-    RTSE.editor.toggleEditor(aEvent);
+    RTSE.editor.ensureEditorIsVisible();
   } else {
     editor = this.ownerDocument.forms.namedItem('post').elements.namedItem('body');
   }
@@ -308,7 +308,7 @@ function RTSE_quotePost(aEvent)
   var editor;
   if (gRTSE.prefsGetBool("extensions.rtse.editor")) {
     editor = document.getElementById("rtse-editor-body");
-    RTSE.editor.toggleEditor(aEvent);
+    RTSE.editor.ensureEditorIsVisible();
   } else {
     editor = this.ownerDocument.forms.namedItem("post").elements
                  .namedItem("body");
