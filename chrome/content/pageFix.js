@@ -332,9 +332,6 @@ function RTSE_convertExtraBB(aEvent)
 	
 	body.value = body.value.replace(/\[quote=([a-zA-Z0-9_]{4,12})\]([\s\S]+)\[\/quote\]/g,'[b]Quoting $1:[/b][quote]$2[/quote]');
 
-	// Taking care of the quote problem from people using Word
-	body.value = body.value.replace(/’/g,"'");
-
 	var loc;
 	if( doc.getElementById('rtseLocation') ) {
 		loc = doc.getElementById('rtseLocation').value;

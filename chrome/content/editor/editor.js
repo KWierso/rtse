@@ -161,6 +161,7 @@ RTSE.editor = {
     }
 
     // Event Listeners
+    form = doc.forms.namedItem("post");
     form.addEventListener("submit", RTSE_convertExtraBB, false);
 
     // Inserting
@@ -353,7 +354,7 @@ RTSE.editor = {
       }
     }
 
-    RTSE.editor.toggleEditor({type: "click"});
+    RTSE.editor.ensureEditorIsHidden();
 
     var e = doc.createEvent("HTMLEvents");
     e.initEvent("submit", true, true);
