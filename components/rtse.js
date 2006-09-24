@@ -30,6 +30,8 @@ const CLASS_ID=Components.ID("{0960cf50-d196-11da-a94d-0800200c9a66}");
 const CLASS_NAME="Rooster Teeth Site Extender XPCOM Component";
 const CONTRACT_ID="@shawnwilsher.com/rtse;1";
 
+const nsIPrefService = Components.interfaces.nsIPrefService;
+
 /* class definition */
 function RTSE()
 // OVERVIEW: This is the constructor function
@@ -121,55 +123,55 @@ RTSE.prototype = {
 	prefsSetBool: function(aName,aValue)
 	// EFFECTS: Sets a boolean preference aName with aValue.
 	{
-		var prefs=Components.classes["@mozilla.org/preferences-service;1"]
-		                    .getService(Components.interfaces.nsIPrefService);
-		var temp=aName.split('.');
-		var root='';
-		for( var i=0; i<(temp.length-1); i++ ) {
-			root=root+temp[i]+'.';
-		}
-		prefs=prefs.getBranch(root);
-		prefs.setBoolPref(temp[temp.length-1],aValue);
+    var prefs = this.prefsGetBranch(aName);
+
+    prefs.branch.setBoolPref(prefs.name, aValue);
 	},
 	prefsSetString: function(aName,aValue)
 	// EFFECTS: Sets a string preference aName with aValue.
 	{
-		var prefs=Components.classes["@mozilla.org/preferences-service;1"]
-		                    .getService(Components.interfaces.nsIPrefService);
-		var temp=aName.split('.');
-		var root='';
-		for( var i=0; i<(temp.length-1); i++ ) {
-			root=root+temp[i]+'.';
-		}
-		prefs=prefs.getBranch(root);
-		prefs.setCharPref(temp[temp.length-1],aValue);
+    var prefs = this.prefsGetBranch(aName);
+
+    prefs.branch.setCharPref(prefs.name, aValue);
 	},
 	prefsGetBool: function(aName)
 	// EFFECTS: Returns the value of aName.
 	{
-		var prefs=Components.classes["@mozilla.org/preferences-service;1"]
-		                    .getService(Components.interfaces.nsIPrefService);
-		var temp=aName.split('.');
-		var root='';
-		for( var i=0; i<(temp.length-1); i++ ) {
-			root=root+temp[i]+'.';
-		}
-		prefs=prefs.getBranch(root);
-		return prefs.getBoolPref(temp[temp.length-1]);
+    var prefs = this.prefsGetBranch(aName);
+
+    return prefs.branch.getBoolPref(prefs.name);
 	},
 	prefsGetString: function(aName)
 	// EFFECTS: Returns the value of aName.
 	{ 
-		var prefs=Components.classes["@mozilla.org/preferences-service;1"]
-		                    .getService(Components.interfaces.nsIPrefService);
-		var temp=aName.split('.');
-		var root='';
-		for( var i=0; i<(temp.length-1); i++ ) {
-			root=root+temp[i]+'.';
-		}
-		prefs=prefs.getBranch(root);
-		return prefs.getCharPref(temp[temp.length-1]);
+    var prefs = this.prefsGetBranch(aName);
+
+    return prefs.branch.getCharPref(prefs.name);
 	},
+
+ /**
+  * Obtains the proper preference branch for the preference.
+  *
+  * @param aName The full name of the preference to obtain.
+  * @return An array of the branch and the name of the preference.
+  */
+  prefsGetBranch: function prefsGetBranch(aName)
+  {
+    var prefs = {
+      name: null,
+      branch: null
+    };
+    prefs.branch = Components.classes["@mozilla.org/preferences-service;1"]
+                             .getService(nsIPrefService);
+    var temp = aName.split('.');
+    var root = '';
+    for (var i = 0; i < (temp.length - 1); ++i ) {
+      root = root + temp[i] + '.';
+    }
+    prefs.branch = prefs.branch.getBranch(root);
+    prefs.name   = temp[temp.length - 1];
+    return prefs;
+  },
 
 	QueryInterface: function(aIID)
 	{
