@@ -26,7 +26,7 @@
 
 if( !gRTSE )
 	var gRTSE=Components.classes['@shawnwilsher.com/rtse;1']
-	                    .createInstance(Components.interfaces.nsIRTSE);
+	                    .getService(Components.interfaces.nsIRTSE);
 
 function RTSE_linkFix(aDoc)
 // EFFECTS: removes all targets from links and prevents links from opening in a

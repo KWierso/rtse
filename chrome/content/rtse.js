@@ -24,7 +24,7 @@
  * ***** END LICENSE BLOCK ***** */
 
 var gRTSE=Components.classes['@shawnwilsher.com/rtse;1']
-                    .createInstance(Components.interfaces.nsIRTSE);
+                    .getService(Components.interfaces.nsIRTSE);
 var RTSE = {
  /**
   * Function that initializes everything for each windows
