@@ -23,18 +23,17 @@
  *
  * ***** END LICENSE BLOCK ***** */
 #include "nsISupports.idl"
-#include "nsIObserver.idl"
 
 [scriptable,uuid(0960cf50-d196-11da-a94d-0800200c9a66)]
 interface nsIRTSE:nsISupports
 {
-	attribute string version;
-	void    prefsRegisterObserver(in string aPref,in nsIObserver aFunc);
-	void    prefsUnregisterObserver(in string aPref,in nsIObserver aFunc);
-	void    prefsSetBool(in string aName,in boolean aValue);
-	void    prefsSetString(in string aName,in string aValue);
-	boolean prefsGetBool(in string aName);
-	string  prefsGetString(in string aName);
-	void    sendReport(in string aError);
-	void    login();
+  attribute string version;
+  attribute string username;
+
+  void    prefsSetBool(in string aName,in boolean aValue);
+  void    prefsSetString(in string aName,in string aValue);
+  boolean prefsGetBool(in string aName);
+  string  prefsGetString(in string aName);
+  void    sendReport(in string aError);
+  void    login();
 };

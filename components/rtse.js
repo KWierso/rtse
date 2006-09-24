@@ -31,6 +31,9 @@ const CLASS_NAME="Rooster Teeth Site Extender XPCOM Component";
 const CONTRACT_ID="@shawnwilsher.com/rtse;1";
 
 const nsIPrefService = Components.interfaces.nsIPrefService;
+const nsIPasswordManagerInternal = Components.interfaces
+                                             .nsIPasswordManagerInternal;
+const nsIXMLHttpRequest = Components.interfaces.nsIXMLHttpRequest;
 
 /* class definition */
 function RTSE()
@@ -53,37 +56,65 @@ RTSE.prototype = {
 		return this.mVersion;
 	},
 
-	login: function()
-	// EFFECTS: if the preference 'extensions.rtse.autologin' is set,
-	//          it will log you in to the site.
-	{
-		try {
-			if( !this.mLoginSent && this.prefsGetBool('extensions.rtse.signin') && this.prefsGetString('extensions.rtse.username') ) {
-				// pulls from password manager
-				var pm = Components.classes["@mozilla.org/passwordmanager;1"]
-				                   .getService(Components.interfaces.nsIPasswordManagerInternal);
-				var username = this.prefsGetString('extensions.rtse.username');
-				var usr = { value:"" };
-				var pwd = { value:"" };
-				var login = { value:"" };
-				pm.findPasswordEntry('rtse',username,"",usr,login,pwd);
+ /**
+  * Obtains the username stored in the preferences.
+  *
+  * @return The stored username.
+  */
+  get username()
+  {
+    return this.prefsGetString("extensions.rtse.username");
+  },
 
-				if (username && usr.value && pwd.value) {
-					var req=Components.classes["@mozilla.org/xmlextras/xmlhttprequest;1"]
-					                  .getService(Components.interfaces.nsIXMLHttpRequest);
-					req.open("POST",'http://www.roosterteeth.com/members/signinPost.php',true);
-					req.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-					req.send('user='+username+'&pass='+pwd.value);
-				} else {
-					throw 'RTSE :: Login Faluire';
-				}
-				
-				this.mLoginSent=true;
-			}
-		} catch(e) {
-			this.sendReport(e);
-		}
-	},
+ /**
+  * Sets the username in the preferences.
+  *
+  * @param aVal The value to set username too.
+  */
+  set username(aVal)
+  {
+    this.prefsSetString("extensions.rtse.username", aVal);
+  },
+
+ /**
+  * Attempts to log a user in.  This only happens if
+  *   "extensions.rtse.autologin" is set to true.
+  */
+  login: function login()
+  {
+    if (!this.mLoginSent && this.prefsGetBool("extensions.rtse.signin") &&
+        this.username ) {
+      var pm = Components.classes["@mozilla.org/passwordmanager;1"]
+                         .getService(nsIPasswordManagerInternal);
+
+      var usr = { value: "" };
+      var pwd = { value: "" };
+      var login = { value: "" };
+
+      try {
+        pm.findPasswordEntry("rtse", this.username, "", usr, login, pwd);
+      } catch(e) {
+        // password manager didn't find what we wanted.
+        Components.utils.reportError(e);
+        return;
+      }
+
+      if (usr.value && pwd.value) {
+        var req = Components.classes["@mozilla.org/xmlextras/xmlhttprequest;1"]
+                            .getService(nsIXMLHttpRequest);
+        req.open("POST", "http://www.roosterteeth.com/members/signinPost.php",
+                 true);
+        req.setRequestHeader("Content-Type",
+                             "application/x-www-form-urlencoded");
+        req.send("user=" + this.username + "&pass=" + pwd.value);
+      } else {
+        Components.utils.reportError("RTSE Login Failure.\n" +
+                                     "Username/password not stored.");
+      }
+
+      this.mLoginSent = true;
+    }
+  },
 
  /**
   * Function that sends the error report if the preference is set to do so
@@ -103,23 +134,6 @@ RTSE.prototype = {
     cs.logStringMessage(aError);
 	},
 
-	prefsRegisterObserver: function(aPref,aFunc)
-	// EFFECTS: Registers aFunc as an observer to aPref on
-	//          extensions.rtse. branch.
-	{
-		var prefService=Components.classes["@mozilla.org/preferences-service;1"]
-		                          .getService(Components.interfaces.nsIPrefService);
-		this._branch=prefService.getBranch("extensions.rtse.");
-		this._branch.QueryInterface(Components.interfaces.nsIPrefBranch2);
-		this._branch.addObserver(aPref,aFunc,false);
-	},
-	prefsUnregisterObserver: function(aPref,aFunc)
-	// EFFECTS: Unregisters aFunc as an observer to aPref on
-	//          extensions.rtse. branch.
-	{
-		if(!this._branch) return;
-    		this._branch.removeObserver(aPref,aFunc);
-	},
 	prefsSetBool: function(aName,aValue)
 	// EFFECTS: Sets a boolean preference aName with aValue.
 	{
