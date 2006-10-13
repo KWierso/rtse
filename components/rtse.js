@@ -34,11 +34,21 @@ const nsIPrefService = Components.interfaces.nsIPrefService;
 const nsIPasswordManagerInternal = Components.interfaces
                                              .nsIPasswordManagerInternal;
 const nsIXMLHttpRequest = Components.interfaces.nsIXMLHttpRequest;
+const nsIStyleSheetService = Components.interfaces.nsIStyleSheetService;
+const nsIIOService = Components.interfaces.nsIIOService;
 
 /* class definition */
 function RTSE()
 // OVERVIEW: This is the constructor function
 {
+  // Style Sheet Loading
+  var sss = Components.classes["@mozilla.org/content/style-sheet-service;1"]
+                      .getService(nsIStyleSheetService);
+  var ios = Components.classes["@mozilla.org/network/io-service;1"]
+                      .getService(nsIIOService);
+  var uri = ios.newURI("chrome://rtse/content/styles.css", null, null);
+  sss.loadAndRegisterSheet(uri, sss.USER_SHEET);
+
   // Version
   const UA_STRING = "RTSE/" + this.version;
   if (this.prefsGetString("general.useragent.extra.rtse") != UA_STRING)
