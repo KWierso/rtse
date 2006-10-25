@@ -88,12 +88,16 @@ RTSE.editor = {
     title.addEventListener("focus", focus, false);
     title.addEventListener("blur", blur, false);
     var toggle = function toggle() {
+      var doc  = gBrowser.getBrowserForTab(gBrowser.selectedTab)
+                         .contentDocument;
       if (this.checked) {
         this.image = "chrome://rtse/content/images/locked.png";
         this.tooltip = "rtse-editor-tooltip-locked";
+        RTSE.editor.setProperty(doc, "friendsOnly", "1");
       } else {
         this.image = "chrome://rtse/content/images/unlocked.png";
         this.tooltip = "rtse-editor-tooltip-unlocked";
+        RTSE.editor.setProperty(doc, "friendsOnly", "0");
       }
     };
     document.getElementById("rtse-editor-friendsOnly")
