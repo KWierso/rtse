@@ -132,12 +132,14 @@ RTSE.editor =
     }
 
     // Real Time Preview
-    var prev = RTSE.editor.realTimePreview;
-    prev.getElementById("username").innerHTML =
+    var rtp = RTSE.editor.realTimePreview;
+    rtp.getElementById("username").innerHTML =
       gRTSE.prefsGetString("extensions.rtse.username");
     if (!gRTSE.prefsGetBool("extensions.rtse.sponsor")) {
-      prev.getElementById("sponsor").style.display = "none";
+      rtp.getElementById("sponsor").style.display = "none";
     }
+    document.getElementById("rtse-editor-body")
+            .addEventListener("input", RTSE.editor.preview, false);
 
     this.mOk = true;
   },
@@ -438,7 +440,12 @@ RTSE.editor =
       text.value = data;
       text.setSelectionRange(start, end + length);
     }
-    
+
+    // We want to simulate the user doing this, so send out an input event.
+    var e = document.createEvent("UIEvents");
+    e.initUIEvent("input", true, false, window, 0);
+    text.dispatchEvent(e);
+
     text.focus();
   },
 
@@ -509,6 +516,54 @@ RTSE.editor =
       default:
         break;
     }
+  },
+
+ /**
+  * Preview event listener.  Generates the preview from the editor.
+  *
+  * @param aEvent The event passed to the function.
+  */
+  preview: function preview(aEvent)
+  {
+    var parser = function parser(aText)
+    {
+      aText = RTSE.editor.convertExtraBB(aText);
+
+      aText = aText.replace(/\n/g, "<br>");
+      aText = aText.replace(/\[(\/)?([b|i|u])\]/g, "<$1$2>");
+      aText = aText.replace(/\[(\/)?s\]/g, "<$1del>");
+      aText = aText.replace(/\[img\]http:\/\/(.*?)\[\/img\]/g,
+                            "<img src='http://$1' style='float: none;'>");
+      aText = aText.replace(/\[quote\](.*)\[\/quote\]/g,
+                            "<blockquote style='border: 1px solid rgb(204, 204, 204); padding: 4px; background-color: rgb(241, 241, 241);'>$1</blockquote>");
+      aText = aText.replace(/\[link=(.*?)\](.*?)\[\/link\]/g, "<a href='$1'>$2</a>");
+
+      return aText;
+    };
+
+    var body = document.getElementById("rtse-editor-body");
+    var rtp  = RTSE.editor.realTimePreview;
+    rtp.getElementById("post").innerHTML = parser(body.value);
+  },
+
+ /**
+  * This is the parser for additional BB codes.
+  *
+  * @param aText The text to be converted into RT BB code
+  * @return RT BB code.
+  */
+  convertExtraBB: function convertExtraBB(aText)
+  {
+    // Smilies
+    if (gRTSE.prefsGetBool('extensions.rtse.editor')) {
+      var checkbox = document.getElementById("rtse-editor-convertSmilies");
+      if (checkbox.checked) aText = RTSE.smilies.convert(aText);
+    }
+
+    // BB Code
+    aText = aText.replace(/\[quote=([a-zA-Z0-9_]{4,12})\]([\s\S]+)\[\/quote\]/g,'[b]Quoting $1:[/b][quote]$2[/quote]');
+
+    return aText;
   },
 
   /////////////////////////////////////////////////////////////////////////////

@@ -324,13 +324,7 @@ function RTSE_convertExtraBB(aEvent)
 	var doc = aEvent.originalTarget.ownerDocument;
 	var body = doc.forms.namedItem('post').elements.namedItem('body');
 
-  // Smilies
-  if (gRTSE.prefsGetBool('extensions.rtse.editor')) {
-    var checkbox = document.getElementById("rtse-editor-convertSmilies");
-    if (checkbox.checked) body.value = RTSE.smilies.convert(body.value);
-  }
-	
-	body.value = body.value.replace(/\[quote=([a-zA-Z0-9_]{4,12})\]([\s\S]+)\[\/quote\]/g,'[b]Quoting $1:[/b][quote]$2[/quote]');
+  body.value = RTSE.editor.convertExtraBB(body.value);
 
 	var loc;
 	if( doc.getElementById('rtseLocation') ) {
