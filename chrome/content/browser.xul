@@ -4,13 +4,13 @@
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
   <script type="application/javascript"
-          src="chrome://rtse/content/pageFix.js"/>
-  <script type="application/javascript"
-          src="chrome://rtse/content/functions.js"/>
-  <script type="application/javascript"
           src="chrome://rtse/content/rtse.js"/>
   <script type="application/javascript"
           src="chrome://rtse/content/editor/editor.js"/>
+  <script type="application/javascript"
+          src="chrome://rtse/content/pageFix.js"/>
+  <script type="application/javascript"
+          src="chrome://rtse/content/functions.js"/>
   <script type="application/javascript"
           src="chrome://rtse/content/browser.js"/>
 

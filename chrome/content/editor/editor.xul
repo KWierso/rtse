@@ -1,4 +1,5 @@
 <?xml version="1.0" ?>
+<?xul-overlay href="chrome://rtse/content/editor/preview.xul"?>
 <!DOCTYPE overlay SYSTEM "chrome://rtse/locale/editor.dtd">
 <!--
 /* ***** BEGIN LICENSE BLOCK *****
@@ -29,8 +30,6 @@
 <overlay id="rtse-editor-overlay"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
          xmlns:html="http://www.w3.org/1999/xhtml">
-  <script type="application/javascript"
-          src="chrome://rtse/content/editor.js"/>
   <hbox id="rtse-realtimeEditor">
     <tooltip id="rtse-editor-tooltip-b" orient="vertical">
       <description>
@@ -87,7 +86,7 @@
       <label value="&Tooltip.locked;"/>
     </tooltip>
     <vbox id="rtse-preview" flex="2"/>
-    <vbox id="rtse-editor" flex="4">
+    <vbox id="rtse-editor" flex="3">
       <textbox id="rtse-editor-title" hidden="true" maxlength="40"/>
         <toolbox pack="center">
           <toolbar id="rtse-editor-topToolbar">

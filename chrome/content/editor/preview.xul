@@ -1,3 +1,6 @@
+<?xml version="1.0" ?>
+<!DOCTYPE overlay SYSTEM "chrome://rtse/locale/editor.dtd">
+<!--
 /* ***** BEGIN LICENSE BLOCK *****
  * Version: Open Software License v. 2.1
  *
@@ -16,16 +19,18 @@
  * The Initial Developer of the Original Code is
  * Shawn Wilsher
  *
- * Portions created by the Initial Developer are Copyright (C) 2005
+ * Portions created by the Initial Developer are Copyright (C) 2006
  * the Initial Developer. All Rights Reserved.
  *
  * Contributor(s):
  *
  * ***** END LICENSE BLOCK ***** */
-
-window.addEventListener("load", RTSE_init, false);
-
-function RTSE_init()
-{
-  RTSE.init();
-}
+-->
+<overlay id="rtse-editor-preview-overlay"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+         xmlns:html="http://www.w3.org/1999/xhtml">
+  <vbox id="rtse-preview" flex="2">
+    <iframe src="chrome://rtse/content/editor/preview.html" flex="1"
+            id="rtse-editor-real-time-preview"/>
+  </vbox>
+</overlay>

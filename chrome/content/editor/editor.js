@@ -23,10 +23,8 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-/**
- * Object used to manage the editor
- */
-RTSE.editor = {
+RTSE.editor =
+{
   /////////////////////////////////////////////////////////////////////////////
   //// Private Variables
 
@@ -131,6 +129,14 @@ RTSE.editor = {
       elm.setAttribute("autoCheck", "false");
       elm.hidden = false;
       document.getElementById("rtse-editor-convertSmilies").hidden = false;
+    }
+
+    // Real Time Preview
+    var prev = RTSE.editor.realTimePreview;
+    prev.getElementById("username").innerHTML =
+      gRTSE.prefsGetString("extensions.rtse.username");
+    if (!gRTSE.prefsGetBool("extensions.rtse.sponsor")) {
+      prev.getElementById("sponsor").style.display = "none";
     }
 
     this.mOk = true;
@@ -556,5 +562,15 @@ RTSE.editor = {
            doc.getElementById("Post") ||
            doc.getElementById("Edit") ||
            doc.getElementById("Edit Post");
+  },
+
+ /**
+  * The document element for the real time preview
+  *
+  * @return Document element used to get to real time preview.
+  */
+  get realTimePreview()
+  {
+    return document.getElementById("rtse-editor-real-time-preview").contentDocument;
   }
 };
