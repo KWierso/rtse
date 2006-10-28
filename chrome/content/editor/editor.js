@@ -133,8 +133,10 @@ RTSE.editor =
 
     // Real Time Preview
     var rtp = RTSE.editor.realTimePreview;
-    rtp.getElementById("username").innerHTML =
-      gRTSE.prefsGetString("extensions.rtse.username");
+    var username = gRTSE.prefsGetString("extensions.rtse.username");
+    rtp.getElementById("username").innerHTML = username;
+    rtp.getElementById("user-image")
+       .setAttribute("src", "http://66.81.80.139/" + username + ".jpg");
     if (!gRTSE.prefsGetBool("extensions.rtse.sponsor")) {
       rtp.getElementById("sponsor").style.display = "none";
     }
@@ -240,6 +242,8 @@ RTSE.editor =
 
     document.getElementById("rtse-editor-body").value =
       RTSE.editor.getProperty(doc, "body");
+    if (document.getElementById("rtse-editor-body").value == "")
+      RTSE.editor.realTimePreview.getElementById("post").innerHTML = "";
     document.getElementById("rtse-editor-title").value =
       RTSE.editor.getProperty(doc, "title");
     RTSE.editor.setProperty(doc, "visible", "true");
@@ -535,8 +539,15 @@ RTSE.editor =
       aText = aText.replace(/\[img\]http:\/\/(.*?)\[\/img\]/g,
                             "<img src='http://$1' style='float: none;'>");
       aText = aText.replace(/\[quote\](.*)\[\/quote\]/g,
-                            "<blockquote style='border: 1px solid rgb(204, 204, 204); padding: 4px; background-color: rgb(241, 241, 241);'>$1</blockquote>");
+        "<blockquote style='border: 1px solid rgb(204, 204, 204); padding: 4px; background-color: rgb(241, 241, 241);'>$1</blockquote>");
       aText = aText.replace(/\[link=(.*?)\](.*?)\[\/link\]/g, "<a href='$1'>$2</a>");
+
+      // Sponsor Only Stuff
+      if (!gRTSE.prefsGetBool("extensions.rtse.sponsor"))
+        return aText;
+
+      aText = aText.replace(/\[smiley([0-9]{1,2})\]/g,
+        "<img style='float: none; clear: none; display: inline;' src='http://www.roosterteeth.com/assets/images/emoticons/smiley$1.gif'>");
 
       return aText;
     };
