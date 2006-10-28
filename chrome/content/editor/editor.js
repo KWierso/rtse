@@ -482,6 +482,12 @@ RTSE.editor =
     body.value = body.value.substring(0, start) + tag +
                    body.value.substring(body.selectionEnd,
                                         body.textLength);
+
+    // We want to simulate the user doing this, so send out an input event.
+    var e = document.createEvent("UIEvents");
+    e.initUIEvent("input", true, false, window, 0);
+    text.dispatchEvent(e);
+
     body.setSelectionRange(start, end);
     body.focus();
   },
