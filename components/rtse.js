@@ -24,11 +24,11 @@
  * ***** END LICENSE BLOCK ***** */
 
 /* constants */
-const nsIRTSE=Components.interfaces.nsIRTSE;
-const nsISupports=Components.interfaces.nsISupports;
-const CLASS_ID=Components.ID("{0960cf50-d196-11da-a94d-0800200c9a66}");
-const CLASS_NAME="Rooster Teeth Site Extender XPCOM Component";
-const CONTRACT_ID="@shawnwilsher.com/rtse;1";
+const nsIRTSE     = Components.interfaces.nsIRTSE;
+const nsISupports = Components.interfaces.nsISupports;
+const CLASS_ID    = Components.ID("{0960cf50-d196-11da-a94d-0800200c9a66}");
+const CLASS_NAME  = "Rooster Teeth Site Extender XPCOM Component";
+const CONTRACT_ID = "@shawnwilsher.com/rtse;1";
 
 const nsIPrefService = Components.interfaces.nsIPrefService;
 const nsIPasswordManagerInternal = Components.interfaces
@@ -54,17 +54,18 @@ function RTSE()
   if (this.prefsGetString("general.useragent.extra.rtse") != UA_STRING)
     this.prefsSetString("general.useragent.extra.rtse", UA_STRING);
 };
-RTSE.prototype = {
-	// OVERVIEW: This is the class definition.  Defines the functions
-	//           that are exposed in the interface.
-	mVersion: '1.1.0a1',
-	mLoginSent: false,
+RTSE.prototype =
+{
+  // OVERVIEW: This is the class definition.  Defines the functions
+  //           that are exposed in the interface.
+  mVersion: '1.1.0a1',
+  mLoginSent: false,
 
-	get version()
-	// EFFECTS: returns the value of 'version' - used as an attribute
-	{
-		return this.mVersion;
-	},
+  get version()
+  // EFFECTS: returns the value of 'version' - used as an attribute
+  {
+    return this.mVersion;
+  },
 
  /**
   * Obtains the username stored in the preferences.
@@ -130,9 +131,9 @@ RTSE.prototype = {
   * Function that sends the error report if the preference is set to do so
   *  regardless, it logs a message to the error console.
   */
-	sendReport: function sendReport(aError)
-	{
-		if (this.prefsGetBool('extensions.rtse.talkback')) {
+  sendReport: function sendReport(aError)
+  {
+    if (this.prefsGetBool('extensions.rtse.talkback')) {
       var req=Components.classes["@mozilla.org/xmlextras/xmlhttprequest;1"]
                         .getService(Components.interfaces.nsIXMLHttpRequest);
       req.open("POST",'http://services.shawnwilsher.com/errorlogging/rtse.php',true);
@@ -142,36 +143,36 @@ RTSE.prototype = {
     var cs = Components.classes["@mozilla.org/consoleservice;1"]
                        .getService(Components.interfaces.nsIConsoleService);
     cs.logStringMessage(aError);
-	},
+  },
 
-	prefsSetBool: function(aName,aValue)
-	// EFFECTS: Sets a boolean preference aName with aValue.
-	{
+  prefsSetBool: function(aName,aValue)
+  // EFFECTS: Sets a boolean preference aName with aValue.
+  {
     var prefs = this.prefsGetBranch(aName);
 
     prefs.branch.setBoolPref(prefs.name, aValue);
-	},
-	prefsSetString: function(aName,aValue)
-	// EFFECTS: Sets a string preference aName with aValue.
-	{
+  },
+  prefsSetString: function(aName,aValue)
+  // EFFECTS: Sets a string preference aName with aValue.
+  {
     var prefs = this.prefsGetBranch(aName);
 
     prefs.branch.setCharPref(prefs.name, aValue);
-	},
-	prefsGetBool: function(aName)
-	// EFFECTS: Returns the value of aName.
-	{
+  },
+  prefsGetBool: function(aName)
+  // EFFECTS: Returns the value of aName.
+  {
     var prefs = this.prefsGetBranch(aName);
 
     return prefs.branch.getBoolPref(prefs.name);
-	},
-	prefsGetString: function(aName)
-	// EFFECTS: Returns the value of aName.
-	{ 
+  },
+  prefsGetString: function(aName)
+  // EFFECTS: Returns the value of aName.
+  { 
     var prefs = this.prefsGetBranch(aName);
 
     return prefs.branch.getCharPref(prefs.name);
-	},
+  },
 
  /**
   * Obtains the proper preference branch for the preference.
@@ -197,58 +198,58 @@ RTSE.prototype = {
     return prefs;
   },
 
-	QueryInterface: function(aIID)
-	{
-		if( !aIID.equals(nsIRTSE) && !aIID.equals(nsISupports) )
-			throw Components.results.NS_ERROR_NO_INTERFACE;
-		return this;
-	}
+  QueryInterface: function(aIID)
+  {
+    if( !aIID.equals(nsIRTSE) && !aIID.equals(nsISupports) )
+      throw Components.results.NS_ERROR_NO_INTERFACE;
+    return this;
+  }
 };
 
 /* class factory (hey, I didn't name it) */
 var RTSEFactory = {
-	createInstance: function(aOuter,aIID)
-	{
-		if( aOuter!=null )
-			throw Components.results.NS_ERROR_NO_AGGREGATION;
-		return (new RTSE()).QueryInterface(aIID);
-	}
+  createInstance: function(aOuter,aIID)
+  {
+    if( aOuter!=null )
+      throw Components.results.NS_ERROR_NO_AGGREGATION;
+    return (new RTSE()).QueryInterface(aIID);
+  }
 };
 
 /* module definition (xpcom registration) */
 var RTSEModule = {
-	_firstTime: true,
-	registerSelf: function(aCompMgr,aFileSpec,aLocation,aType)
-	{
-		aCompMgr=aCompMgr.QueryInterface(Components.interfaces.nsIComponentRegistrar);
-		aCompMgr.registerFactoryLocation(CLASS_ID,CLASS_NAME,CONTRACT_ID,aFileSpec,aLocation,aType);
-	},
+  _firstTime: true,
+  registerSelf: function(aCompMgr,aFileSpec,aLocation,aType)
+  {
+    aCompMgr=aCompMgr.QueryInterface(Components.interfaces.nsIComponentRegistrar);
+    aCompMgr.registerFactoryLocation(CLASS_ID,CLASS_NAME,CONTRACT_ID,aFileSpec,aLocation,aType);
+  },
 
-	unregisterSelf: function(aCompMgr,aLocation,aType)
-	{
-		aCompMgr=aCompMgr.QueryInterface(Components.interfaces.nsIComponentRegistrar);
-		aCompMgr.unregisterFactoryLocation(CLASS_ID,aLocation);        
-	},
+  unregisterSelf: function(aCompMgr,aLocation,aType)
+  {
+    aCompMgr=aCompMgr.QueryInterface(Components.interfaces.nsIComponentRegistrar);
+    aCompMgr.unregisterFactoryLocation(CLASS_ID,aLocation);        
+  },
   
-	getClassObject: function(aCompMgr,aCID,aIID)
-	{
-		if (!aIID.equals(Components.interfaces.nsIFactory))
-			throw Components.results.NS_ERROR_NOT_IMPLEMENTED;
+  getClassObject: function(aCompMgr,aCID,aIID)
+  {
+    if (!aIID.equals(Components.interfaces.nsIFactory))
+      throw Components.results.NS_ERROR_NOT_IMPLEMENTED;
 
-		if (aCID.equals(CLASS_ID))
-			return RTSEFactory;
+    if (aCID.equals(CLASS_ID))
+      return RTSEFactory;
 
-		throw Components.results.NS_ERROR_NO_INTERFACE;
-	},
+    throw Components.results.NS_ERROR_NO_INTERFACE;
+  },
 
-	canUnload: function(aCompMgr)
-	{
-		return true;
-	}
+  canUnload: function(aCompMgr)
+  {
+    return true;
+  }
 };
 
 /* module initialization */
 function NSGetModule(aCompMgr,aFileSpec)
 {
-	return RTSEModule;
+  return RTSEModule;
 }
