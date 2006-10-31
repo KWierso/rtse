@@ -140,9 +140,7 @@ RTSE.prototype =
       req.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
       req.send(aError);
     }
-    var cs = Components.classes["@mozilla.org/consoleservice;1"]
-                       .getService(Components.interfaces.nsIConsoleService);
-    cs.logStringMessage(aError);
+    Components.utils.reportError(aError);
   },
 
   prefsSetBool: function(aName,aValue)
