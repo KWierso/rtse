@@ -506,7 +506,7 @@ RTSE.editor =
   */
   keypressListener: function keypressListener(aEvent)
   {
-    if (!/mac/i.test(navigator.platform && !aEvent.altKey ||
+    if (!/mac/i.test(navigator.platform) && !aEvent.altKey ||
         /mac/i.test(navigator.platform) && !aEvent.ctrlKey  ) {
       return;
     }
