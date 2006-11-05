@@ -322,7 +322,13 @@ function RTSE_convertExtraBB(aEvent)
 //          Looks for rtseLocation for a path for any 'in reply to...' sections.
 {
 	var doc = aEvent.originalTarget.ownerDocument;
-	var body = doc.forms.namedItem('post').elements.namedItem('body');
+  var form = doc.forms.namedItem("post");
+	var body = form.elements.namedItem("body");
+
+  if (form.elements.namedItem("friendsOnly") &&
+      form.elements.namedItem("friendsOnly").value == "1") {
+    body.value = RTSE.editor.protectedJournalText + body.value;
+  }
 
   body.value = RTSE.editor.convertExtraBB(body.value);
 
@@ -351,6 +357,9 @@ function RTSE_deconvertExtraBB(aDoc)
 	// converts to RTSE BB
 	var body = form.elements.namedItem('body');
 	if (!body) return;
+
+  // Protected Journal text
+  body.value = body.value.replace(RTSE.editor.protectedJournalText, "");
 
   // Smilies
   if (gRTSE.prefsGetBool('extensions.rtse.editor')) {

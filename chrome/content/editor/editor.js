@@ -371,8 +371,9 @@ RTSE.editor =
         var elm = doc.createElement("input");
         elm.setAttribute("type", "hidden");
         elm.setAttribute("name", DATA[i]);
-        elm.setAttribute("value",
-                      document.getElementById("rtse-editor-" + DATA[i]).value);
+        var value = document.getElementById("rtse-editor-" + DATA[i]).value ||
+          RTSE.editor.getProperty(doc,DATA[i]);
+        elm.setAttribute("value", value);
         form.appendChild(elm);
       }
     }
@@ -652,6 +653,19 @@ RTSE.editor =
   */
   get realTimePreview()
   {
-    return document.getElementById("rtse-editor-real-time-preview").contentDocument;
+    return document.getElementById("rtse-editor-real-time-preview")
+                   .contentDocument;
+  },
+
+ /**
+  * Obtains the text used for protected journals.
+  */
+  get protectedJournalText()
+  {
+    return "[b][/b][i][/i][s][/s][quote]What's this?\n" +
+           "Even friends only journals can be read by determined people, no" +
+           "matter if they are on your friends list or not. But do not worry," +
+           "RTSE protects you against even the most prying eye. The only" +
+           "thing they'll get to see is the title of this journal.[/quote]";
   }
 };
