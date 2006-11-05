@@ -338,10 +338,17 @@ RTSE.editor =
         RTSE.editor.getProperty(aDoc, "title") == "")
       RTSE.editor.setProperty(aDoc, "title", RTSE.editor.defaultTitle);
 
-    editor = aDoc.createElement("textarea");
+    var editor = aDoc.createElement("div");
+    var elm = aDoc.createElement("textarea");
+    var style = "margin:3px 4px 3px 4px;";
+    elm.setAttribute("style", style);
+    editor.appendChild(elm);
     editor.setAttribute("id", ref.getAttribute("id"));
     editor.addEventListener("click", RTSE.editor.ensureEditorIsVisible, false);
-
+    style = "background-color:#f4f4f4;" + 
+            "border:1px solid #000000;" +
+            "border-top:0px;";
+    editor.setAttribute("style", style);
     ref.parentNode.replaceChild(editor, ref);
   },
 
