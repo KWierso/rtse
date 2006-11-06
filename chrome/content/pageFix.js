@@ -225,13 +225,20 @@ function RTSE_samePageReply(aEvent)
 	// Append to editor
   var editor;
   var text = '[i]In reply to '+name+', #'+num+':[/i]\n\n';
-  if (gRTSE.prefsGetBool("extensions.rtse.editor")) {
+  var useEditor = gRTSE.prefsGetBool("extensions.rtse.editor");
+  if (useEditor) {
     editor = document.getElementById("rtse-editor-body");
     RTSE.editor.ensureEditorIsVisible();
   } else {
     editor = this.ownerDocument.forms.namedItem('post').elements.namedItem('body');
   }
   editor.value = editor.value + text;
+  if (useEditor) {
+    // We want to simulate the user doing this, so send out an input event.
+    var e = document.createEvent("UIEvents");
+    e.initUIEvent("input", true, false, window, 0);
+    editor.dispatchEvent(e);
+  }
   editor.focus();
 }
 
@@ -306,7 +313,8 @@ function RTSE_quotePost(aEvent)
 
   // update the text of the body
   var editor;
-  if (gRTSE.prefsGetBool("extensions.rtse.editor")) {
+  var useEditor = gRTSE.prefsGetBool("extensions.rtse.editor");
+  if (useEditor) {
     editor = document.getElementById("rtse-editor-body");
     RTSE.editor.ensureEditorIsVisible();
   } else {
@@ -314,6 +322,12 @@ function RTSE_quotePost(aEvent)
                  .namedItem("body");
   }
   editor.value = editor.value + text;
+  if (useEditor) {
+    // We want to simulate the user doing this, so send out an input event.
+    var e = document.createEvent("UIEvents");
+    e.initUIEvent("input", true, false, window, 0);
+    editor.dispatchEvent(e);
+  }
   editor.focus();
 }
 
