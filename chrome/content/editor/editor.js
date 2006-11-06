@@ -611,12 +611,14 @@ RTSE.editor =
     {
       aText = RTSE.editor.convertExtraBB(aText);
 
+      aText = aText.replace(/</g, "&lt;");
+      aText = aText.replace(/>/g, "&gt;");
       aText = aText.replace(/\n/g, "<br>");
       aText = aText.replace(/\[(\/)?([b|i|u])\]/g, "<$1$2>");
       aText = aText.replace(/\[(\/)?s\]/g, "<$1del>");
       aText = aText.replace(/\[img\]http:\/\/(.*?)\[\/img\]/g,
                             "<img src='http://$1' style='float: none;'>");
-      aText = aText.replace(/\[quote\](.*)\[\/quote\]/g,
+      aText = aText.replace(/\[quote\](.*?)\[\/quote\]/g,
         "<blockquote style='border: 1px solid rgb(204, 204, 204); padding: 4px; background-color: rgb(241, 241, 241);'>$1</blockquote>");
       aText = aText.replace(/\[link=(.*?)\](.*?)\[\/link\]/g, "<a href='$1'>$2</a>");
 
