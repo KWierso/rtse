@@ -39,6 +39,7 @@ RTSE.editor =
   */
   init: function init()
   {
+    var sponsor = gRTSE.prefsGetBool("extensions.rtse.sponsor");
     var elm = document.getElementById("rtse-statusbar-editor");
     var click = function toggle() {
       var pane = document.getElementById("rtse-realtimeEditor");
@@ -66,8 +67,9 @@ RTSE.editor =
                                               false);
 
     // Visibility
-    if (gRTSE.prefsGetBool("extensions.rtse.sponsor")) {
+    if (sponsor) {
       document.getElementById("rtse-editor-sponsorSmilies").hidden = false;
+      document.getElementById("rtse-editor-color").hidden = false;
     }
 
     // Event Listeners
@@ -462,6 +464,68 @@ RTSE.editor =
   },
 
  /**
+  * Adds the specified color to the selected text or where the cursor is.
+  *
+  * @param aColor The color value of the color to add.
+  */
+  colorize: function colorize(aColor)
+  {
+    var toggle = aColor == null;
+    document.getElementById("rtse-editor-colorSwitch").checked = true;
+
+    var text = document.getElementById("rtse-editor-body");
+
+    if (text.selectionStart == text.selectionEnd || toggle) {
+      // No text selected
+      document.getElementById("rtse-editor-color").hidden = !toggle;
+      document.getElementById("rtse-editor-colorSwitch").hidden = toggle;
+      var tag = toggle ? "[/color]" : "[color=#" + aColor + "]";
+      var pos = text.selectionStart + tag.length;
+      text.value = text.value.substring(0, text.selectionStart) + tag +
+                   text.value.substring(text.selectionStart, text.textLength);
+      text.setSelectionRange(pos, pos);
+    } else {
+      // Text is selected 
+      var tag = "[color=#" + aColor + "]";
+      var length = tag.length;
+      var data = text.value.substring(0, text.selectionStart) + tag;
+      tag = "[/color]";
+      length += tag.length;
+      var start = text.selectionStart;
+      var end = text.selectionEnd;
+      data += text.value.substring(text.selectionStart, text.selectionEnd) +
+              tag + text.value.substring(text.selectionEnd, text.textLength);
+      text.value = data;
+      text.setSelectionRange(start, end + length);
+    }
+
+    // We want to simulate the user doing this, so send out an input event.
+    var e = document.createEvent("UIEvents");
+    e.initUIEvent("input", true, false, window, 0);
+    text.dispatchEvent(e);
+
+    text.focus();
+  },
+
+ /**
+  * Obtains a custom color.
+  */
+  getColor: function getColor()
+  {
+    var body = document.getElementById("rtse-editor-body");
+    var out = {
+      color: null,
+      accpeted: false
+    };
+
+    window.openDialog("chrome://rtse/content/editor/colorpicker.xul",
+                      "colorpicker", "chrome,modal,centerscreen", out);
+    if (!out.accepted) return;
+
+    RTSE.editor.colorize(out.color);
+  },
+
+ /**
   * Gets the link URI and Label
   */
   link: function link()
@@ -477,9 +541,7 @@ RTSE.editor =
     };
 
     window.openDialog("chrome://rtse/content/editor/link.xul",
-                      "link",
-                      "chrome,modal,centerscreen",
-                      out);
+                      "link", "chrome,modal,centerscreen", out);
 
     if (!out.accepted) return;
 

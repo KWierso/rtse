@@ -1,0 +1,141 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/css" href="chrome://global/skin/"?>
+<!--
+/* ***** BEGIN LICENSE BLOCK *****
+ * Version: MPL
+ *
+ * The contents of this file are subject to the Mozilla Public License
+ * (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ * http://www.mozilla.org/MPL/
+ *
+ * Software distributed under the License is distributed on an "AS IS" basis,
+ * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+ * for the specific language governing rights and limitations under the
+ * License.
+ *
+ * The Original Code is the 'Color Picker'.
+ *
+ * The Initial Developer of the Original Code is
+ * Neil Rashbrook
+ *
+ * Portions created by the Initial Developer are Copyright (C) 2000
+ * the Initial Developer. All Rights Reserved.
+ *
+ * Contributor(s):
+ *     Shawn Wilsher
+ *
+ * ***** END LICENSE BLOCK ***** */
+-->
+<dialog xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+    id="rtse-colorpicker"
+    title="Choose a color"
+    align="start"
+    ondraggesture="event.preventDefault();"
+    onmouseup="dragging = null;"
+    ondialogaccept="dialog.accept();"
+    buttonlabelaccept="Accept"
+    buttonlabelcancel="Cancel">
+  <vbox>
+    <script type="application/javascript"
+            src="chrome://rtse/content/editor/colorpicker.js"/>
+    <hbox>
+      <hbox class="box-padded">
+        <hbox class="inset" style="margin: 0px; border-width: 1px; width: auto;">
+          <stack style="overflow: -moz-hidden-unscrollable;">
+            <image src="chrome://rtse/content/editor/colors.png" width="175" height="187" onmousedown="if (!event.button) { dragging = this; dragColours(event); }" onmousemove="if (dragging == this) dragColours(event);"/>
+            <image id="target" src="chrome://rtse/content/editor/target.png" left="117" top="186" width="19" height="19" mousethrough="always" style="margin: -9px;"/>
+          </stack>
+        </hbox>
+      </hbox>
+
+      <hbox class="box-padded">
+        <hbox style="margin: 1px;" onmousedown="if (!event.button) { dragging = this; dragLuminance(event); }" onmousemove="if (dragging == this) dragLuminance(event);">
+          <hbox class="inset" style="margin:-1px;border-width:1px;width:auto;">
+            <image id="luminance" width="10" height="187"
+                   src="chrome://rtse/content/editor/luminance.png"
+                   style="background-color: #7F7F7F;"/>
+          </hbox>
+          <stack>
+            <image id="pointer" width="19" height="9" left="-10" top="94"
+                   src="chrome://rtse/content/editor/pointer.png"
+                   style="margin: -4px 0px;"/>
+          </stack>
+        </hbox>
+      </hbox>
+    </hbox>
+
+    <hbox style="margin-right: 9px;">
+      <vbox flex="1">
+        <spacer id="colour" class="inset small-margin" flex="1"
+                style="background-color: #7F7F7F; border-width: 1px;"/>
+        <label class="small-margin" value="Color" style="text-align: center;"/>
+      </vbox>
+
+      <grid>
+        <rows>
+          <row/>
+          <row/>
+          <row/>
+          <row/>
+        </rows>
+
+        <columns>
+          <column align="end">
+            <hbox align="center">
+              <label class="small-margin" value="Hue:" accesskey="H" control="hue"/>
+            </hbox>
+            <hbox align="center">
+              <label class="small-margin" value="Sat:" accesskey="S" control="sat"/>
+            </hbox>
+            <hbox align="center">
+              <label class="small-margin" value="Lum:" accesskey="L" control="lum"/>
+            </hbox>
+          </column>
+
+          <column>
+            <textbox class="small-margin" size="2" maxlength="3" id="hue"
+                     value="160"
+                     oninput="if (!dragging) if (this.value) validateHue();"
+                     onchange="if (!this.value) validateHue();"/>
+            <textbox class="small-margin" size="2" maxlength="3" id="sat"
+                     value="0"
+                     oninput="if (!dragging) if (this.value) validateSat();"
+                     onchange="if (!this.value) validateSat();"/>
+            <textbox class="small-margin" size="2" maxlength="3" id="lum"
+                     value="120"
+                     oninput="if (!dragging) if (this.value) validateLum();"
+                     onchange="if (!this.value) validateLum();"/>
+          </column>
+
+          <column align="end">
+            <hbox align="center">
+              <label class="small-margin" value="Red:" accesskey="R" control="red"/>
+            </hbox>
+            <hbox align="center">
+              <label class="small-margin" value="Green:" accesskey="G" control="green"/>
+            </hbox>
+            <hbox align="center">
+              <label class="small-margin" value="Blue:" accesskey="B" control="blue"/>
+            </hbox>
+          </column>
+
+          <column>
+            <textbox class="small-margin" size="2" maxlength="3" id="red"
+                     value="127"
+                     oninput="if (!dragging) if (this.value) validateRGB();"
+                     onchange="if (!this.value) validateRGB();"/>
+            <textbox class="small-margin" size="2" maxlength="3" id="green"
+                     value="127"
+                     oninput="if (!dragging) if (this.value) validateRGB();"
+                     onchange="if (!this.value) validateRGB();"/>
+            <textbox class="small-margin" size="2" maxlength="3" id="blue"
+                     value="127"
+                     oninput="if (!dragging) if (this.value) validateRGB();"
+                     onchange="if (!this.value) validateRGB();"/>
+          </column>
+        </columns>
+      </grid>
+    </hbox>
+  </vbox>
+</dialog>

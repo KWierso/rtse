@@ -126,21 +126,30 @@
                            hidden="true"
                            tooltip="rtse-editor-tooltip-color">
               <menupopup>
-                <menuitem label="&Color.red;" value="FF0000"/>
-                <menuitem label="&Color.orange;" value="FFAA00"/>
-                <menuitem label="&Color.yellow;" value="DDFF00"/>
-                <menuitem label="&Color.green;" value="00FF00"/>
-                <menuitem label="&Color.blue;" value="0000FF"/>
-                <menuitem label="&Color.violet;" value="AA00FF"/>
-                <menuitem label="&Color.brown;" value="AA8800"/>
-                <menuitem label="&Color.white;" value="FFFFFF"/>
+                <menuitem label="&Color.red;" value="FF0000"
+                          oncommand="RTSE.editor.colorize(this.value);"/>
+                <menuitem label="&Color.orange;" value="FFAA00"
+                          oncommand="RTSE.editor.colorize(this.value);"/>
+                <menuitem label="&Color.yellow;" value="DDFF00"
+                          oncommand="RTSE.editor.colorize(this.value);"/>
+                <menuitem label="&Color.green;" value="00FF00"
+                          oncommand="RTSE.editor.colorize(this.value);"/>
+                <menuitem label="&Color.blue;" value="0000FF"
+                          oncommand="RTSE.editor.colorize(this.value);"/>
+                <menuitem label="&Color.violet;" value="AA00FF"
+                          oncommand="RTSE.editor.colorize(this.value);"/>
+                <menuitem label="&Color.brown;" value="AA8800"
+                          oncommand="RTSE.editor.colorize(this.value);"/>
+                <menuitem label="&Color.white;" value="FFFFFF"
+                          oncommand="RTSE.editor.colorize(this.value);"/>
                 <menuseparator/>
-                <menuitem label="&Color.custom;"/>
+                <menuitem label="&Color.custom;"
+                          oncommand="RTSE.editor.getColor();"/>
               </menupopup>
             </toolbarbutton>
             <toolbarbutton id="rtse-editor-colorSwitch"
                            image="chrome://rtse/skin/images/editor/color.png"
-                           hidden="true"
+                           hidden="true" oncommand="RTSE.editor.colorize(null);"
                            tooltip="rtse-editor-tooltip-color"/>
             <toolbarbutton id="rtse-editor-smiley"
                            image="chrome://rtse/skin/images/editor/happy.png"
