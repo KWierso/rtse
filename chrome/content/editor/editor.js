@@ -627,6 +627,9 @@ RTSE.editor =
       if (!gRTSE.prefsGetBool("extensions.rtse.sponsor"))
         return aText;
 
+      aText = aText.replace(/\[color=(#[0-9A-F]{1,6})\]/g,
+                            "<span style='color:$1'>");
+      aText = aText.replace(/\[\/color\]/g, "</span>");
       aText = aText.replace(/\[smiley([0-9]{1,2})\]/g,
         "<img style='float: none; clear: none; display: inline;' src='http://www.roosterteeth.com/assets/images/emoticons/smiley$1.gif'>");
 
