@@ -432,7 +432,8 @@ RTSE.editor =
         bool = elm ? elm.checked : false;
         tag = bool ? "[/" + aID + "]" :  "[" + aID + "]"
       } else {
-        tag = tagText;
+        // Ok, so apparently we are just inserting whatever was passed
+        tag = aID;
       }
       var pos = text.selectionStart + tag.length;
       if (elm)
