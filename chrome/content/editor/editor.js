@@ -87,6 +87,15 @@ RTSE.editor =
     };
     title.addEventListener("focus", focus, false);
     title.addEventListener("blur", blur, false);
+    var toUser = document.getElementById("rtse-editor-toUser").inputField;
+    focus = function focus() {
+      if (this.value == RTSE.editor.defaultToUser) this.value = "";
+    };
+    blur = function blur() {
+      if (this.value == "") this.value = RTSE.editor.defaultToUser;
+    };
+    toUser.addEventListener("focus", focus, false);
+    toUser.addEventListener("blur", blur, false);
     var toggle = function toggle() {
       var doc  = gBrowser.getBrowserForTab(gBrowser.selectedTab)
                          .contentDocument;
@@ -167,8 +176,8 @@ RTSE.editor =
 
     form = doc.forms.namedItem("rtse");
     var elms = ["visible", "body", "show-body", "title", "show-title",
-                "friendsOnly", "show-friendsOnly"];
-    var vals = ["false", "", "true", "", "false", "", "false"];
+                "friendsOnly", "show-friendsOnly", "toUser", "show-toUser"];
+    var vals = ["false", "", "true", "", "false", "", "false", "", "false"];
     for (var i in elms) {
       var elm = doc.createElement("input");
       elm.setAttribute("type", "hidden");
@@ -236,18 +245,23 @@ RTSE.editor =
 
     RTSE.editor.mCurrentDoc = doc;
 
-    // Visibility of certain elements
+    // Visibility of certain elements XXX there has to be a better way...
     document.getElementById("rtse-editor-title").hidden =
       RTSE.editor.getProperty(doc, "show-title") != "true";
+    document.getElementById("rtse-editor-toUser").hidden =
+      RTSE.editor.getProperty(doc, "show-toUser") != "true";
     document.getElementById("rtse-editor-friendsOnly").hidden =
       RTSE.editor.getProperty(doc, "show-friendsOnly") != "true"
 
+    // XXX some kind of loop here?
     document.getElementById("rtse-editor-body").value =
       RTSE.editor.getProperty(doc, "body");
     if (document.getElementById("rtse-editor-body").value == "")
       RTSE.editor.realTimePreview.getElementById("post").innerHTML = "";
     document.getElementById("rtse-editor-title").value =
       RTSE.editor.getProperty(doc, "title");
+    document.getElementById("rtse-editor-toUser").value =
+      RTSE.editor.getProperty(doc, "toUser");
     RTSE.editor.setProperty(doc, "visible", "true");
     document.getElementById("rtse-ContentSplitter")
             .collapsed = pane.collapsed = false;
@@ -270,6 +284,8 @@ RTSE.editor =
                     document.getElementById("rtse-editor-body").value);
       RTSE.editor.setProperty(doc, "title",
                     document.getElementById("rtse-editor-title").value);
+      RTSE.editor.setProperty(doc, "toUser",
+                    document.getElementById("rtse-editor-toUser").value);
     }
     document.getElementById("rtse-ContentSplitter")
             .collapsed = pane.collapsed = true;
@@ -339,6 +355,9 @@ RTSE.editor =
     if (RTSE.editor.getProperty(aDoc, "show-title") == "true" &&
         RTSE.editor.getProperty(aDoc, "title") == "")
       RTSE.editor.setProperty(aDoc, "title", RTSE.editor.defaultTitle);
+    if (RTSE.editor.getProperty(aDoc, "show-toUser") == "true" &&
+        RTSE.editor.getProperty(aDoc, "toUser") == "")
+      RTSE.editor.setProperty(aDoc, "toUser", RTSE.editor.defaultToUser);
 
     var editor = aDoc.createElement("div");
     var elm = aDoc.createElement("textarea");
@@ -395,8 +414,9 @@ RTSE.editor =
   */
   validate: function validate(aDoc)
   {
-    var body  = document.getElementById("rtse-editor-body");
-    var title = document.getElementById("rtse-editor-title");
+    var body   = document.getElementById("rtse-editor-body");
+    var title  = document.getElementById("rtse-editor-title");
+    var toUser = document.getElementById("rtse-editor-toUser");
 
     if (body.value == "") {
       alert('You must enter a body');
@@ -408,6 +428,13 @@ RTSE.editor =
         (title.value == "" || title.value == RTSE.editor.defaultTitle)) {
       alert('You must enter a title');
       title.focus();
+      return false;
+    }
+
+    if (RTSE.editor.getProperty(aDoc, "show-toUser") == "true" &&
+        (toUser.value == "" || toUser.value == RTSE.editor.defaultToUser)) {
+      alert('You must specify who this is going to');
+      toUser.focus();
       return false;
     }
 
@@ -685,13 +712,23 @@ RTSE.editor =
   },
 
  /**
+  * The default text for the toUser field
+  *
+  * @return The text for an unentered toUser field
+  */
+  get defaultToUser()
+  {
+    return "Who is this going to?";
+  },
+
+ /**
   * The array of all fields used
   *
   * @return An array of the data fields used in the editor
   */
   get dataFields()
   {
-    return ["body", "title", "friendsOnly"];
+    return ["body", "title", "friendsOnly", "toUser"];
   },
 
  /**
