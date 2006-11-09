@@ -189,6 +189,8 @@ RTSE.editor =
     form = doc.forms.namedItem("post");
     form.addEventListener("submit", RTSE_convertExtraBB, false);
 
+    RTSE_deconvertExtraBB(doc);
+
     // Inserting
     RTSE.editor.insert(doc);
   },
@@ -265,7 +267,11 @@ RTSE.editor =
     RTSE.editor.setProperty(doc, "visible", "true");
     document.getElementById("rtse-ContentSplitter")
             .collapsed = pane.collapsed = false;
-    document.getElementById("rtse-editor-body").focus();
+
+    var body = document.getElementById("rtse-editor-body");
+    if (body.value != "")
+      RTSE.editor.preview();
+    body.focus();
   },
 
  /**
