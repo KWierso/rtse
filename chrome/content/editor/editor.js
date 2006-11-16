@@ -65,6 +65,9 @@ RTSE.editor =
     gBrowser.mPanelContainer.addEventListener("DOMContentLoaded",
                                               RTSE.editor.initDoc,
                                               false);
+    gBrowser.mPanelContainer.addEventListener("DOMContentLoaded",
+                                              RTSE.editor.insert,
+                                              false);
 
     // Visibility
     if (sponsor) {
@@ -167,7 +170,7 @@ RTSE.editor =
     var doc = aEvent.originalTarget;
     if (!/^https?:\/\/(www|rvb|sh|panics)\.roosterteeth\.com(.*)?$/.test(doc.location.href))
       return;
-    if (!RTSE.editor.replaceableElements)
+    if (!RTSE.editor.replaceableElements(doc))
       return;
     var form = doc.createElement("form");
     form.setAttribute("name", "rtse");
@@ -190,9 +193,6 @@ RTSE.editor =
     form.addEventListener("submit", RTSE_convertExtraBB, false);
 
     RTSE_deconvertExtraBB(doc);
-
-    // Inserting
-    RTSE.editor.insert(doc);
   },
 
  /**
@@ -208,7 +208,7 @@ RTSE.editor =
     var doc = browser.contentDocument;
     if (gRTSE.prefsGetBool("extensions.rtse.editor") &&
         /^https?:\/\/(www|rvb|sh|panics)\.roosterteeth\.com(.*)?$/.test(doc.location.href))
-      show = RTSE.editor.replaceableElements;
+      show = RTSE.editor.replaceableElements(doc);
     document.getElementById("rtse-statusbar-editor").hidden = !show;
   },
 
@@ -329,44 +329,45 @@ RTSE.editor =
   *
   * @param aDoc The document to be checked to insert the editor
   */
-  insert: function insert(aDoc)
+  insert: function insert(aEvent)
   {
-    if (!gRTSE.prefsGetBool('extensions.rtse.editor')) return;
+    var doc = aEvent.originalTarget;
+    if (!gRTSE.prefsGetBool("extensions.rtse.editor")) return;
     const DATA = RTSE.editor.dataFields;
-    var form = aDoc.forms.namedItem('post');
-    if (!form) throw "Form not available - " + aDoc.location.href;
+    var form = doc.forms.namedItem("post");
+    if (!form) return;
 
-    var ref = RTSE.editor.replaceableElements;
-    if (!ref) throw 'Editor cannot be inserted';
+    var ref = RTSE.editor.replaceableElements(doc);
+    if (!ref) throw "Editor cannot be inserted";
 
     // Taking care of hidden fields that get removed
     var elms = ["uid"];
     var elm, clone;
-    for (var i = (elms.length - 1); i >= 0; --i)
+    for (var i = (elms.length - 1); i >= 0; --i) {
       elm = form.elements.namedItem(elms[i]);
       if (elm) {
         clone = elm.cloneNode(true);
         elm.parentNode.removeChild(elm);
         form.appendChild(clone);
       }
+    }
 
     for (var i = (DATA.length - 1); i >= 0; --i) {
       if (form.elements.namedItem(DATA[i])) {
         var value = form.elements.namedItem(DATA[i]).value
-        RTSE.editor.setProperty(aDoc, DATA[i], value);
-        RTSE.editor.setProperty(aDoc, "show-" + DATA[i], "true");
+        RTSE.editor.setProperty(doc, DATA[i], value);
+        RTSE.editor.setProperty(doc, "show-" + DATA[i], "true");
       } else
-        RTSE.editor.setProperty(aDoc, "show-" + DATA[i], "false");
+        RTSE.editor.setProperty(doc, "show-" + DATA[i], "false");
     }
-    if (RTSE.editor.getProperty(aDoc, "show-title") == "true" &&
-        RTSE.editor.getProperty(aDoc, "title") == "")
-      RTSE.editor.setProperty(aDoc, "title", RTSE.editor.defaultTitle);
-    if (RTSE.editor.getProperty(aDoc, "show-toUser") == "true" &&
-        RTSE.editor.getProperty(aDoc, "toUser") == "")
-      RTSE.editor.setProperty(aDoc, "toUser", RTSE.editor.defaultToUser);
-
-    var editor = aDoc.createElement("div");
-    var elm = aDoc.createElement("textarea");
+    if (RTSE.editor.getProperty(doc, "show-title") == "true" &&
+        RTSE.editor.getProperty(doc, "title") == "")
+      RTSE.editor.setProperty(doc, "title", RTSE.editor.defaultTitle);
+    if (RTSE.editor.getProperty(doc, "show-toUser") == "true" &&
+        RTSE.editor.getProperty(doc, "toUser") == "")
+      RTSE.editor.setProperty(doc, "toUser", RTSE.editor.defaultToUser);
+    var editor = doc.createElement("div");
+    var elm = doc.createElement("textarea");
     var style = "margin:3px 4px 3px 4px;";
     elm.setAttribute("style", style);
     editor.appendChild(elm);
@@ -694,6 +695,25 @@ RTSE.editor =
     return aText;
   },
 
+ /**
+  * The document elements that could be replaced for the editor.
+  *
+  * @param aDoc The document to check.
+  * @return The element to be used.
+  */
+  replaceableElements: function replaceableElements(aDoc)
+  {
+    return aDoc.getElementById("Add a Comment") ||
+           aDoc.getElementById("Make a Journal Entry") ||
+           aDoc.getElementById("Edit Journal Entry") ||
+           aDoc.getElementById("Add a New Topic") ||
+           aDoc.getElementById("Reply") ||
+           aDoc.getElementById("Send a Message") ||
+           aDoc.getElementById("Post") ||
+           aDoc.getElementById("Edit") ||
+           aDoc.getElementById("Edit Post");
+  },
+
   /////////////////////////////////////////////////////////////////////////////
   //// Attributes
 
@@ -735,26 +755,6 @@ RTSE.editor =
   get dataFields()
   {
     return ["body", "title", "friendsOnly", "toUser"];
-  },
-
- /**
-  * The document elements that could be replaced for the editor.
-  *
-  * @return The element to be used.
-  */
-  get replaceableElements()
-  {
-    var doc = gBrowser.getBrowserForTab(gBrowser.selectedTab)
-                      .contentDocument;
-    return doc.getElementById("Add a Comment") ||
-           doc.getElementById("Make a Journal Entry") ||
-           doc.getElementById("Edit Journal Entry") ||
-           doc.getElementById("Add a New Topic") ||
-           doc.getElementById("Reply") ||
-           doc.getElementById("Send a Message") ||
-           doc.getElementById("Post") ||
-           doc.getElementById("Edit") ||
-           doc.getElementById("Edit Post");
   },
 
  /**
