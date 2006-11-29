@@ -24,8 +24,14 @@
  * ***** END LICENSE BLOCK ***** */
 
 window.addEventListener("load", RTSE_init, false);
+window.addEventListener("unload", RTSE_destroy, false);
 
 function RTSE_init()
 {
   RTSE.init();
+}
+
+function RTSE_destroy()
+{
+  RTSE.destruct();
 }
