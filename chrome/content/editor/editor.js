@@ -39,7 +39,6 @@ RTSE.editor =
   */
   init: function init()
   {
-    var sponsor = gRTSE.prefsGetBool("extensions.rtse.sponsor");
     var elm = document.getElementById("rtse-statusbar-editor");
     var click = function toggle() {
       var pane = document.getElementById("rtse-realtimeEditor");
@@ -69,11 +68,7 @@ RTSE.editor =
                                               RTSE.editor.insert,
                                               false);
 
-    // Visibility
-    if (sponsor) {
-      document.getElementById("rtse-editor-sponsorSmilies").hidden = false;
-      document.getElementById("rtse-editor-color").hidden = false;
-    }
+    RTSE.editor.setup();
 
     // Event Listeners
     var focus, blur;
@@ -118,8 +113,44 @@ RTSE.editor =
     document.getElementById("rtse-editor-body")
             .addEventListener("keypress", RTSE.editor.keypressListener, true);
 
+
+
+    // Real Time Preview
+    document.getElementById("rtse-editor-body")
+            .addEventListener("input", RTSE.editor.preview, false);
+
+    this.mOk = true;
+  },
+
+ /**
+  * Performs the preference sensative setup of data for the editor.
+  */
+  setup: function setup()
+  {
+    var sponsor = gRTSE.prefsGetBool("extensions.rtse.sponsor");
+
+    // Visibility
+    document.getElementById("rtse-editor-sponsorSmilies").hidden = !sponsor;
+    document.getElementById("rtse-editor-color").hidden = !sponsor;
+
+    // Real Time Preview
+    var rtp = RTSE.editor.realTimePreview;
+    var username = gRTSE.prefsGetString("extensions.rtse.username");
+    rtp.getElementById("username").innerHTML = username;
+    rtp.getElementById("user-image")
+       .setAttribute("src", "http://66.81.80.139/" + username + ".jpg");
+    rtp.getElementById("sponsor").style.display = sponsor ? "inline" : "none";
+
     // Smilies
-    if (gRTSE.prefsGetBool("extensions.rtse.smilies")) {
+    var smileyState = gRTSE.prefsGetBool("extensions.rtse.smilies");
+    var elm = document.getElementById("rtse-editor-smiley");
+    elm.hidden = !smileyState;
+    document.getElementById("rtse-editor-convertSmilies").hidden = !smileyState;
+    if (smileyState) {
+      elm.setAttribute("type", "menu");
+      elm.setAttribute("autoCheck", "false");
+      if (elm.childNodes.length) return;
+
       var smilies = RTSE.smilies.items;
       const XUL = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
       var menu = document.createElementNS(XUL, "menupopup");
@@ -136,28 +167,8 @@ RTSE.editor =
         }, false);
         menu.appendChild(mi);
       }
-
-      var elm = document.getElementById("rtse-editor-smiley")
       elm.appendChild(menu);
-      elm.setAttribute("type", "menu");
-      elm.setAttribute("autoCheck", "false");
-      elm.hidden = false;
-      document.getElementById("rtse-editor-convertSmilies").hidden = false;
     }
-
-    // Real Time Preview
-    var rtp = RTSE.editor.realTimePreview;
-    var username = gRTSE.prefsGetString("extensions.rtse.username");
-    rtp.getElementById("username").innerHTML = username;
-    rtp.getElementById("user-image")
-       .setAttribute("src", "http://66.81.80.139/" + username + ".jpg");
-    if (!gRTSE.prefsGetBool("extensions.rtse.sponsor")) {
-      rtp.getElementById("sponsor").style.display = "none";
-    }
-    document.getElementById("rtse-editor-body")
-            .addEventListener("input", RTSE.editor.preview, false);
-
-    this.mOk = true;
   },
 
  /**
@@ -222,7 +233,8 @@ RTSE.editor =
     var doc = gBrowser.getBrowserForTab(gBrowser.selectedTab).contentDocument;
     var pane = document.getElementById("rtse-realtimeEditor");
 
-    if (!doc.forms.namedItem("rtse")) {
+    if (doc.forms && !doc.forms.namedItem("rtse") ||
+        !/^https?:\/\/(www|rvb|sh|panics)\.roosterteeth\.com(.*)?$/.test(doc.location.href)) {
       RTSE.editor.ensureEditorIsHidden();
       return;
     }
@@ -332,7 +344,9 @@ RTSE.editor =
   insert: function insert(aEvent)
   {
     var doc = aEvent.originalTarget;
-    if (!gRTSE.prefsGetBool("extensions.rtse.editor")) return;
+    if (!gRTSE.prefsGetBool("extensions.rtse.editor") ||
+        !/^https?:\/\/(www|rvb|sh|panics)\.roosterteeth\.com(.*)?$/.test(doc.location.href))
+      return;
     const DATA = RTSE.editor.dataFields;
     var form = doc.forms.namedItem("post");
     if (!form) return;

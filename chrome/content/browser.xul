@@ -8,6 +8,8 @@
   <script type="application/javascript"
           src="chrome://rtse/content/editor/editor.js"/>
   <script type="application/javascript"
+          src="chrome://rtse/content/observer.js"/>
+  <script type="application/javascript"
           src="chrome://rtse/content/pageFix.js"/>
   <script type="application/javascript"
           src="chrome://rtse/content/functions.js"/>
