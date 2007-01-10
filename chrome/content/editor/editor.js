@@ -16,7 +16,7 @@
  * The Initial Developer of the Original Code is
  * Shawn Wilsher
  *
- * Portions created by the Initial Developer are Copyright (C) 2006
+ * Portions created by the Initial Developer are Copyright (C) 2006-2007
  * the Initial Developer. All Rights Reserved.
  *
  * Contributor(s):
@@ -675,7 +675,9 @@ RTSE.editor =
       if (!gRTSE.prefsGetBool("extensions.rtse.sponsor"))
         return aText;
 
-      aText = aText.replace(/\[color=(#[0-9A-F]{1,6})\]/g,
+      aText = aText.replace(/\[color=(#[0-9A-Fa-f]{1,6})\]/g,
+                            "<span style='color:$1'>");
+      aText = aText.replace(/\[color=([a-zA-Z ]+)\]/g,
                             "<span style='color:$1'>");
       aText = aText.replace(/\[\/color\]/g, "</span>");
       aText = aText.replace(/\[smiley([0-9]{1,2})\]/g,
