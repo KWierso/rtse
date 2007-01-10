@@ -16,7 +16,7 @@
  * The Initial Developer of the Original Code is
  * Shawn Wilsher
  *
- * Portions created by the Initial Developer are Copyright (C) 2005-2006
+ * Portions created by the Initial Developer are Copyright (C) 2005-2007
  * the Initial Developer. All Rights Reserved.
  *
  * Contributor(s):
@@ -373,7 +373,7 @@ function RTSE_deconvertExtraBB(aDoc)
 	if (!body) return;
 
   // Protected Journal text
-  body.value = body.value.replace(RTSE.editor.protectedJournalText, "");
+  body.value = body.value.replace(RTSE.editor.protectedJournalText + "\n", "");
 
   // Smilies
   if (gRTSE.prefsGetBool('extensions.rtse.editor')) {
