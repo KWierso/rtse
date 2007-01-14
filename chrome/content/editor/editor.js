@@ -116,6 +116,8 @@ RTSE.editor =
 
 
     // Real Time Preview
+    RTSE.editor.realTimePreview
+        .addEventListener("click", RTSE.editor.previewClickHandler, false);
     document.getElementById("rtse-editor-body")
             .addEventListener("input", RTSE.editor.preview, false);
 
@@ -728,6 +730,19 @@ RTSE.editor =
            aDoc.getElementById("Post") ||
            aDoc.getElementById("Edit") ||
            aDoc.getElementById("Edit Post");
+  },
+
+  /**
+   * Handles clicking in the real time preview.
+   *
+   * @param aEvent The event that is passed.
+   */
+  previewClickHandler: function previewClickHandler(aEvent)
+  {
+    if (aEvent.target.localName === "A" && aEvent.target.href != "") {
+      openUILinkIn(aEvent.target.href, "tab", true);
+    }
+    aEvent.preventDefault();
   },
 
   /////////////////////////////////////////////////////////////////////////////
