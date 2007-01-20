@@ -48,6 +48,10 @@ var RTSE = {
 		var menu=document.getElementById("contentAreaContextMenu");	/* This is the context menu */
 		if(menu)
 			menu.addEventListener("popupshowing",this._menu,false);
+
+    var pb = Components.classes["@mozilla.org/preferences-service;1"]
+                       .getService(Components.interfaces.nsIPrefBranch2);
+    pb.addObserver("extensions.rtse", RTSE_PrefsChangeObserver, false);
 	},
 
   destruct: function destruct()
