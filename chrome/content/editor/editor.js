@@ -710,6 +710,16 @@ RTSE.editor =
     // BB Code
     aText = aText.replace(/\[quote=([a-zA-Z0-9_]{4,12})\]([\s\S]+)\[\/quote\]/g,'[b]Quoting $1:[/b][quote]$2[/quote]');
 
+    // Protecting users from themselves
+    aText = aText.replace(/\[(\/)?B\]/g, "[$1b]");
+    aText = aText.replace(/\[(\/)?I\]/g, "[$1i]");
+    aText = aText.replace(/\[(\/)?U\]/g, "[$1u]");
+    aText = aText.replace(/\[(\/)?S\]/g, "[$1s]");
+    aText = aText.replace(/\[(\/)?IMG\]/g, "[$1img]");
+    aText = aText.replace(/\[(\/)?QUOTE\]/g, "[$1quote]");
+    aText = aText.replace(/\[\/LINK\]/g, "[/link]");
+    aText = aText.replace(/\[LINK=(.*?)\]/g, "[link=$1]");
+
     return aText;
   },
 
