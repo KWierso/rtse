@@ -88,8 +88,13 @@
     <vbox id="rtse-preview" flex="2" persist="width"/>
     <splitter id="rtse-preview-editor-splitter" collapse="before"/>
     <vbox id="rtse-editor" flex="3" persist="width">
-      <textbox id="rtse-editor-title" hidden="true" maxlength="40"/>
-      <textbox id="rtse-editor-toUser" hidden="true"/>
+      <textbox id="rtse-editor-title"
+               hidden="true"
+               maxlength="40"
+               spellcheck="true"/>
+      <textbox id="rtse-editor-toUser"
+               hidden="true"
+               spellcheck="true"/>
         <toolbox pack="center">
           <toolbar id="rtse-editor-topToolbar">
             <toolbarbutton id="rtse-editor-b"
