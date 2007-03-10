@@ -92,9 +92,7 @@
                hidden="true"
                maxlength="40"
                spellcheck="true"/>
-      <textbox id="rtse-editor-toUser"
-               hidden="true"
-               spellcheck="true"/>
+      <textbox id="rtse-editor-toUser" hidden="true"/>
         <toolbox pack="center">
           <toolbar id="rtse-editor-topToolbar">
             <toolbarbutton id="rtse-editor-b"
@@ -180,7 +178,10 @@
                            autoCheck="false"/>
           </toolbar>
         </toolbox>
-        <textbox id="rtse-editor-body" flex="1" multiline="true"/>
+        <textbox id="rtse-editor-body"
+                 flex="1"
+                 multiline="true"
+                 spellcheck="true"/>
         <toolbox id="rtse-editor-bottomToolbar" orient="horizontal">
         <toolbar>
           <box id="rtse-editor-sponsorSmilies" hidden="true">
