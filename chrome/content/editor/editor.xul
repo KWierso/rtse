@@ -180,7 +180,8 @@
             <checkbox id="rtse-editor-convertSmilies"
                       label="&Control.convertSmilies.label;"
                       checked="true"
-                      hidden="true"/>
+                      hidden="true"
+                      oncommand="RTSE.editor.preview();"/>
           </toolbaritem>
           <toolbarspacer flex="1000"/>
           <toolbarbutton class="image-button"

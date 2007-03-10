@@ -113,8 +113,6 @@ RTSE.editor =
     document.getElementById("rtse-editor-body")
             .addEventListener("keypress", RTSE.editor.keypressListener, true);
 
-
-
     // Real Time Preview
     RTSE.editor.realTimePreview
         .addEventListener("click", RTSE.editor.previewClickHandler, false);
@@ -653,10 +651,8 @@ RTSE.editor =
 
  /**
   * Preview event listener.  Generates the preview from the editor.
-  *
-  * @param aEvent The event passed to the function.
   */
-  preview: function preview(aEvent)
+  preview: function preview()
   {
     var parser = function parser(aText)
     {
