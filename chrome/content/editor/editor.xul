@@ -1,5 +1,7 @@
 <?xml version="1.0" ?>
+<?xml-stylesheet href="chrome://rtse/content/editor/editor.css"?>
 <?xul-overlay href="chrome://rtse/content/editor/preview.xul"?>
+<?xul-overlay href="chrome://rtse/content/editor/tooltips.xul"?>
 <!DOCTYPE overlay SYSTEM "chrome://rtse/locale/editor.dtd">
 <!--
 /* ***** BEGIN LICENSE BLOCK *****
@@ -20,7 +22,7 @@
  * The Initial Developer of the Original Code is
  * Shawn Wilsher
  *
- * Portions created by the Initial Developer are Copyright (C) 2006
+ * Portions created by the Initial Developer are Copyright (C) 2006-2007
  * the Initial Developer. All Rights Reserved.
  *
  * Contributor(s):
@@ -31,60 +33,6 @@
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
          xmlns:html="http://www.w3.org/1999/xhtml">
   <hbox id="rtse-realtimeEditor">
-    <tooltip id="rtse-editor-tooltip-b" orient="vertical">
-      <description>
-        [b]<html:strong>&Tooltip.bold;</html:strong>[/b]
-      </description>
-      <label value="alt + b"/>
-    </tooltip>
-    <tooltip id="rtse-editor-tooltip-i" orient="vertical">
-      <description>
-        [i]<html:i>&Tooltip.italic;</html:i>[/i]
-      </description>
-      <label value="alt + i"/>
-    </tooltip>
-    <tooltip id="rtse-editor-tooltip-u" orient="vertical">
-      <description>
-        [u]<html:u>&Tooltip.underline;</html:u>[/u]
-      </description>
-      <label value="alt + u"/>
-    </tooltip>
-    <tooltip id="rtse-editor-tooltip-s" orient="vertical">
-      <description>
-        [s]<html:del>&Tooltip.strike;</html:del>[/s]
-      </description>
-      <label value="alt + s"/>
-    </tooltip>
-    <tooltip id="rtse-editor-tooltip-img" orient="vertical">
-      <description>
-        [img]<html:strong>&Tooltip.image;</html:strong>[/img]
-      </description>
-      <label value="alt + p"/>
-    </tooltip>
-    <tooltip id="rtse-editor-tooltip-quote" orient="vertical">
-      <description>
-        [quote]<html:strong>&Tooltip.quote;</html:strong>[/quote]
-      </description>
-      <label value="alt + q"/>
-    </tooltip>
-    <tooltip id="rtse-editor-tooltip-link" orient="vertical">
-      <description>
-        [link=url]<html:strong>&Tooltip.link;</html:strong>[/link]
-      </description>
-      <label value="alt + l"/>
-    </tooltip>
-    <tooltip id="rtse-editor-tooltip-color" orient="vertical">
-      <description>
-        [color=value]<html:strong>&Tooltip.color;</html:strong>[/color]
-      </description>
-      <label value="alt + c"/>
-    </tooltip>
-    <tooltip id="rtse-editor-tooltip-unlocked">
-      <label value="&Tooltip.unlocked;"/>
-    </tooltip>
-    <tooltip id="rtse-editor-tooltip-locked">
-      <label value="&Tooltip.locked;"/>
-    </tooltip>
     <vbox id="rtse-preview" flex="2" persist="width"/>
     <splitter id="rtse-preview-editor-splitter" collapse="before"/>
     <vbox id="rtse-editor" flex="3" persist="width">
@@ -92,98 +40,100 @@
                hidden="true"
                maxlength="40"
                spellcheck="true"/>
-      <textbox id="rtse-editor-toUser" hidden="true"/>
-        <toolbox pack="center">
-          <toolbar id="rtse-editor-topToolbar">
-            <toolbarbutton id="rtse-editor-b"
-                           image="chrome://rtse/skin/images/editor/bold.png"
-                           oncommand="RTSE.editor.insertTag('b');"
-                           tooltip="rtse-editor-tooltip-b"/>
-            <toolbarbutton id="rtse-editor-i"
-                           image="chrome://rtse/skin/images/editor/italic.png"
-                           oncommand="RTSE.editor.insertTag('i');"
-                           tooltip="rtse-editor-tooltip-i"/>
-            <toolbarbutton id="rtse-editor-u"
-                           image="chrome://rtse/skin/images/editor/underline.png"
-                           oncommand="RTSE.editor.insertTag('u');"
-                           tooltip="rtse-editor-tooltip-u"/>
-            <toolbarbutton id="rtse-editor-s"
-                           image="chrome://rtse/skin/images/editor/strike.png"
-                           oncommand="RTSE.editor.insertTag('s');"
-                           tooltip="rtse-editor-tooltip-s"/>
-            <toolbarbutton id="rtse-editor-img"
-                           image="chrome://rtse/skin/images/editor/image.png"
-                           oncommand="RTSE.editor.insertTag('img');"
-                           tooltip="rtse-editor-tooltip-img"/>
-            <toolbarbutton id="rtse-editor-quote"
-                           image="chrome://rtse/skin/images/editor/quote.png"
-                           oncommand="RTSE.editor.insertTag('quote');"
-                           tooltip="rtse-editor-tooltip-quote"/>
-            <toolbarbutton id="rtse-editor-link"
-                           image="chrome://rtse/skin/images/editor/link.png"
-                           oncommand="RTSE.editor.link();"
-                           tooltip="rtse-editor-tooltip-link"/>
-            <toolbarbutton id="rtse-editor-color"
-                           image="chrome://rtse/skin/images/editor/color.png"
-                           type="menu"
-                           autoCheck="false"
-                           hidden="true"
-                           tooltip="rtse-editor-tooltip-color">
-              <menupopup>
-                <menuitem label="&Color.red;" value="FF0000"
-                          oncommand="RTSE.editor.colorize(this.value);"/>
-                <menuitem label="&Color.orange;" value="FFAA00"
-                          oncommand="RTSE.editor.colorize(this.value);"/>
-                <menuitem label="&Color.yellow;" value="DDFF00"
-                          oncommand="RTSE.editor.colorize(this.value);"/>
-                <menuitem label="&Color.green;" value="00FF00"
-                          oncommand="RTSE.editor.colorize(this.value);"/>
-                <menuitem label="&Color.blue;" value="0000FF"
-                          oncommand="RTSE.editor.colorize(this.value);"/>
-                <menuitem label="&Color.violet;" value="AA00FF"
-                          oncommand="RTSE.editor.colorize(this.value);"/>
-                <menuitem label="&Color.brown;" value="AA8800"
-                          oncommand="RTSE.editor.colorize(this.value);"/>
-                <menuitem label="&Color.white;" value="FFFFFF"
-                          oncommand="RTSE.editor.colorize(this.value);"/>
-                <menuseparator/>
-                <menuitem label="&Color.custom;"
-                          oncommand="RTSE.editor.getColor();"/>
-              </menupopup>
-            </toolbarbutton>
-            <toolbarbutton id="rtse-editor-colorSwitch"
-                           image="chrome://rtse/skin/images/editor/color.png"
-                           hidden="true" oncommand="RTSE.editor.colorize(null);"
-                           tooltip="rtse-editor-tooltip-color"/>
-            <toolbarbutton id="rtse-editor-smiley"
-                           image="chrome://rtse/skin/images/editor/happy.png"
-                           hidden="true"/>
-            <toolbarbutton id="rtse-editor-cut"
-                           image="chrome://rtse/content/editor/cut.png"
-                           command="cmd_cut"/>
-            <toolbarbutton id="rtse-editor-copy"
-                           image="chrome://rtse/content/editor/copy.png"
-                           command="cmd_copy"/>
-            <toolbarbutton id="rtse-editor-paste"
-                           image="chrome://rtse/content/editor/paste.png"
-                           command="cmd_paste"/>
-            <toolbarbutton id="rtse-editor-friendsOnly"
-                           image="chrome://rtse/content/images/unlocked.png"
-                           hidden="true"
-                           type="checkbox"
-                           tooltip="rtse-editor-tooltip-unlocked"/>
-            <toolbarbutton id="rtse-editor-newConv"
-                           image="chrome://rtse/content/images/newConv.png"
-                           hidden="true"
-                           autoCheck="false"/>
-          </toolbar>
-        </toolbox>
-        <textbox id="rtse-editor-body"
-                 flex="1"
-                 multiline="true"
-                 spellcheck="true"/>
-        <toolbox id="rtse-editor-bottomToolbar" orient="horizontal">
-        <toolbar>
+      <toolbox>
+        <toolbar id="rtse-editor-topToolbar" flex="1">
+          <toolbarbutton id="rtse-editor-b"
+                         image="chrome://rtse/skin/images/editor/bold.png"
+                         oncommand="RTSE.editor.insertTag('b');"
+                         tooltip="rtse-editor-tooltip-b"/>
+          <toolbarbutton id="rtse-editor-i"
+                         image="chrome://rtse/skin/images/editor/italic.png"
+                         oncommand="RTSE.editor.insertTag('i');"
+                         tooltip="rtse-editor-tooltip-i"/>
+          <toolbarbutton id="rtse-editor-u"
+                         image="chrome://rtse/skin/images/editor/underline.png"
+                         oncommand="RTSE.editor.insertTag('u');"
+                         tooltip="rtse-editor-tooltip-u"/>
+          <toolbarbutton id="rtse-editor-s"
+                         image="chrome://rtse/skin/images/editor/strike.png"
+                         oncommand="RTSE.editor.insertTag('s');"
+                         tooltip="rtse-editor-tooltip-s"/>
+          <toolbarbutton id="rtse-editor-img"
+                         image="chrome://rtse/skin/images/editor/image.png"
+                         oncommand="RTSE.editor.insertTag('img');"
+                         tooltip="rtse-editor-tooltip-img"/>
+          <toolbarbutton id="rtse-editor-quote"
+                         image="chrome://rtse/skin/images/editor/quote.png"
+                         oncommand="RTSE.editor.insertTag('quote');"
+                         tooltip="rtse-editor-tooltip-quote"/>
+          <toolbarbutton id="rtse-editor-link"
+                         image="chrome://rtse/skin/images/editor/link.png"
+                         oncommand="RTSE.editor.link();"
+                         tooltip="rtse-editor-tooltip-link"/>
+          <toolbarbutton id="rtse-editor-color"
+                         image="chrome://rtse/skin/images/editor/color.png"
+                         type="menu"
+                         autoCheck="false"
+                         hidden="true"
+                         tooltip="rtse-editor-tooltip-color">
+            <menupopup>
+              <menuitem label="&Color.red;" value="FF0000"
+                        oncommand="RTSE.editor.colorize(this.value);"/>
+              <menuitem label="&Color.orange;" value="FFAA00"
+                        oncommand="RTSE.editor.colorize(this.value);"/>
+              <menuitem label="&Color.yellow;" value="DDFF00"
+                        oncommand="RTSE.editor.colorize(this.value);"/>
+              <menuitem label="&Color.green;" value="00FF00"
+                        oncommand="RTSE.editor.colorize(this.value);"/>
+              <menuitem label="&Color.blue;" value="0000FF"
+                        oncommand="RTSE.editor.colorize(this.value);"/>
+              <menuitem label="&Color.violet;" value="AA00FF"
+                        oncommand="RTSE.editor.colorize(this.value);"/>
+              <menuitem label="&Color.brown;" value="AA8800"
+                        oncommand="RTSE.editor.colorize(this.value);"/>
+              <menuitem label="&Color.white;" value="FFFFFF"
+                        oncommand="RTSE.editor.colorize(this.value);"/>
+              <menuseparator/>
+              <menuitem label="&Color.custom;"
+                        oncommand="RTSE.editor.getColor();"/>
+            </menupopup>
+          </toolbarbutton>
+          <toolbarbutton id="rtse-editor-colorSwitch"
+                         image="chrome://rtse/skin/images/editor/color.png"
+                         hidden="true" oncommand="RTSE.editor.colorize(null);"
+                         tooltip="rtse-editor-tooltip-color"/>
+          <toolbarbutton id="rtse-editor-smiley"
+                         image="chrome://rtse/skin/images/editor/happy.png"
+                         hidden="true"/>
+          <toolbarbutton id="rtse-editor-cut"
+                         image="chrome://rtse/content/editor/cut.png"
+                         command="cmd_cut"/>
+          <toolbarbutton id="rtse-editor-copy"
+                         image="chrome://rtse/content/editor/copy.png"
+                         command="cmd_copy"/>
+          <toolbarbutton id="rtse-editor-paste"
+                         image="chrome://rtse/content/editor/paste.png"
+                         command="cmd_paste"/>
+          <toolbarbutton id="rtse-editor-friendsOnly"
+                         image="chrome://rtse/content/images/unlocked.png"
+                         hidden="true"
+                         type="checkbox"
+                         tooltip="rtse-editor-tooltip-unlocked"/>
+          <toolbarbutton id="rtse-editor-newConv"
+                         image="chrome://rtse/content/images/newConv.png"
+                         hidden="true"
+                         autoCheck="false"/>
+          <toolbaritem pack="center" orient="vertical" flex="1">
+            <textbox id="rtse-editor-toUser" hidden="true"/>
+          </toolbaritem>
+        </toolbar>
+      </toolbox>
+      <textbox id="rtse-editor-body"
+               flex="1"
+               multiline="true"
+               spellcheck="true"/>
+      <toolbox id="rtse-editor-bottomToolbar">
+        <toolbar flex="1">
           <box id="rtse-editor-sponsorSmilies" hidden="true">
             <toolbarbutton image="chrome://rtse/content/images/smiley0.gif"
                            autoCheck="false"

@@ -1,0 +1,53 @@
+/* ***** BEGIN LICENSE BLOCK *****
+ * Version: Open Software License v. 2.1
+ *
+ * The contents of this file are subject to the Open Software License Version
+ * 2.1 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ * http://www.opensource.org/licenses/osl-2.1.php
+ *
+ * Software distributed under the License is distributed on an "AS IS" basis,
+ * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+ * for the specific language governing rights and limitations under the
+ * License.
+ *
+ * The Original Code is the 'Rooster Teeth Site Extender'.
+ *
+ * The Initial Developer of the Original Code is
+ * Shawn Wilsher <me@shawnwilsher.com>
+ *
+ * Portions created by the Initial Developer are Copyright (C) 2007
+ * the Initial Developer. All Rights Reserved.
+ *
+ * Contributor(s):
+ *
+ * ***** END LICENSE BLOCK ***** */
+
+#rtse-editor vbox {
+  background:#FAFAFA !important;
+}
+
+#rtse-editor textbox>hbox textarea:focus,
+#rtse-editor textbox>hbox input:focus {
+	background:#FFFFFF !important;
+}
+#rtse-editor textbox>hbox>textarea, #rtse-editor textbox>hbox>input {
+	background:#FAFAFA !important;
+	color:#000000 !important;
+}
+#rtse-editor textbox {
+  -moz-appearance:none !important;
+  background:#FAFAFA !important;
+  border:0px none !important;
+  padding:3px 3px 2px 3px !important;
+  margin:0px 0px 0px 0px !important;
+}
+
+#rtse-editor toolbarbutton {
+  margin:0px 0px 0px 0px !important;
+  padding:0px 0px 0px 2px !important;
+  height:25px !important;
+}
+#rtse-editor toolbarbutton[type="menu"] {
+  padding:0px 2px 0px 2px !important;
+}
