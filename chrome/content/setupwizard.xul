@@ -74,6 +74,7 @@
 					<menuitem label="&Sitepref.RvBskinoption;" value="rvb"/>
 					<menuitem label="&Sitepref.SHskinoption;" value="sh"/>
 					<menuitem label="&Sitepref.Panicsskinoption;" value="panics"/>
+                                        <menuitem label="&Sitepref.magicskinoption;" value="magic"/>
 				</menupopup>
 			</menulist>
 		</hbox>

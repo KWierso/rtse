@@ -66,7 +66,7 @@ var RTSE = {
 		var doc=aEvent.originalTarget;
 		
 		/* Run on all RT pages */
-		if( /^https?:\/\/(www|rvb|sh|panics)\.roosterteeth\.com(.*)?$/.test(doc.location.href) ) {
+		if( /^https?:\/\/(www|rvb|sh|panics|magic)\.roosterteeth\.com(.*)?$/.test(doc.location.href) ) {
 			// Add custom CSS
 			RTSE_addCSS(doc);
 
@@ -89,16 +89,16 @@ var RTSE = {
 			return;
 		
 		/* Run on journal pages */
-		if( /^https?:\/\/(www|rvb|sh|panics)\.roosterteeth\.com\/members\/journal(.*)?$/.test(doc.location.href) ) {
+		if( /^https?:\/\/(www|rvb|sh|panics|magic)\.roosterteeth\.com\/members\/journal(.*)?$/.test(doc.location.href) ) {
 			/* Run on your journal page */
-			if( /^https?:\/\/(www|rvb|sh|panics)\.roosterteeth\.com\/members\/journal\/?$/.test(doc.location.href) ||
-				/^https?:\/\/(www|rvb|sh|panics)\.roosterteeth\.com\/members\/journal\/index\.php.*$/.test(doc.location.href) ) {
+			if( /^https?:\/\/(www|rvb|sh|panics|magic)\.roosterteeth\.com\/members\/journal\/?$/.test(doc.location.href) ||
+				/^https?:\/\/(www|rvb|sh|panics|magic)\.roosterteeth\.com\/members\/journal\/index\.php.*$/.test(doc.location.href) ) {
 				/* Editor */
 				RTSE_insertEditor(doc,'journal');
 			}
 
 			// Run on Journal Comment pages
-			if( /^https?:\/\/(www|rvb|sh|panics)\.roosterteeth\.com\/members\/journal\/entry\.php.*$/.test(doc.location.href) ) {
+			if( /^https?:\/\/(www|rvb|sh|panics|magic)\.roosterteeth\.com\/members\/journal\/entry\.php.*$/.test(doc.location.href) ) {
 				// Permalinks
 				RTSE_postPermalink(doc);
 
@@ -111,7 +111,7 @@ var RTSE = {
 		}
 
 		/* Run on all topic pages */
-		if( /^https?:\/\/(www|rvb|sh|panics)\.roosterteeth\.com\/forum\/viewTopic\.php(.*)?$/.test(doc.location.href) ) {
+		if( /^https?:\/\/(www|rvb|sh|panics|magic)\.roosterteeth\.com\/forum\/viewTopic\.php(.*)?$/.test(doc.location.href) ) {
 			// Permalinks
 			RTSE_postPermalink(doc);
 
@@ -123,7 +123,7 @@ var RTSE = {
 		}
 
 		// Run on Image comment Pages
-		if( /^https?:\/\/(www|rvb|sh|panics)\.roosterteeth\.com\/members\/images\/image\.php.*$/.test(doc.location.href) ) {
+		if( /^https?:\/\/(www|rvb|sh|panics|magic)\.roosterteeth\.com\/members\/images\/image\.php.*$/.test(doc.location.href) ) {
 			// Permalinks
 			RTSE_postPermalink(doc);
 			
@@ -139,13 +139,13 @@ var RTSE = {
 		/* Context Menu Goodies */
 		var url=gBrowser.getBrowserAtIndex(gBrowser.mTabContainer.selectedIndex).contentDocument.location.href;
 		if( gContextMenu.onImage && gContextMenu.onLink &&
-			/^https?:\/\/(www|rvb|sh|panics).roosterteeth.com(.*)?$/.test(url) &&
+			/^https?:\/\/(www|rvb|sh|panics|magic).roosterteeth.com(.*)?$/.test(url) &&
 			gContextMenu.target.parentNode.href &&
 			/profile\.php\?uid=[0-9]+$/.test(gContextMenu.target.parentNode.href) ) {
 			/* Should target only user avatars */
 			gContextMenu.showItem("rtse-sub-menu",true);
 			var target=new String(gContextMenu.target.parentNode.href);
-			var uid=target.replace(/^https?:\/\/(www|rvb|sh|panics).roosterteeth.com\/members\/profile.php\?uid=([0-9]+)$/,'$2','$1');
+			var uid=target.replace(/^https?:\/\/(www|rvb|sh|panics|magic).roosterteeth.com\/members\/profile.php\?uid=([0-9]+)$/,'$2','$1');
 			
 			/* Send PM */
 			document.getElementById('rtse-user-sendPM').setAttribute('oncommand','gBrowser.addTab("http://'+

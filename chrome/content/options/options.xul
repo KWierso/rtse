@@ -113,6 +113,7 @@
               <menuitem label="&Preferences.RvBskinoption;" value="rvb"/>
               <menuitem label="&Preferences.SHskinoption;" value="sh"/>
               <menuitem label="&Preferences.Panicsskinoption;" value="panics"/>
+              <menuitem label="&Preferences.magicskinoption;" value="magic"/>
             </menupopup>
           </menulist>
         </hbox>
@@ -205,6 +206,9 @@
       <preference id="pref_forum30"
                   name="extensions.rtse.forum.30"
                   type="bool"/>
+      <preference id="pref_forum35"
+                  name="extensions.rtse.forum.35"
+                  type="bool"/>
       <preference id="pref_forum3"
                   name="extensions.rtse.forum.3"
                   type="bool"/>
@@ -225,6 +229,12 @@
                   type="bool"/>
       <preference id="pref_forum21"
                   name="extensions.rtse.forum.21"
+                  type="bool"/>
+      <preference id="pref_forum32"
+                  name="extensions.rtse.forum.32"
+                  type="bool"/>
+      <preference id="pref_forum33"
+                  name="extensions.rtse.forum.33"
                   type="bool"/>
       <preference id="pref_forum22"
                   name="extensions.rtse.forum.22"
@@ -333,6 +343,10 @@
           <checkbox id="forum30" preference="pref_forum30"/>
           <description>&ForumJump.panics;</description>
         </richlistitem>
+        <richlistitem orient="vertical">
+          <checkbox id="forum35" preference="pref_forum35"/>
+          <description>&ForumJump.magic;</description>
+        </richlistitem>
         <richlistitem><label value="&ForumJump.gaming;" style="font-weight:bold;"/></richlistitem>
         <richlistitem orient="vertical">
           <checkbox id="forum3" preference="pref_forum3"/>
@@ -374,7 +388,14 @@
           <checkbox id="forum24" preference="pref_forum24"/>
           <description>&ForumJump.boardgames;</description>
         </richlistitem>
-        <richlistitem><label value="&ForumJump.media;" style="font-weight:bold;"/></richlistitem>
+		<richlistitem orient="vertical">
+          <checkbox id="forum33" preference="pref_forum33"/>
+          <description>&ForumJump.playstation3;</description>
+        </richlistitem>        <richlistitem orient="vertical">
+          <checkbox id="forum32" preference="pref_forum32"/>
+          <description>&ForumJump.wii;</description>
+        </richlistitem>
+		<richlistitem><label value="&ForumJump.media;" style="font-weight:bold;"/></richlistitem>
         <richlistitem orient="vertical">
           <checkbox id="forum5" preference="pref_forum5"/>
           <description>&ForumJump.movies;</description>

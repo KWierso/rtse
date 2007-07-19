@@ -179,7 +179,7 @@ RTSE.editor =
   initDoc: function initDoc(aEvent)
   {
     var doc = aEvent.originalTarget;
-    if (!/^https?:\/\/(www|rvb|sh|panics)\.roosterteeth\.com(.*)?$/.test(doc.location.href))
+    if (!/^https?:\/\/(www|rvb|sh|panics|magic)\.roosterteeth\.com(.*)?$/.test(doc.location.href))
       return;
     if (!RTSE.editor.replaceableElements(doc))
       return;
@@ -218,7 +218,7 @@ RTSE.editor =
     var browser = gBrowser.getBrowserForTab(gBrowser.selectedTab);
     var doc = browser.contentDocument;
     if (gRTSE.prefsGetBool("extensions.rtse.editor") &&
-        /^https?:\/\/(www|rvb|sh|panics)\.roosterteeth\.com(.*)?$/.test(doc.location.href))
+        /^https?:\/\/(www|rvb|sh|panics|magic)\.roosterteeth\.com(.*)?$/.test(doc.location.href))
       show = RTSE.editor.replaceableElements(doc);
     document.getElementById("rtse-statusbar-editor").hidden = !show;
   },
@@ -234,7 +234,7 @@ RTSE.editor =
     var pane = document.getElementById("rtse-realtimeEditor");
 
     if (doc.forms && !doc.forms.namedItem("rtse") ||
-        !/^https?:\/\/(www|rvb|sh|panics)\.roosterteeth\.com(.*)?$/.test(doc.location.href)) {
+        !/^https?:\/\/(www|rvb|sh|panics|magic)\.roosterteeth\.com(.*)?$/.test(doc.location.href)) {
       RTSE.editor.ensureEditorIsHidden();
       return;
     }
@@ -345,7 +345,7 @@ RTSE.editor =
   {
     var doc = aEvent.originalTarget;
     if (!gRTSE.prefsGetBool("extensions.rtse.editor") ||
-        !/^https?:\/\/(www|rvb|sh|panics)\.roosterteeth\.com(.*)?$/.test(doc.location.href))
+        !/^https?:\/\/(www|rvb|sh|panics|magic)\.roosterteeth\.com(.*)?$/.test(doc.location.href))
       return;
     const DATA = RTSE.editor.dataFields;
     var form = doc.forms.namedItem("post");

@@ -35,7 +35,7 @@ function RTSE_linkFix(aDoc)
 {
   // Scroll Into view for links on same page
   var loc = aDoc.location.href
-                .replace(/^https?:\/\/(www|rvb|sh|panics)\.roosterteeth\.com(.*)$/i,'$2');
+                .replace(/^https?:\/\/(www|rvb|sh|panics|magic)\.roosterteeth\.com(.*)$/i,'$2');
   var func = function showMe(aEvent) {
     var id = this.href.replace(/^.*?#([\S\s]+)$/i,'$1');
     var doc = this.ownerDocument;
@@ -54,7 +54,7 @@ function RTSE_linkFix(aDoc)
   // Remove target and keep same flavor
   if (!gRTSE.prefsGetBool("extensions.rtse.fixLinks")) return;
   links = RTSE_evaluateXPath(aDoc,'//a[@target="_blank"]');
-  var regEx = /^http:\/\/(www|rvb|sh|panics).roosterteeth.com(.*)$/i;
+  var regEx = /^http:\/\/(www|rvb|sh|panics|magic).roosterteeth.com(.*)$/i;
   for (var i = (links.length - 1); i >= 0; --i) {
     if (links[i].href.match(regEx)) {
       links[i].removeAttribute('target');
@@ -102,8 +102,8 @@ function RTSE_forumListBox(doc) {
 	/* Used to create and insert the list box to jump to a forum */
   if (!gRTSE.prefsGetBool("extensions.rtse.forum")) return;
 	var listBox=doc.createElement('select');
-	var ids=new Array(7,27,17,11,14,12,29,28,25,15,4,16,13,5,24,23,22,21,31,20,
-                    26,19,18,3,30,10,2,9,8,1,104,103,101,'null');
+	var ids=new Array(7,27,17,11,14,12,29,28,25,15,4,16,13,5,24,23,22,33,32,21,31,20,
+                    26,19,18,3,35,30,10,2,9,8,1,104,103,101,'null');
   var bundle = Components.classes["@mozilla.org/intl/stringbundle;1"]
                          .getService(Components.interfaces.nsIStringBundleService)
                          .createBundle("chrome://rtse/locale/forums.properties");
@@ -151,8 +151,8 @@ function RTSE_addToSideBar(doc) {
 		var ref=RTSE_evaluateXPath(doc,"//td[@id='navCol']/table/tbody/tr[17]");
 		ref=ref[0];
 		var tr,td,div,a;
-		var items=new Array('My Stats','Mod History');
-		var links=new Array('/members/stats/myStats.php','/members/modHistory.php');
+		var items=new Array('My Stats','Mod History', 'My Log');
+		var links=new Array('/members/stats/myStats.php','/members/modHistory.php', '/members/log.php');
 		for( var i=(items.length-1); i>=0; i-- ) {
 			tr=doc.createElement('tr');
 			td=doc.createElement('td');
@@ -179,7 +179,7 @@ function RTSE_postPermalink(aDoc)
 		var elms=RTSE_evaluateXPath(aDoc,"//table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[1]");
 		var a,text,num;
 		var base=new String(aDoc.location.href);
-		base=base.replace(/^https?:\/\/(www|rvb|sh|panics)\.roosterteeth\.com(.*)$/,'$2');
+		base=base.replace(/^https?:\/\/(www|rvb|sh|panics|magic)\.roosterteeth\.com(.*)$/,'$2');
 		base=base.replace(/.*(#[c|t][0-9]+)$/i,'');
 		for( var i in elms ) {
 			text=elms[i].firstChild.data;

@@ -44,6 +44,7 @@
 <!ENTITY Sitepref.RvBskinoption "Red vs Blue">
 <!ENTITY Sitepref.SHskinoption "Stranger Hood">
 <!ENTITY Sitepref.Panicsskinoption "PANICS">
+<!ENTITY Sitepref.magicskinoption "1-800-Magic">
 <!ENTITY Sitepref.ATElabel "This feature will enable an advanced editing box, instead of the default posting area. It includes many new features, such as: a link creation tool, styling buttons, an integrated spell checker (if Spellbound is installed), and much more.">
 <!ENTITY Sitepref.ATEenable "Enable Advanced Text Editing">
 <!ENTITY Talkback.name "Talkback">

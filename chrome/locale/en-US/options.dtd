@@ -16,6 +16,7 @@
 <!ENTITY Preferences.RvBskinoption "Red vs Blue">
 <!ENTITY Preferences.SHskinoption "Stranger Hood">
 <!ENTITY Preferences.Panicsskinoption "PANICS">
+<!ENTITY Preferences.magicskinoption "1-800-Magic">
 <!ENTITY Preferences.themerlabel "This forces all pages to load with your preferred theme.  If you ever get annoyed with a different theme opening up when you click a link, this preference is for you.">
 <!ENTITY Preferences.enableskinlabel "Enable Themer">
 <!ENTITY Preferences.linkfixgroupcaption "Link Fixing">
@@ -48,6 +49,7 @@
 <!ENTITY ForumJump.redvsblue "It's just one big RvB love fest in here.">
 <!ENTITY ForumJump.stangerhood "Rooster Teeth's Sims 2 project.">
 <!ENTITY ForumJump.panics "People Acting Normal in Crazy ass Situations.">
+<!ENTITY ForumJump.magic "Who you gonna call?">
 <!ENTITY ForumJump.gaming "Gaming">
 <!ENTITY ForumJump.generalgaming "Non platform specific cultural jibberjabber">
 <!ENTITY ForumJump.pcgaming "You should be using your computer for better things.">
@@ -56,6 +58,8 @@
 <!ENTITY ForumJump.xbox "Like a PC, only way heavier.">
 <!ENTITY ForumJump.xbox360 "Come in here and pretend like you have one.">
 <!ENTITY ForumJump.playstation "It plays things while remaining stationary.">
+<!ENTITY ForumJump.playstation3 "Quit lying, everybody knows you don't really have one">
+<!ENTITY ForumJump.wii "Wii love you.">
 <!ENTITY ForumJump.gamecube "Just like your mom's purse.">
 <!ENTITY ForumJump.classic "Because handhelds play classic games. Get it?">
 <!ENTITY ForumJump.boardgames "Because electricity is for n00bs.">
