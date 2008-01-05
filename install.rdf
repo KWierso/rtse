@@ -3,7 +3,7 @@
      xmlns:em="http://www.mozilla.org/2004/em-rdf#">
 
   <Description about="urn:mozilla:install-manifest">
-    <em:id>RTSE@shawnwilsher.com</em:id>
+    <em:id>rtse-nightly@shawnwilsher.com</em:id>
     <em:version>1.1.0a1</em:version>
     <em:type>2</em:type>
    
@@ -34,7 +34,7 @@
     <em:contributor>Matt Shaver</em:contributor>
     <em:contributor>Reed Martz; http://reedmartz.com/</em:contributor>
     <em:homepageURL>http://www.shawnwilsher.com/extensions/rtse/</em:homepageURL>
-    <em:updateURL>http://extensions.shawnwilsher.com/get/RTSE@shawnwilsher.com/update/</em:updateURL>
+    <em:updateURL>https://services.forerunnerdesigns.com/extensions/get/rtse-nightly@shawnwilsher.com/update/</em:updateURL>
     <em:optionsURL>chrome://rtse/content/options/options.xul</em:optionsURL>
     <em:iconURL>chrome://rtse/skin/images/icon.png</em:iconURL>
   </Description>      
