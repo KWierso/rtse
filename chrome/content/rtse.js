@@ -185,7 +185,7 @@ var RTSE = {
       file.append("smilies.xml");
       if (!file.exists()) {
         // Now we have to make the file
-        const ID = "RTSE@shawnwilsher.com"
+        const ID = "rtse-nightly@shawnwilsher.com"
         var file = Components.classes["@mozilla.org/file/directory_service;1"]
                              .getService(Components.interfaces.nsIProperties)
                              .get("ProfD", Components.interfaces.nsIFile);
