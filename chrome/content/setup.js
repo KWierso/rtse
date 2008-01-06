@@ -23,52 +23,71 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
+const Cc = Components.classes;
+const Ci = Components.interfaces;
 var gRTSE=Components.classes['@shawnwilsher.com/rtse;1']
                     .getService(Components.interfaces.nsIRTSE);
 var wizard = {
-	// used for the Setup Wizard
+  // used for the Setup Wizard
 
  /**
-  * Applies the settins from the Setup Wizard
+  * Applies the settings from the Setup Wizard
   * @return true if successful, false if failure.
   */
-	apply: function apply() {
-		try {
-			// Username
-			var user = document.getElementById('username').value;
-      gRTSE.prefsSetString('extensions.rtse.username', user);
+  apply: function apply() {
+    try {
+      // Username
+      let user = document.getElementById("username").value;
+      gRTSE.prefsSetString("extensions.rtse.username", user);
 
-			// Password
-			var pm = Components.classes["@mozilla.org/passwordmanager;1"]
-                         .getService(Components.interfaces.nsIPasswordManager);
-      pm.addUser('rtse', user, document.getElementById('pwd').value);
+      // Password
+      let pwd = document.getElementById("pwd").value;
 
-			// Auto Sign In
-			gRTSE.prefsSetBool('extensions.rtse.signin', document.getElementById('signin').checked);
-		
-			// Sponsor
-			gRTSE.prefsSetBool('extensions.rtse.sponsor', document.getElementById('sponsor').checked);
+      if ("@mozilla.org/passwordmanager;1" in Cc) {
+        let pm = Cc["@mozilla.org/passwordmanager;1"].
+                 getService(Ci.nsIPasswordManager);
+        pm.addUser("rtse", user, pwd);
+      } else if ("@mozilla.org/login-manager;1" in Cc) {
+        let lm = Cc["@mozilla.org/login-manager;1"].
+                 getService(Ci.nsILoginManager);
 
-			// themer
-			if (document.getElementById('theme').checked) {
-				gRTSE.prefsSetBool('extensions.rtse.themer', true);
-				gRTSE.prefsSetString('extensions.rtse.themeType', document.getElementById('themeType').selectedItem.value);
-			} else {
-				gRTSE.prefsSetBool('extensions.rtse.themer', false);
-			}
+        let loginInfo = Cc["@mozilla.org/login-manager/loginInfo;1"].
+                        createInstance(Ci.nsILoginInfo);
+        loginInfo.init("rtse", "rtse", null, user, pwd, null, null);
+        lm.addLogin(loginInfo);
+      }
 
-			// Editor
-			gRTSE.prefsSetBool('extensions.rtse.editor', document.getElementById('editor').checked);
+      // Auto Sign In
+      gRTSE.prefsSetBool("extensions.rtse.signin",
+                         document.getElementById("signin").checked);
+    
+      // Sponsor
+      gRTSE.prefsSetBool("extensions.rtse.sponsor",
+                         document.getElementById("sponsor").checked);
+
+      // themer
+      if (document.getElementById("theme").checked) {
+        gRTSE.prefsSetBool("extensions.rtse.themer", true);
+        gRTSE.prefsSetString("extensions.rtse.themeType",
+                             document.getElementById("themeType").selectedItem
+                                     .value);
+      } else {
+        gRTSE.prefsSetBool("extensions.rtse.themer", false);
+      }
+
+      // Editor
+      gRTSE.prefsSetBool("extensions.rtse.editor",
+                         document.getElementById("editor").checked);
 
       // Talkback
       gRTSE.prefsSetBool('extensions.rtse.talkback', document.getElementById('talkback').checked);
 
-			// Finishing up
+      // Finishing up
       gRTSE.prefsSetBool('extensions.rtse.firstInstall',false);
-			return true;
-		} catch(e) {
-			alert("We're sorry, but an error occured.");
-      return false;
-		}
-	}
+    } catch(e) {
+      alert("We're sorry, but an error occured.");
+      Components.utils.reportError(e);
+    }
+    return true;
+  }
 }

@@ -24,6 +24,8 @@
  * ***** END LICENSE BLOCK ***** */
 
 /* constants */
+const Cc = Components.classes;
+const Ci = Components.interfaces;
 const nsIRTSE     = Components.interfaces.nsIRTSE;
 const nsISupports = Components.interfaces.nsISupports;
 const CLASS_ID    = Components.ID("{0960cf50-d196-11da-a94d-0800200c9a66}");
@@ -95,19 +97,27 @@ RTSE.prototype =
   {
     if (!this.mLoginSent && this.prefsGetBool("extensions.rtse.signin") &&
         this.username ) {
-      var pm = Components.classes["@mozilla.org/passwordmanager;1"]
-                         .getService(nsIPasswordManagerInternal);
-
-      var usr = { value: "" };
-      var pwd = { value: "" };
-      var login = { value: "" };
-
-      try {
-        pm.findPasswordEntry("rtse", this.username, "", usr, login, pwd);
-      } catch(e) {
-        // password manager didn't find what we wanted.
-        Components.utils.reportError(e);
-        return;
+      let usr = { value: "" };
+      let pwd = { value: "" };
+      if ("@mozilla.org/passwordmanager;1" in Cc) {
+        let pm = Cc["@mozilla.org/passwordmanager;1"].
+                 getService(Ci.nsIPasswordManagerInternal);
+        try {
+          let login = { value: "" };
+          pm.findPasswordEntry("rtse", this.username, "", login, usr, pwd);
+        } catch (e) {
+          // password manager didn't find what we wanted
+          Components.utils.reportError(e);
+          return;
+        }
+      } else if ("@mozilla.org/login-manager;1" in Cc) {
+        let lm = Cc["@mozilla.org/login-manager;1"].
+                 getService(Ci.nsILoginManager);
+        let logins = lm.findLogins({}, "rtse", "rtse", null);
+        if (logins.length) {
+          usr.value = logins[0].username;
+          pwd.value = logins[0].password;
+        }
       }
 
       if (usr.value && pwd.value) {
