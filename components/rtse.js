@@ -96,7 +96,7 @@ RTSE.prototype =
   login: function login()
   {
     if (!this.mLoginSent && this.prefsGetBool("extensions.rtse.signin") &&
-        this.username ) {
+        this.username && !this.prefsGetBool("extensions.rtse.firstInstall")) {
       let usr = { value: "" };
       let pwd = { value: "" };
       if ("@mozilla.org/passwordmanager;1" in Cc) {
