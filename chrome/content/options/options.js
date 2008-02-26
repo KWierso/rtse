@@ -122,7 +122,7 @@ function displaySmilies()
 	                .getService(Components.interfaces.nsISmilies);
 	var ref=document.getElementById('smileyPreview');
 	if (!s.ok) {
-    alert('not ok');
+    alert("The smilie service is not ok");
   }
   var names=s.getNames({});
 	// remove any existing children

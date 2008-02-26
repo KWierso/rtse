@@ -209,6 +209,7 @@ Smilies.prototype =
   */
   grabData: function grabData(aFile)
   {
+    const PR_RDONLY = 0x01;
     // Checking to make sure it's there
     if (!aFile.exists()) throw this.mErrorFileDNE;
 
@@ -217,7 +218,7 @@ Smilies.prototype =
                             .createInstance(Components.interfaces.nsIFileInputStream);
     var sstream = Components.classes["@mozilla.org/scriptableinputstream;1"]
                             .createInstance(Components.interfaces.nsIScriptableInputStream);
-    fstream.init(aFile, 1, 0, false);
+    fstream.init(aFile, PR_RDONLY, 0600, false);
     sstream.init(fstream); 
 
     // Grabbing data
