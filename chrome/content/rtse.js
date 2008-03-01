@@ -190,7 +190,8 @@ var RTSE = {
                              .getService(Components.interfaces.nsIProperties)
                              .get("ProfD", Components.interfaces.nsIFile);
         file.append("rtse");
-        if (!file.exists()) file.create(Components.interfaces.nsIFile.DIRECTORY_TYPE,0664);
+        if (!file.exists())
+          file.create(Components.interfaces.nsIFile.DIRECTORY_TYPE, 0755);
 
         var ext = Components.classes["@mozilla.org/extensions/manager;1"]
                             .getService(Components.interfaces.nsIExtensionManager)
