@@ -14,9 +14,9 @@
  * The Original Code is the 'Rooster Teeth Site Extender'.
  *
  * The Initial Developer of the Original Code is
- * Shawn Wilsher
+ * Shawn Wilsher <me@shawnwilsher.com>
  *
- * Portions created by the Initial Developer are Copyright (C) 2005-2007
+ * Portions created by the Initial Developer are Copyright (C) 2005-2008
  * the Initial Developer. All Rights Reserved.
  *
  * Contributor(s):
@@ -131,14 +131,9 @@ function RTSE_forumListBox(doc) {
 		},false);
 
 		/* Now that we have the listBox all filled up... */
-		var ref=doc.getElementById('tabsHolder').getElementsByTagName("table")[0]
-               .firstChild.firstChild;
-		var cont=doc.createElement('td');
-    listBox.setAttribute("style", "position:relative;right:1px;top:-1px;");
-		cont.appendChild(listBox);
-    cont.setAttribute("align", "right");
-    cont.setAttribute("valign", "top");
-		ref.appendChild(cont);
+    let ref = doc.getElementsByTagName("body")[0];
+    listBox.setAttribute("style", "position:absolute;right:5px;top:5px;");
+    ref.appendChild(listBox);
 	} catch(e) {
 		gRTSE.sendReport(e);
 	}
