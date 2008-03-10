@@ -307,6 +307,7 @@ RTSE.editor =
     }
     document.getElementById("rtse-ContentSplitter")
             .collapsed = pane.collapsed = true;
+    content.focus();
   },
 
  /**
