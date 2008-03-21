@@ -30,7 +30,7 @@ RTSE.editor =
 
   mOk: false,
   mCurrentDoc: null,
-  
+
   /////////////////////////////////////////////////////////////////////////////
   //// Functions
 
@@ -253,7 +253,7 @@ RTSE.editor =
   {
     var pane = document.getElementById("rtse-realtimeEditor");
     var doc  = gBrowser.getBrowserForTab(gBrowser.selectedTab).contentDocument;
-    
+
     if (!pane.collapsed)
       RTSE.editor.ensureEditorIsHidden();
 
@@ -307,7 +307,6 @@ RTSE.editor =
     }
     document.getElementById("rtse-ContentSplitter")
             .collapsed = pane.collapsed = true;
-    content.focus();
   },
 
  /**
@@ -388,7 +387,7 @@ RTSE.editor =
     editor.appendChild(elm);
     editor.setAttribute("id", ref.getAttribute("id"));
     editor.addEventListener("click", RTSE.editor.ensureEditorIsVisible, false);
-    style = "background-color:#f4f4f4;" + 
+    style = "background-color:#f4f4f4;" +
             "border:1px solid #000000;" +
             "border-top:0px;";
     editor.setAttribute("style", style);
@@ -426,6 +425,7 @@ RTSE.editor =
     var e = doc.createEvent("HTMLEvents");
     e.initEvent("submit", true, true);
     form.dispatchEvent(e);
+    content.focus();
   },
 
  /**
@@ -491,7 +491,7 @@ RTSE.editor =
                    text.value.substring(text.selectionStart, text.textLength);
       text.setSelectionRange(pos, pos);
     } else {
-      // Text is selected 
+      // Text is selected
       var tag = "[" + aID + "]";
       var length = tag.length;
       var data = text.value.substring(0, text.selectionStart) + tag;
@@ -535,7 +535,7 @@ RTSE.editor =
                    text.value.substring(text.selectionStart, text.textLength);
       text.setSelectionRange(pos, pos);
     } else {
-      // Text is selected 
+      // Text is selected
       var tag = "[color=#" + aColor + "]";
       var length = tag.length;
       var data = text.value.substring(0, text.selectionStart) + tag;
