@@ -67,6 +67,8 @@ var RTSE = {
 		
 		/* Run on all RT pages */
 		if( /^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com(.*)?$/.test(doc.location.href) ) {
+      RTSE_rick_roll();
+
 			// Add custom CSS
 			RTSE_addCSS(doc);
 
