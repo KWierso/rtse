@@ -41,8 +41,8 @@ RTSE.editor =
   {
     var elm = document.getElementById("rtse-statusbar-editor");
     var click = function toggle() {
-      var pane = document.getElementById("rtse-realtimeEditor");
-      if (pane.collapsed)
+      var pane = document.getElementById("rtse-realtime-editor");
+      if (pane.state == "closed")
         RTSE.editor.ensureEditorIsVisible();
       else
         RTSE.editor.ensureEditorIsHidden();
@@ -114,10 +114,12 @@ RTSE.editor =
             .addEventListener("keypress", RTSE.editor.keypressListener, true);
 
     // Real Time Preview
+    /*
     RTSE.editor.realTimePreview
         .addEventListener("click", RTSE.editor.previewClickHandler, false);
     document.getElementById("rtse-editor-body")
             .addEventListener("input", RTSE.editor.preview, false);
+    */
 
     this.mOk = true;
   },
@@ -134,12 +136,14 @@ RTSE.editor =
     document.getElementById("rtse-editor-color").hidden = !sponsor;
 
     // Real Time Preview
+    /*
     var rtp = RTSE.editor.realTimePreview;
     var username = gRTSE.prefsGetString("extensions.rtse.username");
     rtp.getElementById("username").innerHTML = username;
     rtp.getElementById("user-image")
        .setAttribute("src", "http://66.81.80.139/" + username + ".jpg");
     rtp.getElementById("sponsor").style.display = sponsor ? "inline" : "none";
+    */
 
     // Smilies
     var smileyState = gRTSE.prefsGetBool("extensions.rtse.smilies");
@@ -147,8 +151,6 @@ RTSE.editor =
     elm.hidden = !smileyState;
     document.getElementById("rtse-editor-convertSmilies").hidden = !smileyState;
     if (smileyState) {
-      elm.setAttribute("type", "menu");
-      elm.setAttribute("autoCheck", "false");
       if (elm.childNodes.length) return;
 
       var smilies = RTSE.smilies.items;
@@ -162,9 +164,8 @@ RTSE.editor =
         mi.setAttribute("validate", "never");
         mi.setAttribute("class", "menuitem-iconic");
         mi.setAttribute("key", smilies[i].key);
-        mi.addEventListener("command", function() {
-          RTSE.editor.insertTag(this.getAttribute("key"));
-        }, false);
+        mi.setAttribute("oncommand",
+                        "RTSE.editor.insertTag('" + smilies[i].key + "');");
         menu.appendChild(mi);
       }
       elm.appendChild(menu);
@@ -231,7 +232,7 @@ RTSE.editor =
   toggleEditor: function toggleEditor(aEvent)
   {
     var doc = gBrowser.getBrowserForTab(gBrowser.selectedTab).contentDocument;
-    var pane = document.getElementById("rtse-realtimeEditor");
+    var pane = document.getElementById("rtse-realtime-editor");
 
     if (doc.forms && !doc.forms.namedItem("rtse") ||
         !/^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com(.*)?$/.test(doc.location.href)) {
@@ -251,10 +252,10 @@ RTSE.editor =
   */
   ensureEditorIsVisible: function ensureEditorIsVisible()
   {
-    var pane = document.getElementById("rtse-realtimeEditor");
+    var pane = document.getElementById("rtse-realtime-editor");
     var doc  = gBrowser.getBrowserForTab(gBrowser.selectedTab).contentDocument;
 
-    if (!pane.collapsed)
+    if (!pane.hidden)
       RTSE.editor.ensureEditorIsHidden();
 
     RTSE.editor.mCurrentDoc = doc;
@@ -270,20 +271,25 @@ RTSE.editor =
     // XXX some kind of loop here?
     document.getElementById("rtse-editor-body").value =
       RTSE.editor.getProperty(doc, "body");
+    /*
     if (document.getElementById("rtse-editor-body").value == "")
       RTSE.editor.realTimePreview.getElementById("post").innerHTML = "";
+    */
     document.getElementById("rtse-editor-title").value =
       RTSE.editor.getProperty(doc, "title");
     document.getElementById("rtse-editor-toUser").value =
       RTSE.editor.getProperty(doc, "toUser");
     RTSE.editor.setProperty(doc, "visible", "true");
-    document.getElementById("rtse-ContentSplitter")
-            .collapsed = pane.collapsed = false;
 
+    pane.hidden = false;
+    pane.openPopup(document.getElementById("rtse-statusbar-editor"),
+                   "before_start", -1, -1, false, false);
+
+    /*
     var body = document.getElementById("rtse-editor-body");
     if (body.value != "")
       RTSE.editor.preview();
-    body.focus();
+    */
   },
 
  /**
@@ -291,13 +297,13 @@ RTSE.editor =
   */
   ensureEditorIsHidden: function ensureEditorIsHidden()
   {
-    var pane = document.getElementById("rtse-realtimeEditor");
+    var pane = document.getElementById("rtse-realtime-editor");
     var doc  = RTSE.editor.mCurrentDoc;
 
     if (doc === null)
       return;
 
-    if (!pane.collapsed) {
+    if (!pane.hidden) {
       RTSE.editor.setProperty(doc, "body",
                     document.getElementById("rtse-editor-body").value);
       RTSE.editor.setProperty(doc, "title",
@@ -305,8 +311,8 @@ RTSE.editor =
       RTSE.editor.setProperty(doc, "toUser",
                     document.getElementById("rtse-editor-toUser").value);
     }
-    document.getElementById("rtse-ContentSplitter")
-            .collapsed = pane.collapsed = true;
+    pane.hidePopup();
+    pane.hidden = true;
   },
 
  /**
@@ -686,8 +692,10 @@ RTSE.editor =
     };
 
     var body = document.getElementById("rtse-editor-body");
+    /*
     var rtp  = RTSE.editor.realTimePreview;
     rtp.getElementById("post").innerHTML = parser(body.value);
+    */
   },
 
  /**

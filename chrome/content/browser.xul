@@ -50,11 +50,9 @@
                   tooltiptext="&Statusbar.editor.tooltip;"/>
 </statusbar>
 
-<vbox id="appcontent">
-  <splitter id="rtse-ContentSplitter" collapsed="true"/>
-  <hbox id="rtse-realtimeEditor"
-        collapsed="true"
-        persist="height"/>
-</vbox>
+<popupset id="mainPopupSet">
+  <panel id="rtse-realtime-editor"
+         hidden="true"/>
+</popupset>
 
 </overlay>

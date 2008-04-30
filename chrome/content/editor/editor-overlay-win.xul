@@ -1,3 +1,5 @@
+<?xml version="1.0" ?>
+<!--
 /* ***** BEGIN LICENSE BLOCK *****
  * Version: Open Software License v. 2.1
  *
@@ -16,38 +18,18 @@
  * The Initial Developer of the Original Code is
  * Shawn Wilsher <me@shawnwilsher.com>
  *
- * Portions created by the Initial Developer are Copyright (C) 2007
+ * Portions created by the Initial Developer are Copyright (C) 2008
  * the Initial Developer. All Rights Reserved.
  *
  * Contributor(s):
  *
  * ***** END LICENSE BLOCK ***** */
+-->
+<overlay id="rtse-editor-windows-overlay"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+         xmlns:html="http://www.w3.org/1999/xhtml">
 
-#rtse-editor vbox {
-  background:#FAFAFA !important;
-}
+  <button id="rtse-editor-submit"
+          class="rtse-editor-button image-button"/>
 
-#rtse-editor textbox>hbox textarea:focus,
-#rtse-editor textbox>hbox input:focus {
-	background:#FFFFFF !important;
-}
-#rtse-editor textbox>hbox>textarea, #rtse-editor textbox>hbox>input {
-	background:#FAFAFA !important;
-	color:#000000 !important;
-}
-#rtse-editor textbox {
-  -moz-appearance:none !important;
-  background:#FAFAFA !important;
-  border:0px none !important;
-  padding:3px 3px 2px 3px !important;
-  margin:0px 0px 0px 0px !important;
-}
-
-#rtse-editor toolbarbutton {
-  margin:0px 0px 0px 0px !important;
-  padding:0px 0px 0px 2px !important;
-  height:25px !important;
-}
-#rtse-editor toolbarbutton[type="menu"] {
-  padding:0px 2px 0px 2px !important;
-}
+</overlay>
