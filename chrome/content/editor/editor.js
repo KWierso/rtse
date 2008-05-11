@@ -118,7 +118,7 @@ RTSE.editor =
     RTSE.editor.realTimePreview
         .addEventListener("click", RTSE.editor.previewClickHandler, false);
     document.getElementById("rtse-editor-body")
-            .addEventListener("input", RTSE.editor.preview, false);
+            .addEventListener("input", RTSE.editor.realTimePreview, false);
     */
 
     this.mOk = true;
@@ -290,7 +290,7 @@ RTSE.editor =
     /*
     var body = document.getElementById("rtse-editor-body");
     if (body.value != "")
-      RTSE.editor.preview();
+      RTSE.editor.realTimePreview();
     */
   },
 
@@ -400,36 +400,68 @@ RTSE.editor =
     ref.parentNode.replaceChild(editor, ref);
   },
 
- /**
-  * Submits the data from the editor to the right place
-  */
-  submit: function submit()
+  /**
+   * Private function that copies important data to the rtse form for submission
+   *
+   * @returns [the document, the form] the data was updated for.
+   */
+  _updateFormData: function RTSE_updateFormData()
   {
-    var doc = gBrowser.getBrowserForTab(gBrowser.selectedTab).contentDocument;
-    if (!RTSE.editor.validate(doc)) return;
+    let doc = gBrowser.getBrowserForTab(gBrowser.selectedTab).contentDocument;
+    if (!RTSE.editor.validate(doc)) return [null, null];
 
-    var form = doc.forms.namedItem("post");
+    let form = doc.forms.namedItem("post");
     // Copying values
     const DATA = RTSE.editor.dataFields;
-    for (var i = (DATA.length - 1); i >= 0; --i) {
+    for (let i = (DATA.length - 1); i >= 0; --i) {
       if (form.elements.namedItem(DATA[i])) {
         form.elements.namedItem(DATA[i])
             .value = document.getElementById("rtse-editor-" + DATA[i]).value;
       } else if (RTSE.editor.getProperty(doc, "show-" + DATA[i]) == "true") {
-        var elm = doc.createElement("input");
+        let elm = doc.createElement("input");
         elm.setAttribute("type", "hidden");
         elm.setAttribute("name", DATA[i]);
-        var value = document.getElementById("rtse-editor-" + DATA[i]).value ||
-          RTSE.editor.getProperty(doc,DATA[i]);
+        let value = document.getElementById("rtse-editor-" + DATA[i]).value ||
+                    RTSE.editor.getProperty(doc, DATA[i]);
         elm.setAttribute("value", value);
         form.appendChild(elm);
       }
     }
 
+    return [doc, form];
+  },
+
+  /**
+   * Submits the data from the editor to the right place
+   */
+  submit: function submit()
+  {
+    let doc, form;
+    [doc, form] = RTSE.editor._updateFormData();
+    if (!doc) return;
+
     RTSE.editor.ensureEditorIsHidden();
 
-    var e = doc.createEvent("HTMLEvents");
+    let e = doc.createEvent("HTMLEvents");
     e.initEvent("submit", true, true);
+    form.dispatchEvent(e);
+    content.focus();
+  },
+
+  /**
+   * Submits the data from the editor to the right place for a preview
+   */
+  preview: function RTSE_preview()
+  {
+    let doc, form;
+    [doc, form] = RTSE.editor._updateFormData();
+    if (!doc) return;
+
+    RTSE.editor.ensureEditorIsHidden();
+
+    let e = doc.createEvent("HTMLEvents");
+    e.initEvent("submit", true, true);
+    form.action = "/preview.php";
     form.dispatchEvent(e);
     content.focus();
   },
@@ -659,7 +691,7 @@ RTSE.editor =
  /**
   * Preview event listener.  Generates the preview from the editor.
   */
-  preview: function preview()
+  realTimePreview: function RTSE_realTimePreview()
   {
     var parser = function parser(aText)
     {

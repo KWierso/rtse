@@ -135,7 +135,7 @@
                   label="Convert Custom Smilies"
                   checked="true"
                   hidden="true"
-                  oncommand="RTSE.editor.preview();"/>
+                  oncommand="RTSE.editor.realTimePreview();"/>
         <spacer flex="1"/>
         <hbox id="rtse-editor-sponsorSmilies" hidden="true">
           <vbox pack="center">
@@ -205,6 +205,9 @@
           </vbox>
         </hbox>
         <spacer flex="1"/>
+        <button id="rtse-editor-preview"
+                class="rtse-editor-button"
+                oncommand="RTSE.editor.preview();"/>
         <button id="rtse-editor-submit"
                 class="rtse-editor-button"
                 oncommand="RTSE.editor.submit();"/>

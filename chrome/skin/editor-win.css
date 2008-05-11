@@ -68,6 +68,9 @@
 #rtse-editor-smiley {
   list-style-image:url(chrome://rtse/skin/images/editor/happy.png);
 }
+#rtse-editor-preview {
+  list-style-image:url(chrome://rtse/skin/images/editor/rt-rvb_preview.png);
+}
 #rtse-editor-submit {
   list-style-image:url(chrome://rtse/skin/images/editor/rt-rvb_submit.png);
 }

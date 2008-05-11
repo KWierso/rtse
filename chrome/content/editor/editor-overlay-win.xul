@@ -32,6 +32,8 @@
   <button id="rtse-editor-friendsOnly"
           image="chrome://rtse/content/images/unlocked.png"/>
 
+  <button id="rtse-editor-preview"
+          class="rtse-editor-button image-button"/>
   <button id="rtse-editor-submit"
           class="rtse-editor-button image-button"/>
 

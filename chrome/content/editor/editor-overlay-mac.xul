@@ -50,6 +50,8 @@
           label="Smiley"/>
   <button id="rtse-editor-friendsOnly"
           label="Friends Only"/>
+  <button id="rtse-editor-preview"
+          label="Preview"/>
   <button id="rtse-editor-submit"
           label="Submit"/>
 
