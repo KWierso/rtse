@@ -268,9 +268,8 @@ function RTSE_modifyReply(aDoc)
 {
   if (!gRTSE.prefsGetBool("extensions.rtse.samePageReply")) return;
   var elms = RTSE_evaluateXPath(aDoc, "//td[@id='pageContent']/table/tbody/tr[2]/td/table/tbody/tr[3]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/a[2]/b");
-  var href = aDoc.getElementById("Post") ? "#Post" : "#add";
-  for (i = (elms.length - 1); i >= 0; --i ) { 	 
-    elms[i].parentNode.setAttribute("href", href);
+  for (let i in elms) { 	 
+    elms[i].parentNode.removeAttribute("href");
     elms[i].addEventListener("click", RTSE_samePageReply, false);
   }
 }
@@ -280,12 +279,10 @@ function RTSE_addQuote(aDoc)
 {
 	var elms=RTSE_evaluateXPath(aDoc,"//table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div");
 	var span,a,b;
-	var href = (aDoc.getElementById('Post'))?'#Post':'#add';
 	for( var i in elms ) {
 		span=aDoc.createElement('span');
 		a=aDoc.createElement('a');
 		b=aDoc.createElement('b');
-		a.setAttribute('href',href);
 		a.setAttribute('class','small');
 		a.addEventListener('click',RTSE_quotePost,false);
 		b.appendChild(aDoc.createTextNode('Quote'))
