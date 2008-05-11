@@ -73,3 +73,11 @@
 .rtse-sponsor-smiley {
   padding:0 2px 0 2px;
 }
+
+/**
+ * Text input fields
+ */
+
+#rtse-editor-body {
+  min-height:10em;
+}

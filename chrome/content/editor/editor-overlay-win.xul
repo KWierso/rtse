@@ -29,6 +29,9 @@
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
          xmlns:html="http://www.w3.org/1999/xhtml">
 
+  <button id="rtse-editor-friendsOnly"
+          image="chrome://rtse/content/images/unlocked.png"/>
+
   <button id="rtse-editor-submit"
           class="rtse-editor-button image-button"/>
 

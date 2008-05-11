@@ -41,7 +41,7 @@ RTSE.editor =
   {
     var elm = document.getElementById("rtse-statusbar-editor");
     var click = function toggle() {
-      var pane = document.getElementById("rtse-realtime-editor");
+      let pane = RTSE.editor.editorElement;
       if (pane.state == "closed")
         RTSE.editor.ensureEditorIsVisible();
       else
@@ -155,7 +155,7 @@ RTSE.editor =
 
       var smilies = RTSE.smilies.items;
       const XUL = "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul";
-      var menu = document.createElementNS(XUL, "menupopup");
+      let menu = document.getElementById("rtse-editor-smiley-menu");
       var mi, key;
       for (var i in smilies) {
         mi = document.createElementNS(XUL, "menuitem");
@@ -232,7 +232,7 @@ RTSE.editor =
   toggleEditor: function toggleEditor(aEvent)
   {
     var doc = gBrowser.getBrowserForTab(gBrowser.selectedTab).contentDocument;
-    var pane = document.getElementById("rtse-realtime-editor");
+    let pane = RTSE.editor.editorElement;
 
     if (doc.forms && !doc.forms.namedItem("rtse") ||
         !/^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com(.*)?$/.test(doc.location.href)) {
@@ -252,11 +252,13 @@ RTSE.editor =
   */
   ensureEditorIsVisible: function ensureEditorIsVisible()
   {
-    var pane = document.getElementById("rtse-realtime-editor");
+    let pane = RTSE.editor.editorElement;;
     var doc  = gBrowser.getBrowserForTab(gBrowser.selectedTab).contentDocument;
 
+    /*
     if (!pane.hidden)
       RTSE.editor.ensureEditorIsHidden();
+    */
 
     RTSE.editor.mCurrentDoc = doc;
 
@@ -283,7 +285,7 @@ RTSE.editor =
 
     pane.hidden = false;
     pane.openPopup(document.getElementById("rtse-statusbar-editor"),
-                   "before_start", -1, -1, false, false);
+                   "before_start", 0, 0, false, false);
 
     /*
     var body = document.getElementById("rtse-editor-body");
@@ -297,20 +299,18 @@ RTSE.editor =
   */
   ensureEditorIsHidden: function ensureEditorIsHidden()
   {
-    var pane = document.getElementById("rtse-realtime-editor");
+    let pane = RTSE.editor.editorElement;;
     var doc  = RTSE.editor.mCurrentDoc;
 
-    if (doc === null)
+    if (doc === null || pane.state == "closed")
       return;
 
-    if (!pane.hidden) {
-      RTSE.editor.setProperty(doc, "body",
+    RTSE.editor.setProperty(doc, "body",
                     document.getElementById("rtse-editor-body").value);
-      RTSE.editor.setProperty(doc, "title",
+    RTSE.editor.setProperty(doc, "title",
                     document.getElementById("rtse-editor-title").value);
-      RTSE.editor.setProperty(doc, "toUser",
+    RTSE.editor.setProperty(doc, "toUser",
                     document.getElementById("rtse-editor-toUser").value);
-    }
     pane.hidePopup();
     pane.hidden = true;
   },
@@ -762,6 +762,14 @@ RTSE.editor =
 
   /////////////////////////////////////////////////////////////////////////////
   //// Attributes
+
+  /**
+   * Obtains the editor element.
+   */
+  get editorElement()
+  {
+    return document.getElementById("rtse-realtime-editor");
+  },
 
  /**
   * Indicates if the object is ready yet

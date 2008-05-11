@@ -29,7 +29,7 @@
 <overlay id="rtse-editor-tooltips-overlay"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
          xmlns:html="http://www.w3.org/1999/xhtml">
-  <panel id="rtse-realtime-editor">
+  <popupset id="mainPopupSet">
     <tooltip id="rtse-editor-tooltip-b" orient="vertical">
       <description>
         [b]<html:strong>&Tooltip.bold;</html:strong>[/b]
@@ -84,5 +84,5 @@
     <tooltip id="rtse-editor-tooltip-locked">
       <label value="&Tooltip.locked;"/>
     </tooltip>
-  </panel>
+  </popupset>
 </overlay>

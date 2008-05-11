@@ -112,6 +112,7 @@
                 class="rtse-editor-button"
                 type="menu"
                 autoCheck="false"
+                popup="rtse-editor-smiley-menu"
                 hidden="true"/>
         <button id="rtse-editor-friendsOnly"
                 class="rtse-editor-button"
@@ -210,4 +211,8 @@
       </hbox>
     </vbox>
   </panel>
+
+  <popupset id="mainPopupSet">
+    <menupopup id="rtse-editor-smiley-menu"/>
+  </popupset>
 </overlay>
