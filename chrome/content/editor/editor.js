@@ -232,7 +232,6 @@ RTSE.editor =
   toggleEditor: function toggleEditor(aEvent)
   {
     var doc = gBrowser.getBrowserForTab(gBrowser.selectedTab).contentDocument;
-    let pane = RTSE.editor.editorElement;
 
     if (doc.forms && !doc.forms.namedItem("rtse") ||
         !/^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com(.*)?$/.test(doc.location.href)) {
@@ -252,13 +251,12 @@ RTSE.editor =
   */
   ensureEditorIsVisible: function ensureEditorIsVisible()
   {
-    let pane = RTSE.editor.editorElement;;
+    let pane = RTSE.editor.editorElement;
     var doc  = gBrowser.getBrowserForTab(gBrowser.selectedTab).contentDocument;
 
-    /*
-    if (!pane.hidden)
-      RTSE.editor.ensureEditorIsHidden();
-    */
+    // Save our current state
+    if (RTSE.editor.mCurrentDoc)
+      RTSE.editor._saveEditorData();
 
     RTSE.editor.mCurrentDoc = doc;
 
@@ -299,20 +297,29 @@ RTSE.editor =
   */
   ensureEditorIsHidden: function ensureEditorIsHidden()
   {
-    let pane = RTSE.editor.editorElement;;
-    var doc  = RTSE.editor.mCurrentDoc;
+    let pane = RTSE.editor.editorElement;
 
-    if (doc === null || pane.state == "closed")
+    if (pane.state == "closed")
       return;
 
-    RTSE.editor.setProperty(doc, "body",
-                    document.getElementById("rtse-editor-body").value);
-    RTSE.editor.setProperty(doc, "title",
-                    document.getElementById("rtse-editor-title").value);
-    RTSE.editor.setProperty(doc, "toUser",
-                    document.getElementById("rtse-editor-toUser").value);
+    RTSE.editor._saveEditorData();
+
     pane.hidePopup();
     pane.hidden = true;
+  },
+
+  /**
+   * Saves the current state of the editor.
+   */
+  _saveEditorData: function RTSE_saveEditorData()
+  {
+    let doc = RTSE.editor.mCurrentDoc;
+    if (!doc) return;
+    let value = function(aID) document.getElementById(aID).value;
+
+    RTSE.editor.setProperty(doc, "body", value("rtse-editor-body"));
+    RTSE.editor.setProperty(doc, "title", value("rtse-editor-title"));
+    RTSE.editor.setProperty(doc, "toUser", value("rtse-editor-toUser"));
   },
 
  /**
