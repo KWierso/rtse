@@ -126,10 +126,34 @@
                 autoCheck="false"/>
         <textbox id="rtse-editor-toUser" hidden="true" flex="1"/>
       </hbox>
-      <textbox id="rtse-editor-body"
-               flex="1"
-               multiline="true"
-               spellcheck="true"/>
+      <hbox>
+        <textbox id="rtse-editor-body"
+                 flex="2"
+                 multiline="true"
+                 spellcheck="true"/>
+        <vbox id="rtse-poll-container"
+              flex="1">
+          <textbox id="rtse-poll-question"
+                   emptytext="Poll Question"
+                   maxlength="100"
+                   spellcheck="true"/>
+          <textbox id="rtse-poll-answer-1"
+                   emptytext="Answer 1"
+                   maxlength="50"
+                   spellcheck="true"/>
+          <textbox id="rtse-poll-answer-2"
+                   emptytext="Answer 2"
+                   maxlength="50"
+                   spellcheck="true"/>
+          <hbox>
+            <spacer flex="1"/>
+            <button id="rtse-poll-add-answer"
+                    class="rtse-editor-button"
+                    label="Add Answer"
+                    oncommand="RTSE.editor.addPollAnswer();"/>
+          </hbox>
+        </vbox>
+      </hbox>
       <hbox flex="1" id="rtse-editor-lower-bar">
         <checkbox id="rtse-editor-convertSmilies"
                   label="Convert Custom Smilies"

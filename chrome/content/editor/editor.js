@@ -191,8 +191,11 @@ RTSE.editor =
 
     form = doc.forms.namedItem("rtse");
     var elms = ["visible", "body", "show-body", "title", "show-title",
-                "friendsOnly", "show-friendsOnly", "toUser", "show-toUser"];
-    var vals = ["false", "", "true", "", "false", "", "false", "", "false"];
+                "friendsOnly", "show-friendsOnly", "toUser", "show-toUser",
+                "pollq", "show-pollq"];
+    let vals = ["false", "", "true", "", "false", "", "false", "", "false",
+                "", "false",
+    ];
     for (var i in elms) {
       var elm = doc.createElement("input");
       elm.setAttribute("type", "hidden");
@@ -224,6 +227,27 @@ RTSE.editor =
     document.getElementById("rtse-statusbar-editor").hidden = !show;
   },
 
+  /**
+   * Adds an additional option for polls.
+   */
+  addPollAnswer: function RTSE_addPollAnswer()
+  {
+    let $ = function(aID) document.getElementById(aID)
+
+    // Figure out what index this is
+    let container = $("rtse-poll-container");
+    let ignorableChildren = 2;
+    let num = container.childNodes.length - ignorableChildren + 1;
+
+    // Create the element
+    let elm = $("rtse-poll-answer-1").cloneNode(true); 
+    elm.setAttribute("id", "rtse-poll-answer-" + num);
+    elm.setAttribute("emptytext", "Answer " + num);
+
+    // Add it where needed
+    container.insertBefore(elm, container.lastChild);
+  },
+
  /**
   * Shows/hides the editor and preview pane
   *
@@ -251,6 +275,7 @@ RTSE.editor =
   */
   ensureEditorIsVisible: function ensureEditorIsVisible()
   {
+    let $ = function(aID) document.getElementById(aID)
     let pane = RTSE.editor.editorElement;
     var doc  = gBrowser.getBrowserForTab(gBrowser.selectedTab).contentDocument;
 
@@ -280,6 +305,21 @@ RTSE.editor =
     document.getElementById("rtse-editor-toUser").value =
       RTSE.editor.getProperty(doc, "toUser");
     RTSE.editor.setProperty(doc, "visible", "true");
+
+    // And now for the fun of polls!
+    $("rtse-poll-question").value = RTSE.editor.getProperty(doc, "pollq");
+    $("rtse-poll-answer-1").value = "";
+    $("rtse-poll-answer-2").value = "";
+    for (let i = 3; $("rtse-poll-answer-" + i); i++)
+      $("rtse-poll-container").removeChild($("rtse-poll-answer-" + i));
+    for (let i = 1; RTSE.editor.hasProperty(doc, "polla-" + i); i++) {
+      let elm = $("rtse-poll-answer-" + i);
+      if (!elm) {
+        RTSE.editor.addPollAnswer();
+        elm = $("rtse-poll-answer-" + i);
+      }
+      elm.value = RTSE.editor.getProperty(doc, "polla-" + i);
+    }
 
     pane.hidden = false;
     pane.openPopup(document.getElementById("rtse-statusbar-editor"),
@@ -315,11 +355,26 @@ RTSE.editor =
   {
     let doc = RTSE.editor.mCurrentDoc;
     if (!doc) return;
-    let value = function(aID) document.getElementById(aID).value;
+    let $ = function(aID) document.getElementById(aID)
+    let value = function(aID) $(aID).value
 
     RTSE.editor.setProperty(doc, "body", value("rtse-editor-body"));
     RTSE.editor.setProperty(doc, "title", value("rtse-editor-title"));
     RTSE.editor.setProperty(doc, "toUser", value("rtse-editor-toUser"));
+
+    // Poll fun!
+    if (value("rtse-poll-question")) {
+      RTSE.editor.setProperty(doc, "show-pollq", "true");
+      RTSE.editor.setProperty(doc, "pollq", value("rtse-poll-question"));
+
+      for (let i = 1; $("rtse-poll-answer-" + i); i++) {
+        if (value("rtse-poll-answer-" + i)) {
+          RTSE.editor.setProperty(doc, "polla-" + i,
+                                  value("rtse-poll-answer-" + i));
+        }
+      }
+    }
+      
   },
 
  /**
@@ -336,17 +391,38 @@ RTSE.editor =
   },
 
  /**
-  * Sets the specified property for the editor
+  * Sets the specified property for the editor.  The property will be created
+  * if it does not exist.
   *
   * @param aDoc The document which we are using
   * @param aProp The property to be set
   * @param aValue The value the property is to be set to
-  * @return The value of the property
   */
-  setProperty: function setProperty(aDoc, aProp, aValue)
+  setProperty: function RSTE_setProperty(aDoc, aProp, aValue)
   {
-    var form = aDoc.forms.namedItem("rtse");
-    return form.elements.namedItem(aProp).value = aValue;
+    let form = aDoc.forms.namedItem("rtse");
+    let elm = form.elements.namedItem(aProp);
+    if (!elm) {
+      elm = aDoc.createElement("input");
+      elm.setAttribute("type", "hidden");
+      elm.setAttribute("name", aProp);
+      form.appendChild(elm);
+    }
+    elm.value = aValue;
+  },
+
+  /**
+   * Determines if the specified property exists for the editor.
+   *
+   * @param aDoc The document which we are using
+   * @param aProp The property to be set
+   * @returns true if it exists, false otherwise.
+   */
+  hasProperty: function RTSE_hasProperty(aDoc, aProp)
+  {
+    let form = aDoc.forms.namedItem("rtse");
+    let elm = form.elements.namedItem(aProp);
+    return elm ? true : false;
   },
 
  /**
@@ -428,11 +504,19 @@ RTSE.editor =
         let elm = doc.createElement("input");
         elm.setAttribute("type", "hidden");
         elm.setAttribute("name", DATA[i]);
-        let value = document.getElementById("rtse-editor-" + DATA[i]).value ||
-                    RTSE.editor.getProperty(doc, DATA[i]);
+        let value = RTSE.editor.getProperty(doc, DATA[i]);
         elm.setAttribute("value", value);
         form.appendChild(elm);
       }
+    }
+
+    // And poll answers, since they are a royal pain...
+    for (let i = 1; RTSE.editor.hasProperty(doc, "polla-" + i); i++) {
+      let elm = doc.createElement("input");
+      elm.setAttribute("type", "hidden");
+      elm.setAttribute("name", "polla[]");
+      elm.setAttribute("value", RTSE.editor.getProperty(doc, "polla-" + i));
+      form.appendChild(elm);
     }
 
     return [doc, form];
@@ -443,11 +527,11 @@ RTSE.editor =
    */
   submit: function submit()
   {
+    RTSE.editor.ensureEditorIsHidden();
+
     let doc, form;
     [doc, form] = RTSE.editor._updateFormData();
     if (!doc) return;
-
-    RTSE.editor.ensureEditorIsHidden();
 
     let e = doc.createEvent("HTMLEvents");
     e.initEvent("submit", true, true);
@@ -460,11 +544,11 @@ RTSE.editor =
    */
   preview: function RTSE_preview()
   {
+    RTSE.editor.ensureEditorIsHidden();
+
     let doc, form;
     [doc, form] = RTSE.editor._updateFormData();
     if (!doc) return;
-
-    RTSE.editor.ensureEditorIsHidden();
 
     let e = doc.createEvent("HTMLEvents");
     e.initEvent("submit", true, true);
@@ -847,7 +931,16 @@ RTSE.editor =
   */
   get dataFields()
   {
-    return ["body", "title", "friendsOnly", "toUser"];
+    let $ = function(aID) document.getElementById(aID)
+
+    // The defaults that are always there
+    let fields = ["body", "title", "friendsOnly", "toUser"];
+
+    // Figure out if we need the form fields for polls
+    if ($("rtse-poll-question").value)
+      fields.push("pollq");
+
+    return fields;
   },
 
  /**
