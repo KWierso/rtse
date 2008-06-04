@@ -44,6 +44,7 @@
     -->
     <vbox id="rtse-editor" flex="3" persist="width">
       <textbox id="rtse-editor-title"
+               emptytext="Title"
                hidden="true"
                maxlength="40"
                spellcheck="true"/>
@@ -124,7 +125,10 @@
                 label="New Conversation"
                 hidden="true"
                 autoCheck="false"/>
-        <textbox id="rtse-editor-toUser" hidden="true" flex="1"/>
+        <textbox id="rtse-editor-toUser"
+                 emptytext="Recipient"
+                 hidden="true"
+                 flex="1"/>
       </hbox>
       <hbox>
         <textbox id="rtse-editor-body"

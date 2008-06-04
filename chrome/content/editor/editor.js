@@ -71,29 +71,6 @@ RTSE.editor =
     RTSE.editor.setup();
 
     // Event Listeners
-    var focus, blur;
-    var title = document.getElementById("rtse-editor-title").inputField;
-    focus = function focus() {
-      if (this.value == RTSE.editor.defaultTitle) this.value = "";
-        this.style.borderColor = "";
-    };
-    blur = function blur() {
-        if (this.value == "") {
-          this.value = RTSE.editor.defaultTitle;
-          this.style.borderColor = '#FF0000';
-        }
-    };
-    title.addEventListener("focus", focus, false);
-    title.addEventListener("blur", blur, false);
-    var toUser = document.getElementById("rtse-editor-toUser").inputField;
-    focus = function focus() {
-      if (this.value == RTSE.editor.defaultToUser) this.value = "";
-    };
-    blur = function blur() {
-      if (this.value == "") this.value = RTSE.editor.defaultToUser;
-    };
-    toUser.addEventListener("focus", focus, false);
-    toUser.addEventListener("blur", blur, false);
     var toggle = function toggle() {
       var doc  = gBrowser.getBrowserForTab(gBrowser.selectedTab)
                          .contentDocument;
@@ -463,12 +440,6 @@ RTSE.editor =
       } else
         RTSE.editor.setProperty(doc, "show-" + DATA[i], "false");
     }
-    if (RTSE.editor.getProperty(doc, "show-title") == "true" &&
-        RTSE.editor.getProperty(doc, "title") == "")
-      RTSE.editor.setProperty(doc, "title", RTSE.editor.defaultTitle);
-    if (RTSE.editor.getProperty(doc, "show-toUser") == "true" &&
-        RTSE.editor.getProperty(doc, "toUser") == "")
-      RTSE.editor.setProperty(doc, "toUser", RTSE.editor.defaultToUser);
     var editor = doc.createElement("div");
     var elm = doc.createElement("textarea");
     var style = "margin:3px 4px 3px 4px;";
@@ -575,15 +546,14 @@ RTSE.editor =
       return false;
     }
 
-    if (RTSE.editor.getProperty(aDoc, "show-title") == "true" &&
-        (title.value == "" || title.value == RTSE.editor.defaultTitle)) {
+    if (RTSE.editor.getProperty(aDoc, "show-title") == "true" && !title.value) {
       alert('You must enter a title');
       title.focus();
       return false;
     }
 
     if (RTSE.editor.getProperty(aDoc, "show-toUser") == "true" &&
-        (toUser.value == "" || toUser.value == RTSE.editor.defaultToUser)) {
+        !toUser.value) {
       alert('You must specify who this is going to');
       toUser.focus();
       return false;
@@ -902,26 +872,6 @@ RTSE.editor =
   get ok()
   {
     return this.mOk;
-  },
-
- /**
-  * The default text for a title
-  *
-  * @return The text for an unentered title
-  */
-  get defaultTitle()
-  {
-    return "Please Specify a Title";
-  },
-
- /**
-  * The default text for the toUser field
-  *
-  * @return The text for an unentered toUser field
-  */
-  get defaultToUser()
-  {
-    return "Who is this going to?";
   },
 
  /**
