@@ -133,6 +133,7 @@
       <hbox>
         <textbox id="rtse-editor-body"
                  flex="2"
+                 tabindex="1"
                  multiline="true"
                  spellcheck="true"/>
         <vbox id="rtse-poll-container"
@@ -235,9 +236,11 @@
         <spacer flex="1"/>
         <button id="rtse-editor-preview"
                 class="rtse-editor-button"
+                tabindex="2"
                 oncommand="RTSE.editor.preview();"/>
         <button id="rtse-editor-submit"
                 class="rtse-editor-button"
+                tabindex="3"
                 oncommand="RTSE.editor.submit();"/>
       </hbox>
     </vbox>
