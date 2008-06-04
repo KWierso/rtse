@@ -268,7 +268,9 @@ RTSE.editor =
     document.getElementById("rtse-editor-toUser").hidden =
       RTSE.editor.getProperty(doc, "show-toUser") != "true";
     document.getElementById("rtse-editor-friendsOnly").hidden =
-      RTSE.editor.getProperty(doc, "show-friendsOnly") != "true"
+      RTSE.editor.getProperty(doc, "show-friendsOnly") != "true";
+    $("rtse-poll-container").hidden =
+      RTSE.editor.getProperty(doc, "show-pollq") != "true";
 
     // XXX some kind of loop here?
     document.getElementById("rtse-editor-body").value =
@@ -422,35 +424,35 @@ RTSE.editor =
 
     // Taking care of hidden fields that get removed
     var elms = ["uid"];
-    var elm, clone;
-    for (var i = (elms.length - 1); i >= 0; --i) {
-      elm = form.elements.namedItem(elms[i]);
+    for (let i in elms) {
+      let elm = form.elements.namedItem(elms[i]);
       if (elm) {
-        clone = elm.cloneNode(true);
+        let clone = elm.cloneNode(true);
         elm.parentNode.removeChild(elm);
         form.appendChild(clone);
       }
     }
 
-    for (var i = (DATA.length - 1); i >= 0; --i) {
+    for (let i in DATA) {
       if (form.elements.namedItem(DATA[i])) {
-        var value = form.elements.namedItem(DATA[i]).value
+        let value = form.elements.namedItem(DATA[i]).value
         RTSE.editor.setProperty(doc, DATA[i], value);
         RTSE.editor.setProperty(doc, "show-" + DATA[i], "true");
       } else
         RTSE.editor.setProperty(doc, "show-" + DATA[i], "false");
     }
     var editor = doc.createElement("div");
-    var elm = doc.createElement("textarea");
+    let clickable = doc.createElement("textarea");
     var style = "margin:3px 4px 3px 4px;";
-    elm.setAttribute("style", style);
-    editor.appendChild(elm);
+    clickable.setAttribute("style", style);
+    editor.appendChild(clickable);
     editor.setAttribute("id", ref.getAttribute("id"));
     editor.addEventListener("click", RTSE.editor.ensureEditorIsVisible, false);
     style = "background-color:#f4f4f4;" +
             "border:1px solid #000000;" +
             "border-top:0px;";
     editor.setAttribute("style", style);
+    dump("*** ref.id = " + ref.id + "\n");
     ref.parentNode.replaceChild(editor, ref);
   },
 
@@ -523,7 +525,9 @@ RTSE.editor =
 
     let e = doc.createEvent("HTMLEvents");
     e.initEvent("submit", true, true);
-    form.action = "/preview.php";
+    let message = form.elements.namedItem("toUser") ||
+                  form.elements.namedItem("uid");
+    form.action = message ? "/members/messaging/preview.php" : "/preview.php";
     form.dispatchEvent(e);
     content.focus();
   },
@@ -881,14 +885,14 @@ RTSE.editor =
   */
   get dataFields()
   {
-    let $ = function(aID) document.getElementById(aID)
-
     // The defaults that are always there
-    let fields = ["body", "title", "friendsOnly", "toUser"];
-
-    // Figure out if we need the form fields for polls
-    if ($("rtse-poll-question").value)
-      fields.push("pollq");
+    let fields = [
+      "body",
+      "title",
+      "friendsOnly",
+      "toUser",
+      "pollq",
+    ];
 
     return fields;
   },
