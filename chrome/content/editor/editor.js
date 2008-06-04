@@ -452,7 +452,6 @@ RTSE.editor =
             "border:1px solid #000000;" +
             "border-top:0px;";
     editor.setAttribute("style", style);
-    dump("*** ref.id = " + ref.id + "\n");
     ref.parentNode.replaceChild(editor, ref);
   },
 
