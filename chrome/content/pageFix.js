@@ -102,8 +102,46 @@ function RTSE_forumListBox(doc) {
 	/* Used to create and insert the list box to jump to a forum */
   if (!gRTSE.prefsGetBool("extensions.rtse.forum")) return;
 	var listBox=doc.createElement('select');
-	var ids=new Array(7,27,17,11,14,12,29,28,25,15,4,16,13,5,24,23,22,33,32,21,31,20,
-                    26,19,18,3,35,30,10,2,9,8,1,104,103,101,'null');
+  let ids = [
+    7,
+    27,
+    17,
+    11,
+    14,
+    12,
+    29,
+    28,
+    25,
+    15,
+    4,
+    16,
+    13,
+    5,
+    24,
+    23,
+    22,
+    33,
+    32,
+    21,
+    31,
+    20,
+    26,
+    19,
+    18,
+    3,
+    35,
+    30,
+    10,
+    2,
+    9,
+    8,
+    1,
+    104,
+    103,
+    101,
+    102,
+    'null'
+  ];
   var bundle = Components.classes["@mozilla.org/intl/stringbundle;1"]
                          .getService(Components.interfaces.nsIStringBundleService)
                          .createBundle("chrome://rtse/locale/forums.properties");
@@ -111,9 +149,9 @@ function RTSE_forumListBox(doc) {
     return bundle.GetStringFromName(aName);
   };
 	var option;
-	try {
-		/* Creating the listBox */
-		for (var i = (ids.length - 1); i >= 0; --i) {
+  /* Creating the listBox */
+  for (var i = (ids.length - 1); i >= 0; --i) {
+    try {
 			if ((typeof(ids[i]) == "number" &&
            gRTSE.prefsGetBool("extensions.rtse.forum." + ids[i])) ||
           ids[i] == 'null') {
@@ -122,7 +160,8 @@ function RTSE_forumListBox(doc) {
 				option.innerHTML=getName(ids[i]);
 				listBox.appendChild(option);
 			}
-		}
+    } catch (e) { /* eat any exceptions due to bad prefs */ }
+  }
 
 		/* Adding redirector */
 		listBox.addEventListener('change',function() {
@@ -134,9 +173,6 @@ function RTSE_forumListBox(doc) {
     let ref = doc.getElementsByTagName("body")[0];
     listBox.setAttribute("style", "position:absolute;right:5px;top:5px;");
     ref.appendChild(listBox);
-	} catch(e) {
-		gRTSE.sendReport(e);
-	}
 }
 
 function RTSE_addToSideBar(doc) {
