@@ -389,10 +389,10 @@
           <description>&ForumJump.boardgames;</description>
         </richlistitem>
 		<richlistitem orient="vertical">
-          <checkbox id="forum33" preference="pref_forum33"/>
+          <checkbox id="forum32" preference="pref_forum32"/>
           <description>&ForumJump.playstation3;</description>
         </richlistitem>        <richlistitem orient="vertical">
-          <checkbox id="forum32" preference="pref_forum32"/>
+          <checkbox id="forum33" preference="pref_forum33"/>
           <description>&ForumJump.wii;</description>
         </richlistitem>
 		<richlistitem><label value="&ForumJump.media;" style="font-weight:bold;"/></richlistitem>
