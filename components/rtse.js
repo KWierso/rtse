@@ -137,22 +137,6 @@ RTSE.prototype =
     }
   },
 
- /**
-  * Function that sends the error report if the preference is set to do so
-  *  regardless, it logs a message to the error console.
-  */
-  sendReport: function sendReport(aError)
-  {
-    if (this.prefsGetBool('extensions.rtse.talkback')) {
-      var req=Components.classes["@mozilla.org/xmlextras/xmlhttprequest;1"]
-                        .getService(Components.interfaces.nsIXMLHttpRequest);
-      req.open("POST",'http://services.shawnwilsher.com/errorlogging/rtse.php',true);
-      req.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-      req.send(aError);
-    }
-    Components.utils.reportError(aError);
-  },
-
   prefsSetBool: function(aName,aValue)
   // EFFECTS: Sets a boolean preference aName with aValue.
   {

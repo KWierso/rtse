@@ -83,10 +83,6 @@
 		<spacer style="height:10px"/>
 		<checkbox id="editor" checked="true" label="&Sitepref.ATEenable;"/>
   </wizardpage>
-  <wizardpage id="pageTalkback" description="&Talkback.name;">
-    <description maxwidth="300">&Talkback.text;</description>
-    <checkbox id="talkback" label="&Talkback.checkboxlabel;"/>
-  </wizardpage>
 	<wizardpage id="finished" description="&Finished.name;">
 		<description maxwidth="300">&Finished.text;</description>
 	</wizardpage>

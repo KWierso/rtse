@@ -47,8 +47,5 @@
 <!ENTITY Sitepref.magicskinoption "1-800-Magic">
 <!ENTITY Sitepref.ATElabel "This feature will enable an advanced editing box, instead of the default posting area. It includes many new features, such as: a link creation tool, styling buttons, an integrated spell checker (if Spellbound is installed), and much more.">
 <!ENTITY Sitepref.ATEenable "Enable Advanced Text Editing">
-<!ENTITY Talkback.name "Talkback">
-<!ENTITY Talkback.text "Talkback is a new feature to the extension that reports the errors you get while using RTSE to the devs so they can fix them.  This is optional, but appreciated if you decided to participate.">
-<!ENTITY Talkback.checkboxlabel "Enable Talkback">
 <!ENTITY Finished.name "Finished">
 <!ENTITY Finished.text "The Rooster Teeth Site Extender is now configured.  The settings that you just entered can be changed at any time by selecting 'Rooster Teeth Site Extender' and clicking the options button in the extension manager.  If you have enabled auto-sign in, you will be signed in automatically the next time the browser starts.">

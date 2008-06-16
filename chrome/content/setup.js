@@ -79,9 +79,6 @@ var wizard = {
       gRTSE.prefsSetBool("extensions.rtse.editor",
                          document.getElementById("editor").checked);
 
-      // Talkback
-      gRTSE.prefsSetBool('extensions.rtse.talkback', document.getElementById('talkback').checked);
-
       // Finishing up
       gRTSE.prefsSetBool('extensions.rtse.firstInstall',false);
     } catch(e) {
