@@ -43,19 +43,13 @@ var wizard = {
       // Password
       let pwd = document.getElementById("pwd").value;
 
-      if ("@mozilla.org/passwordmanager;1" in Cc) {
-        let pm = Cc["@mozilla.org/passwordmanager;1"].
-                 getService(Ci.nsIPasswordManager);
-        pm.addUser("rtse", user, pwd);
-      } else if ("@mozilla.org/login-manager;1" in Cc) {
-        let lm = Cc["@mozilla.org/login-manager;1"].
-                 getService(Ci.nsILoginManager);
+      let lm = Cc["@mozilla.org/login-manager;1"].
+               getService(Ci.nsILoginManager);
 
-        let loginInfo = Cc["@mozilla.org/login-manager/loginInfo;1"].
-                        createInstance(Ci.nsILoginInfo);
-        loginInfo.init("rtse", "rtse", null, user, pwd, null, null);
-        lm.addLogin(loginInfo);
-      }
+      let loginInfo = Cc["@mozilla.org/login-manager/loginInfo;1"].
+                      createInstance(Ci.nsILoginInfo);
+      loginInfo.init("rtse", "rtse", null, user, pwd, "", "");
+      lm.addLogin(loginInfo);
 
       // Auto Sign In
       gRTSE.prefsSetBool("extensions.rtse.signin",
