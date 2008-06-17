@@ -38,31 +38,41 @@
 <!ENTITY FoumJump.caption "Forum Jump Filter">
 <!ENTITY ForumJump.enable "Enable the Forum Jump Box">
 <!ENTITY ForumJump.desc "This allows you to filter what is shown in the Forum Jump list.">
+
 <!ENTITY ForumJump.special "Special">
 <!ENTITY ForumJump.sponsor "You know you're cool.">
 <!ENTITY ForumJump.lvl20 "If you've got more karma than you know what to do with.">
+<!ENTITY ForumJump.lvl50 "You need to go outside, but considering your karma level, it's probably not an option.">
 <!ENTITY ForumJump.18andup "The place to get down and dirty.">
+
 <!ENTITY ForumJump.general "General Forums">
 <!ENTITY ForumJump.firststop "Don't be a moronic noob. Come here first. Then go be a moron.">
-<!ENTITY ForumJump.website "For info and questions about the community website.">
+<!ENTITY ForumJump.generaldiscussion "The main forum for topics on everything. Bear in mind, the universe is finite.">
+<!ENTITY ForumJump.website "For info and questions about the website.">
+<!ENTITY ForumJump.rtevents "This is where you talk about how much you like us and want to meet us.">
+
+<!ENTITY ForumJump.projects "Project Forums">
 <!ENTITY ForumJump.roosterteeth "The main Rooster Teeth forum.">
 <!ENTITY ForumJump.redvsblue "It's just one big RvB love fest in here.">
 <!ENTITY ForumJump.stangerhood "Rooster Teeth's Sims 2 project.">
 <!ENTITY ForumJump.panics "People Acting Normal in Crazy ass Situations.">
 <!ENTITY ForumJump.magic "Who you gonna call?">
+
 <!ENTITY ForumJump.gaming "Gaming">
 <!ENTITY ForumJump.generalgaming "Non platform specific cultural jibberjabber">
 <!ENTITY ForumJump.pcgaming "You should be using your computer for better things.">
 <!ENTITY ForumJump.halo "Yes, it has its own forum.">
+<!ENTITY ForumJump.grifball "If you see something orange, hit it really hard.">
 <!ENTITY ForumJump.thesims "Even if you don't have a real life, you can still have a virtual life in these games.">
 <!ENTITY ForumJump.xbox "Like a PC, only way heavier.">
 <!ENTITY ForumJump.xbox360 "Come in here and pretend like you have one.">
 <!ENTITY ForumJump.playstation "It plays things while remaining stationary.">
-<!ENTITY ForumJump.playstation3 "Quit lying, everybody knows you don't really have one">
-<!ENTITY ForumJump.wii "Wii love you.">
 <!ENTITY ForumJump.gamecube "Just like your mom's purse.">
 <!ENTITY ForumJump.classic "Because handhelds play classic games. Get it?">
 <!ENTITY ForumJump.boardgames "Because electricity is for n00bs.">
+<!ENTITY ForumJump.playstation3 "Quit lying, everybody knows you don't really have one.">
+<!ENTITY ForumJump.wii "Wii love you.">
+
 <!ENTITY ForumJump.media "Media">
 <!ENTITY ForumJump.movies "Like games without the joysticks.">
 <!ENTITY ForumJump.machinima "Discuss projects, concepts, stories and the like.">
@@ -72,11 +82,13 @@
 <!ENTITY ForumJump.comics "Still only 75 cents.">
 <!ENTITY ForumJump.billboard "Do your pimping here, yo.">
 <!ENTITY ForumJump.art "So that you kids will stop drawing on the walls.">
+
 <!ENTITY ForumJump.other "Other Stuff">
 <!ENTITY ForumJump.sports "Where you are always picked last to post.">
 <!ENTITY ForumJump.politics "Where people who live in the same country come to hate each other.">
 <!ENTITY ForumJump.technical "Hardware, gadgets, etc. Pretend like you know what you are talking about in here.">
 <!ENTITY ForumJump.garage "If it has an engine, bring it here.">
+
 <!ENTITY ForumJump.bottom "Rock Bottom">
 <!ENTITY ForumJump.forumgames "Not a Gaming Forum but a forum for games">
 <!ENTITY ForumJump.basement "If you get offended by words on a monitor, you should stay out of here.">
