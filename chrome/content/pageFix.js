@@ -80,24 +80,6 @@ function RTSE_addCSS(aDoc)
   head.appendChild(css);
 }
 
-function RTSE_themeIt(doc) {
-  /* changes the CSS to the right one for your flavor */
-  try {
-    var theme = gRTSE.prefsGetString("extensions.rtse.themeType");
-    var css=RTSE_evaluateXPath(doc,'//link[@rel="stylesheet"]');
-    var regEx=new RegExp('/assets/'+theme+'.css','i');
-    if( !(regEx.test(css[0].href)) ) {
-      var link=doc.createElement('link');
-      link.setAttribute('type','text/css');
-      link.setAttribute('rel','stylesheet');
-      link.setAttribute('href','/assets/'+theme+'.css');
-      doc.getElementsByTagName('head')[0].appendChild(link);
-    }
-  } catch(e) {
-    gRTSE.sendReport(e);
-  }
-}
-
 function RTSE_forumListBox(doc) {
   /* Used to create and insert the list box to jump to a forum */
   if (!gRTSE.prefsGetBool("extensions.rtse.forum")) return;

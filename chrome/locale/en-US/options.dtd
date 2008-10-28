@@ -10,15 +10,6 @@
 <!ENTITY Authentication.enableloginlabel "Sign me in when my browser starts">
 <!ENTITY Preferences.name "Site Preferences">
 
-<!ENTITY Preferences.themegroupcaption "RT Theme Controls">
-<!ENTITY Preferences.prefskinlabel "Prefered site skin:">
-<!ENTITY Preferences.RTskinoption "Rooster Teeth">
-<!ENTITY Preferences.RvBskinoption "Red vs Blue">
-<!ENTITY Preferences.SHskinoption "Stranger Hood">
-<!ENTITY Preferences.Panicsskinoption "PANICS">
-<!ENTITY Preferences.magicskinoption "1-800-Magic">
-<!ENTITY Preferences.themerlabel "This forces all pages to load with your preferred theme.  If you ever get annoyed with a different theme opening up when you click a link, this preference is for you.">
-<!ENTITY Preferences.enableskinlabel "Enable Themer">
 <!ENTITY Preferences.linkfixgroupcaption "Link Fixing">
 <!ENTITY Preferences.linkfixdesc "This prevents any links to content on this site from opening in a new window.">
 <!ENTITY Preferences.enablelinkfixing "Enable link fixing">

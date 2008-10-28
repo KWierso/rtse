@@ -41,17 +41,7 @@ function load() {
     }
   }
 
-  theme();
   forumJump();
-}
-
-/**
- * Function to disable/enable the theme type selector
- */
-function theme()
-{
-  document.getElementById('pref_theme').disabled =
-    !document.getElementById('theme').checked;
 }
 
 /**

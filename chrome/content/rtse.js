@@ -73,10 +73,6 @@ var RTSE = {
 			// Fix Links
       RTSE_linkFix(doc);
 			
-			// Themer
-			if (gRTSE.prefsGetBool("extensions.rtse.themer"))
-				RTSE_themeIt(doc);
-			
 			/* Forum Quick Jump */
 			RTSE_forumListBox(doc);
 

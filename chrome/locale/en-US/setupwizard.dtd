@@ -37,14 +37,6 @@
 <!ENTITY Signin.sponsorlabel "I am a sponsor">
 <!ENTITY Signin.sponsortext "This only enables certain features if you are a sponsor, but realize that these features are useless if you are not a sponsor.">
 <!ENTITY Sitepref.name "Site Preferences">
-<!ENTITY Sitepref.text "This extension can maintain a constant theme on the Rooster Teeth site. Example: If you click on a link to a page on the Strangerhood subdomain, and you set your preferred theme to PANICS, it will apply the PANICS theme to the page instead of the Strangerhood one.">
-<!ENTITY Sitepref.enablethemer "Enable Themer">
-<!ENTITY Sitepref.skinlabel "Prefered site skin:">
-<!ENTITY Sitepref.RTskinoption "Rooster Teeth">
-<!ENTITY Sitepref.RvBskinoption "Red vs Blue">
-<!ENTITY Sitepref.SHskinoption "Stranger Hood">
-<!ENTITY Sitepref.Panicsskinoption "PANICS">
-<!ENTITY Sitepref.magicskinoption "1-800-Magic">
 <!ENTITY Sitepref.ATElabel "This feature will enable an advanced editing box, instead of the default posting area. It includes many new features, such as: a link creation tool, styling buttons, an integrated spell checker (if Spellbound is installed), and much more.">
 <!ENTITY Sitepref.ATEenable "Enable Advanced Text Editing">
 <!ENTITY Finished.name "Finished">

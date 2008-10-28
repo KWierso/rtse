@@ -62,22 +62,6 @@
 		<description maxwidth="300">&Signin.sponsortext;</description>
 	</wizardpage>
 	<wizardpage id="sitepreferences" description="&Sitepref.name;">
-		<description maxwidth="300">&Sitepref.text;</description>
-		<spacer style="height:20px"/>
-		<checkbox checked="true" id="theme" label="&Sitepref.enablethemer;"/>
-		<spacer style="height:10px"/>
-		<hbox>
-			<label value="&Sitepref.skinlabel;"/>
-			<menulist id="themeType">
-				<menupopup>
-					<menuitem label="&Sitepref.RTskinoption;" value="www" selected="true"/>
-					<menuitem label="&Sitepref.RvBskinoption;" value="rvb"/>
-					<menuitem label="&Sitepref.SHskinoption;" value="sh"/>
-					<menuitem label="&Sitepref.Panicsskinoption;" value="panics"/>
-                                        <menuitem label="&Sitepref.magicskinoption;" value="magic"/>
-				</menupopup>
-			</menulist>
-		</hbox>
 		<spacer style="height:20px"/>
 		<description>&Sitepref.ATElabel;</description>
 		<spacer style="height:10px"/>

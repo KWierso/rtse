@@ -59,16 +59,6 @@ var wizard = {
       gRTSE.prefsSetBool("extensions.rtse.sponsor",
                          document.getElementById("sponsor").checked);
 
-      // themer
-      if (document.getElementById("theme").checked) {
-        gRTSE.prefsSetBool("extensions.rtse.themer", true);
-        gRTSE.prefsSetString("extensions.rtse.themeType",
-                             document.getElementById("themeType").selectedItem
-                                     .value);
-      } else {
-        gRTSE.prefsSetBool("extensions.rtse.themer", false);
-      }
-
       // Editor
       gRTSE.prefsSetBool("extensions.rtse.editor",
                          document.getElementById("editor").checked);

@@ -86,38 +86,11 @@
   </prefpane>
   <prefpane id="prefs" label="&Preferences.name;" flex="1">
     <preferences>
-      <preference id="pref_theme"
-                  name="extensions.rtse.themeType"
-                  type="string"/>
-      <preference id="pref_themer"
-                  name="extensions.rtse.themer"
-                  type="bool"/>
       <preference id="pref_links"
                   name="extensions.rtse.fixLinks"
                   type="bool"/>
     </preferences>
     <vbox flex="1">
-      <groupbox>
-        <caption label="&Preferences.themegroupcaption;"/>
-        <description>&Preferences.themerlabel;</description>
-        <spacer style="height: 10px"/>
-        <checkbox id="theme"
-                  label="&Preferences.enableskinlabel;"
-                  preference="pref_themer"
-                  oncommand="theme();"/>
-        <hbox align="center">
-          <label value="&Preferences.prefskinlabel;"/>
-          <menulist id="themeType" preference="pref_theme">
-            <menupopup>
-              <menuitem label="&Preferences.RTskinoption;" value="www"/>
-              <menuitem label="&Preferences.RvBskinoption;" value="rvb"/>
-              <menuitem label="&Preferences.SHskinoption;" value="sh"/>
-              <menuitem label="&Preferences.Panicsskinoption;" value="panics"/>
-              <menuitem label="&Preferences.magicskinoption;" value="magic"/>
-            </menupopup>
-          </menulist>
-        </hbox>
-      </groupbox>
       <groupbox>
         <caption label="&Preferences.linkfixgroupcaption;"/>
         <description>&Preferences.linkfixdesc;</description>
