@@ -163,16 +163,23 @@ function RTSE_forumListBox(doc) {
     } catch (e) { /* eat any exceptions due to bad prefs */ }
   }
 
-		/* Adding redirector */
-		listBox.addEventListener('change',function() {
-			if( this.options[this.selectedIndex].value!='null' )
-				doc.location='/forum/forum.php?fid='+this.options[this.selectedIndex].value;
-		},false);
+  /* Adding redirector */
+  listBox.addEventListener('change', function() {
+      if (this.options[this.selectedIndex].value != 'null')
+          doc.location = '/forum/forum.php?fid=' + this.options[this.selectedIndex].value;
+  }, false);
 
-		/* Now that we have the listBox all filled up... */
-    let ref = doc.getElementsByTagName("body")[0];
-    listBox.setAttribute("style", "position:absolute;right:5px;top:5px;");
-    ref.appendChild(listBox);
+  /* Now that we have the listBox all filled up... */
+  let ref = doc.getElementById('tabsHolder')
+            .getElementsByTagName("table")[1]
+            .firstChild.firstChild;
+  let cont = doc.createElement('td');
+  listBox.setAttribute("style", "position:relative;right:1px;top:-1px;");
+  cont.appendChild(listBox);
+  cont.style.padding = "0px 5px 0px 0px";
+  cont.setAttribute("align", "right");
+  cont.setAttribute("valign", "middle");
+  ref.replaceChild(cont, ref.childNodes[3]);
 }
 
 function RTSE_addToSideBar(doc) {
