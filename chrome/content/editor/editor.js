@@ -835,6 +835,8 @@ RTSE.editor =
     return aDoc.getElementById("Add a Comment") ||
            aDoc.getElementById("Make a Journal Entry") ||
            aDoc.getElementById("Edit Journal Entry") ||
+           aDoc.getElementById("Make a News Entry") ||
+           aDoc.getElementById("Edit News Entry") ||
            aDoc.getElementById("Add a New Topic") ||
            aDoc.getElementById("Reply") ||
            aDoc.getElementById("Send a Message") ||
