@@ -32,6 +32,7 @@
 
 <!ENTITY ForumJump.special "Special">
 <!ENTITY ForumJump.sponsor "You know you're cool.">
+<!ENTITY ForumJump.delta "Please post all your finds, problems, requests etc. here for the new website."> 
 <!ENTITY ForumJump.lvl20 "If you've got more karma than you know what to do with.">
 <!ENTITY ForumJump.lvl50 "You need to go outside, but considering your karma level, it's probably not an option.">
 <!ENTITY ForumJump.18andup "The place to get down and dirty.">
@@ -44,6 +45,7 @@
 
 <!ENTITY ForumJump.projects "Project Forums">
 <!ENTITY ForumJump.roosterteeth "The main Rooster Teeth forum.">
+<!ENTITY ForumJump.achievementhunter "Helping you get those achievements, one game at a time."> 
 <!ENTITY ForumJump.redvsblue "It's just one big RvB love fest in here.">
 <!ENTITY ForumJump.stangerhood "Rooster Teeth's Sims 2 project.">
 <!ENTITY ForumJump.panics "People Acting Normal in Crazy ass Situations.">
@@ -77,6 +79,7 @@
 <!ENTITY ForumJump.other "Other Stuff">
 <!ENTITY ForumJump.sports "Where you are always picked last to post.">
 <!ENTITY ForumJump.politics "Where people who live in the same country come to hate each other.">
+<!ENTITY ForumJump.philosophy "Putting the universe in context, one horribly offensive post at a time. "> 
 <!ENTITY ForumJump.technical "Hardware, gadgets, etc. Pretend like you know what you are talking about in here.">
 <!ENTITY ForumJump.garage "If it has an engine, bring it here.">
 

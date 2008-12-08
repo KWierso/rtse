@@ -155,6 +155,9 @@
       <preference id="pref_forum101"
                   name="extensions.rtse.forum.101"
                   type="bool"/>
+      <preference id="pref_forum109" 
+                  name="extensions.rtse.forum.109" 
+                  type="bool"/>
       <preference id="pref_forum103"
                   name="extensions.rtse.forum.103"
                   type="bool"/>
@@ -181,6 +184,9 @@
       <preference id="pref_forum9"
                   name="extensions.rtse.forum.9"
                   type="bool"/>
+      <preference id="pref_forum39" 
+                  name="extensions.rtse.forum.39" 
+                  type="bool"/> 
       <preference id="pref_forum2"
                   name="extensions.rtse.forum.2"
                   type="bool"/>
@@ -265,6 +271,9 @@
       <preference id="pref_forum14"
                   name="extensions.rtse.forum.14"
                   type="bool"/>
+      <preference id="pref_forum38" 
+          name="extensions.rtse.forum.38" 
+          type="bool"/> 
       <preference id="pref_forum11"
                   name="extensions.rtse.forum.11"
                   type="bool"/>
@@ -301,6 +310,10 @@
           <description>&ForumJump.sponsor;</description>
         </richlistitem>
         <richlistitem orient="vertical">
+          <checkbox id="forum109" preference="pref_forum109"/> 
+          <description>&ForumJump.delta;</description> 
+        </richlistitem> 
+        <richlistitem orient="vertical"> 
           <checkbox id="forum103" preference="pref_forum103"/>
           <description>&ForumJump.lvl20;</description>
         </richlistitem>
@@ -336,6 +349,10 @@
           <checkbox id="forum9" preference="pref_forum9"/>
           <description>&ForumJump.roosterteeth;</description>
         </richlistitem>
+        <richlistitem orient="vertical">
+          <checkbox id="forum39" preference="pref_forum39"/> 
+          <description>&ForumJump.achievementhunter;</description> 
+        </richlistitem> 
         <richlistitem orient="vertical">
           <checkbox id="forum2" preference="pref_forum2"/>
           <description>&ForumJump.redvsblue;</description>
@@ -450,6 +467,10 @@
           <description>&ForumJump.politics;</description>
         </richlistitem>
         <richlistitem orient="vertical">
+          <checkbox id="forum38" preference="pref_forum38"/> 
+          <description>&ForumJump.philosophy;</description> 
+        </richlistitem> 
+        <richlistitem orient="vertical"> 
           <checkbox id="forum11" preference="pref_forum11"/>
           <description>&ForumJump.technical;</description>
         </richlistitem>

@@ -11,9 +11,10 @@ pref("extensions.rtse.smilies",true);
 pref("extensions.rtse.samePageReply",true);
 
 pref("extensions.rtse.forum.101",true);
+pref("extensions.rtse.forum.109",true);
 pref("extensions.rtse.forum.103",true);
-pref("extensions.rtse.forum.104",true);
 pref("extensions.rtse.forum.106",true);
+pref("extensions.rtse.forum.104",true);
 
 pref("extensions.rtse.forum.1",true);
 pref("extensions.rtse.forum.37",true);
@@ -21,6 +22,7 @@ pref("extensions.rtse.forum.8",true);
 pref("extensions.rtse.forum.34",true);
 
 pref("extensions.rtse.forum.9",true);
+pref("extensions.rtse.forum.39",true); 
 pref("extensions.rtse.forum.2",true);
 pref("extensions.rtse.forum.10",true);
 pref("extensions.rtse.forum.30",true);
@@ -51,6 +53,7 @@ pref("extensions.rtse.forum.29",true);
 
 pref("extensions.rtse.forum.12",true);
 pref("extensions.rtse.forum.14",true);
+pref("extensions.rtse.forum.38",true);
 pref("extensions.rtse.forum.11",true);
 pref("extensions.rtse.forum.17",true);
 
