@@ -401,6 +401,9 @@ function RTSE_HTMLtoBB(aText)
   aText = aText.replace(/<a href="(\/[^" \t\n<>]+)">/g,'[link=$1]');
   aText = aText.replace(/<\/a>/g,'[/link]');
 
+  aText = aText.replace(/<\/pre>/g,'[/code]'); 
+  aText = aText.replace(/<pre>/g,'[code]'); 
+
   aText = aText.replace(/<img .*?src="\/(.*?)".*?>/g,'[img]http://www.roosterteeth.com/$1[/img]');
   aText = aText.replace(/<img.*? src="(.*?)".*?>/g,'[img]$1[/img]');
   aText = aText.replace(/<br><br><span class="small"(.*?)>(.*?)<\/span>/g,'');
