@@ -76,9 +76,6 @@ var RTSE = {
 			/* Forum Quick Jump */
 			RTSE_forumListBox(doc);
 
-			/* Add sidebar items */
-			RTSE_addToSideBar(doc);
-
       // MozSearch
       RTSE_addSearchPlugins(doc);
 		} else

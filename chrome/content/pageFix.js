@@ -164,34 +164,6 @@ function RTSE_forumListBox(doc) {
   ref.replaceChild(cont, ref.childNodes[3]);
 }
 
-function RTSE_addToSideBar(doc) {
-  /* Adds My Stats and Mod history to side navigation panel */
-  try {
-    if (!gRTSE.prefsGetBool("extensions.rtse.sponsor")) return;
-    var ref=RTSE_evaluateXPath(doc,"//td[@id='navCol']/table/tbody/tr[17]");
-    ref=ref[0];
-    var tr,td,div,a;
-    var items=new Array('My Stats','Mod History', 'My Log');
-    var links=new Array('/members/stats/myStats.php','/members/modHistory.php', '/members/log.php');
-    for( var i=(items.length-1); i>=0; i-- ) {
-      tr=doc.createElement('tr');
-      td=doc.createElement('td');
-      td.setAttribute('class','nav');
-      div=doc.createElement('div');
-      div.setAttribute('class','navLink');
-      a=doc.createElement('a');
-      a.setAttribute('href',links[i]);
-      a.appendChild(doc.createTextNode(items[i]));
-      div.appendChild(a);
-      td.appendChild(div);
-      tr.appendChild(td);
-      ref.parentNode.insertBefore(tr,ref.nextSibling);
-    }
-  } catch(e) {
-    gRTSE.sendReport(e);
-  }
-}
-
 function RTSE_postPermalink(aDoc)
 // EFFECTS: Adds a permalink to posts on a page in aDoc
 {
