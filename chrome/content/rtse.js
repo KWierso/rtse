@@ -35,24 +35,24 @@ var RTSE = {
     if (gRTSE.prefsGetBool("extensions.rtse.editor"))
       RTSE.editor.init();
 
-		// Check if wizard should run
-		if (gRTSE.prefsGetBool('extensions.rtse.firstInstall'))
-			window.openDialog('chrome://rtse/content/setupwizard.xul','RTSEsetup','chrome,centerscreen');
+    // Check if wizard should run
+    if (gRTSE.prefsGetBool('extensions.rtse.firstInstall'))
+      window.openDialog('chrome://rtse/content/setupwizard.xul','RTSEsetup','chrome,centerscreen');
 
-		// Sign in
-		gRTSE.login();
+    // Sign in
+    gRTSE.login();
 
-		var appcontent=document.getElementById("appcontent");	/* This is the browser */
-		if(appcontent)
-			appcontent.addEventListener("DOMContentLoaded",this.onPageLoad,true);
-		var menu=document.getElementById("contentAreaContextMenu");	/* This is the context menu */
-		if(menu)
-			menu.addEventListener("popupshowing",this._menu,false);
+    var appcontent=document.getElementById("appcontent"); /* This is the browser */
+    if(appcontent)
+      appcontent.addEventListener("DOMContentLoaded",this.onPageLoad,true);
+    var menu=document.getElementById("contentAreaContextMenu"); /* This is the context menu */
+    if(menu)
+      menu.addEventListener("popupshowing",this._menu,false);
 
     var pb = Components.classes["@mozilla.org/preferences-service;1"]
                        .getService(Components.interfaces.nsIPrefBranch2);
     pb.addObserver("extensions.rtse", RTSE_PrefsChangeObserver, false);
-	},
+  },
 
   destruct: function destruct()
   {
@@ -61,100 +61,100 @@ var RTSE = {
     pb.removeObserver("extensions.rtse", RTSE_PrefsChangeObserver);
   },
 
-	onPageLoad: function(aEvent) {
-		/* the document is doc */
-		var doc=aEvent.originalTarget;
-		
-		/* Run on all RT pages */
-		if( /^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com(.*)?$/.test(doc.location.href) ) {
-			// Add custom CSS
-			RTSE_addCSS(doc);
+  onPageLoad: function(aEvent) {
+    /* the document is doc */
+    var doc=aEvent.originalTarget;
+    
+    /* Run on all RT pages */
+    if( /^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com(.*)?$/.test(doc.location.href) ) {
+      // Add custom CSS
+      RTSE_addCSS(doc);
 
-			// Fix Links
+      // Fix Links
       RTSE_linkFix(doc);
-			
-			/* Forum Quick Jump */
-			RTSE_forumListBox(doc);
+      
+      /* Forum Quick Jump */
+      RTSE_forumListBox(doc);
 
       // MozSearch
       RTSE_addSearchPlugins(doc);
-		} else
-			return;
-		
-		/* Run on journal pages */
-		if( /^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com\/members\/journal(.*)?$/.test(doc.location.href) ) {
-			/* Run on your journal page */
-			if( /^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com\/members\/journal\/?$/.test(doc.location.href) ||
-				/^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com\/members\/journal\/index\.php.*$/.test(doc.location.href) ) {
-				/* Editor */
-				RTSE_insertEditor(doc,'journal');
-			}
+    } else
+      return;
+    
+    /* Run on journal pages */
+    if( /^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com\/members\/journal(.*)?$/.test(doc.location.href) ) {
+      /* Run on your journal page */
+      if( /^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com\/members\/journal\/?$/.test(doc.location.href) ||
+        /^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com\/members\/journal\/index\.php.*$/.test(doc.location.href) ) {
+        /* Editor */
+        RTSE_insertEditor(doc,'journal');
+      }
 
-			// Run on Journal Comment pages
-			if( /^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com\/members\/journal\/entry\.php.*$/.test(doc.location.href) ) {
-				// Permalinks
-				RTSE_postPermalink(doc);
+      // Run on Journal Comment pages
+      if( /^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com\/members\/journal\/entry\.php.*$/.test(doc.location.href) ) {
+        // Permalinks
+        RTSE_postPermalink(doc);
 
-				// Replies
-				RTSE_addReply(doc);
+        // Replies
+        RTSE_addReply(doc);
 
-				// Quotes
-				RTSE_addQuote(doc)
-			}
-		}
+        // Quotes
+        RTSE_addQuote(doc)
+      }
+    }
 
-		/* Run on all topic pages */
-		if( /^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com\/forum\/viewTopic\.php(.*)?$/.test(doc.location.href) ) {
-			// Permalinks
-			RTSE_postPermalink(doc);
+    /* Run on all topic pages */
+    if( /^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com\/forum\/viewTopic\.php(.*)?$/.test(doc.location.href) ) {
+      // Permalinks
+      RTSE_postPermalink(doc);
 
-			// Quotes
-			RTSE_addQuote(doc);
+      // Quotes
+      RTSE_addQuote(doc);
 
       // Modify Replies
       RTSE_modifyReply(doc);
-		}
+    }
 
-		// Run on Image comment Pages
-		if( /^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com\/members\/images\/image\.php.*$/.test(doc.location.href) ) {
-			// Permalinks
-			RTSE_postPermalink(doc);
-			
-			// Replies
-			RTSE_addReply(doc);
+    // Run on Image comment Pages
+    if( /^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com\/members\/images\/image\.php.*$/.test(doc.location.href) ) {
+      // Permalinks
+      RTSE_postPermalink(doc);
+      
+      // Replies
+      RTSE_addReply(doc);
 
-			// Quotes
-			RTSE_addQuote(doc)
-		}
-	},
-	
-	_menu: function() {
-		/* Context Menu Goodies */
-		var url=gBrowser.getBrowserAtIndex(gBrowser.mTabContainer.selectedIndex).contentDocument.location.href;
-		if( gContextMenu.onImage && gContextMenu.onLink &&
-			/^https?:\/\/([a-zA-Z]+).roosterteeth.com(.*)?$/.test(url) &&
-			gContextMenu.target.parentNode.href &&
-			/profile\.php\?uid=[0-9]+$/.test(gContextMenu.target.parentNode.href) ) {
-			/* Should target only user avatars */
-			gContextMenu.showItem("rtse-sub-menu",true);
-			var target=new String(gContextMenu.target.parentNode.href);
-			var uid=target.replace(/^https?:\/\/([a-zA-Z]+).roosterteeth.com\/members\/profile.php\?uid=([0-9]+)$/,'$2','$1');
-			
-			/* Send PM */
-			document.getElementById('rtse-user-sendPM').setAttribute('oncommand','gBrowser.addTab("http://'+
-				    gRTSE.prefsGetString("extensions.rtse.themeType")+'.roosterteeth.com/members/messaging/send.php?to='+uid+'");');
-			/* Add Friend */
-			document.getElementById('rtse-user-friends').setAttribute('oncommand','gBrowser.addTab("http://'+
-				    gRTSE.prefsGetString("extensions.rtse.themeType")+'.roosterteeth.com/members/addFriend.php?uid='+uid+'");');
-			/* Watch */
-			document.getElementById('rtse-user-watch').setAttribute('oncommand','gBrowser.addTab("http://'+
-				    gRTSE.prefsGetString("extensions.rtse.themeType")+'.roosterteeth.com/members/addWatch.php?uid='+uid+'");');
-			
-			
-		} else {
-			gContextMenu.showItem("rtse-sub-menu",false);
-		}
-	},
+      // Quotes
+      RTSE_addQuote(doc)
+    }
+  },
+  
+  _menu: function() {
+    /* Context Menu Goodies */
+    var url=gBrowser.getBrowserAtIndex(gBrowser.mTabContainer.selectedIndex).contentDocument.location.href;
+    if( gContextMenu.onImage && gContextMenu.onLink &&
+      /^https?:\/\/([a-zA-Z]+).roosterteeth.com(.*)?$/.test(url) &&
+      gContextMenu.target.parentNode.href &&
+      /profile\.php\?uid=[0-9]+$/.test(gContextMenu.target.parentNode.href) ) {
+      /* Should target only user avatars */
+      gContextMenu.showItem("rtse-sub-menu",true);
+      var target=new String(gContextMenu.target.parentNode.href);
+      var uid=target.replace(/^https?:\/\/([a-zA-Z]+).roosterteeth.com\/members\/profile.php\?uid=([0-9]+)$/,'$2','$1');
+      
+      /* Send PM */
+      document.getElementById('rtse-user-sendPM').setAttribute('oncommand','gBrowser.addTab("http://'+
+            gRTSE.prefsGetString("extensions.rtse.themeType")+'.roosterteeth.com/members/messaging/send.php?to='+uid+'");');
+      /* Add Friend */
+      document.getElementById('rtse-user-friends').setAttribute('oncommand','gBrowser.addTab("http://'+
+            gRTSE.prefsGetString("extensions.rtse.themeType")+'.roosterteeth.com/members/addFriend.php?uid='+uid+'");');
+      /* Watch */
+      document.getElementById('rtse-user-watch').setAttribute('oncommand','gBrowser.addTab("http://'+
+            gRTSE.prefsGetString("extensions.rtse.themeType")+'.roosterteeth.com/members/addWatch.php?uid='+uid+'");');
+      
+      
+    } else {
+      gContextMenu.showItem("rtse-sub-menu",false);
+    }
+  },
 
  /**
   * Object that takes care of smilie conversion
