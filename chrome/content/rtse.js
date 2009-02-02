@@ -90,6 +90,7 @@ var RTSE = {
         RTSE_insertEditor(doc,'journal');
       }
 
+      if(doc.getElementById("pageContent").getElementsByTagName("span")[0].innerHTML!="Locked:") {
       // Run on Journal Comment pages
       if( /^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com\/members\/journal\/entry\.php.*$/.test(doc.location.href) ) {
         // Permalinks
@@ -114,7 +115,8 @@ var RTSE = {
       // Modify Replies
       RTSE_modifyReply(doc);
     }
-
+    }
+    
     // Run on Image comment Pages
     if( /^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com\/members\/images\/image\.php.*$/.test(doc.location.href) ) {
       // Permalinks
