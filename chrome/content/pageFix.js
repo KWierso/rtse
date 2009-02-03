@@ -397,7 +397,7 @@ function RTSE_HTMLtoBB(aText)
   aText = aText.replace(/<\/pre>/g,'[/code]'); 
   aText = aText.replace(/<pre>/g,'[code]'); 
 
-  aText = aText.replace(/<img .*?src="\/(.*?)".*?>/g,'[img]http://www.roosterteeth.com/$1[/img]');
+  aText = aText.replace(/<img .*?src="\/assets\/images\/emoticons\/(.*?)\.gif".*?>/g,'[$1]');
   aText = aText.replace(/<img.*? src="(.*?)".*?>/g,'[img]$1[/img]');
   aText = aText.replace(/<br><br><span class="small"(.*?)>(.*?)<\/span>/g,'');
   aText = aText.replace(/<blockquote(.*?)>(.*?)<\/blockquote>/g,'');
