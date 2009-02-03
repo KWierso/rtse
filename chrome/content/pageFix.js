@@ -210,18 +210,14 @@ function RTSE_samePageReply(aEvent)
                  .getElementsByTagName('table')[0]
                  .getElementsByTagName('tbody')[0]
                  .getElementsByTagName('tr')[1].getElementsByTagName('td')[0]
-                 .getElementsByTagName('table')[0]
-                 .getElementsByTagName('tbody')[0]
-                 .getElementsByTagName('tr')[0].getElementsByTagName('td')[0]
-                 .firstChild.firstChild.data;
+                 .getElementsByTagName('span')[0]
+                 .firstChild.firstChild.innerHTML;
   name=name.replace(new RegExp('\t','gmi'),'');
-  name=name.replace(new RegExp('\n','gmi'),'');
-            
+
   var num = this.parentNode.parentNode.parentNode.parentNode
                 .getElementsByTagName('td')[0].getElementsByTagName('a')[0]
                 .firstChild.data;
   num = num.replace(/#([0-9]+)/,'$1');
-
   // Append to editor
   var editor;
   var text = '[i]In reply to '+name+', #'+num+':[/i]\n\n';
@@ -242,28 +238,6 @@ function RTSE_samePageReply(aEvent)
   editor.focus();
 }
 
-function RTSE_addReply(aDoc)
-// EFFECTS: Adds the [ reply ] option to posts on a specifed aDoc
-{
-  var elms=RTSE_evaluateXPath(aDoc,"//table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div");
-  var span,a,b;
-  var href = (aDoc.getElementById('Post'))?'#Post':'#add';
-  for( var i in elms ) {
-    span=aDoc.createElement('span');
-    a=aDoc.createElement('a');
-    b=aDoc.createElement('b');
-    a.setAttribute('href',href);
-    a.setAttribute('class','small');
-    a.addEventListener('click',RTSE_samePageReply,false);
-    b.appendChild(aDoc.createTextNode('Reply'))
-    a.appendChild(b);
-    span.appendChild(aDoc.createTextNode(' [ '));
-    span.appendChild(a);
-    span.appendChild(aDoc.createTextNode(' ] '));
-    elms[i].appendChild(span);
-  }
-}
-
 /**
  * Modifies all replies to keep them on the same page.
  *
@@ -272,37 +246,48 @@ function RTSE_addReply(aDoc)
 function RTSE_modifyReply(aDoc)
 {
   if (!gRTSE.prefsGetBool("extensions.rtse.samePageReply")) return;
-  var elms = RTSE_evaluateXPath(aDoc, "//td[@id='pageContent']/table/tbody/tr[2]/td/table/tbody/tr[3]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/a[2]/b");
+  var elms = RTSE_evaluateXPath(aDoc, "//td[@id='pageContent']/table/tbody/tr[1]/td/table/tbody/tr[3]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/a[2]/b");
+  if(elms.length == 0)
+    var elms = RTSE_evaluateXPath(aDoc, "//td[@id='pageContent']/table/tbody/tr[1]/td/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/a[2]/b");
   for (let i in elms) {    
     elms[i].parentNode.removeAttribute("href");
+	elms[i].parentNode.removeAttribute("onclick");
     elms[i].addEventListener("click", RTSE_samePageReply, false);
   }
 }
 
-function RTSE_addQuote(aDoc)
-// EFFECTS: Adds the [ quote ] option to posts on a specifed aDoc
+function RTSE_modifyQuote(aDoc)
 {
-  var elms=RTSE_evaluateXPath(aDoc,"//table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div");
   var span,a,b;
-  for( var i in elms ) {
+  var href = (aDoc.getElementById('Post'))?'#Post':'#add';
+ 
+  if (!gRTSE.prefsGetBool("extensions.rtse.samePageReply")) return;
+  var elms = RTSE_evaluateXPath(aDoc, "//td[@id='pageContent']/table/tbody/tr[1]/td/table/tbody/tr[3]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/a[3]/b");
+  if(elms.length == 0)
+    var elms = RTSE_evaluateXPath(aDoc, "//td[@id='pageContent']/table/tbody/tr[1]/td/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/a[3]/b");
+  for (let i in elms) {    
+    elms[i].parentNode.removeAttribute("href");
+	elms[i].parentNode.removeAttribute("onclick");
     span=aDoc.createElement('span');
     a=aDoc.createElement('a');
     b=aDoc.createElement('b');
+    a.setAttribute('href',href);
     a.setAttribute('class','small');
     a.addEventListener('click',RTSE_quotePost,false);
     b.appendChild(aDoc.createTextNode('Quote'))
     a.appendChild(b);
-    span.appendChild(aDoc.createTextNode(' [ '));
+    //span.appendChild(aDoc.createTextNode(' [ '));
     span.appendChild(a);
-    span.appendChild(aDoc.createTextNode(' ] '));
-    elms[i].appendChild(span);
+    //span.appendChild(aDoc.createTextNode(' ] '));
+    elms[i].parentNode.replaceChild(span, elms[i]);
   }
+
 }
 
 function RTSE_quotePost(aEvent)
 // EFFECTS: Quotes a post
 {
-  var ref = this.parentNode.parentNode.parentNode.parentNode.parentNode;
+  var ref = this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
   var post = RTSE_evaluateXPath(ref,'./tr[2]/td');
   var text = new String(post[0].innerHTML);
 

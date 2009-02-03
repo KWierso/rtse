@@ -83,50 +83,28 @@ var RTSE = {
     
     /* Run on journal pages */
     if( /^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com\/members\/journal(.*)?$/.test(doc.location.href) ) {
-      /* Run on your journal page */
-      if( /^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com\/members\/journal\/?$/.test(doc.location.href) ||
-        /^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com\/members\/journal\/index\.php.*$/.test(doc.location.href) ) {
-        /* Editor */
-        RTSE_insertEditor(doc,'journal');
+        /* Run on your journal page */
+        if( /^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com\/members\/journal\/?$/.test(doc.location.href) ||
+            /^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com\/members\/journal\/index\.php.*$/.test(doc.location.href) ) {
+            /* Editor */
+            RTSE_insertEditor(doc,'journal');
+        }
+    }
+
+    if(doc.getElementById("pageContent").getElementsByTagName("span")[0].innerHTML!="Locked:") {
+      // Run on all other pages with posts
+      if( doc.location.href.match("entry.php") != 'null' || doc.location.href.match("viewEntry.php") != 'null' || 
+              doc.location.href.match("viewTopic.php") != 'null' || doc.location.href.match("image.php") != 'null') {
+              
+          // Replies
+          RTSE_modifyReply(doc);
+
+          // Quotes
+          RTSE_modifyQuote(doc);
+
+          // Permalinks
+          RTSE_postPermalink(doc);
       }
-
-      if(doc.getElementById("pageContent").getElementsByTagName("span")[0].innerHTML!="Locked:") {
-      // Run on Journal Comment pages
-      if( /^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com\/members\/journal\/entry\.php.*$/.test(doc.location.href) ) {
-        // Permalinks
-        RTSE_postPermalink(doc);
-
-        // Replies
-        RTSE_addReply(doc);
-
-        // Quotes
-        RTSE_addQuote(doc)
-      }
-    }
-
-    /* Run on all topic pages */
-    if( /^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com\/forum\/viewTopic\.php(.*)?$/.test(doc.location.href) ) {
-      // Permalinks
-      RTSE_postPermalink(doc);
-
-      // Quotes
-      RTSE_addQuote(doc);
-
-      // Modify Replies
-      RTSE_modifyReply(doc);
-    }
-    }
-    
-    // Run on Image comment Pages
-    if( /^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com\/members\/images\/image\.php.*$/.test(doc.location.href) ) {
-      // Permalinks
-      RTSE_postPermalink(doc);
-      
-      // Replies
-      RTSE_addReply(doc);
-
-      // Quotes
-      RTSE_addQuote(doc)
     }
   },
   

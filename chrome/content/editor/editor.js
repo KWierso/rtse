@@ -443,7 +443,7 @@ RTSE.editor =
     }
     var editor = doc.createElement("div");
     let clickable = doc.createElement("textarea");
-    var style = "margin:3px 4px 3px 4px;";
+    var style = "margin:3px 4px 3px 4px; width:98%;";
     clickable.setAttribute("style", style);
     editor.appendChild(clickable);
     editor.setAttribute("id", ref.getAttribute("id"));
