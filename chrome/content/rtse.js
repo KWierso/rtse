@@ -69,6 +69,9 @@ var RTSE = {
     if( /^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com(.*)?$/.test(doc.location.href) ) {
       // Add custom CSS
       RTSE_addCSS(doc);
+      
+      /*Add UserInfo Links*/
+      RTSE_addToUserInfo(doc);
 
       // Fix Links
       RTSE_linkFix(doc);
