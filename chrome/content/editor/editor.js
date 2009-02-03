@@ -443,14 +443,12 @@ RTSE.editor =
     }
     var editor = doc.createElement("div");
     let clickable = doc.createElement("textarea");
-    let style = "margin:3px 4px 3px 4px; width:98%;";
+    let style = "margin:3px 4px 3px 4px; width:98.7%;";
     clickable.setAttribute("style", style);
     editor.appendChild(clickable);
     editor.setAttribute("id", ref.getAttribute("id"));
     editor.addEventListener("click", RTSE.editor.ensureEditorIsVisible, false);
-    style = "background-color:#f4f4f4;" +
-            "border:1px solid #000000;" +
-            "border-top:0px;";
+    style = "background-color:#f4f4f4;";
     editor.setAttribute("style", style);
     ref.parentNode.replaceChild(editor, ref);
   },

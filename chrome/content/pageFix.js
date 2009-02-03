@@ -166,7 +166,7 @@ function RTSE_forumListBox(doc) {
   let cont = doc.createElement('td');
   listBox.setAttribute("style", "position:relative;right:1px;top:-1px;");
   cont.appendChild(listBox);
-  cont.style.padding = "0px 5px 0px 0px";
+  cont.style.padding = "0px 3px 3px 0px";
   cont.setAttribute("align", "right");
   cont.setAttribute("valign", "middle");
   ref.replaceChild(cont, ref.childNodes[3]);
