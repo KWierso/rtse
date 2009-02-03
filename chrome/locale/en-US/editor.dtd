@@ -2,6 +2,7 @@
 <!ENTITY Tooltip.italic "italic text">
 <!ENTITY Tooltip.underline "underlined text">
 <!ENTITY Tooltip.strike "striken text">
+<!ENTITY Tooltip.spoiler "spoilered text">
 <!ENTITY Tooltip.image "image url">
 <!ENTITY Tooltip.quote "quoted text">
 <!ENTITY Tooltip.link "link name">

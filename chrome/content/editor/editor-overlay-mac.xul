@@ -36,6 +36,8 @@
           label="Underline"/>
   <button id="rtse-editor-s"
           label="Strike"/>
+  <button id="rtse-editor-spoiler"
+          label="Spoiler"/>
   <button id="rtse-editor-img"
           label="Image"/>
   <button id="rtse-editor-quote"

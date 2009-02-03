@@ -65,6 +65,10 @@
                 class="rtse-editor-button"
                 oncommand="RTSE.editor.insertTag('s');"
                 tooltip="rtse-editor-tooltip-s"/>
+        <button id="rtse-editor-spoiler"
+                class="rtse-editor-button"
+                oncommand="RTSE.editor.insertTag('spoiler');"
+                tooltip="rtse-editor-tooltip-spoiler"/>
         <button id="rtse-editor-img"
                 class="rtse-editor-button"
                 oncommand="RTSE.editor.insertTag('img');"

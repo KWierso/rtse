@@ -52,6 +52,9 @@
 #rtse-editor-s {
   list-style-image:url(chrome://rtse/skin/images/editor/strike.png);
 }
+#rtse-editor-spoiler {
+  list-style-image:url(chrome://rtse/skin/images/editor/spoiler.png);
+}
 #rtse-editor-img {
   list-style-image:url(chrome://rtse/skin/images/editor/image.png);
 }

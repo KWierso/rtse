@@ -54,6 +54,12 @@
       </description>
       <label value="alt + s"/>
     </tooltip>
+    <tooltip id="rtse-editor-tooltip-spoiler" orient="vertical">
+      <description>
+        [spoiler]<html:strong>&Tooltip.spoiler;</html:strong>[/spoiler]
+      </description>
+      <label value="alt + h"/>
+    </tooltip>
     <tooltip id="rtse-editor-tooltip-img" orient="vertical">
       <description>
         [img]<html:strong>&Tooltip.image;</html:strong>[/img]
