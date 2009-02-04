@@ -700,16 +700,19 @@ RTSE.editor =
     window.openDialog("chrome://rtse/content/editor/link.xul",
                       "link", "chrome,modal,centerscreen", out);
 
-    if (!out.accepted) return;
+    if (!out.accepted) {
+        var start = body.selectionStart;
+        var end = body.selectionEnd;
+    }
+    else{
+        var tag = "[link=" + out.url + "]" + out.label + "[/link]";
 
-    var tag = "[link=" + out.url + "]" + out.label + "[/link]";
-
-    var start  = body.selectionStart;
-    var end    = body.selectionStart + tag.length;
-    body.value = body.value.substring(0, start) + tag +
-                   body.value.substring(body.selectionEnd,
-                                        body.textLength);
-
+        var start  = body.selectionStart;
+        var end    = body.selectionStart + tag.length;
+        body.value = body.value.substring(0, start) + tag +
+                       body.value.substring(body.selectionEnd,
+                                            body.textLength);
+    }
     // We want to simulate the user doing this, so send out an input event.
     var e = document.createEvent("UIEvents");
     e.initUIEvent("input", true, false, window, 0);
