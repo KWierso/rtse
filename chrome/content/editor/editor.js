@@ -446,6 +446,7 @@ RTSE.editor =
     let clickable = doc.createElement("textarea");
     let style = "margin:3px 4px 3px 4px; width:98%;";
     clickable.setAttribute("style", style);
+    clickable.setAttribute("title", "Click to Activate Editor!");
     editor.appendChild(clickable);
     editor.setAttribute("id", ref.getAttribute("id"));
     editor.addEventListener("click", RTSE.editor.ensureEditorIsVisible, false);
