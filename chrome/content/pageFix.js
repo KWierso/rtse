@@ -473,10 +473,20 @@ function RTSE_HTMLtoBB(aText)
   aText = aText.replace(/\n/g,'');
   aText = aText.replace(/<br>/g,'\n');
 
-  // Sponsor stuff for colors (preserves if you are a sponsor
+  // Sponsor stuff for colors (preserves if you are a sponsor)
   if (gRTSE.prefsGetBool('extensions.rtse.sponsor')) {
-    aText = aText.replace(/<span style="color: (.*?);">/g,'[color=$1]');
-    aText = aText.replace(/<\/span>/g,'[/color]');
+    while(/<span style="color: rgb(.*?);">/.test(aText)) {
+       let numbers = aText.split(/<span style="color: rgb\(/)[1].split(/\);">/)[0].split(", ");
+       for(i in numbers) {
+          numbers[i] = parseInt(numbers[i]).toString(16);
+          if(numbers[i].length < 2) {
+             numbers[i] = "0" + numbers[i];
+          }
+       }
+       aText = aText.replace(/<span style="color: rgb(.*?);">/, "[color=#" + numbers[0] +numbers[1] +numbers[2] + "]");
+    }
+     aText = aText.replace(/<span style="color: (.*?);">/g,'[color=$1]');
+     aText = aText.replace(/<\/span>/g,'[/color]');
   } else {
     aText = aText.replace(/<span style="color:.*?">/g,'');
     aText = aText.replace(/<\/span>/g,'');
