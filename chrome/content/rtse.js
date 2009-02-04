@@ -185,7 +185,7 @@ var RTSE = {
     },
 
    /**
-    * Converts the suplied text using the XPCOM method
+    * Converts the supplied text using the XPCOM method
     * @param aText the text to be converted
     * @return the converted text
     */
@@ -195,7 +195,7 @@ var RTSE = {
     },
 
    /**
-    * Removes an conversions that may have taken place from convert
+    * Removes any conversions that may have taken place from convert
     * @param aText the text to be deconverted
     * @return unconverted text
     */
