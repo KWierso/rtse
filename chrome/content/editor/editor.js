@@ -530,7 +530,7 @@ RTSE.editor =
     e.initEvent("submit", true, true);
     let message = form.elements.namedItem("toUser") ||
                   form.elements.namedItem("uid");
-    form.action = message ? "/members/messaging/preview.php" : "/preview.php";
+    form.action = message ? "/members/messaging/previewReply.php" : "/preview.php";
     form.dispatchEvent(e);
     content.focus();
   },
