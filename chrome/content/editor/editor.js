@@ -404,7 +404,7 @@ RTSE.editor =
     return elm ? true : false;
   },
 
- /**
+  /**
   * Inserts the editor box into the document
   *
   * @param aDoc The document to be checked to insert the editor
@@ -441,9 +441,10 @@ RTSE.editor =
       } else
         RTSE.editor.setProperty(doc, "show-" + DATA[i], "false");
     }
+     
     var editor = doc.createElement("div");
     let clickable = doc.createElement("textarea");
-    let style = "margin:3px 4px 3px 4px; width:98.7%;";
+    let style = "margin:3px 4px 3px 4px; width:98%;";
     clickable.setAttribute("style", style);
     editor.appendChild(clickable);
     editor.setAttribute("id", ref.getAttribute("id"));
@@ -451,6 +452,11 @@ RTSE.editor =
     style = "background-color:#f4f4f4;";
     editor.setAttribute("style", style);
     ref.parentNode.replaceChild(editor, ref);
+
+    // If editing or previewing a post, automatically display the editor
+    if(doc.location.href.match("editMe.php") || doc.location.href.match("editEntry.php") || doc.location.href.match("preview.php")) { 
+        RTSE.editor.ensureEditorIsVisible();
+    }
   },
 
   /**
