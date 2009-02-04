@@ -256,7 +256,8 @@ function RTSE_samePageReply(aEvent)
 // EFFECTS: Function called when clicking on reply when same page replies is enabled
 {
   // Get post and what-not
-  var name = this.parentNode.parentNode.parentNode.parentNode.parentNode
+  try {
+    var name = this.parentNode.parentNode.parentNode.parentNode.parentNode
                  .parentNode.parentNode.parentNode
                  .getElementsByTagName('td')[0]
                  .getElementsByTagName('table')[0]
@@ -264,7 +265,18 @@ function RTSE_samePageReply(aEvent)
                  .getElementsByTagName('tr')[1].getElementsByTagName('td')[0]
                  .getElementsByTagName('span')[0]
                  .firstChild.firstChild.innerHTML;
+  }
+  catch (e) {
+    var name = this.parentNode.parentNode.parentNode.parentNode.parentNode
+                 .parentNode.parentNode.parentNode
+                 .getElementsByTagName('td')[0]
+                 .getElementsByTagName('table')[0]
+                 .getElementsByTagName('tbody')[0]
+                 .getElementsByTagName('tr')[1].getElementsByTagName('td')[0]
+                 .getElementsByTagName('a')[0].innerHTML;
+  }
   name=name.replace(new RegExp('\t','gmi'),'');
+  name=name.replace(new RegExp('\n','gmi'),'');
 
   var num = this.parentNode.parentNode.parentNode.parentNode
                 .getElementsByTagName('td')[0].getElementsByTagName('a')[0]
