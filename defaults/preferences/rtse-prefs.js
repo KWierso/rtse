@@ -4,7 +4,7 @@ pref("extensions.rtse.signin",true);
 pref("extensions.rtse.sponsor",false);
 pref("extensions.rtse.themeType",'www');
 pref("extensions.rtse.editor",true);
-pref("extensions.rtse.firstInstall",true);
+pref("extensions.rtse.firstInstall",false);
 pref("extensions.rtse.talkback",false);
 pref("extensions.rtse.fixLinks",true);
 pref("extensions.rtse.smilies",true);
