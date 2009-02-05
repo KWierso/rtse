@@ -132,7 +132,14 @@ var RTSE = {
       /* Watch */
       document.getElementById('rtse-user-watch').setAttribute('oncommand','gBrowser.addTab("http://'+
             gRTSE.prefsGetString("extensions.rtse.themeType")+'.roosterteeth.com/members/addWatch.php?uid='+uid+'");');
-      
+      /* View Log */
+      if (!gRTSE.prefsGetBool("extensions.rtse.sponsor")) {
+          document.getElementById('rtse-user-log').style.display = 'none';
+      } else {
+          document.getElementById('rtse-user-log').style.display = '';
+      }
+      document.getElementById('rtse-user-log').setAttribute('oncommand','gBrowser.addTab("http://'+
+		  gRTSE.prefsGetString("extensions.rtse.themeType")+'.roosterteeth.com/members/log.php?uid='+uid+'");');
       
     } else {
       gContextMenu.showItem("rtse-sub-menu",false);

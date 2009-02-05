@@ -37,6 +37,11 @@
                 position="3"
                 image="chrome://rtse/skin/images/global/add-friend.png"
                 class="menuitem-iconic"/>
+      <menuitem id="rtse-user-log"
+                label="&ContextMenu.log.label;"
+                position="4"
+                image="chrome://rtse/skin/images/global/log.png"
+                class="menuitem-iconic"/>
     </menupopup>
   </menu>
 </popup>
