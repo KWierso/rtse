@@ -915,17 +915,5 @@ RTSE.editor =
   {
     return document.getElementById("rtse-editor-real-time-preview")
                    .contentDocument;
-  },
-
- /**
-  * Obtains the text used for protected journals.
-  */
-  get protectedJournalText()
-  {
-    return "[b][/b][i][/i][u][/u][s][/s][quote]What's this?\n" +
-           "Even friends only journals can be read by determined people, no " +
-           "matter if they are on your friends list or not. But do not worry," +
-           " RTSE protects you against even the most prying eye. The only " +
-           "thing they'll get to see is the title of this journal.[/quote]";
   }
 };

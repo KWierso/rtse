@@ -399,24 +399,16 @@ function RTSE_convertExtraBB(aEvent)
   var form = doc.forms.namedItem("post");
   var body = form.elements.namedItem("body");
 
-  if (form.elements.namedItem("friendsOnly") &&
-      form.elements.namedItem("friendsOnly").value == "1") {
-    body.value = RTSE.editor.protectedJournalText + body.value;
-  }
-
   body.value = RTSE.editor.convertExtraBB(body.value);
 }
 
 function RTSE_deconvertExtraBB(aDoc)
-// EFFECTS: takes special BBcode from RTSE and converts it back to RT BBcode.  
+// EFFECTS: takes special BBcode from RTSE and converts it back to RT BBcode.
 {
   var form = aDoc.forms.namedItem('post');
   // converts to RTSE BB
   var body = form.elements.namedItem('body');
   if (!body) return;
-
-  // Protected Journal text
-  body.value = body.value.replace(RTSE.editor.protectedJournalText + "\n", "");
 
   // Smilies
   if (gRTSE.prefsGetBool('extensions.rtse.editor')) {
