@@ -22,7 +22,7 @@
 <!ENTITY Extension.importsmiley "Import Smilies">
 <!ENTITY Tooltip.smileys "Browse for a custom smilies.xml file">
 <!ENTITY Extension.uicaption "User Interface">
-<!ENTITY Extension.enableadvancededitor "Enable Advanced Text Editor">
+<!ENTITY Extension.enableadvancededitor "Enable Advanced Text Editor (May require restart)">
 <!ENTITY Extension.samepagereplies "Use Same Page for Replies">
 
 <!ENTITY ForumJump.name "Forum Jump List">
