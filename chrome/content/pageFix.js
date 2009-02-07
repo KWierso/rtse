@@ -192,7 +192,7 @@ function RTSE_addToUserInfo(doc) {
         var newLinks = new Array( "/members/", "/members/signout.php", 
             "/members/comments/", "/members/log.php", "/members/journal", 
             "/members/messaging/", "/members/settings/", "/members/stats/myStats.php", 
-            "/members/modHistory.php", "/members/journal/friendsJournals.php", 
+            "/members/modHistory.php?nc=1", "/members/journal/friendsJournals.php?nc=1", 
             "/sponsRedir.php");
         var td = "";
         if(length != 0)
