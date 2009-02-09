@@ -221,7 +221,7 @@ function RTSE_addToUserInfo(doc) {
             userInfo.innerHTML = td;
         } 
         catch(e) {
-            gRTSE.sendReport(e);
+            //find some way to log the error (e)
         }
     }
 }
@@ -235,7 +235,7 @@ function RTSE_postPermalink(aDoc)
     var base=new String(aDoc.location.href);
     base=base.replace(/^https?:\/\/(www|rvb|sh|panics|magic)\.roosterteeth\.com(.*)$/,'$2');
     base=base.replace(/.*(#[c|t][0-9]+)$/i,'');
-    for( var i in elms ) {
+    for(i=0;i<elms.length - 7;i++) {
       text=elms[i].firstChild.data;
       if( /^\s*#([0-9]+)[\s\S]*$/i.test(text) ) {
         a=aDoc.createElement('a');
@@ -250,7 +250,7 @@ function RTSE_postPermalink(aDoc)
       }
     }
   } catch(e) {
-    gRTSE.sendReport(e);
+    //find some way to log the error (e)
   }
 }
 
