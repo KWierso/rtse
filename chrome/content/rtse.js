@@ -96,9 +96,16 @@ var RTSE = {
 
     if(doc.getElementById("pageContent").getElementsByTagName("span")[0].innerHTML!="Locked:") {
       // Run on all other pages with posts
-      if( doc.location.href.match("entry.php") != 'null' || doc.location.href.match("viewEntry.php") != 'null' || 
-              doc.location.href.match("viewTopic.php") != 'null' || doc.location.href.match("image.php") != 'null') {
-              
+      if( doc.location.href.match("entry.php") == 'entry.php' || doc.location.href.match("viewEntry.php") == 'viewEntry.php' || 
+              doc.location.href.match("viewTopic.php") == 'viewTopic.php' || doc.location.href.match("image.php") == 'image.php') {
+
+          //remove sideBar from forum topics
+          //This saves the RTSE_postPermalink() function down below
+          if(doc.location.href.match(doc.domain + "/forum/viewTopic.php") == doc.domain + "/forum/viewTopic.php") {
+              let sideBar = doc.getElementById("pageContent").getElementsByTagName("tr")[0];
+              sideBar.removeChild(sideBar.childNodes[1]);
+          }
+          
           // Replies
           RTSE_modifyReply(doc);
 
