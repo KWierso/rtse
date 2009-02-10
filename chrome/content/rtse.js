@@ -102,8 +102,7 @@ var RTSE = {
           //remove sideBar from forum topics
           //This saves the RTSE_postPermalink() function down below
           if(doc.location.href.match(doc.domain + "/forum/viewTopic.php") == doc.domain + "/forum/viewTopic.php") {
-              let sideBar = doc.getElementById("pageContent").getElementsByTagName("tr")[0];
-              sideBar.removeChild(sideBar.childNodes[1]);
+              RTSE_removeSidebar(doc);
           }
           
           // Replies

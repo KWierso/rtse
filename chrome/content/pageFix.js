@@ -221,6 +221,11 @@ function RTSE_addToUserInfo(doc) {
     }
 }
 
+function RTSE_removeSidebar(aDoc) {
+    let sideBar = aDoc.getElementById("pageContent").getElementsByTagName("tr")[0];
+    sideBar.removeChild(sideBar.childNodes[1]);
+}
+
 function RTSE_postPermalink(aDoc)
 // EFFECTS: Adds a permalink to posts on a page in aDoc
 {
