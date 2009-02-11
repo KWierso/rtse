@@ -1,4 +1,4 @@
-pref("general.useragent.extra.rtse","RTSE/1.1.0a1");
+pref("general.useragent.extra.rtse","RTSE/1.1.0.20090209");
 pref("extensions.rtse.username","");
 pref("extensions.rtse.signin",true);
 pref("extensions.rtse.sponsor",false);
@@ -9,6 +9,19 @@ pref("extensions.rtse.talkback",false);
 pref("extensions.rtse.fixLinks",true);
 pref("extensions.rtse.smilies",true);
 pref("extensions.rtse.samePageReply",true);
+
+pref("extensions.rtse.link.user",true);
+pref("extensions.rtse.link.signOut",true);
+pref("extensions.rtse.link.comments",true);
+pref("extensions.rtse.link.log",true);
+pref("extensions.rtse.link.journal",true);
+pref("extensions.rtse.link.messages",true);
+pref("extensions.rtse.link.settings",true);
+pref("extensions.rtse.link.myStats",true);
+pref("extensions.rtse.link.modHistory",true);
+pref("extensions.rtse.link.friendJournals",true);
+pref("extensions.rtse.link.sponsor",true);
+pref("extensions.rtse.link.star",true);
 
 pref("extensions.rtse.forum.101",true);
 pref("extensions.rtse.forum.109",true);

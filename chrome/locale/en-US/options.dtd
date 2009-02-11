@@ -10,6 +10,21 @@
 <!ENTITY Authentication.enableloginlabel "Sign me in when my browser starts">
 <!ENTITY Preferences.name "Site Preferences">
 
+<!ENTITY Preferences.link.groupcaption "Displayed links">
+<!ENTITY Preferences.link.desc "Select which links are displayed next to your avitar at the top of page">
+<!ENTITY Preferences.link.user "User home">
+<!ENTITY Preferences.link.signOut "Sign out">
+<!ENTITY Preferences.link.comments "Comments">
+<!ENTITY Preferences.link.log "Log">
+<!ENTITY Preferences.link.journal "Journal">
+<!ENTITY Preferences.link.messages "Messages">
+<!ENTITY Preferences.link.settings "Settings">
+<!ENTITY Preferences.link.myStats "Stats">
+<!ENTITY Preferences.link.modHistory "Mod history">
+<!ENTITY Preferences.link.friendJournals "Friends journals">
+<!ENTITY Preferences.link.sponsor "Sponsorship">
+<!ENTITY Preferences.link.star "Show star next to sponsorship link">
+
 <!ENTITY Preferences.linkfixgroupcaption "Link Fixing">
 <!ENTITY Preferences.linkfixdesc "This prevents any links to content on this site from opening in a new window.">
 <!ENTITY Preferences.enablelinkfixing "Enable link fixing">

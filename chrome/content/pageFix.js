@@ -175,49 +175,86 @@ function RTSE_forumListBox(doc) {
 function RTSE_addToUserInfo(doc) {
     /* Adds additional links to the userInfo element in the site header */
     if(doc.getElementById("userInfo").getElementsByTagName("a").length != 2) {
-            var lng = 11;
-            if (!gRTSE.prefsGetBool("extensions.rtse.sponsor")) {
-                lng = 7;
-            }
-            var userInfo = RTSE_evaluateXPath(doc,"//table[@id='userInfo']");
-            userInfo = userInfo[0].firstChild.firstChild.firstChild;
-            var userLinks = userInfo.getElementsByTagName('a');
-            var length = userLinks.length - 6;
-            var l0 = userLinks[0];
-            var newNames = new Array( l0.innerHTML, "Sign Out", "Comments", "Log", 
-                "Journal", "Messages", "Settings", "My Stats", "Mod History", 
-                "Friend Journals", "Sponsor");
-            if(doc.domain == "ah.roosterteeth.com")
-                newNames[7] = "Stats";
-            var newLinks = new Array( "/members/", "/members/signout.php", 
-                "/members/comments/", "/members/log.php", "/members/journal", 
-                "/members/messaging/", "/members/settings/", "/members/stats/myStats.php", 
-                "/members/modHistory.php?nc=1", "/members/journal/friendsJournals.php?nc=1", 
-                "/sponsRedir.php");
-            var td = "";
-            if(length != 0)
+        var lng = 11;
+        if (!gRTSE.prefsGetBool("extensions.rtse.sponsor")) {
+            lng = 7;
+        }
+        var userInfo = RTSE_evaluateXPath(doc,"//table[@id='userInfo']");
+        userInfo = userInfo[0].firstChild.firstChild.firstChild;
+        var userLinks = userInfo.getElementsByTagName('a');
+        var length = userLinks.length - 6;
+        var l0 = userLinks[0];
+        var newNames = new Array( l0.innerHTML, "Sign Out", "Comments", "Log", 
+            "Journal", "Messages", "Settings", "My Stats", "Mod History", 
+            "Friend Journals", "Sponsor");
+        if(doc.domain == "ah.roosterteeth.com")
+            newNames[7] = "Stats";
+        var newLinks = new Array( "/members/", "/members/signout.php", 
+            "/members/comments/", "/members/log.php", "/members/journal", 
+            "/members/messaging/", "/members/settings/", "/members/stats/myStats.php", 
+            "/members/modHistory.php?nc=1", "/members/journal/friendsJournals.php?nc=1", 
+            "/sponsRedir.php");
+        var checkPrefs = new Array( "extensions.rtse.link.user", "extensions.rtse.link.signOut", 
+        "extensions.rtse.link.comments", "extensions.rtse.link.log", "extensions.rtse.link.journal", 
+        "extensions.rtse.link.messages", "extensions.rtse.link.settings", "extensions.rtse.link.myStats", 
+        "extensions.rtse.link.modHistory", "extensions.rtse.link.friendJournals", 
+        "extensions.rtse.link.sponsor");
+        var td = "";
+        var line1 = 0;
+        var line2 = 0;
+        var line3 = 0;
+        if(length != 0) {
             td += "<a class='userInfo' style='opacity: 0.5;' " +
-                  "href='/members/'>You have new alerts</a>&nbsp;&middot;&nbsp;";
-            for(i = 0; i < lng; i++)
-            {
-                if(i == 2 || i == 7)
-                    td += "<br\>";
-                else
-                    if(i != 0)
-                        td += "&nbsp;&middot;&nbsp;";
-                    if(i == 7)
-                        td += "<img " +
-                              "src='/assets/images/subscriberStarSmallTrans.png'" +
-                              " style='float: none;'>&nbsp;";
-                    td += "<a href=" + newLinks[i] + " class=userInfo>" + 
-                            newNames[i] + "</a>";
+              "href='/members/'>You have new alerts</a>&nbsp;&middot;&nbsp;";
+        }
+        for(i = 0; i < lng; i++) {
+            if (gRTSE.prefsGetBool(checkPrefs[i])) {
+                if(i < 2) {
+                    ++line1;
+                }
+                else if(i < 7) {
+                    ++line2;
+                }
+                else {
+                    ++line3;
+                }
             }
-            if(lng==7)
-                td += "<br\>" +
-                        "<img src='/assets/images/subscriberStarSmallTrans.png' " +
-                        "style='float: none;'>&nbsp;<a href=" + newLinks[10] +
-                        " class=userInfo>" + newNames[10] + "</a>";
-            userInfo.innerHTML = td;
+        }
+        for(i = 0; i < lng; i++) {
+            if(i == 2 && line1 > 0 || i == 7 && line2 > 0) {
+                td += "<br\>";
+            }
+            if (gRTSE.prefsGetBool(checkPrefs[i])) {
+                if(i == 10 && gRTSE.prefsGetBool("extensions.rtse.link.star")) {
+                        td += "<img " +
+                            "src='/assets/images/subscriberStarSmallTrans.png'" +
+                            " style='float: none;'>&nbsp;";
+                }
+                td += "<a href=" + newLinks[i] + " class=userInfo>" + 
+                    newNames[i] + "</a>";
+                if(i <= 1 && line1 > 1) {
+                    td += "&nbsp;&middot;&nbsp;";
+                    --line1;
+                }
+                if(2 <= i && i <= 6 && line2 > 1) {
+                    td += "&nbsp;&middot;&nbsp;";
+                    --line2;
+                }
+                if(7 <= i && line3 > 1) {
+                    td += "&nbsp;&middot;&nbsp;";
+                    --line3;
+                }
+            }
+        }
+        if(lng==7 && gRTSE.prefsGetBool(checkPrefs[10])){
+            td += "<br\>"
+            if(gRTSE.prefsGetBool("extensions.rtse.link.star")){
+                td += "&nbsp;<img src='/assets/images/subscriberStarSmallTrans.png' " +
+                "style='float: none;'>&nbsp;";
+            }
+            td += "<a href=" + newLinks[10] + " class=userInfo>" + newNames[10] + "</a>";
+        }
+        userInfo.innerHTML = td;
     }
 }
 

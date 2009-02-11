@@ -29,6 +29,8 @@ function load() {
 	// Load Smilies Preview
 	displaySmilies();
 
+    starboxtoggle();
+
   // Forum Names
   var bundle = document.getElementById('bundle_forums');
   var ref = document.getElementById('forums').children;
@@ -53,6 +55,14 @@ function forumJump()
     !document.getElementById('forum').checked;
   document.getElementById('forums_desc').hidden =
     !document.getElementById('forum').checked;
+}
+
+/*
+ *Function to disable/enable the tickbox for the sponsor star
+ */
+function starboxtoggle() {
+  document.getElementById('star').disabled =
+    !document.getElementById('sponsor').checked;
 }
 
 /**

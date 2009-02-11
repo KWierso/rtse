@@ -86,9 +86,45 @@
   </prefpane>
   <prefpane id="prefs" label="&Preferences.name;" flex="1">
     <preferences>
-      <preference id="pref_links"
+     <preference id="pref_links"
                   name="extensions.rtse.fixLinks"
                   type="bool"/>
+     <preference id="link_user"
+	              name="extensions.rtse.link.user"
+				  type="bool"/>
+     <preference id="link_signOut"
+	              name="extensions.rtse.link.signOut"
+				  type="bool"/>
+     <preference id="link_comments" 
+	              name="extensions.rtse.link.comments"
+				  type="bool"/>
+     <preference id="link_log"
+				  name="extensions.rtse.link.log"
+				  type="bool"/>
+     <preference id="link_journal"
+				  name="extensions.rtse.link.journal"
+				  type="bool"/>
+     <preference id="link_messages"
+				  name="extensions.rtse.link.messages"
+				  type="bool"/>
+     <preference id="link_settings"
+				  name="extensions.rtse.link.settings"
+				  type="bool"/>
+     <preference id="link_myStats"
+				  name="extensions.rtse.link.myStats"
+				  type="bool"/>
+     <preference id="link_modHistory"
+				  name="extensions.rtse.link.modHistory"
+				  type="bool"/>
+     <preference id="link_friendJournals"
+				  name="extensions.rtse.link.friendJournals"
+				  type="bool"/>
+     <preference id="link_sponsor"
+				  name="extensions.rtse.link.sponsor"
+				  type="bool"/>
+     <preference id="link_star"
+				  name="extensions.rtse.link.star"
+				  type="bool"/>
     </preferences>
     <vbox flex="1">
       <groupbox>
@@ -98,6 +134,74 @@
                   label="&Preferences.enablelinkfixing;"
                   preference="pref_links"/>
       </groupbox>
+      	  <spacer style="height:10px;"/>
+	  <groupbox>
+      <caption label="&Preferences.link.groupcaption;"/>
+      <description>&Preferences.link.desc;</description>
+       <richlistbox id="link_display" maxheight="130" flex="1">
+        <richlistitem orient="vertical">
+          <checkbox id="user"
+		  label="&Preferences.link.user;"
+		  preference="link_user"/>
+        </richlistitem>
+        <richlistitem orient="vertical">
+          <checkbox id="signOut"
+          label="&Preferences.link.signOut;"
+		  preference="link_signOut"/>
+        </richlistitem>        
+		<richlistitem orient="vertical">
+          <checkbox id="comments" 
+          label="&Preferences.link.comments;"
+		  preference="link_comments"/>
+        </richlistitem>        
+        <richlistitem orient="vertical">
+          <checkbox id="log" 
+          label="&Preferences.link.log;"
+		  preference="link_log"/>
+        </richlistitem>
+		<richlistitem orient="vertical">
+          <checkbox id="journal" 
+          label="&Preferences.link.journal;"
+		  preference="link_journal"/>
+        </richlistitem>        
+		<richlistitem orient="vertical">
+          <checkbox id="messages" 
+          label="&Preferences.link.messages;"
+		  preference="link_messages"/>
+        </richlistitem>  
+        <richlistitem orient="vertical">
+          <checkbox id="settings" 
+          label="&Preferences.link.settings;"
+		  preference="link_settings"/>
+        </richlistitem>         
+		<richlistitem orient="vertical">
+          <checkbox id="myStats"
+          label="&Preferences.link.myStats;"
+		  preference="link_myStats"/>
+        </richlistitem>        
+		<richlistitem orient="vertical">
+          <checkbox id="modHistory"
+          label="&Preferences.link.modHistory;"
+		  preference="link_modHistory"/>
+        </richlistitem>        
+		<richlistitem orient="vertical">
+          <checkbox id="friendJournals" 
+          label="&Preferences.link.friendJournals;"
+		  preference="link_friendJournals"/>
+        </richlistitem>        
+		<richlistitem orient="vertical">
+          <checkbox id="sponsor" 
+          label="&Preferences.link.sponsor;"
+		  preference="link_sponsor"
+		  oncommand="starboxtoggle()"/>
+        </richlistitem>        
+		<richlistitem orient="vertical">
+          <checkbox id="star" 
+          label="&Preferences.link.star;"
+		  preference="link_star"/>
+        </richlistitem>        
+       </richlistbox>      
+	  </groupbox>
     </vbox>
   </prefpane>
   <prefpane id="extensions" label="&Extension.name;" flex="1">
