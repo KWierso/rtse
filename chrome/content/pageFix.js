@@ -228,7 +228,7 @@ function RTSE_addToUserInfo(doc) {
                 if(i == 10 && gRTSE.prefsGetBool("extensions.rtse.link.star")) {
                         td += "<img " +
                             "src='/assets/images/subscriberStarSmallTrans.png'" +
-                            " style='float: none;'>&nbsp;";
+                            " style='float: none;'>&nbsp;&nbsp;";
                 }
                 td += "<a href=" + newLinks[i] + " class=userInfo>" + 
                     newNames[i] + "</a>";
