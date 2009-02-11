@@ -26,8 +26,8 @@
 var gRTSE=Components.classes['@shawnwilsher.com/rtse;1']
                     .getService(Components.interfaces.nsIRTSE);
 function load() {
-	// Load Smilies Preview
-	displaySmilies();
+    // Load Smilies Preview
+    displaySmilies();
 
     starboxtoggle();
 
@@ -118,33 +118,33 @@ function smileyFilePicker(aWin)
 function displaySmilies()
 // EFFECTS: Generates preview of currently loaded smilies
 {
-	var s=Components.classes["@shawnwilsher.com/smilies;1"]
-	                .getService(Components.interfaces.nsISmilies);
-	var ref=document.getElementById('smileyPreview');
-	if (!s.ok) {
+    var s=Components.classes["@shawnwilsher.com/smilies;1"]
+                    .getService(Components.interfaces.nsISmilies);
+    var ref=document.getElementById('smileyPreview');
+    if (!s.ok) {
     alert("The smilie service is not ok");
   }
   var names=s.getNames({});
-	// remove any existing children
-	while( ref.lastChild ) {
-		ref.removeChild(ref.lastChild);
-	}
+    // remove any existing children
+    while( ref.lastChild ) {
+        ref.removeChild(ref.lastChild);
+    }
 
-	// add new
-	var item,img,label,box;
-	for( var i in names ) {
-		item=document.createElement('richlistitem');
-		box=document.createElement('hbox');
+    // add new
+    var item,img,label,box;
+    for( var i in names ) {
+        item=document.createElement('richlistitem');
+        box=document.createElement('hbox');
 
-		img=document.createElement('image');
-		img.setAttribute('src',s.getPath(names[i]));
-		box.appendChild(img);
+        img=document.createElement('image');
+        img.setAttribute('src',s.getPath(names[i]));
+        box.appendChild(img);
 
-		label=document.createElement('label');
-		label.setAttribute('value',names[i]);
-		box.appendChild(label);
+        label=document.createElement('label');
+        label.setAttribute('value',names[i]);
+        box.appendChild(label);
 
-		item.appendChild(box);
-		ref.appendChild(item);
-	}
+        item.appendChild(box);
+        ref.appendChild(item);
+    }
 }
