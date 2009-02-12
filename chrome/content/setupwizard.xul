@@ -46,15 +46,9 @@
 	<wizardpage id="auto-signin" description="&Signin.name;">
 		<description maxwidth="300">&Signin.text;</description>
 		<spacer style="height:10px"/>
-		<checkbox checked="true" label="&Signin.enablelabel;" id="signin"/>
-		<spacer style="height:10px"/>
 		<hbox>
 		<label value="&Signin.usernamelabel;" control="username" />
 		<textbox id="username" maxlength="12" size="12" width="120"/>
-		</hbox>
-		<hbox>
-		<label value="&Signin.passwordlabel;" control="pwd" />
-		<textbox id="pwd" maxlength="16" size="16" type="password" width="120"/>
 		</hbox>
 		<hbox>
 			<checkbox checked="false" label="&Signin.sponsorlabel;" id="sponsor"/>

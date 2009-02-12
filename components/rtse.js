@@ -89,54 +89,6 @@ RTSE.prototype =
     this.prefsSetString("extensions.rtse.username", aVal);
   },
 
- /**
-  * Attempts to log a user in.  This only happens if
-  *   "extensions.rtse.autologin" is set to true.
-  */
-  login: function login()
-  {
-    if (!this.mLoginSent && this.prefsGetBool("extensions.rtse.signin") &&
-        this.username && !this.prefsGetBool("extensions.rtse.firstInstall")) {
-      let usr = { value: "" };
-      let pwd = { value: "" };
-      if ("@mozilla.org/passwordmanager;1" in Cc) {
-        let pm = Cc["@mozilla.org/passwordmanager;1"].
-                 getService(Ci.nsIPasswordManagerInternal);
-        try {
-          let login = { value: "" };
-          pm.findPasswordEntry("rtse", this.username, "", login, usr, pwd);
-        } catch (e) {
-          // password manager didn't find what we wanted
-          Components.utils.reportError(e);
-          return;
-        }
-      } else if ("@mozilla.org/login-manager;1" in Cc) {
-        let lm = Cc["@mozilla.org/login-manager;1"].
-                 getService(Ci.nsILoginManager);
-        let logins = lm.findLogins({}, "rtse", "rtse", null);
-        if (logins.length) {
-          usr.value = logins[0].username;
-          pwd.value = logins[0].password;
-        }
-      }
-
-      if (usr.value && pwd.value) {
-        var req = Components.classes["@mozilla.org/xmlextras/xmlhttprequest;1"]
-                            .getService(nsIXMLHttpRequest);
-        req.open("POST", "http://www.roosterteeth.com/members/signinPost.php",
-                 true);
-        req.setRequestHeader("Content-Type",
-                             "application/x-www-form-urlencoded");
-        req.send("user=" + this.username + "&pass=" + pwd.value);
-      } else {
-        Components.utils.reportError("RTSE Login Failure.\n" +
-                                     "Username/password not stored.");
-      }
-
-      this.mLoginSent = true;
-    }
-  },
-
   prefsSetBool: function(aName,aValue)
   // EFFECTS: Sets a boolean preference aName with aValue.
   {

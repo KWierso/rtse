@@ -39,9 +39,6 @@ var RTSE = {
     if (gRTSE.prefsGetBool('extensions.rtse.firstInstall'))
       window.openDialog('chrome://rtse/content/setupwizard.xul','RTSEsetup','chrome,centerscreen');
 
-    // Sign in
-    gRTSE.login();
-
     var appcontent=document.getElementById("appcontent"); /* This is the browser */
     if(appcontent)
       appcontent.addEventListener("DOMContentLoaded",this.onPageLoad,true);

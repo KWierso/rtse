@@ -40,21 +40,6 @@ var wizard = {
       let user = document.getElementById("username").value;
       gRTSE.prefsSetString("extensions.rtse.username", user);
 
-      // Password
-      let pwd = document.getElementById("pwd").value;
-
-      let lm = Cc["@mozilla.org/login-manager;1"].
-               getService(Ci.nsILoginManager);
-
-      let loginInfo = Cc["@mozilla.org/login-manager/loginInfo;1"].
-                      createInstance(Ci.nsILoginInfo);
-      loginInfo.init("rtse", "rtse", null, user, pwd, "", "");
-      lm.addLogin(loginInfo);
-
-      // Auto Sign In
-      gRTSE.prefsSetBool("extensions.rtse.signin",
-                         document.getElementById("signin").checked);
-    
       // Sponsor
       gRTSE.prefsSetBool("extensions.rtse.sponsor",
                          document.getElementById("sponsor").checked);

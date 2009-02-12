@@ -1,6 +1,5 @@
 pref("general.useragent.extra.rtse","RTSE/1.1.0.20090209");
 pref("extensions.rtse.username","");
-pref("extensions.rtse.signin",true);
 pref("extensions.rtse.sponsor",false);
 pref("extensions.rtse.themeType",'www');
 pref("extensions.rtse.editor",true);

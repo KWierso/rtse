@@ -53,14 +53,10 @@
       <preference id="pref_username"
                   name="extensions.rtse.username"
                   type="string"/>
-      <preference id="pref_signin"
-                  name="extensions.rtse.signin"
-                  type="bool"/>
     </preferences>
     <vbox flex="1">
       <groupbox>
         <caption label="&Authentication.credentialscaption;"/>
-        <description>&Authentication.credentialsdesc;</description>
         <hbox align="center">
           <label value="&Authentication.usernamelabel;" control="username"/>
           <textbox id="username"
@@ -69,18 +65,6 @@
                    width="120"
                    preference="pref_username"/>
         </hbox>
-        <hbox align="center">
-          <label value="&Authentication.passwordlabel;" control="pwd"/>
-          <textbox id="pwd"
-                   maxlength="16"
-                   size="16"
-                   type="password"
-                   width="120"/>
-        </hbox>
-        <spacer style="height: 10px"/>
-        <checkbox id="signin"
-                  label="&Authentication.enableloginlabel;"
-                  preference="pref_signin"/>
       </groupbox>
     </vbox>
   </prefpane>

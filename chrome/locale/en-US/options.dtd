@@ -3,11 +3,8 @@
 <!ENTITY Options.cancel "Cancel">
 
 <!ENTITY Authentication.credentialscaption "User Credentials">
-<!ENTITY Authentication.credentialsdesc "These are required in order to have the extension sign you in automatically.  They are stored in the browser's password manager, so you can always clear them there.">
 <!ENTITY Authentication.name "Authentication">
 <!ENTITY Authentication.usernamelabel "Username:">
-<!ENTITY Authentication.passwordlabel "Password:">
-<!ENTITY Authentication.enableloginlabel "Sign me in when my browser starts">
 <!ENTITY Preferences.name "Site Preferences">
 
 <!ENTITY Preferences.link.groupcaption "Displayed links">
