@@ -1,13 +1,11 @@
 pref("general.useragent.extra.rtse","RTSE/1.1.0.20090209");
-pref("extensions.rtse.username","");
 pref("extensions.rtse.sponsor",false);
 pref("extensions.rtse.themeType",'www');
 pref("extensions.rtse.editor",true);
-pref("extensions.rtse.firstInstall",false);
+pref("extensions.rtse.firstInstall",true);
 pref("extensions.rtse.talkback",false);
 pref("extensions.rtse.fixLinks",true);
 pref("extensions.rtse.smilies",true);
-pref("extensions.rtse.samePageReply",true);
 
 pref("extensions.rtse.link.user",true);
 pref("extensions.rtse.link.signOut",true);

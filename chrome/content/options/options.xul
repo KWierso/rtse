@@ -41,33 +41,23 @@
             buttons="accept,cancel"
             buttonlabelaccept="&Options.accept;"
             buttonlabelcancel="&Options.cancel;">
-
-
-  <prefpane id="auth" label="&Authentication.name;" selected="true" flex="1">
-    <!-- Why is this here?  I don't know either... -->
     <script type="application/x-javascript"
             src="chrome://rtse/content/options/options.js"/>
     <script type="application/x-javascript"
             src="chrome://rtse/content/functions.js"/>
+
+
+<!-- <prefpane id="auth" label="" selected="true" flex="1">
     <preferences>
-      <preference id="pref_username"
-                  name="extensions.rtse.username"
-                  type="string"/>
+      
     </preferences>
     <vbox flex="1">
       <groupbox>
-        <caption label="&Authentication.credentialscaption;"/>
-        <hbox align="center">
-          <label value="&Authentication.usernamelabel;" control="username"/>
-          <textbox id="username"
-                   maxlength="12"
-                   size="12"
-                   width="120"
-                   preference="pref_username"/>
-        </hbox>
+
       </groupbox>
     </vbox>
-  </prefpane>
+  </prefpane> -->
+
   <prefpane id="prefs" label="&Preferences.name;" flex="1">
     <preferences>
      <preference id="pref_links"
@@ -199,13 +189,14 @@
       <preference id="pref_editor"
                   name="extensions.rtse.editor"
                   type="bool"/>
-      <preference id="pref_SPR"
-                  name="extensions.rtse.samePageReply"
-                  type="bool"/>
     </preferences>
     <vbox flex="1">
       <groupbox width="400">
         <caption label="&Extension.addedfeatures;"/>
+        <checkbox id="editor"
+                  label="&Extension.enableadvancededitor;"
+                  preference="pref_editor"/>
+        <spacer style="height:10px;"/>
         <checkbox id="sponsor"
                   label="&Extension.enablesponsoronly;"
                   preference="pref_sponsor"/>
@@ -224,17 +215,8 @@
           </hbox>
           <richlistbox suppressonselect="true"
                        id="smileyPreview"
-                       maxheight="60"/>
+                       maxheight="150"/>
         </vbox>
-      </groupbox>
-      <groupbox width="400">
-        <caption label="&Extension.uicaption;"/>
-        <checkbox id="editor"
-                  label="&Extension.enableadvancededitor;"
-                  preference="pref_editor"/>
-        <checkbox id="same_page_reply"
-                  label="&Extension.samepagereplies;"
-                  preference="pref_SPR"/>
       </groupbox>
     </vbox>
   </prefpane>

@@ -339,7 +339,6 @@ function RTSE_samePageReply(aEvent)
  */
 function RTSE_modifyReply(aDoc)
 {
-  if (!gRTSE.prefsGetBool("extensions.rtse.samePageReply")) return;
   var elms = RTSE_evaluateXPath(aDoc, "//td[@id='pageContent']/table/tbody/tr[1]/td/table/tbody/tr[3]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/a[2]/b");
   if(elms.length == 0)
     elms = RTSE_evaluateXPath(aDoc, "//td[@id='pageContent']/table/tbody/tr[2]/td/table/tbody/tr[3]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/a[2]/b");
@@ -362,7 +361,6 @@ function RTSE_modifyQuote(aDoc)
 {
   var span,a,b;
  
-  if (!gRTSE.prefsGetBool("extensions.rtse.samePageReply")) return;
   var elms = RTSE_evaluateXPath(aDoc, "//td[@id='pageContent']/table/tbody/tr[1]/td/table/tbody/tr[3]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/a[3]/b");
   if(elms.length == 0)
     elms = RTSE_evaluateXPath(aDoc, "//td[@id='pageContent']/table/tbody/tr[2]/td/table/tbody/tr[3]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/a[3]/b");
