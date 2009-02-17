@@ -36,9 +36,6 @@ var wizard = {
   */
   apply: function apply() {
     try {
-      // Username
-      let user = document.getElementById("username").value;
-      gRTSE.prefsSetString("extensions.rtse.username", user);
 
       // Sponsor
       gRTSE.prefsSetBool("extensions.rtse.sponsor",

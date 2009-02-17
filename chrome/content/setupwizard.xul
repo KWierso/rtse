@@ -37,29 +37,22 @@
 	xmlns:html="http://www.w3.org/1999/xhtml"
 	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
 	onwizardfinish="return wizard.apply();"
-	height="500"
+	height="400"
 	width="400">
 	<script type="application/x-javascript" src="chrome://rtse/content/setup.js"/>
 	<wizardpage id="disclaimer" description="&Welcome.name;">
 		<description maxwidth="300">&Welcome.text;</description>
-	</wizardpage>
-	<wizardpage id="auto-signin" description="&Signin.name;">
-		<description maxwidth="300">&Signin.text;</description>
-		<spacer style="height:10px"/>
-		<hbox>
-		<label value="&Signin.usernamelabel;" control="username" />
-		<textbox id="username" maxlength="12" size="12" width="120"/>
-		</hbox>
-		<hbox>
-			<checkbox checked="false" label="&Signin.sponsorlabel;" id="sponsor"/>
-		</hbox>
-		<description maxwidth="300">&Signin.sponsortext;</description>
 	</wizardpage>
 	<wizardpage id="sitepreferences" description="&Sitepref.name;">
 		<spacer style="height:20px"/>
 		<description>&Sitepref.ATElabel;</description>
 		<spacer style="height:10px"/>
 		<checkbox id="editor" checked="true" label="&Sitepref.ATEenable;"/>
+        <spacer style="height:10px"/>
+        <hbox>
+			<checkbox checked="false" label="&Signin.sponsorlabel;" id="sponsor"/>
+		</hbox>
+		<description maxwidth="300">&Signin.sponsortext;</description>
   </wizardpage>
 	<wizardpage id="finished" description="&Finished.name;">
 		<description maxwidth="300">&Finished.text;</description>
