@@ -95,12 +95,6 @@ var RTSE = {
       // Run on all other pages with posts
       if( doc.location.href.match("entry.php") == 'entry.php' || doc.location.href.match("viewEntry.php") == 'viewEntry.php' || 
               doc.location.href.match("viewTopic.php") == 'viewTopic.php' || doc.location.href.match("image.php") == 'image.php') {
-
-          //remove sideBar from forum topics
-          //This saves the RTSE_postPermalink() function down below
-          if(doc.location.href.match(doc.domain + "/forum/viewTopic.php") == doc.domain + "/forum/viewTopic.php") {
-              RTSE_removeSidebar(doc);
-          }
           
           // Replies
           RTSE_modifyReply(doc);
