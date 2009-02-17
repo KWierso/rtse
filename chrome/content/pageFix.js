@@ -366,7 +366,6 @@ function RTSE_modifyReply(aDoc)
 function RTSE_modifyQuote(aDoc)
 {
   var span,a,b;
-  var href = (aDoc.getElementById('Post'))?'#Post':'#add';
  
   if (!gRTSE.prefsGetBool("extensions.rtse.samePageReply")) return;
   var elms = RTSE_evaluateXPath(aDoc, "//td[@id='pageContent']/table/tbody/tr[1]/td/table/tbody/tr[3]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/a[3]/b");
@@ -386,14 +385,11 @@ function RTSE_modifyQuote(aDoc)
     span=aDoc.createElement('span');
     a=aDoc.createElement('a');
     b=aDoc.createElement('b');
-    a.setAttribute('href',href);
     a.setAttribute('class','small');
     a.addEventListener('click',RTSE_quotePost,false);
     b.appendChild(aDoc.createTextNode('Quote'))
     a.appendChild(b);
-    //span.appendChild(aDoc.createTextNode(' [ '));
     span.appendChild(a);
-    //span.appendChild(aDoc.createTextNode(' ] '));
     elms[i].parentNode.replaceChild(span, elms[i]);
   }
 }
