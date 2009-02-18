@@ -467,6 +467,7 @@ function RTSE_HTMLtoBB(aText)
   aText = aText.replace(/\n/g,'');
   aText = aText.replace(/<br>/g,'\n');
 
+  aText = aText.replace(/<span style="background-color: rgb\(221, 221, 221\); color: rgb\(221, 221, 221\);">(.*?)<\/span>/, "[spoiler]$1[/spoiler]");
   // Sponsor stuff for colors (preserves if you are a sponsor)
   if (gRTSE.prefsGetBool('extensions.rtse.sponsor')) {
     while(/<span style="color: rgb(.*?);">/.test(aText)) {
