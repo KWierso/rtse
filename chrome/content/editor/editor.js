@@ -752,6 +752,9 @@ RTSE.editor =
       case "q":
         RTSE.editor.insertTag("quote");
         break;
+      case "c":
+        RTSE.editor.insertTag("code");
+        break;
       case "l":
         RTSE.editor.link();
         break;
