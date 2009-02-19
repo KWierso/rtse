@@ -353,6 +353,9 @@ function RTSE_modifyReply(aDoc)
   for (let i in elms) {    
     elms[i].parentNode.removeAttribute("href");
 	elms[i].parentNode.removeAttribute("onclick");
+    //only go down to RT's editor if that's what you're using
+    if(!gRTSE.prefsGetBool("extensions.rtse.editor"))
+        elms[i].parentNode.href = "#Post";
     elms[i].addEventListener("click", RTSE_samePageReply, false);
   }
 }
@@ -383,6 +386,9 @@ function RTSE_modifyQuote(aDoc)
     b.appendChild(aDoc.createTextNode('Quote'))
     a.appendChild(b);
     span.appendChild(a);
+    //only go down to RT's editor if that's what you're using
+    if(!gRTSE.prefsGetBool("extensions.rtse.editor"))
+        a.href = "#Post";
     elms[i].parentNode.replaceChild(span, elms[i]);
   }
 }
