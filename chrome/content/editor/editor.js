@@ -755,6 +755,9 @@ RTSE.editor =
       case "c":
         RTSE.editor.insertTag("code");
         break;
+      case "o":
+        RTSE.editor.insertTag("spoiler");
+        break;
       case "l":
         RTSE.editor.link();
         break;
