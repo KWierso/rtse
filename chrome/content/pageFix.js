@@ -322,7 +322,25 @@ function RTSE_samePageReply(aEvent)
   } else {
     editor = this.ownerDocument.forms.namedItem('post').elements.namedItem('body');
   }
-  editor.value = editor.value + text;
+  
+  var buttonText = gRTSE.prefsGetBool("extensions.rtse.editor.buttonText");
+  if(buttonText) {
+      //insert 'reply to' text at cursor
+      try {
+        var pos = editor.selectionStart + text.length;
+
+        editor.value = editor.value.substring(0, editor.selectionStart) + text +
+                    editor.value.substring(editor.selectionStart, editor.textLength);
+        editor.setSelectionRange(pos, pos);
+      } catch(e) {
+        //add the text, even if the editor is currently closed
+        editor.value = editor.value + text;
+      }
+  }
+  else {  
+    editor.value = editor.value + text;
+  }
+  
   if (useEditor) {
     // We want to simulate the user doing this, so send out an input event.
     var e = document.createEvent("UIEvents");
@@ -412,7 +430,25 @@ function RTSE_quotePost(aEvent)
     editor = this.ownerDocument.forms.namedItem("post").elements
                  .namedItem("body");
   }
-  editor.value = editor.value + text;
+  
+  var buttonText = gRTSE.prefsGetBool("extensions.rtse.editor.buttonText");
+  if(buttonText) {
+      //insert quoted text at cursor
+      try {
+        var pos = editor.selectionStart + text.length;
+
+        editor.value = editor.value.substring(0, editor.selectionStart) + text +
+                    editor.value.substring(editor.selectionStart, editor.textLength);
+        editor.setSelectionRange(pos, pos);
+      } catch(e) {
+        //add the text, even if editor is currently closed
+        editor.value = editor.value + text;
+      }
+  }
+  else {  
+    editor.value = editor.value + text;
+  }
+  
   if (useEditor) {
     // We want to simulate the user doing this, so send out an input event.
     var e = document.createEvent("UIEvents");
