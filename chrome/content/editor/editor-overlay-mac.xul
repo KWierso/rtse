@@ -44,6 +44,8 @@
           label="Quote"/>
   <button id="rtse-editor-link"
           label="Link"/>
+  <button id="rtse-editor-code"
+          label="Code"/>
   <button id="rtse-editor-color"
           label="Color"/>
   <button id="rtse-editor-colorSwitch"
