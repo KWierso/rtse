@@ -36,8 +36,7 @@
   <panel id="rtse-realtime-editor"
          noautofocus="true"
          noautohide="true"
-         onpopupshown="document.getElementById('rtse-editor-body').focus();"
-         onpopuphidden="RTSE.editor.ensureEditorIsHidden();">
+         onpopupshown="document.getElementById('rtse-editor-body').focus();">
     <!--
     <vbox id="rtse-preview" flex="2" persist="width"/>
     <splitter id="rtse-preview-editor-splitter" collapse="before"/>
