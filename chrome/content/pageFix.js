@@ -30,12 +30,12 @@ if( !gRTSE )
 
 function RTSE_linkFix(aDoc)
 // EFFECTS: removes all targets from links and prevents links from opening in a
-//          new flavor.  In addition, it changes an anchors for that page to
+//          new flavor.  In addition, it changes any anchors for that page to
 //          scroll into view as opposed to loading a new url.
 {
   // Scroll Into view for links on same page
   var loc = aDoc.location.href
-                .replace(/^https?:\/\/(www|rvb|sh|panics|magic)\.roosterteeth\.com(.*)$/i,'$2');
+                .replace(/^https?:\/\/(www|rvb|sh|panics|magic|myspace|ah|m)\.roosterteeth\.com(.*)$/i,'$2');
   var func = function showMe(aEvent) {
     var id = this.href.replace(/^.*?#([\S\s]+)$/i,'$1');
     var doc = this.ownerDocument;
@@ -54,7 +54,7 @@ function RTSE_linkFix(aDoc)
   // Remove target and keep same flavor
   if (!gRTSE.prefsGetBool("extensions.rtse.fixLinks")) return;
   links = RTSE_evaluateXPath(aDoc,'//a[@target="_blank"]');
-  var regEx = /^http:\/\/(www|rvb|sh|panics|magic).roosterteeth.com(.*)$/i;
+  var regEx = /^http:\/\/(www|rvb|sh|panics|magic|myspace|ah|m).roosterteeth.com(.*)$/i;
   for (var i = (links.length - 1); i >= 0; --i) {
     if (links[i].href.match(regEx)) {
       links[i].removeAttribute('target');
