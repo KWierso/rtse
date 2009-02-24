@@ -1,4 +1,4 @@
-pref("general.useragent.extra.rtse","RTSE/1.1.0.20090209");
+pref("general.useragent.extra.rtse","RTSE/1.1.0.20090222");
 pref("extensions.rtse.sponsor",false);
 pref("extensions.rtse.themeType",'www');
 pref("extensions.rtse.editor",true);
@@ -21,6 +21,7 @@ pref("extensions.rtse.link.modHistory",true);
 pref("extensions.rtse.link.friendJournals",true);
 pref("extensions.rtse.link.sponsor",true);
 pref("extensions.rtse.link.star",true);
+pref("extensions.rtse.link.avatar",true);
 
 pref("extensions.rtse.forum.101",true);
 pref("extensions.rtse.forum.109",true);

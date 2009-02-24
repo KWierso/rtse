@@ -99,6 +99,9 @@
      <preference id="link_star"
                   name="extensions.rtse.link.star"
                   type="bool"/>
+     <preference id="link_avatar"
+                  name="extensions.rtse.link.avatar"
+                  type="bool"/>
     </preferences>
     <vbox flex="1">
       <groupbox>
@@ -173,7 +176,12 @@
           <checkbox id="star" 
           label="&Preferences.link.star;"
           preference="link_star"/>
-        </richlistitem>        
+        </richlistitem>
+        <richlistitem orient="vertical">
+          <checkbox id="avatar" 
+          label="&Preferences.link.avatar;"
+          preference="link_avatar"/>
+        </richlistitem>
        </richlistbox>      
       </groupbox>
     </vbox>

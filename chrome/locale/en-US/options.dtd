@@ -21,6 +21,7 @@
 <!ENTITY Preferences.link.friendJournals "Friends' Journals">
 <!ENTITY Preferences.link.sponsor "Sponsorship">
 <!ENTITY Preferences.link.star "Show star next to sponsorship link">
+<!ENTITY Preferences.link.avatar "Show your avatar image">
 
 <!ENTITY Preferences.linkfixgroupcaption "Link Fixing">
 <!ENTITY Preferences.linkfixdesc "This prevents any links to content on this site from opening in a new window.">

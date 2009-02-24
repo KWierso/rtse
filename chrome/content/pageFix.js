@@ -198,7 +198,7 @@ function RTSE_addToUserInfo(doc) {
         "extensions.rtse.link.comments", "extensions.rtse.link.log", "extensions.rtse.link.journal", 
         "extensions.rtse.link.messages", "extensions.rtse.link.settings", "extensions.rtse.link.myStats", 
         "extensions.rtse.link.modHistory", "extensions.rtse.link.friendJournals", 
-        "extensions.rtse.link.sponsor");
+        "extensions.rtse.link.sponsor", "extensions.rtse.link.avatar");
         var td = "";
         var line1 = 0;
         var line2 = 0;
@@ -255,6 +255,9 @@ function RTSE_addToUserInfo(doc) {
             td += "<a href=" + newLinks[10] + " class=userInfo>" + newNames[10] + "</a>";
         }
         userInfo.innerHTML = td;
+        if(!gRTSE.prefsGetBool(checkPrefs[11])) {
+            userInfo.parentNode.getElementsByTagName("td")[1].style.display = "none";
+        }
     }
 }
 
