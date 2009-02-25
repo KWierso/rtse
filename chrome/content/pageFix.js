@@ -417,11 +417,40 @@ function RTSE_modifyQuote(aDoc)
 function RTSE_quotePost(aEvent)
 // EFFECTS: Quotes a post
 {
+  var text = "";
+  if(gRTSE.prefsGetBool("extensions.rtse.editor.quoteReply")) {
+      //Generate the "Reply To" text as well
+      try {
+        var name = this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode
+                     .getElementsByTagName('td')[0]
+                     .getElementsByTagName('table')[0]
+                     .getElementsByTagName('tbody')[0]
+                     .getElementsByTagName('tr')[1].getElementsByTagName('td')[0]
+                     .getElementsByTagName('span')[0]
+                     .firstChild.firstChild.innerHTML;
+      }
+      catch (e) {
+        var name = this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode
+                     .getElementsByTagName('td')[0]
+                     .getElementsByTagName('table')[0]
+                     .getElementsByTagName('tbody')[0]
+                     .getElementsByTagName('tr')[1].getElementsByTagName('td')[0]
+                     .getElementsByTagName('a')[0].innerHTML;
+      }
+      name=name.replace(new RegExp('\t','gmi'),'');
+      name=name.replace(new RegExp('\n','gmi'),'');
+
+      var num = this.parentNode.parentNode.parentNode.parentNode.parentNode
+                    .getElementsByTagName('td')[0].getElementsByTagName('a')[0]
+                    .firstChild.data;
+      num = num.replace(/#([0-9]+)/,'$1');
+      text = '[i]In reply to '+name+', #'+num+':[/i]\n\n';
+  }
   var ref = this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
   var post = RTSE_evaluateXPath(ref,'./tr[2]/td');
-  var text = new String(post[0].innerHTML);
+  var text2 = new String(post[0].innerHTML);
 
-  text = '[quote]' + RTSE_HTMLtoBB(text) + '[/quote]\n\n';
+  text += '[quote]' + RTSE_HTMLtoBB(text2) + '[/quote]\n\n';
 
   // update the text of the body
   var editor;
@@ -433,7 +462,7 @@ function RTSE_quotePost(aEvent)
     editor = this.ownerDocument.forms.namedItem("post").elements
                  .namedItem("body");
   }
-  
+
   var buttonText = gRTSE.prefsGetBool("extensions.rtse.editor.buttonText");
   if(buttonText) {
       //insert quoted text at cursor

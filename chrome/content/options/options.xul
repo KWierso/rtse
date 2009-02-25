@@ -197,6 +197,9 @@
       <preference id="pref_editor"
                   name="extensions.rtse.editor"
                   type="bool"/>
+      <preference id="pref_quoteReply"
+                  name="extensions.rtse.editor.quoteReply"
+                  type="bool"/>
     </preferences>
     <vbox flex="1">
       <groupbox width="400">
@@ -204,6 +207,10 @@
         <checkbox id="editor"
                   label="&Extension.enableadvancededitor;"
                   preference="pref_editor"/>
+        <spacer style="height:10px;"/>
+        <checkbox id="quoteReply"
+                  label="&Extension.enablequotereply;"
+                  preference="pref_quoteReply"/>
         <spacer style="height:10px;"/>
         <checkbox id="sponsor"
                   label="&Extension.enablesponsoronly;"
@@ -223,7 +230,7 @@
           </hbox>
           <richlistbox suppressonselect="true"
                        id="smileyPreview"
-                       maxheight="150"/>
+                       maxheight="120"/>
         </vbox>
       </groupbox>
     </vbox>

@@ -8,6 +8,7 @@ pref("extensions.rtse.fixLinks",true);
 pref("extensions.rtse.smilies",true);
 
 pref("extensions.rtse.editor.buttonText",true);
+pref("extensions.rtse.editor.quoteReply",true);
 
 pref("extensions.rtse.link.user",true);
 pref("extensions.rtse.link.signOut",true);
