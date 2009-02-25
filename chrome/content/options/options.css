@@ -8,7 +8,7 @@
   -moz-appearance: none !important;
 }
 
-radio[pane=auth] {
+radio[pane=extras] {
   -moz-image-region:rect(0px, 32px, 32px, 0px)
 }
 radio[pane=prefs] {

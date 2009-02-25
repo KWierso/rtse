@@ -46,18 +46,6 @@
     <script type="application/x-javascript"
             src="chrome://rtse/content/functions.js"/>
 
-
-<!-- <prefpane id="auth" label="" selected="true" flex="1">
-    <preferences>
-      
-    </preferences>
-    <vbox flex="1">
-      <groupbox>
-
-      </groupbox>
-    </vbox>
-  </prefpane> -->
-
   <prefpane id="prefs" label="&Preferences.name;" flex="1">
     <preferences>
      <preference id="pref_links"
@@ -576,4 +564,14 @@
       </richlistbox>
     </groupbox>
   </prefpane>
+<!--  <prefpane id="extras" label="&Extras.name;" selected="true" flex="1">
+    <preferences>
+    </preferences>
+    <vbox flex="1">
+      <groupbox>
+        <caption label="&Extras.groupcaption;"/>
+
+      </groupbox>
+    </vbox>
+  </prefpane> -->
 </prefwindow>

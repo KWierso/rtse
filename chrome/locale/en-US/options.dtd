@@ -2,11 +2,10 @@
 <!ENTITY Options.accept "Accept">
 <!ENTITY Options.cancel "Cancel">
 
-<!ENTITY Authentication.credentialscaption "User Credentials">
-<!ENTITY Authentication.name "Authentication">
-<!ENTITY Authentication.usernamelabel "Username:">
-<!ENTITY Preferences.name "Site Preferences">
+<!ENTITY Extras.name "Extras">
+<!ENTITY Extras.groupcaption "Additional Features">
 
+<!ENTITY Preferences.name "Site Preferences">
 <!ENTITY Preferences.link.groupcaption "Displayed links">
 <!ENTITY Preferences.link.desc "Select which links are displayed next to your avatar at the top of page">
 <!ENTITY Preferences.link.user "Username">
