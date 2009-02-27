@@ -68,7 +68,8 @@ var RTSE = {
       RTSE_addCSS(doc);
       
       /*Add UserInfo Links*/
-      RTSE_addToUserInfo(doc);
+      if(gRTSE.prefsGetBool("extensions.rtse.link.enabled"))
+        RTSE_addToUserInfo(doc);
 
       // Fix Links
       RTSE_linkFix(doc);

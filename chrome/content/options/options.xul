@@ -51,6 +51,9 @@
      <preference id="pref_links"
                   name="extensions.rtse.fixLinks"
                   type="bool"/>
+     <preference id="link_enabled"
+                  name="extensions.rtse.link.enabled"
+                  type="bool"/>
      <preference id="link_user"
                   name="extensions.rtse.link.user"
                   type="bool"/>
@@ -102,7 +105,10 @@
             <spacer style="height:10px;"/>
       <groupbox>
       <caption label="&Preferences.link.groupcaption;"/>
-      <description>&Preferences.link.desc;</description>
+      <checkbox id="userInfo"
+                  label="&Preferences.link.desc;"
+                  preference="link_enabled"
+                  oncommand="linkDisplay();"/>
        <richlistbox id="link_display" maxheight="130" flex="1">
         <richlistitem orient="vertical">
           <checkbox id="user"

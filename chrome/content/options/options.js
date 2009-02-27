@@ -44,6 +44,7 @@ function load() {
   }
 
   forumJump();
+  linkDisplay();
 }
 
 /**
@@ -55,6 +56,15 @@ function forumJump()
     !document.getElementById('forum').checked;
   document.getElementById('forums_desc').hidden =
     !document.getElementById('forum').checked;
+}
+
+/**
+ * Function to disable/enable the userInfo selector
+ */
+function linkDisplay()
+{
+  document.getElementById('link_display').hidden =
+    !document.getElementById('userInfo').checked;
 }
 
 /*

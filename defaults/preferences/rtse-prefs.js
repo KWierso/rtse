@@ -10,6 +10,7 @@ pref("extensions.rtse.smilies",true);
 pref("extensions.rtse.editor.buttonText",true);
 pref("extensions.rtse.editor.quoteReply",true);
 
+pref("extensions.rtse.link.enabled",true);
 pref("extensions.rtse.link.user",true);
 pref("extensions.rtse.link.signOut",true);
 pref("extensions.rtse.link.comments",true);
