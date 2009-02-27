@@ -119,6 +119,7 @@ function RTSE_forumListBox(doc) {
     2,
     39,
     9,
+    40,
     34,
     8,
     37,

@@ -34,6 +34,7 @@ pref("extensions.rtse.forum.1",true);
 pref("extensions.rtse.forum.37",true);
 pref("extensions.rtse.forum.8",true);
 pref("extensions.rtse.forum.34",true);
+pref("extensions.rtse.forum.40",false);
 
 pref("extensions.rtse.forum.9",true);
 pref("extensions.rtse.forum.39",true); 

@@ -39,7 +39,7 @@
 <!ENTITY Extension.samepagereplies "Use Same Page for Replies">
 
 <!ENTITY ForumJump.name "Forum Jump List">
-<!ENTITY FoumJump.caption "Forum Jump Filter">
+<!ENTITY ForumJump.caption "Forum Jump Filter">
 <!ENTITY ForumJump.enable "Enable the Forum Jump Box">
 <!ENTITY ForumJump.desc "This allows you to filter what is shown in the Forum Jump list.">
 
@@ -55,6 +55,7 @@
 <!ENTITY ForumJump.generaldiscussion "The main forum for topics on everything. Bear in mind, the universe is finite.">
 <!ENTITY ForumJump.website "For info and questions about the website.">
 <!ENTITY ForumJump.rtevents "This is where you talk about how much you like us and want to meet us.">
+<!ENTITY ForumJump.tournaments "A battle of wits.">
 
 <!ENTITY ForumJump.projects "Project Forums">
 <!ENTITY ForumJump.roosterteeth "The main Rooster Teeth forum.">

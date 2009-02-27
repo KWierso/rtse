@@ -253,6 +253,9 @@
       <preference id="pref_forum34"
                   name="extensions.rtse.forum.34"
                   type="bool"/>
+      <preference id="pref_forum40"
+                  name="extensions.rtse.forum.40"
+                  type="bool"/>
 
       <preference id="pref_forum9"
                   name="extensions.rtse.forum.9"
@@ -365,7 +368,7 @@
                   type="bool"/>
     </preferences>
     <groupbox>
-      <caption label="&FoumJump.caption;"/>
+      <caption label="&ForumJump.caption;"/>
       <stringbundleset>
         <stringbundle id="bundle_forums"
                       src="chrome://rtse/locale/forums.properties"/>
@@ -415,6 +418,10 @@
         <richlistitem orient="vertical">
           <checkbox id="forum34" preference="pref_forum34"/>
           <description>&ForumJump.rtevents;</description>
+        </richlistitem>
+        <richlistitem orient="vertical">
+          <checkbox id="forum40" preference="pref_forum40"/>
+          <description>&ForumJump.tournaments;</description>
         </richlistitem>
 
         <richlistitem><label value="&ForumJump.projects;" style="font-weight:bold;"/></richlistitem>
