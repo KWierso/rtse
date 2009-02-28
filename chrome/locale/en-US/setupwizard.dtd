@@ -28,11 +28,11 @@
 
 <!ENTITY Wizard.title "Rooster Teeth Site Extender Initial Setup">
 <!ENTITY Welcome.name "Welcome">
-<!ENTITY Welcome.text "Thank you for downloading and installing the Rooster Teeth Site Extender.  This wizard will help you get the extension setup just the way you want it. We will be collecting some information about you and setting your preferences according to your specifications.  Please note that these settings can be changed at any time by selecting 'Rooster Teeth Site Extender' and clicking the 'options' button in the extension manager.  If you are wondering why you are seeing this window again, it is because you recently updated the extension, and regrettably some data was lost.">
+<!ENTITY Welcome.text "Thank you for downloading and installing the Rooster Teeth Site Extender.  This wizard will help you get the extension setup just the way you want it. We will be collecting some information about you and setting your preferences according to your specifications.  Please note that these settings can be changed at any time by selecting 'Rooster Teeth Site Extender' and clicking the 'options' button in the Add-on manager.  If you are wondering why you are seeing this window again, it is because you recently updated the extension, and regrettably some data was lost.">
 <!ENTITY Signin.sponsorlabel "I am a sponsor">
 <!ENTITY Signin.sponsortext "This only enables certain features if you are a sponsor, but realize that these features are useless if you are not a sponsor.">
 <!ENTITY Sitepref.name "Site Preferences">
-<!ENTITY Sitepref.ATElabel "This feature will enable an advanced editing box, instead of the default posting area. It includes many new features, such as: a link creation tool, styling buttons, an integrated spell checker (if Spellbound is installed), and much more.">
+<!ENTITY Sitepref.ATElabel "This feature will enable an advanced editing box, instead of the default posting area. It includes many new features, such as: a link creation tool, styling buttons, and much more.">
 <!ENTITY Sitepref.ATEenable "Enable Advanced Text Editing">
 <!ENTITY Finished.name "Finished">
-<!ENTITY Finished.text "The Rooster Teeth Site Extender is now configured.  The settings that you just entered can be changed at any time by selecting 'Rooster Teeth Site Extender' and clicking the options button in the extension manager.  If you have enabled auto-sign in, you will be signed in automatically the next time the browser starts.">
+<!ENTITY Finished.text "The Rooster Teeth Site Extender is now configured.  The settings that you just entered can be changed at any time by selecting 'Rooster Teeth Site Extender' and clicking the options button in the extension manager.">
