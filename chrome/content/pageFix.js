@@ -183,9 +183,8 @@ function RTSE_addToUserInfo(doc) {
         var userInfo = RTSE_evaluateXPath(doc,"//table[@id='userInfo']");
         userInfo = userInfo[0].firstChild.firstChild.firstChild;
         var userLinks = userInfo.getElementsByTagName('a');
-        var length = userLinks.length - 6;
-        var l0 = userLinks[0];
-        var newNames = new Array( l0.innerHTML, "Sign Out", "Comments", "Log", 
+        var userName = userLinks[0];
+        var newNames = new Array( userName.innerHTML, "Sign Out", "Comments", "Log", 
             "Journal", "Messages", "Settings", "My Stats", "Mod History", 
             "Friend Journals", "Sponsor");
         if(doc.domain == "ah.roosterteeth.com")
@@ -204,7 +203,7 @@ function RTSE_addToUserInfo(doc) {
         var line1 = 0;
         var line2 = 0;
         var line3 = 0;
-        if(length != 0) {
+        if(userLinks[1].innerHTML.match("new")) {
             td += "<a class='userInfo' style='opacity: 0.5;' " +
               "href='/members/'>You have new alerts</a>&nbsp;&middot;&nbsp;";
         }
