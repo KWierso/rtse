@@ -169,10 +169,12 @@ RTSE.editor =
     form = doc.forms.namedItem("rtse");
     var elms = ["visible", "body", "show-body", "title", "show-title",
                 "friendsOnly", "show-friendsOnly", "toUser", "show-toUser",
-                "pollq", "show-pollq"];
+                "pollq", "show-pollq", "polla-1", "polla-2", "polla-3",
+                "polla-4", "polla-5", "polla-6", "polla-7", "polla-8",
+                "polla-9", "polla-10"];
     let vals = ["false", "", "true", "", "false", "", "false", "", "false",
-                "", "false",
-    ];
+                "", "false", "", "", "", "", "", "", "", "", "", ""];
+
     for (var i in elms) {
       var elm = doc.createElement("input");
       elm.setAttribute("type", "hidden");
@@ -214,15 +216,23 @@ RTSE.editor =
     // Figure out what index this is
     let container = $("rtse-poll-container");
     let ignorableChildren = 2;
-    let num = container.childNodes.length - ignorableChildren + 1;
+    let num = 0;
+    for(let i = 1; i < 11; i++) {
+        if(container.childNodes[i].hidden == false)
+            num = num + 1;
+    }
 
-    // Create the element
-    let elm = $("rtse-poll-answer-1").cloneNode(true); 
-    elm.setAttribute("id", "rtse-poll-answer-" + num);
-    elm.setAttribute("emptytext", "Answer " + num);
+    // Unhide the element
+    let elm = $("rtse-poll-answer-" + (num + 1)); 
+    elm.hidden = false;
 
-    // Add it where needed
-    container.insertBefore(elm, container.lastChild);
+    /*
+    // Hide the "Add" button once ten answers are posted.
+    if(num < 9)
+        $("rtse-poll-add-answer").hidden = false;
+    else
+        $("rtse-poll-add-answer").hidden = true;
+    */
   },
 
  /**
@@ -272,6 +282,14 @@ RTSE.editor =
     $("rtse-poll-container").hidden =
       RTSE.editor.getProperty(doc, "show-pollq") != "true";
 
+    // Hide the unused poll answers
+    for(let i = 10; i > 3; i--) {
+        if($("rtse-poll-answer-" + i).value == "")
+            $("rtse-poll-answer-" + i).hidden = true;
+        else
+            break;
+    }
+
     // XXX some kind of loop here?
     document.getElementById("rtse-editor-body").value =
       RTSE.editor.getProperty(doc, "body");
@@ -287,10 +305,6 @@ RTSE.editor =
 
     // And now for the fun of polls!
     $("rtse-poll-question").value = RTSE.editor.getProperty(doc, "pollq");
-    $("rtse-poll-answer-1").value = "";
-    $("rtse-poll-answer-2").value = "";
-    for (let i = 3; $("rtse-poll-answer-" + i); i++)
-      $("rtse-poll-container").removeChild($("rtse-poll-answer-" + i));
     for (let i = 1; RTSE.editor.hasProperty(doc, "polla-" + i); i++) {
       let elm = $("rtse-poll-answer-" + i);
       if (!elm) {
@@ -353,7 +367,6 @@ RTSE.editor =
         }
       }
     }
-      
   },
 
  /**
@@ -421,6 +434,19 @@ RTSE.editor =
 
     var ref = RTSE.editor.replaceableElements(doc);
     if (!ref) throw "Editor cannot be inserted";
+
+    // Get all of the answers to a poll, if it exists
+    try {
+        let addapoll = doc.getElementById("addapoll").getElementsByTagName("tr");
+        let pollanswers = new Array();
+        for(let i = 1;i< 11; i++) {
+            pollanswers.push(doc.getElementById("an"+i).getElementsByTagName("input")[0].value);
+            RTSE.editor.setProperty(doc, "polla-" + i, doc.getElementById("an"+i).getElementsByTagName("input")[0].value);
+        }
+    } catch(e) {
+        // Polls don't exist on this page
+        // This is probably a occurring on a Message page
+    }
 
     // Taking care of hidden fields that get removed
     var elms = ["uid"];
