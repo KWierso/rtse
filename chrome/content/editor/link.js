@@ -59,6 +59,7 @@ LinkDialog.prototype =
   {
     this.url.value   = this.mData.url;
     this.label.value = this.mData.label;
+    this.url.value.setSelectionRange(0, 6);
 
     this.url.focus();
   },
