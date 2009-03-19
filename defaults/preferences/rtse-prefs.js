@@ -1,6 +1,5 @@
 pref("general.useragent.extra.rtse","RTSE/1.1.0.20090222");
 pref("extensions.rtse.sponsor",false);
-pref("extensions.rtse.themeType",'www');
 pref("extensions.rtse.editor",true);
 pref("extensions.rtse.firstInstall",true);
 pref("extensions.rtse.talkback",false);
