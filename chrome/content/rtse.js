@@ -111,25 +111,26 @@ var RTSE = {
   
   _menu: function() {
     /* Context Menu Goodies */
-    var url=gBrowser.getBrowserAtIndex(gBrowser.mTabContainer.selectedIndex).contentDocument.location.href;
+    let url=gBrowser.getBrowserAtIndex(gBrowser.mTabContainer.selectedIndex).contentDocument.location.href;
     if( gContextMenu.onImage && gContextMenu.onLink &&
       /^https?:\/\/([a-zA-Z]+).roosterteeth.com(.*)?$/.test(url) &&
       gContextMenu.target.parentNode.href &&
       /profile\.php\?uid=[0-9]+$/.test(gContextMenu.target.parentNode.href) ) {
       /* Should target only user avatars */
       gContextMenu.showItem("rtse-sub-menu",true);
-      var target=new String(gContextMenu.target.parentNode.href);
-      var uid=target.replace(/^https?:\/\/([a-zA-Z]+).roosterteeth.com\/members\/profile.php\?uid=([0-9]+)$/,'$2','$1');
-      
+      let target=new String(gContextMenu.target.parentNode.href);
+      let uid=target.replace(/^https?:\/\/([a-zA-Z]+).roosterteeth.com\/members\/profile.php\?uid=([0-9]+)$/,'$2','$1');
+      let sub = target.replace(/^https?:\/\/([a-zA-Z]+).roosterteeth.com\/members\/profile.php\?uid=([0-9]+)$/,'$1','$2');;
+
       /* Send PM */
       document.getElementById('rtse-user-sendPM').setAttribute('oncommand','gBrowser.addTab("http://'+
-            gRTSE.prefsGetString("extensions.rtse.themeType")+'.roosterteeth.com/members/messaging/send.php?to='+uid+'");');
+            sub+'.roosterteeth.com/members/messaging/send.php?to='+uid+'");');
       /* Add Friend */
       document.getElementById('rtse-user-friends').setAttribute('oncommand','gBrowser.addTab("http://'+
-            gRTSE.prefsGetString("extensions.rtse.themeType")+'.roosterteeth.com/members/addFriend.php?uid='+uid+'");');
+            sub+'.roosterteeth.com/members/addFriend.php?uid='+uid+'");');
       /* Watch */
       document.getElementById('rtse-user-watch').setAttribute('oncommand','gBrowser.addTab("http://'+
-            gRTSE.prefsGetString("extensions.rtse.themeType")+'.roosterteeth.com/members/addWatch.php?uid='+uid+'");');
+            sub+'.roosterteeth.com/members/addWatch.php?uid='+uid+'");');
       /* View Log */
       if (!gRTSE.prefsGetBool("extensions.rtse.sponsor")) {
           document.getElementById('rtse-user-log').style.display = 'none';
@@ -137,7 +138,7 @@ var RTSE = {
           document.getElementById('rtse-user-log').style.display = '';
       }
       document.getElementById('rtse-user-log').setAttribute('oncommand','gBrowser.addTab("http://'+
-		  gRTSE.prefsGetString("extensions.rtse.themeType")+'.roosterteeth.com/members/log.php?uid='+uid+'");');
+		  sub+'.roosterteeth.com/members/log.php?uid='+uid+'");');
       
     } else {
       gContextMenu.showItem("rtse-sub-menu",false);
