@@ -557,7 +557,11 @@ RTSE.editor =
     e.initEvent("submit", true, true);
     let message = form.elements.namedItem("toUser") ||
                   form.elements.namedItem("uid");
-    form.action = message ? "/members/messaging/previewReply.php" : "/preview.php";
+    // Which page should be submitted? New message preview,
+    // regular preview, or a preview for a message reply?
+    form.action = message ? "/members/messaging/preview.php" : "/preview.php";
+    message = form.elements.namedItem("titleOld");
+    form.action = message ? "/members/messaging/previewReply.php" : form.action;
     form.dispatchEvent(e);
     content.focus();
   },
