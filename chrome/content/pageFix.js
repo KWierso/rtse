@@ -203,7 +203,8 @@ function RTSE_addToUserInfo(doc) {
         var line1 = 0;
         var line2 = 0;
         var line3 = 0;
-        if(userLinks[1].innerHTML.match("new")) {
+        if(userLinks[1].innerHTML.match("new") ||
+                userLinks[1].innerHTML.match("comic")) {
             td += "<a class='userInfo' style='opacity: 0.5;' " +
               "href='/members/'>You have new alerts</a>&nbsp;&middot;&nbsp;";
         }
