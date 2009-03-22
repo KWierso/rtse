@@ -213,26 +213,32 @@ RTSE.editor =
   {
     let $ = function(aID) document.getElementById(aID)
 
-    // Figure out what index this is
-    let container = $("rtse-poll-container");
-    let ignorableChildren = 2;
-    let num = 0;
-    for(let i = 1; i < 11; i++) {
-        if(container.childNodes[i].hidden == false)
-            num = num + 1;
-    }
+    let num = RTSE.editor.getPollAnswerCount();
 
-    // Unhide the element
+    // Unhide the new answer
     let elm = $("rtse-poll-answer-" + (num + 1)); 
     elm.hidden = false;
 
-    /*
-    // Hide the "Add" button once ten answers are posted.
-    if(num < 9)
-        $("rtse-poll-add-answer").hidden = false;
-    else
-        $("rtse-poll-add-answer").hidden = true;
-    */
+    // Disable the "Add" button once ten answers are posted.
+    if(num >= 9) {
+        $("rtse-poll-add-answer").disabled = true;
+    }
+  },
+  
+  /**
+   *  Determine how many answers currently exist in a poll
+   */
+  getPollAnswerCount: function RTSE_getPollAnswerCount()
+  {
+    let $ = function(aID) document.getElementById(aID)
+    
+    let container = $("rtse-poll-container");
+    let count = 0;
+    for(let i = 1; i < 11;i++) {
+        if(container.childNodes[i].hidden == false)
+            count = count + 1;
+    }
+    return count;
   },
 
  /**
@@ -282,13 +288,19 @@ RTSE.editor =
     $("rtse-poll-container").hidden =
       RTSE.editor.getProperty(doc, "show-pollq") != "true";
 
-    // Hide the unused poll answers
-    for(let i = 10; i > 3; i--) {
-        if($("rtse-poll-answer-" + i).value == "")
+    // Hide the unused poll answers, and see if the "add" button should be disabled
+    for(let i = 10; i > 1; i--) {
+        if($("rtse-poll-answer-" + i).value == "" && i > 3)
             $("rtse-poll-answer-" + i).hidden = true;
-        else
+        else {
             break;
+        }
     }
+    let num = RTSE.editor.getPollAnswerCount();
+    if(num > 9)
+        $("rtse-poll-add-answer").disabled = true;
+    else
+        $("rtse-poll-add-answer").disabled = false;
 
     // XXX some kind of loop here?
     document.getElementById("rtse-editor-body").value =
