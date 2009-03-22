@@ -71,6 +71,9 @@ var RTSE = {
       if(gRTSE.prefsGetBool("extensions.rtse.link.enabled"))
         RTSE_addToUserInfo(doc);
 
+      /*Add Extra Tab*/
+      RTSE_addExtraTab(doc);
+
       // Fix Links
       RTSE_linkFix(doc);
       

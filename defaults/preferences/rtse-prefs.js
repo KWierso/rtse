@@ -9,6 +9,10 @@ pref("extensions.rtse.smilies",true);
 pref("extensions.rtse.editor.buttonText",true);
 pref("extensions.rtse.editor.quoteReply",true);
 
+pref("extensions.rtse.extras.tab", false);
+pref("extensions.rtse.extras.tabTexts","RTSE,Google");
+pref("extensions.rtse.extras.tabLinks","/forum/viewTopic.php?id=2184252,http://www.google.com");
+
 pref("extensions.rtse.link.enabled",true);
 pref("extensions.rtse.link.user",true);
 pref("extensions.rtse.link.signOut",true);

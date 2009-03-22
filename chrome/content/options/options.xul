@@ -39,6 +39,7 @@
             maxwidth="500"
             onload="return load();"
             buttons="accept,cancel"
+            ondialogaccept="return onAccept();"
             buttonlabelaccept="&Options.accept;"
             buttonlabelcancel="&Options.cancel;">
     <script type="application/x-javascript"
@@ -577,14 +578,53 @@
       </richlistbox>
     </groupbox>
   </prefpane>
-<!--  <prefpane id="extras" label="&Extras.name;" selected="true" flex="1">
+  <prefpane id="extras" label="&Extras.name;" selected="true" flex="1">
     <preferences>
+      <preference id="pref_tabTexts"
+                  name="extensions.rtse.extras.tabTexts"
+                  type="string"/>
+      <preference id="pref_tabLinks"
+                  name="extensions.rtse.extras.tabLinks"
+                  type="string"/>
+      <preference id="pref_tab"
+                  name="extensions.rtse.extras.tab"
+                  type="bool"/>
     </preferences>
     <vbox flex="1">
       <groupbox>
         <caption label="&Extras.groupcaption;"/>
-
+        <checkbox id="tab" 
+                  label="&Extras.tab.enable;"
+                  preference="pref_tab"
+                  oncommand="addTab();"/>
+        <description id="tab_desc">&Extras.tab.desc;</description>
+        <richlistbox id="tabInfo" flex="1">
+          <richlistitem orient="horizontal">
+            <description id="t0_desc">&Extras.text;</description>
+            <textbox id="menu0Text" />
+            <description id="l0_desc">&Extras.link;</description>
+            <textbox id="menu0Link" width="200" />
+          </richlistitem>
+          <richlistitem orient="horizontal">
+            <description id="t1_desc">&Extras.text;</description>
+            <textbox id="menu1Text" />
+            <description id="l1_desc">&Extras.link;</description>
+            <textbox id="menu1Link" width="200" />
+          </richlistitem>
+          <richlistitem orient="horizontal">
+            <description id="t2_desc">&Extras.text;</description>
+            <textbox id="menu2Text" />
+            <description id="l2_desc">&Extras.link;</description>
+            <textbox id="menu2Link" width="200" />
+          </richlistitem>
+          <richlistitem orient="horizontal">
+            <description id="t3_desc">&Extras.text;</description>
+            <textbox id="menu3Text" />
+            <description id="l3_desc">&Extras.link;</description>
+            <textbox id="menu3Link" width="200" />
+          </richlistitem>
+        </richlistbox>
       </groupbox>
     </vbox>
-  </prefpane> -->
+  </prefpane> 
 </prefwindow>

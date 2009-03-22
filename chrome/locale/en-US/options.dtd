@@ -4,6 +4,10 @@
 
 <!ENTITY Extras.name "Extras">
 <!ENTITY Extras.groupcaption "Additional Features">
+<!ENTITY Extras.tab.desc "Extra Tab">
+<!ENTITY Extras.tab.enable "Enable the Extra Tab">
+<!ENTITY Extras.text "Text">
+<!ENTITY Extras.link "Link">
 
 <!ENTITY Preferences.name "Site Preferences">
 <!ENTITY Preferences.link.groupcaption "Displayed links">
