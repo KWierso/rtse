@@ -173,6 +173,13 @@ function RTSE_forumListBox(doc) {
   ref.replaceChild(cont, ref.childNodes[3]);
 }
 
+function RTSE_fixSearch(doc) {
+    let search = doc.getElementById("search");
+    let searchForm = search.parentNode;
+    searchForm.method = "POST";
+    searchForm.setAttribute("onsubmit", "this.action = '/members/journal/index.php?newLayout=1&search='+escape(this.search.value);", 0);
+}
+
 function RTSE_addToUserInfo(doc) {
     /* Adds additional links to the userInfo element in the site header */
     if(doc.getElementById("userInfo").getElementsByTagName("a").length != 2) {
