@@ -58,7 +58,7 @@
       <description>
         [spoiler]<html:strong>&Tooltip.spoiler;</html:strong>[/spoiler]
       </description>
-      <label value="alt + h"/>
+      <label value="alt + o"/>
     </tooltip>
     <tooltip id="rtse-editor-tooltip-img" orient="vertical">
       <description>
