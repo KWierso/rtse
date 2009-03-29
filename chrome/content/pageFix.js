@@ -321,7 +321,7 @@ function RTSE_addExtraTab(aDoc) {
 function RTSE_postPermalink(aDoc)
 // EFFECTS: Adds a permalink to posts on a page in aDoc
 {
-    var elms=RTSE_evaluateXPath(aDoc,"//table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[1]");
+    let elms=RTSE_evaluateXPath(aDoc,"//td[@id='pageContent']/table/tbody/tr[1]/td/table/tbody/tr[3]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[1]");
     var a,text,num;
     var base=new String(aDoc.location.href);
     base=base.replace(/^https?:\/\/(www|rvb|sh|panics|magic)\.roosterteeth\.com(.*)$/,'$2');

@@ -589,6 +589,12 @@
       <preference id="pref_tab"
                   name="extensions.rtse.extras.tab"
                   type="bool"/>
+      <preference id="pref_side"
+                  name="extensions.rtse.sidebar"
+                  type="bool"/>
+      <preference id="pref_head"
+                  name="extensions.rtse.header"
+                  type="bool"/>
     </preferences>
     <vbox flex="1">
       <groupbox>
@@ -624,6 +630,12 @@
             <textbox id="menu3Link" width="200" />
           </richlistitem>
         </richlistbox>
+        <spacer style="height:10px;"/>
+        <groupbox>
+          <caption label="&Extras.csscaption;"/>
+          <checkbox label="&Extras.sidebar;" preference="pref_side"/>
+          <checkbox label="&Extras.header;" preference="pref_head"/>
+        </groupbox>
       </groupbox>
     </vbox>
   </prefpane> 

@@ -6,6 +6,9 @@ pref("extensions.rtse.talkback",false);
 pref("extensions.rtse.fixLinks",true);
 pref("extensions.rtse.smilies",true);
 
+pref("extensions.rtse.sidebar", true);
+pref("extensions.rtse.header", true);
+
 pref("extensions.rtse.editor.buttonText",true);
 pref("extensions.rtse.editor.quoteReply",true);
 

@@ -1,0 +1,5 @@
+@-moz-document domain("roosterteeth.com") {
+  td.projectsBar {
+    display:none;
+  }
+}

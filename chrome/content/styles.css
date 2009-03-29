@@ -6,8 +6,4 @@
   .header a.small > b {
     cursor:pointer;
   }
-  
-  td.sidebar {
-    display:none;
-  }
 }
