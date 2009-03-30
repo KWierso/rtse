@@ -44,7 +44,7 @@
 		<description maxwidth="300">&Welcome.text;</description>
 	</wizardpage>
 	<wizardpage id="sitepreferences" description="&Sitepref.name;">
-		<spacer style="height:20px"/>
+		<spacer style="height:10px"/>
 		<description>&Sitepref.ATElabel;</description>
 		<spacer style="height:10px"/>
 		<checkbox id="editor" checked="true" label="&Sitepref.ATEenable;"/>
@@ -53,7 +53,22 @@
 			<checkbox checked="false" label="&Signin.sponsorlabel;" id="sponsor"/>
 		</hbox>
 		<description maxwidth="300">&Signin.sponsortext;</description>
-  </wizardpage>
+        <spacer style="height:10px"/>
+        <description>&Sitepref.replyTextlabel;</description>
+        <checkbox id="replytext" checked="true" label="&Sitepref.replyTextenable;"/>
+    </wizardpage>
+    <wizardpage id="siteextras" description="&Extras.name;">
+        <groupbox>
+            <caption label="&Extras.label;"/>
+            <spacer style="height:10px"/>
+            <checkbox id="sidebar" checked="true" label="&Extras.showsidebarenable;"/>
+            <spacer style="height:10px"/>
+            <checkbox id="header" checked="true" label="&Extras.showheaderenable;"/>
+            <spacer style="height:20px"/>
+            <checkbox id="userInfo" checked="false" label="&Extras.userInfoenable;"/>
+            <description>&Extras.userInfotext;</description>
+        </groupbox>
+	</wizardpage>
 	<wizardpage id="finished" description="&Finished.name;">
 		<description maxwidth="300">&Finished.text;</description>
 	</wizardpage>

@@ -45,6 +45,24 @@ var wizard = {
       gRTSE.prefsSetBool("extensions.rtse.editor",
                          document.getElementById("editor").checked);
 
+      // Sidebar/Header
+      gRTSE.prefsSetBool("extensions.rtse.sidebar",
+                         document.getElementById("sidebar").checked);
+      gRTSE.prefsSetBool("extensions.rtse.header",
+                         document.getElementById("header").checked);
+
+      // userInfo extra links
+      if(document.getElementById("userInfo").checked) {
+        if(!document.getElementById("sponsor").checked) {
+            gRTSE.prefsSetBool("extensions.rtse.link.myStats", false);
+            gRTSE.prefsSetBool("extensions.rtse.link.modHistory", false);
+            gRTSE.prefsSetBool("extensions.rtse.link.friendJournals", false);
+        }
+      }
+      else {
+        gRTSE.prefsSetBool("extensions.rtse.link.enabled", false);
+      }
+
       // Finishing up
       gRTSE.prefsSetBool('extensions.rtse.firstInstall',false);
     } catch(e) {
