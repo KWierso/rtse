@@ -350,7 +350,6 @@ RTSE.editor =
     RTSE.editor._saveEditorData();
 
     pane.hidePopup();
-    pane.hidden = true;
   },
 
   /**
