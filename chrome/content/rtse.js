@@ -32,8 +32,7 @@ var RTSE = {
   init: function init() {
     // Ininitialzing other data
     this.smilies.init();
-    if (gRTSE.prefsGetBool("extensions.rtse.editor"))
-      RTSE.editor.init();
+    RTSE.editor.init();
 
     // Check if wizard should run
     if (gRTSE.prefsGetBool('extensions.rtse.firstInstall'))
