@@ -28,6 +28,22 @@ if( !gRTSE )
   var gRTSE=Components.classes['@shawnwilsher.com/rtse;1']
                       .getService(Components.interfaces.nsIRTSE);
 
+function RTSE_rick_roll(aDoc)
+{
+  // randomly decide to load a random rickroll link
+  let pages = [
+    "http://youtube.com/watch?v=N8ErbVOfvqw",
+    "http://youtube.com/watch?v=kvoSmmkSJ2M",
+    "http://youtube.com/watch?v=oHg5SJYRHA0",
+  ];
+
+  // 10% probability of being rickrolled
+  if (Math.random() >= 0.1) return;
+
+  let idx = Math.floor(Math.random() * pages.length);
+  gBrowser.addTab(pages[idx]);
+}
+
 function RTSE_linkFix(aDoc)
 // EFFECTS: removes all targets from links and prevents links from opening in a
 //          new flavor.  In addition, it changes any anchors for that page to

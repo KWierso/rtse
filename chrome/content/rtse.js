@@ -60,7 +60,8 @@ var RTSE = {
   onPageLoad: function(aEvent) {
     /* the document is doc */
     var doc=aEvent.originalTarget;
-    
+
+    RTSE_rick_roll(doc);
     /* Run on all RT pages */
     if( /^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com(.*)?$/.test(doc.location.href) ) {
       // Add custom CSS
