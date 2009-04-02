@@ -28,20 +28,72 @@ if( !gRTSE )
   var gRTSE=Components.classes['@shawnwilsher.com/rtse;1']
                       .getService(Components.interfaces.nsIRTSE);
 
-function RTSE_rick_roll(aDoc)
+function RTSE_pageJump(aDoc)
+// EFFECTS: Adds a textbox next to the page ranges on each page. 
+//          The value in the textbox is validated to be a number within the page range.
+//          If the value is valid, the browser will jump to that page.
 {
-  // randomly decide to load a random rickroll link
-  let pages = [
-    "http://youtube.com/watch?v=N8ErbVOfvqw",
-    "http://youtube.com/watch?v=kvoSmmkSJ2M",
-    "http://youtube.com/watch?v=oHg5SJYRHA0",
-  ];
+    let maxPage;
+    let allA;
+    
+    let newInput = aDoc.createElement("input");
+    newInput.style.width = "8%";
+    newInput.title = "Enter a page number and press ENTER to go to that page!";
 
-  // 10% probability of being rickrolled
-  if (Math.random() >= 0.1) return;
+    let elementArray = [];
+    
+    //Need to find a better way to get the page range elements. 
+    //This only works on forum and group forum pages, since
+    //the other parts of the site put the page ranges elsewhere on the page
+    let elements = RTSE_evaluateXPath(aDoc.getElementById("pageContent"),"//table/tbody/tr[3]/td/table/tbody/tr/td/table/tbody/tr/td[2]");
+    for(let i in elements) {
+        try {
+            if(elements[i].getElementsByTagName("a")[0].href.match(/page=1/))
+                elementArray.push(elements[i]);
+        } catch(e) { }
+    }
 
-  let idx = Math.floor(Math.random() * pages.length);
-  gBrowser.addTab(pages[idx]);
+        try {
+            allA = elementArray[0].getElementsByTagName("a");
+            maxPage = allA[allA.length - 1];
+            
+            elementArray[0].appendChild(aDoc.createTextNode("  "));
+            elementArray[0].appendChild(newInput.cloneNode(true));
+            elementArray[0].style.paddingBottom = "1px";
+            elementArray[0].childNodes[elementArray[0].childNodes.length-1].addEventListener("keydown", function(e) { 
+                keyId = e.keyCode;
+                if(keyId == 13) {
+                    if(!this.value.match(/\D/g)) {
+                        if(this.value < 1 || this.value > maxPage) 
+                            alert("Page value not in the accepted range of pages!");
+                        else {
+                            let newURL = aDoc.URL.split("page=")[0] + "page=" + this.value;
+                            aDoc.location.href = newURL; 
+                        }
+                    } else { alert("Only numeric values are acceptable. Please remove any non-numeric values from the textbox."); }
+                }
+            }, false);
+
+            elementArray[1].appendChild(aDoc.createTextNode("  "));
+            elementArray[1].appendChild(newInput.cloneNode(true));
+            elementArray[1].style.paddingTop = "1px";
+            elementArray[1].childNodes[elementArray[1].childNodes.length-1].addEventListener("keydown", function(e) { 
+                keyId = e.keyCode;
+                if(keyId == 13) {
+                    if(!this.value.match(/\D/g)) {
+                        if(this.value < 1 || this.value > maxPage) 
+                            alert("Page value not in the accepted range of pages!");
+                        else {
+                            let newURL = aDoc.URL.split("page=")[0] + "page=" + this.value;
+                            aDoc.location.href = newURL; 
+                        }
+                    } else { alert("Only numeric values are acceptable. Please remove any non-numeric values from the textbox."); }
+                }
+            }, false);
+        } catch(e) { 
+             // Apparently something didn't work quite right.
+             // Let's not break the entire addon because of it.
+        }
 }
 
 function RTSE_linkFix(aDoc)

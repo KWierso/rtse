@@ -61,7 +61,6 @@ var RTSE = {
     /* the document is doc */
     var doc=aEvent.originalTarget;
 
-    RTSE_rick_roll(doc);
     /* Run on all RT pages */
     if( /^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com(.*)?$/.test(doc.location.href) ) {
       // Add custom CSS
@@ -107,6 +106,9 @@ var RTSE = {
       if( doc.location.href.match("entry.php") == 'entry.php' || doc.location.href.match("viewEntry.php") == 'viewEntry.php' || 
               doc.location.href.match("viewTopic.php") == 'viewTopic.php' || doc.location.href.match("image.php") == 'image.php') {
           
+          // Page jump
+          RTSE_pageJump(doc);
+
           // Replies
           RTSE_modifyReply(doc);
 
