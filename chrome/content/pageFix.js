@@ -39,7 +39,6 @@ function RTSE_pageJump(aDoc)
     let newInput = aDoc.createElement("input");
     newInput.style.width = "8%";
     newInput.title = "Enter a page number and press ENTER to go to that page!";
-
     let elementArray = [];
     
     //Need to find a better way to get the page range elements. 
@@ -53,47 +52,47 @@ function RTSE_pageJump(aDoc)
         } catch(e) { }
     }
 
-        try {
-            allA = elementArray[0].getElementsByTagName("a");
-            maxPage = allA[allA.length - 1];
-            
-            elementArray[0].appendChild(aDoc.createTextNode("  "));
-            elementArray[0].appendChild(newInput.cloneNode(true));
-            elementArray[0].style.paddingBottom = "1px";
-            elementArray[0].childNodes[elementArray[0].childNodes.length-1].addEventListener("keydown", function(e) { 
-                keyId = e.keyCode;
-                if(keyId == 13) {
-                    if(!this.value.match(/\D/g)) {
-                        if(this.value < 1 || this.value > maxPage) 
-                            alert("Page value not in the accepted range of pages!");
-                        else {
-                            let newURL = aDoc.URL.split("page=")[0] + "page=" + this.value;
-                            aDoc.location.href = newURL; 
-                        }
-                    } else { alert("Only numeric values are acceptable. Please remove any non-numeric values from the textbox."); }
-                }
-            }, false);
+    try {
+        allA = elementArray[0].getElementsByTagName("a");
+        maxPage = allA[allA.length - 1];
+        
+        elementArray[0].appendChild(aDoc.createTextNode("  "));
+        elementArray[0].appendChild(newInput.cloneNode(true));
+        elementArray[0].style.paddingBottom = "1px";
+        elementArray[0].childNodes[elementArray[0].childNodes.length-1].addEventListener("keydown", function(e) { 
+            keyId = e.keyCode;
+            if(keyId == 13) {
+                if(!this.value.match(/\D/g)) {
+                    if(this.value < 1 || this.value > maxPage) 
+                        alert("Page value not in the accepted range of pages!");
+                    else {
+                        let newURL = aDoc.URL.split("#")[0].split("&page=")[0] + "&page=" + this.value;
+                        aDoc.location.href = newURL; 
+                    }
+                } else { alert("Only numeric values are acceptable. Please remove any non-numeric values from the textbox."); }
+            }
+        }, false);
 
-            elementArray[1].appendChild(aDoc.createTextNode("  "));
-            elementArray[1].appendChild(newInput.cloneNode(true));
-            elementArray[1].style.paddingTop = "1px";
-            elementArray[1].childNodes[elementArray[1].childNodes.length-1].addEventListener("keydown", function(e) { 
-                keyId = e.keyCode;
-                if(keyId == 13) {
-                    if(!this.value.match(/\D/g)) {
-                        if(this.value < 1 || this.value > maxPage) 
-                            alert("Page value not in the accepted range of pages!");
-                        else {
-                            let newURL = aDoc.URL.split("page=")[0] + "page=" + this.value;
-                            aDoc.location.href = newURL; 
-                        }
-                    } else { alert("Only numeric values are acceptable. Please remove any non-numeric values from the textbox."); }
-                }
-            }, false);
-        } catch(e) { 
-             // Apparently something didn't work quite right.
-             // Let's not break the entire addon because of it.
-        }
+        elementArray[1].appendChild(aDoc.createTextNode("  "));
+        elementArray[1].appendChild(newInput.cloneNode(true));
+        elementArray[1].style.paddingTop = "1px";
+        elementArray[1].childNodes[elementArray[1].childNodes.length-1].addEventListener("keydown", function(e) { 
+            keyId = e.keyCode;
+            if(keyId == 13) {
+                if(!this.value.match(/\D/g)) {
+                    if(this.value < 1 || this.value > maxPage) 
+                        alert("Page value not in the accepted range of pages!");
+                    else {
+                        let newURL = aDoc.URL.split("#")[0].split("&page=")[0] + "&page=" + this.value;
+                        aDoc.location.href = newURL; 
+                    }
+                } else { alert("Only numeric values are acceptable. Please remove any non-numeric values from the textbox."); }
+            }
+        }, false);
+    } catch(e) { 
+         // Apparently something didn't work quite right.
+         // Let's not break the entire addon because of it.
+    }
 }
 
 function RTSE_linkFix(aDoc)
