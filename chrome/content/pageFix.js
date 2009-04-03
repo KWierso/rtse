@@ -58,10 +58,11 @@ function RTSE_pageJump(aDoc)
         if(maxPage.innerHTML.match("<b>"))
             maxPage = maxPage.firstChild;
 
-        elementArray[0].appendChild(aDoc.createTextNode("  "));
-        elementArray[0].appendChild(newInput.cloneNode(true));
+        elementArray[0].insertBefore(aDoc.createTextNode("Page Jump: "), elementArray[0].childNodes[0]);
+        elementArray[0].insertBefore(newInput.cloneNode(true), elementArray[0].childNodes[1]);
+        elementArray[0].insertBefore(aDoc.createTextNode("  "), elementArray[0].childNodes[2]);
         elementArray[0].style.paddingBottom = "1px";
-        elementArray[0].childNodes[elementArray[0].childNodes.length-1].addEventListener("keydown", function(e) { 
+        elementArray[0].childNodes[1].addEventListener("keydown", function(e) { 
             keyId = e.keyCode;
             if(keyId == 13) {
                 if(!this.value.match(/\D/g)) {
@@ -75,7 +76,8 @@ function RTSE_pageJump(aDoc)
             }
         }, false);
 
-        elementArray[1].appendChild(aDoc.createTextNode("  "));
+        elementArray[1].appendChild(aDoc.createElement("br"));
+        elementArray[1].appendChild(aDoc.createTextNode("Page Jump: "));
         elementArray[1].appendChild(newInput.cloneNode(true));
         elementArray[1].style.paddingTop = "1px";
         elementArray[1].childNodes[elementArray[1].childNodes.length-1].addEventListener("keydown", function(e) { 
