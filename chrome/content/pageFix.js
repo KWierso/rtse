@@ -53,42 +53,49 @@ function RTSE_pageJump(aDoc)
     }
 
     try {
+        // Get the highest allowed page number
         allA = elementArray[0].getElementsByTagName("a");
         maxPage = allA[allA.length - 1];
+        // If you're already on the last page, it's bolded on the site, so we need to account for this.
         if(maxPage.innerHTML.match("<b>"))
             maxPage = maxPage.firstChild;
+        maxPage = parseInt(maxPage.innerHTML);
 
+        // Insert Jump box at top of thread. (Journals, too)
         elementArray[0].insertBefore(aDoc.createTextNode("Page Jump: "), elementArray[0].childNodes[0]);
         elementArray[0].insertBefore(newInput.cloneNode(true), elementArray[0].childNodes[1]);
         elementArray[0].insertBefore(aDoc.createTextNode("  "), elementArray[0].childNodes[2]);
         elementArray[0].style.padding = "1px";
         elementArray[0].childNodes[1].addEventListener("keydown", function(e) { 
-            keyId = e.keyCode;
-            if(keyId == 13) {
+            // Validate the value in the textbox
+            if(e.keyCode == 13) {
                 if(!this.value.match(/\D/g)) {
-                    if(this.value < 1 || this.value > maxPage.innerHTML) 
-                        alert("Page value not in the accepted range of pages!");
-                    else {
+                    if(this.value >= 1 && this.value <= maxPage) {
+                        // If everything's okay, jump to specified page.
                         let newURL = aDoc.URL.split("#")[0].split("&page=")[0] + "&page=" + this.value;
                         aDoc.location.href = newURL; 
+                    } else {
+                        alert("Page value not in the accepted range of pages!");
                     }
                 } else { alert("Only numeric values are acceptable. Please remove any non-numeric values from the textbox."); }
             }
         }, false);
 
+        // Insert Jump box at bottom of thread.
         elementArray[1].appendChild(aDoc.createElement("br"));
         elementArray[1].appendChild(aDoc.createTextNode("Page Jump: "));
         elementArray[1].appendChild(newInput.cloneNode(true));
         elementArray[1].style.padding = "1px";
         elementArray[1].childNodes[elementArray[1].childNodes.length-1].addEventListener("keydown", function(e) { 
-            keyId = e.keyCode;
-            if(keyId == 13) {
+            // Validate the value in the textbox
+            if(e.keyCode == 13) {
                 if(!this.value.match(/\D/g)) {
-                    if(this.value < 1 || this.value > maxPage.innerHTML) 
-                        alert("Page value not in the accepted range of pages!");
-                    else {
+                    if(this.value >= 1 && this.value <= maxPage) {
+                        // If everything's okay, jump to specified page.
                         let newURL = aDoc.URL.split("#")[0].split("&page=")[0] + "&page=" + this.value;
                         aDoc.location.href = newURL; 
+                    } else {
+                        alert("Page value not in the accepted range of pages!");
                     }
                 } else { alert("Only numeric values are acceptable. Please remove any non-numeric values from the textbox."); }
             }
