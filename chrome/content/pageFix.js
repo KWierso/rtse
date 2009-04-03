@@ -61,7 +61,7 @@ function RTSE_pageJump(aDoc)
         elementArray[0].insertBefore(aDoc.createTextNode("Page Jump: "), elementArray[0].childNodes[0]);
         elementArray[0].insertBefore(newInput.cloneNode(true), elementArray[0].childNodes[1]);
         elementArray[0].insertBefore(aDoc.createTextNode("  "), elementArray[0].childNodes[2]);
-        elementArray[0].style.paddingBottom = "1px";
+        elementArray[0].style.padding = "1px";
         elementArray[0].childNodes[1].addEventListener("keydown", function(e) { 
             keyId = e.keyCode;
             if(keyId == 13) {
@@ -79,7 +79,7 @@ function RTSE_pageJump(aDoc)
         elementArray[1].appendChild(aDoc.createElement("br"));
         elementArray[1].appendChild(aDoc.createTextNode("Page Jump: "));
         elementArray[1].appendChild(newInput.cloneNode(true));
-        elementArray[1].style.paddingTop = "1px";
+        elementArray[1].style.padding = "1px";
         elementArray[1].childNodes[elementArray[1].childNodes.length-1].addEventListener("keydown", function(e) { 
             keyId = e.keyCode;
             if(keyId == 13) {
