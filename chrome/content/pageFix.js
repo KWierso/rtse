@@ -55,7 +55,9 @@ function RTSE_pageJump(aDoc)
     try {
         allA = elementArray[0].getElementsByTagName("a");
         maxPage = allA[allA.length - 1];
-        
+        if(maxPage.innerHTML.match("<b>"))
+            maxPage = maxPage.firstChild;
+
         elementArray[0].appendChild(aDoc.createTextNode("  "));
         elementArray[0].appendChild(newInput.cloneNode(true));
         elementArray[0].style.paddingBottom = "1px";
@@ -63,7 +65,7 @@ function RTSE_pageJump(aDoc)
             keyId = e.keyCode;
             if(keyId == 13) {
                 if(!this.value.match(/\D/g)) {
-                    if(this.value < 1 || this.value > maxPage) 
+                    if(this.value < 1 || this.value > maxPage.innerHTML) 
                         alert("Page value not in the accepted range of pages!");
                     else {
                         let newURL = aDoc.URL.split("#")[0].split("&page=")[0] + "&page=" + this.value;
@@ -80,7 +82,7 @@ function RTSE_pageJump(aDoc)
             keyId = e.keyCode;
             if(keyId == 13) {
                 if(!this.value.match(/\D/g)) {
-                    if(this.value < 1 || this.value > maxPage) 
+                    if(this.value < 1 || this.value > maxPage.innerHTML) 
                         alert("Page value not in the accepted range of pages!");
                     else {
                         let newURL = aDoc.URL.split("#")[0].split("&page=")[0] + "&page=" + this.value;
