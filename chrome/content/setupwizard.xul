@@ -64,6 +64,8 @@
             <checkbox id="sidebar" checked="true" label="&Extras.showsidebarenable;"/>
             <spacer style="height:10px"/>
             <checkbox id="header" checked="true" label="&Extras.showheaderenable;"/>
+            <spacer style="height:10px"/>
+            <checkbox id="journal" checked="true" label="&Extras.showjournalenable;"/>
             <spacer style="height:20px"/>
             <checkbox id="userInfo" checked="false" label="&Extras.userInfoenable;"/>
             <description>&Extras.userInfotext;</description>

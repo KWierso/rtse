@@ -52,10 +52,13 @@ function RTSE()
   sss.loadAndRegisterSheet(uri, sss.USER_SHEET);
   var uri2 = ios.newURI("chrome://rtse/content/styles2.css", null, null);
   var uri3 = ios.newURI("chrome://rtse/content/styles3.css", null, null);
+  var uri4 = ios.newURI("chrome://rtse/content/styles4.css", null, null);
   if(!this.prefsGetBool("extensions.rtse.sidebar"))
     sss.loadAndRegisterSheet(uri2, sss.USER_SHEET);
   if(!this.prefsGetBool("extensions.rtse.header"))
     sss.loadAndRegisterSheet(uri3, sss.USER_SHEET);
+  if(!this.prefsGetBool("extensions.rtse.journals"))
+    sss.loadAndRegisterSheet(uri4, sss.USER_SHEET);
 
   // Version
   const UA_STRING = "RTSE/" + this.version;
@@ -66,7 +69,7 @@ RTSE.prototype =
 {
   // OVERVIEW: This is the class definition.  Defines the functions
   //           that are exposed in the interface.
-  mVersion: '1.1.0a1',
+  mVersion: '1.1.0.20090402',
   mLoginSent: false,
 
   get version()

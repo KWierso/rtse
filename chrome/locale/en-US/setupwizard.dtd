@@ -42,6 +42,7 @@
 <!ENTITY Extras.label "Toggle the visibility of certain page elements.">
 <!ENTITY Extras.showsidebarenable "Show the sidebar element.">
 <!ENTITY Extras.showheaderenable "Show the header element.">
+<!ENTITY Extras.showjournalenable "Show the journal's sidebar.">
 <!ENTITY Extras.userInfoenable "Add extra links to userInfo element.">
 <!ENTITY Extras.userInfotext "This will insert additional links up in the userInfo element on RT (eg. up by your avatar in the top-right of each page). You can further customize which links are shown later through RTSE's Options window.">
 

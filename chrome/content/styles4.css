@@ -1,0 +1,13 @@
+@-moz-document 
+   url-prefix("http://www.roosterteeth.com/members/journal/"),
+   url-prefix("http://rvb.roosterteeth.com/members/journal/"),
+   url-prefix("http://sh.roosterteeth.com/members/journal/"),
+   url-prefix("http://ah.roosterteeth.com/members/journal/"),
+   url-prefix("http://magic.roosterteeth.com/members/journal/"),
+   url-prefix("http://panics.roosterteeth.com/members/journal/")
+{
+
+#pageContent>table>tbody>tr>td>table>tbody>tr>td>table>tbody>tr>td[width="250"]{
+    display: none !important;
+    }
+}

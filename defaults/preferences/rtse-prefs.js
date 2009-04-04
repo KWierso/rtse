@@ -1,4 +1,4 @@
-pref("general.useragent.extra.rtse","RTSE/1.1.0.20090222");
+pref("general.useragent.extra.rtse","RTSE/1.1.0.20090402");
 pref("extensions.rtse.sponsor",false);
 pref("extensions.rtse.editor",true);
 pref("extensions.rtse.firstInstall",true);
@@ -8,6 +8,7 @@ pref("extensions.rtse.smilies",true);
 
 pref("extensions.rtse.sidebar", true);
 pref("extensions.rtse.header", true);
+pref("extensions.rtse.journals", true);
 
 pref("extensions.rtse.editor.buttonText",true);
 pref("extensions.rtse.editor.quoteReply",true);

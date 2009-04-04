@@ -595,6 +595,9 @@
       <preference id="pref_head"
                   name="extensions.rtse.header"
                   type="bool"/>
+      <preference id="pref_journal"
+                  name="extensions.rtse.journals"
+                  type="bool"/>
     </preferences>
     <vbox flex="1">
       <groupbox>
@@ -635,6 +638,7 @@
           <caption label="&Extras.csscaption;"/>
           <checkbox label="&Extras.sidebar;" preference="pref_side"/>
           <checkbox label="&Extras.header;" preference="pref_head"/>
+          <checkbox label="&Extras.journal;" preference="pref_journal"/>
         </groupbox>
       </groupbox>
     </vbox>
