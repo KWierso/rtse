@@ -36,14 +36,23 @@ function RTSE_pageJump(aDoc)
     let maxPage;
     let allA;
     
+    let newText = aDoc.createElement("span");
+    newText.style.fontSize = "x-small";
+    newText.style.lineHeight = "80%";
+    newText.appendChild(aDoc.createTextNode("Page Jump: "));
+    
     let newInput = aDoc.createElement("input");
     newInput.style.width = "8%";
+    newInput.style.fontSize = "x-small";
+    newInput.style.height = "10px";
+    newInput.style.verticalAlign = "bottom";
+    newInput.maxLength = "6";
     newInput.title = "Enter a page number and press ENTER to go to that page!";
     let elementArray = [];
     
-    //Need to find a better way to get the page range elements. 
-    //This only works on forum and group forum pages, since
-    //the other parts of the site put the page ranges elsewhere on the page
+    // Need to find a better way to get the page range elements. 
+    // This only works on forum and group forum pages, since
+    // the other parts of the site put the page ranges elsewhere on the page
     let elements = RTSE_evaluateXPath(aDoc.getElementById("pageContent"),"//table/tbody/tr[3]/td/table/tbody/tr/td/table/tbody/tr/td[2]");
     for(let i in elements) {
         try {
@@ -62,7 +71,7 @@ function RTSE_pageJump(aDoc)
         maxPage = parseInt(maxPage.innerHTML);
 
         // Insert Jump box at top of thread. (Journals, too)
-        elementArray[0].insertBefore(aDoc.createTextNode("Page Jump: "), elementArray[0].childNodes[0]);
+        elementArray[0].insertBefore(newText.cloneNode(true), elementArray[0].childNodes[0]);
         elementArray[0].insertBefore(newInput.cloneNode(true), elementArray[0].childNodes[1]);
         elementArray[0].insertBefore(aDoc.createTextNode("  "), elementArray[0].childNodes[2]);
         elementArray[0].style.padding = "1px";
@@ -83,7 +92,7 @@ function RTSE_pageJump(aDoc)
 
         // Insert Jump box at bottom of thread.
         elementArray[1].appendChild(aDoc.createElement("br"));
-        elementArray[1].appendChild(aDoc.createTextNode("Page Jump: "));
+        elementArray[1].appendChild(newText.cloneNode(true));
         elementArray[1].appendChild(newInput.cloneNode(true));
         elementArray[1].style.padding = "1px";
         elementArray[1].childNodes[elementArray[1].childNodes.length-1].addEventListener("keydown", function(e) { 
