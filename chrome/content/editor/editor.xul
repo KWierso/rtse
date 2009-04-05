@@ -121,7 +121,6 @@
                 class="rtse-editor-button"
                 type="menu"
                 autoCheck="false"
-                popup="rtse-editor-smiley-menu"
                 hidden="true"/>
         <button id="rtse-editor-friendsOnly"
                 class="rtse-editor-button"
