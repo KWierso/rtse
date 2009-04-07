@@ -288,6 +288,9 @@
                 class="rtse-editor-button"
                 tabindex="3"
                 oncommand="RTSE.editor.submit();"/>
+        <button id="rtse-editor-placeholder"
+                class="rtse-editor-button"
+                hidden="true"/>
       </hbox>
     </vbox>
   </panel>
