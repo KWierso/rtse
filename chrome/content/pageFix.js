@@ -469,6 +469,17 @@ function RTSE_samePageReply(aEvent)
   } else {
     editor = this.ownerDocument.forms.namedItem('post').elements.namedItem('body');
   }
+
+  // Convert the form so that it posts to the Tech Blog Commentary if "reply"
+  // is clicked from the Tech Blog itself.
+  let doc = this.ownerDocument;
+  if(doc.URL.split("&")[0] == "http://" + doc.domain + "/forum/viewTopic.php?id=2176351") {
+    alert("Now Replying Directly to Blog Commentary Thread");
+    doc.forms.namedItem('post').elements.namedItem('to').value = "/forum/viewTopic.php?id=2221303";
+    doc.forms.namedItem('post').elements.namedItem('return').value = "/forum/viewTopic.php?id=2221303";
+    doc.forms.namedItem('post').elements.namedItem('previewTitle').value = "The Tech Blog Commentary";
+    doc.forms.namedItem('post').action = "/forum/replyPost.php?id=2221303";
+  }
   
   var buttonText = gRTSE.prefsGetBool("extensions.rtse.editor.buttonText");
   if(buttonText) {
