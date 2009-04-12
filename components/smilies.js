@@ -116,6 +116,7 @@ Smilies.prototype =
         key=key.replace(/\(/g,'\\(');
         key=key.replace(/\*/g,'\\*');
         key=key.replace(/\?/g,'\\?');
+        key=key.replace(/€/g,'\\€');
         
         // Making Regular Expression and replacing
         regEx=new RegExp(key,'gi');
