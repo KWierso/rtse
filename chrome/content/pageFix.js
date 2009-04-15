@@ -406,14 +406,14 @@ function RTSE_addExtraTab(aDoc) {
 function RTSE_postPermalink(aDoc)
 // EFFECTS: Adds a permalink to posts on a page in aDoc
 {
-    let elms=RTSE_evaluateXPath(aDoc,"//td[@id='pageContent']/table/tbody/tr[1]/td/table/tbody/tr[3]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[1]");
+    let elms=RTSE_evaluateXPath(aDoc,"//td[@id='pageContent']/table/tbody/tr[1]/td/table/tbody/tr[3]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[1]/span");
     if(elms.length == 0)
-        elms=RTSE_evaluateXPath(aDoc,"//td[@id='pageContent']/table/tbody/tr[1]/td/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[1]");
-    var a,text,num;
-    var base=new String(aDoc.location.href);
+        elms=RTSE_evaluateXPath(aDoc,"//td[@id='pageContent']/table/tbody/tr[1]/td/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[1]/span");
+    let a,text,num;
+    let base=new String(aDoc.location.href);
     base=base.replace(/^https?:\/\/(www|rvb|sh|panics|magic)\.roosterteeth\.com(.*)$/,'$2');
     base=base.replace(/.*(#[c|t][0-9]+)$/i,'');
-    for( var i in elms ) {
+    for( let i in elms ) {
       text=elms[i].firstChild.data;
       if( /^\s*#([0-9]+)[\s\S]*$/i.test(text) ) {
         a=aDoc.createElement('a');
@@ -432,10 +432,11 @@ function RTSE_postPermalink(aDoc)
 function RTSE_samePageReply(aEvent)
 // EFFECTS: Function called when clicking on reply when same page replies is enabled
 {
+  let name, num;
   // Get post and what-not
   try {
-    var name = this.parentNode.parentNode.parentNode.parentNode.parentNode
-                 .parentNode.parentNode.parentNode
+    name = this.parentNode.parentNode.parentNode.parentNode.parentNode
+                 .parentNode.parentNode.parentNode.parentNode.parentNode
                  .getElementsByTagName('td')[0]
                  .getElementsByTagName('table')[0]
                  .getElementsByTagName('tbody')[0]
@@ -444,25 +445,26 @@ function RTSE_samePageReply(aEvent)
                  .firstChild.firstChild.innerHTML;
   }
   catch (e) {
-    var name = this.parentNode.parentNode.parentNode.parentNode.parentNode
-                 .parentNode.parentNode.parentNode
+    name = this.parentNode.parentNode.parentNode.parentNode.parentNode
+                 .parentNode.parentNode.parentNode.parentNode.parentNode
                  .getElementsByTagName('td')[0]
                  .getElementsByTagName('table')[0]
                  .getElementsByTagName('tbody')[0]
                  .getElementsByTagName('tr')[1].getElementsByTagName('td')[0]
                  .getElementsByTagName('a')[0].innerHTML;
   }
+
   name=name.replace(new RegExp('\t','gmi'),'');
   name=name.replace(new RegExp('\n','gmi'),'');
 
-  var num = this.parentNode.parentNode.parentNode.parentNode
+  num = this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode
                 .getElementsByTagName('td')[0].getElementsByTagName('a')[0]
                 .firstChild.data;
   num = num.replace(/#([0-9]+)/,'$1');
   // Append to editor
-  var editor;
-  var text = '[i]In reply to '+name+', #'+num+':[/i]\n\n';
-  var useEditor = gRTSE.prefsGetBool("extensions.rtse.editor");
+  let editor;
+  let text = '[i]In reply to '+name+', #'+num+':[/i]\n\n';
+  let useEditor = gRTSE.prefsGetBool("extensions.rtse.editor");
   if (useEditor) {
     editor = document.getElementById("rtse-editor-body");
     RTSE.editor.ensureEditorIsVisible();
@@ -481,11 +483,11 @@ function RTSE_samePageReply(aEvent)
     doc.forms.namedItem('post').action = "/forum/replyPost.php?id=2221303";
   }
   
-  var buttonText = gRTSE.prefsGetBool("extensions.rtse.editor.buttonText");
+  let buttonText = gRTSE.prefsGetBool("extensions.rtse.editor.buttonText");
   if(buttonText) {
       //insert 'reply to' text at cursor
       try {
-        var pos = editor.selectionStart + text.length;
+        let pos = editor.selectionStart + text.length;
 
         editor.value = editor.value.substring(0, editor.selectionStart) + text +
                     editor.value.substring(editor.selectionStart, editor.textLength);
@@ -501,7 +503,7 @@ function RTSE_samePageReply(aEvent)
   
   if (useEditor) {
     // We want to simulate the user doing this, so send out an input event.
-    var e = document.createEvent("UIEvents");
+    let e = document.createEvent("UIEvents");
     e.initUIEvent("input", true, false, window, 0);
     editor.dispatchEvent(e);
   }
@@ -517,17 +519,17 @@ function RTSE_modifyReply(aDoc)
 {
   if(!RTSE.editor.replaceableElements(aDoc))
     return;
-  var elms = RTSE_evaluateXPath(aDoc, "//td[@id='pageContent']/table/tbody/tr[1]/td/table/tbody/tr[3]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/a[2]/b");
+  let elms = RTSE_evaluateXPath(aDoc, "//td[@id='pageContent']/table/tbody/tr[1]/td/table/tbody/tr[3]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/span[3]/span[1]/a/b");
   if(elms.length == 0)
-    elms = RTSE_evaluateXPath(aDoc, "//td[@id='pageContent']/table/tbody/tr[2]/td/table/tbody/tr[3]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/a[2]/b");
+    elms = RTSE_evaluateXPath(aDoc, "//td[@id='pageContent']/table/tbody/tr[2]/td/table/tbody/tr[3]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/span[3]/span[1]/a/b");
   if(elms.length == 0)
-    elms = RTSE_evaluateXPath(aDoc, "//td[@id='pageContent']/table/tbody/tr[1]/td/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/a[2]/b");
+    elms = RTSE_evaluateXPath(aDoc, "//td[@id='pageContent']/table/tbody/tr[1]/td/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/span[3]/span[1]/a/b");
   if(elms.length == 0)
-    elms = RTSE_evaluateXPath(aDoc, "//td[@id='pageContent']/table/tbody/tr/td/table/tbody/tr/td/table[2]/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/a[2]/b");
+    elms = RTSE_evaluateXPath(aDoc, "//td[@id='pageContent']/table/tbody/tr/td/table/tbody/tr/td/table[2]/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/span[3]/span[1]/a/b");
   if(elms.length == 0)
-    elms = RTSE_evaluateXPath(aDoc, "//td[@id='pageContent']/table/tbody/tr[2]/td/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/a[2]/b");
+    elms = RTSE_evaluateXPath(aDoc, "//td[@id='pageContent']/table/tbody/tr[2]/td/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/span[3]/span[1]/a/b");
   if(elms.length == 0)
-    elms = RTSE_evaluateXPath(aDoc, "//td[@id='pageContent']/table/tbody/tr[2]/td/table/tbody/tr/td/table[2]/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/a[2]/b");
+    elms = RTSE_evaluateXPath(aDoc, "//td[@id='pageContent']/table/tbody/tr[2]/td/table/tbody/tr/td/table[2]/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/span[3]/span[1]/a/b");
   for (let i in elms) {    
     elms[i].parentNode.removeAttribute("href");
 	elms[i].parentNode.removeAttribute("onclick");
@@ -540,20 +542,20 @@ function RTSE_modifyReply(aDoc)
 
 function RTSE_modifyQuote(aDoc)
 {
-  var span,a,b;
+  let span,a,b;
   if(!RTSE.editor.replaceableElements(aDoc))
     return;
-  var elms = RTSE_evaluateXPath(aDoc, "//td[@id='pageContent']/table/tbody/tr[1]/td/table/tbody/tr[3]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/a[3]/b");
+  let elms = RTSE_evaluateXPath(aDoc, "//td[@id='pageContent']/table/tbody/tr[1]/td/table/tbody/tr[3]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/span[3]/span[2]/a/b");
   if(elms.length == 0)
-    elms = RTSE_evaluateXPath(aDoc, "//td[@id='pageContent']/table/tbody/tr[2]/td/table/tbody/tr[3]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/a[3]/b");
+    elms = RTSE_evaluateXPath(aDoc, "//td[@id='pageContent']/table/tbody/tr[2]/td/table/tbody/tr[3]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/span[3]/span[2]/a/b");
   if(elms.length == 0)
-    elms = RTSE_evaluateXPath(aDoc, "//td[@id='pageContent']/table/tbody/tr[1]/td/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/a[3]/b");
+    elms = RTSE_evaluateXPath(aDoc, "//td[@id='pageContent']/table/tbody/tr[1]/td/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/span[3]/span[2]/a/b");
   if(elms.length == 0)
-    elms = RTSE_evaluateXPath(aDoc, "//td[@id='pageContent']/table/tbody/tr/td/table/tbody/tr/td/table[2]/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/a[3]/b");
+    elms = RTSE_evaluateXPath(aDoc, "//td[@id='pageContent']/table/tbody/tr/td/table/tbody/tr/td/table[2]/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/span[3]/span[2]/a/b");
   if(elms.length == 0)
-    elms = RTSE_evaluateXPath(aDoc, "//td[@id='pageContent']/table/tbody/tr[2]/td/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/a[3]/b");
+    elms = RTSE_evaluateXPath(aDoc, "//td[@id='pageContent']/table/tbody/tr[2]/td/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/span[3]/span[2]/a/b");
   if(elms.length == 0)
-    elms = RTSE_evaluateXPath(aDoc, "//td[@id='pageContent']/table/tbody/tr[2]/td/table/tbody/tr/td/table[2]/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/a[3]/b");
+    elms = RTSE_evaluateXPath(aDoc, "//td[@id='pageContent']/table/tbody/tr[2]/td/table/tbody/tr/td/table[2]/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/span[3]/span[2]/a/b");
   for (let i in elms) {    
     elms[i].parentNode.removeAttribute("href");
 	elms[i].parentNode.removeAttribute("onclick");
@@ -575,11 +577,13 @@ function RTSE_modifyQuote(aDoc)
 function RTSE_quotePost(aEvent)
 // EFFECTS: Quotes a post
 {
-  var text = "";
+  let name, num;
+  let text = "";
   if(gRTSE.prefsGetBool("extensions.rtse.editor.quoteReply")) {
       //Generate the "Reply To" text as well
       try {
-        var name = this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode
+        name = this.parentNode.parentNode.parentNode.parentNode.parentNode
+                    .parentNode.parentNode.parentNode.parentNode.parentNode.parentNode
                      .getElementsByTagName('td')[0]
                      .getElementsByTagName('table')[0]
                      .getElementsByTagName('tbody')[0]
@@ -588,7 +592,8 @@ function RTSE_quotePost(aEvent)
                      .firstChild.firstChild.innerHTML;
       }
       catch (e) {
-        var name = this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode
+        name = this.parentNode.parentNode.parentNode.parentNode.parentNode
+                    .parentNode.parentNode.parentNode.parentNode.parentNode.parentNode
                      .getElementsByTagName('td')[0]
                      .getElementsByTagName('table')[0]
                      .getElementsByTagName('tbody')[0]
@@ -598,21 +603,21 @@ function RTSE_quotePost(aEvent)
       name=name.replace(new RegExp('\t','gmi'),'');
       name=name.replace(new RegExp('\n','gmi'),'');
 
-      var num = this.parentNode.parentNode.parentNode.parentNode.parentNode
+      num = this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode
                     .getElementsByTagName('td')[0].getElementsByTagName('a')[0]
                     .firstChild.data;
       num = num.replace(/#([0-9]+)/,'$1');
       text = '[i]In reply to '+name+', #'+num+':[/i]\n\n';
   }
-  var ref = this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
-  var post = RTSE_evaluateXPath(ref,'./tr[2]/td');
-  var text2 = new String(post[0].innerHTML);
+  let ref = this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+  let post = RTSE_evaluateXPath(ref,'./tr[2]/td');
+  let text2 = new String(post[0].innerHTML);
 
   text += '[quote]' + RTSE_HTMLtoBB(text2) + '[/quote]\n\n';
 
   // update the text of the body
-  var editor;
-  var useEditor = gRTSE.prefsGetBool("extensions.rtse.editor");
+  let editor;
+  let useEditor = gRTSE.prefsGetBool("extensions.rtse.editor");
   if (useEditor) {
     editor = document.getElementById("rtse-editor-body");
     RTSE.editor.ensureEditorIsVisible();
@@ -621,11 +626,11 @@ function RTSE_quotePost(aEvent)
                  .namedItem("body");
   }
 
-  var buttonText = gRTSE.prefsGetBool("extensions.rtse.editor.buttonText");
+  let buttonText = gRTSE.prefsGetBool("extensions.rtse.editor.buttonText");
   if(buttonText) {
       //insert quoted text at cursor
       try {
-        var pos = editor.selectionStart + text.length;
+        let pos = editor.selectionStart + text.length;
 
         editor.value = editor.value.substring(0, editor.selectionStart) + text +
                     editor.value.substring(editor.selectionStart, editor.textLength);
@@ -641,7 +646,7 @@ function RTSE_quotePost(aEvent)
   
   if (useEditor) {
     // We want to simulate the user doing this, so send out an input event.
-    var e = document.createEvent("UIEvents");
+    let e = document.createEvent("UIEvents");
     e.initUIEvent("input", true, false, window, 0);
     editor.dispatchEvent(e);
   }
