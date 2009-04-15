@@ -701,6 +701,7 @@ function RTSE_HTMLtoBB(aText)
   aText = aText.replace(/<br><br><span class="small"(.*?)>(.*?)<\/span>/g,'');
   aText = aText.replace(/<blockquote(.*?)>(.*?)<\/blockquote>/g,'');
   aText = aText.replace(/\t/g,'');
+  aText = aText.replace(/<wbr>/g,'');
   aText = aText.replace(/\n/g,'');
   aText = aText.replace(/<br>/g,'\n');
 
