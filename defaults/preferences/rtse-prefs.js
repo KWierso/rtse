@@ -42,7 +42,6 @@ pref("extensions.rtse.forum.1",true);
 pref("extensions.rtse.forum.37",true);
 pref("extensions.rtse.forum.8",true);
 pref("extensions.rtse.forum.34",true);
-pref("extensions.rtse.forum.40",true);
 
 pref("extensions.rtse.forum.9",true);
 pref("extensions.rtse.forum.39",true); 
@@ -52,6 +51,7 @@ pref("extensions.rtse.forum.30",true);
 pref("extensions.rtse.forum.35",true);
 
 pref("extensions.rtse.forum.3",true);
+pref("extensions.rtse.forum.41",true);
 pref("extensions.rtse.forum.18",true);
 pref("extensions.rtse.forum.19",true);
 pref("extensions.rtse.forum.36",true);

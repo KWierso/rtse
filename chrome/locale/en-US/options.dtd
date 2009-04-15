@@ -63,7 +63,6 @@
 <!ENTITY ForumJump.generaldiscussion "The main forum for topics on everything. Bear in mind, the universe is finite.">
 <!ENTITY ForumJump.website "For info and questions about the website.">
 <!ENTITY ForumJump.rtevents "This is where you talk about how much you like us and want to meet us.">
-<!ENTITY ForumJump.tournaments "A battle of wits.">
 
 <!ENTITY ForumJump.projects "Project Forums">
 <!ENTITY ForumJump.roosterteeth "The main Rooster Teeth forum.">
@@ -75,6 +74,7 @@
 
 <!ENTITY ForumJump.gaming "Gaming">
 <!ENTITY ForumJump.generalgaming "Non platform specific cultural jibberjabber">
+<!ENTITY ForumJump.tournaments "Each person with the best post moves on to the next thread.">
 <!ENTITY ForumJump.pcgaming "You should be using your computer for better things.">
 <!ENTITY ForumJump.halo "Yes, it has its own forum.">
 <!ENTITY ForumJump.grifball "If you see something orange, hit it really hard.">

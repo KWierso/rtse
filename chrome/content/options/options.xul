@@ -260,9 +260,6 @@
       <preference id="pref_forum34"
                   name="extensions.rtse.forum.34"
                   type="bool"/>
-      <preference id="pref_forum40"
-                  name="extensions.rtse.forum.40"
-                  type="bool"/>
 
       <preference id="pref_forum9"
                   name="extensions.rtse.forum.9"
@@ -285,6 +282,9 @@
 
       <preference id="pref_forum3"
                   name="extensions.rtse.forum.3"
+                  type="bool"/>
+      <preference id="pref_forum41"
+                  name="extensions.rtse.forum.41"
                   type="bool"/>
       <preference id="pref_forum18"
                   name="extensions.rtse.forum.18"
@@ -426,10 +426,6 @@
           <checkbox id="forum34" preference="pref_forum34"/>
           <description>&ForumJump.rtevents;</description>
         </richlistitem>
-        <richlistitem orient="vertical">
-          <checkbox id="forum40" preference="pref_forum40"/>
-          <description>&ForumJump.tournaments;</description>
-        </richlistitem>
 
         <richlistitem><label value="&ForumJump.projects;" style="font-weight:bold;"/></richlistitem>
         <richlistitem orient="vertical">
@@ -461,6 +457,10 @@
         <richlistitem orient="vertical">
           <checkbox id="forum3" preference="pref_forum3"/>
           <description>&ForumJump.generalgaming;</description>
+        </richlistitem>
+        <richlistitem orient="vertical">
+          <checkbox id="forum41" preference="pref_forum41"/>
+          <description>&ForumJump.tournaments;</description>
         </richlistitem>
         <richlistitem orient="vertical">
           <checkbox id="forum18" preference="pref_forum18"/>
