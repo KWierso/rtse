@@ -580,15 +580,34 @@
   </prefpane>
   <prefpane id="extras" label="&Extras.name;" selected="true" flex="1">
     <preferences>
-      <preference id="pref_tabTexts"
-                  name="extensions.rtse.extras.tabTexts"
+      <preference id="pref_tabText0"
+                  name="extensions.rtse.extras.tabText0"
                   type="string"/>
-      <preference id="pref_tabLinks"
-                  name="extensions.rtse.extras.tabLinks"
+      <preference id="pref_tabText1"
+                  name="extensions.rtse.extras.tabText1"
+                  type="string"/>
+      <preference id="pref_tabText2"
+                  name="extensions.rtse.extras.tabText2"
+                  type="string"/>
+      <preference id="pref_tabText3"
+                  name="extensions.rtse.extras.tabText3"
+                  type="string"/>
+      <preference id="pref_tabLink0"
+                  name="extensions.rtse.extras.tabLink0"
+                  type="string"/>
+      <preference id="pref_tabLink1"
+                  name="extensions.rtse.extras.tabLink1"
+                  type="string"/>
+      <preference id="pref_tabLink2"
+                  name="extensions.rtse.extras.tabLink2"
+                  type="string"/>
+      <preference id="pref_tabLink3"
+                  name="extensions.rtse.extras.tabLink3"
                   type="string"/>
       <preference id="pref_tab"
                   name="extensions.rtse.extras.tab"
                   type="bool"/>
+
       <preference id="pref_side"
                   name="extensions.rtse.sidebar"
                   type="bool"/>
@@ -610,27 +629,27 @@
         <richlistbox id="tabInfo" flex="1">
           <richlistitem orient="horizontal">
             <description id="t0_desc">&Extras.text;</description>
-            <textbox id="menu0Text" />
+            <textbox id="menu0Text" preference="pref_tabText0" />
             <description id="l0_desc">&Extras.link;</description>
-            <textbox id="menu0Link" width="200" />
+            <textbox id="menu0Link" width="200" preference="pref_tabLink0" />
           </richlistitem>
           <richlistitem orient="horizontal">
             <description id="t1_desc">&Extras.text;</description>
-            <textbox id="menu1Text" />
+            <textbox id="menu1Text" preference="pref_tabText1" />
             <description id="l1_desc">&Extras.link;</description>
-            <textbox id="menu1Link" width="200" />
+            <textbox id="menu1Link" width="200" preference="pref_tabLink1" />
           </richlistitem>
           <richlistitem orient="horizontal">
             <description id="t2_desc">&Extras.text;</description>
-            <textbox id="menu2Text" />
+            <textbox id="menu2Text" preference="pref_tabText2" />
             <description id="l2_desc">&Extras.link;</description>
-            <textbox id="menu2Link" width="200" />
+            <textbox id="menu2Link" width="200" preference="pref_tabLink2" />
           </richlistitem>
           <richlistitem orient="horizontal">
             <description id="t3_desc">&Extras.text;</description>
-            <textbox id="menu3Text" />
+            <textbox id="menu3Text" preference="pref_tabText3" />
             <description id="l3_desc">&Extras.link;</description>
-            <textbox id="menu3Link" width="200" />
+            <textbox id="menu3Link" width="200" preference="pref_tabLink3" />
           </richlistitem>
         </richlistbox>
         <spacer style="height:10px;"/>

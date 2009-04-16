@@ -45,31 +45,11 @@ function load() {
   
   addTab();
   forumJump();
-
-  // Extra Tab Setup 
-  var tabTexts = gRTSE.prefsGetString("extensions.rtse.extras.tabTexts");
-  var tabLinks = gRTSE.prefsGetString("extensions.rtse.extras.tabLinks");
-
-  var textArray = tabTexts.split(",");
-  var linkArray = tabLinks.split(",");
-
-  for(let i=0;i<4;i++) {
-    if(textArray[i] == undefined)
-        textArray[i] = "";
-    if(linkArray[i] == undefined)
-        linkArray[i] = "";
-  }
-  for(let i=0;i<4;i++) {
-    try {
-        document.getElementById("menu" + i + "Text").value = textArray[i];
-        document.getElementById("menu" + i + "Link").value = linkArray[i];
-    } catch(e) {} 
-  } 
   linkDisplay();
 }
 
 function onAccept() {
-  return buildTabPrefs();
+  return true;
 }
 
 /**
@@ -189,76 +169,4 @@ function addTab() {
         !document.getElementById('tab').checked;
     document.getElementById('tab_desc').hidden =
         !document.getElementById('tab').checked;
-}
-
-function buildTabPrefs() {
-// EFFECTS: Builds a list of tab texts and links and sets as preferences
-    let safe = true;
-    let mismatch = false;
-    
-    if(document.getElementById("tab").checked) {
-     try{ 
-        document.getElementById("t0_desc").value = "Text";
-        document.getElementById("l0_desc").value = "Link";
-        document.getElementById("t1_desc").value = "Text";
-        document.getElementById("l1_desc").value = "Link";
-        document.getElementById("t2_desc").value = "Text";
-        document.getElementById("l2_desc").value = "Link";
-        document.getElementById("t3_desc").value = "Text";
-        document.getElementById("l3_desc").value = "Link";
-     
-        if(document.getElementById("menu0Text").value == "") {
-            safe = false;
-            document.getElementById("t0_desc").value += "*";
-        }
-
-        if(document.getElementById("menu0Link").value == "") {
-            safe = false;
-            document.getElementById("l0_desc").value += "*";
-        }
-
-        if(document.getElementById("menu0Text").value.length > 12)
-            alert("Having a long text value for the tab header may cause the page to get stretched."+
-            "\nTry making it shorter if you have any problems.");
-
-        let texts ="";
-        for(let i=0;i<4;i++) {
-            if(document.getElementById("menu"+i+"Text").value.search(",") != -1) {
-                safe = false;
-                document.getElementById("t" + i + "_desc").value += "*";
-            }
-            texts += document.getElementById("menu"+i+"Text").value + ",";
-        }
-
-        let links = "";
-        for(let i=0;i<4;i++) {
-            if(document.getElementById("menu"+i+"Link").value.search(",") != -1) {
-                safe = false;
-                document.getElementById("l" + i + "_desc").value += "*";
-            }
-            links += document.getElementById("menu"+i+"Link").value + ",";
-        }
-
-        for(let i=0;i<4;i++) {
-            if(document.getElementById("menu"+i+"Text").value != "")
-                if(document.getElementById("menu"+i+"Link").value == "")
-                    mismatch = true;
-            if(document.getElementById("menu"+i+"Link").value != "")
-                if(document.getElementById("menu"+i+"Text").value == "")
-                    mismatch = true;
-        }
-
-        //validate
-        if(mismatch)
-            alert("Warning: Unmatched tab values will be stored, but will not be listed in the tab.");
-        if(safe) {
-            gRTSE.prefsSetString("extensions.rtse.extras.tabTexts", texts);
-            gRTSE.prefsSetString("extensions.rtse.extras.tabLinks", links);
-        } else {
-            alert("Text and Link validation failed.\n\n"+
-                  "Make sure that both textboxes on the first row are used, \nand remove any commas from all textboxes.");
-        }
-     } catch(e) { alert(e + "\n\n" + i);}
-    }
-    return !mismatch && safe;
 }

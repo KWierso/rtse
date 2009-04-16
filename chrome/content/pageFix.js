@@ -357,48 +357,59 @@ function RTSE_addToUserInfo(doc) {
 function RTSE_addExtraTab(aDoc) {
 // EFFECTS: Adds a tab with user-set links
   if(gRTSE.prefsGetBool("extensions.rtse.extras.tab")) {
-    let texts = gRTSE.prefsGetString("extensions.rtse.extras.tabTexts");
-    let links = gRTSE.prefsGetString("extensions.rtse.extras.tabLinks");
-    
-    let textArray = texts.split(",");
-    let linkArray = links.split(",");
-    
-    if(textArray.length > 0 && linkArray.length > 0) {
-        //cuts off the end of the list of tabs, allowing us to directly insert  our new tab
-        var tabs = aDoc.getElementById("sddm");
-        var arr = tabs.innerHTML.split("");
-        var idx = tabs.innerHTML.length-5;
-        arr.splice(idx,5);
-        tabs.innerHTML = arr.join("");
+    // Let's not break the entire add-on if something didn't validate correctly.
+    try {
+        let texts = gRTSE.prefsGetString("extensions.rtse.extras.tabText0") + "," + 
+                    gRTSE.prefsGetString("extensions.rtse.extras.tabText1") + "," +
+                    gRTSE.prefsGetString("extensions.rtse.extras.tabText2") + "," +
+                    gRTSE.prefsGetString("extensions.rtse.extras.tabText3") + ",";
+        let links = gRTSE.prefsGetString("extensions.rtse.extras.tabLink0") + "," + 
+                    gRTSE.prefsGetString("extensions.rtse.extras.tabLink1") + "," +
+                    gRTSE.prefsGetString("extensions.rtse.extras.tabLink2") + "," +
+                    gRTSE.prefsGetString("extensions.rtse.extras.tabLink3") + ",";
         
-        if(textArray[0] == "")
-            textArray[0] = " ";
-        if(linkArray[0] == "")
-            linkArray[0] = " ";
-        //remove the "href="+linkArray[0]+" portion if you wish for the tab header to do nothing.
-        tabs.innerHTML += "<li><a class='tabRoot' id='mlink7' href="+linkArray[0]+" onmouseover='mopen(\"7\");' onmouseout='mclosetime();'>"+textArray[0]+"</a>"+
-                "<div id='m7' class='hold' style='border: 0pt none ; background: transparent none repeat scroll 0% 0%; padding-top: 0px; z-index: 210; width: 150px; -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous; outline-color: -moz-use-text-color; outline-style: none; outline-width: 0pt;' onmouseover='mcancelclosetime()'>"+
-                "<div style='visibility: inherit; position: static; z-index: 220;' onmouseover='mcancelclosetime()' onmouseout='mclosetime()'>"+
-                "</div>"+
-                "</div>"+
-                "</li></ul>";
+        let textArray = texts.split(",");
+        let linkArray = links.split(",");
+        
+        if(textArray.length > 0 && linkArray.length > 0) {
+            //cuts off the end of the list of tabs, allowing us to directly insert  our new tab
+            var tabs = aDoc.getElementById("sddm");
+            var arr = tabs.innerHTML.split("");
+            var idx = tabs.innerHTML.length-5;
+            arr.splice(idx,5);
+            tabs.innerHTML = arr.join("");
+            
+            if(textArray[0] == "")
+                textArray[0] = " ";
+            if(linkArray[0] == "")
+                linkArray[0] = " ";
+            //remove the "href="+linkArray[0]+" portion if you wish for the tab header to do nothing.
+            tabs.innerHTML += "<li><a class='tabRoot' id='mlink7' href="+linkArray[0]+" onmouseover='mopen(\"7\");' onmouseout='mclosetime();'>"+textArray[0]+"</a>"+
+                    "<div id='m7' class='hold' style='border: 0pt none ; background: transparent none repeat scroll 0% 0%; padding-top: 0px; z-index: 210; width: 150px; -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous; outline-color: -moz-use-text-color; outline-style: none; outline-width: 0pt;' onmouseover='mcancelclosetime()'>"+
+                    "<div style='visibility: inherit; position: static; z-index: 220;' onmouseover='mcancelclosetime()' onmouseout='mclosetime()'>"+
+                    "</div>"+
+                    "</div>"+
+                    "</li></ul>";
 
-        for(let i = 1; i < 4 && i < textArray.length && i < linkArray.length; i++) {
-            let newChildLink = aDoc.createElement("a");
-            newChildLink.href = linkArray[i];
-            newChildLink.innerHTML = textArray[i];
-            if(textArray[i] != "" && linkArray[i] != "") {
-                aDoc.getElementById("m7").firstChild.appendChild(newChildLink);
+            for(let i = 1; i < 4 && i < textArray.length && i < linkArray.length; i++) {
+                let newChildLink = aDoc.createElement("a");
+                newChildLink.href = linkArray[i];
+                newChildLink.innerHTML = textArray[i];
+                if(textArray[i] != "" && linkArray[i] != "") {
+                    aDoc.getElementById("m7").firstChild.appendChild(newChildLink);
+                }
+            }
+
+            if(aDoc.getElementById("m7").firstChild.firstChild == null) {
+                tabs.lastChild.removeChild(tabs.lastChild.lastChild);
+            } else {
+                let newSpan = aDoc.createElement("span");
+                newSpan.className = "redBar";
+                aDoc.getElementById("m7").getElementsByTagName("div")[0].appendChild(newSpan);
             }
         }
-
-        if(aDoc.getElementById("m7").firstChild.firstChild == null) {
-            tabs.lastChild.removeChild(tabs.lastChild.lastChild);
-        } else {
-            let newSpan = aDoc.createElement("span");
-            newSpan.className = "redBar";
-            aDoc.getElementById("m7").getElementsByTagName("div")[0].appendChild(newSpan);
-        }
+    } catch(e) {
+        throw("addExtraTab() experienced an error. Try validating its options.");
     }
   }
 }
