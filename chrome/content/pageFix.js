@@ -491,12 +491,21 @@ function RTSE_samePageReply(aEvent)
     "2176351": "2221303",
     "2186795": "2186937"
   };
+  let titles = {
+    "2176351": "Tech",
+    "2186795": "P&CE"
+  };
 
   if(blogId in threads) {
-    doc.defaultView.status = "Now replying directly to Blog Commentary Thread.";
+    // Show notificationbox to inform the user
+    let notifyBox = gBrowser.getNotificationBox();
+    let box = notifyBox.appendNotification("Now Replying Directly to " + titles[blogId] + " Commentary Thread", "rtse-direct", null, notifyBox.PRIORITY_INFO_LOW, null);
+    box.persistence = 0;
+
+    // Change the form to reply directly to commentary thread
     doc.forms.namedItem("post").elements.namedItem("to").value = "/forum/viewTopic.php?id=" + threads[blogId];
     doc.forms.namedItem("post").elements.namedItem("return").value = "/forum/viewTopic.php?id=" + threads[blogId];
-    doc.forms.namedItem("post").elements.namedItem("previewTitle").value = "The Tech Blog Commentary";
+    doc.forms.namedItem("post").elements.namedItem("previewTitle").value = titles[blogId] + " Blog Commentary";
     doc.forms.namedItem("post").action = "/forum/replyPost.php?id=" + threads[blogId];
   }
   
