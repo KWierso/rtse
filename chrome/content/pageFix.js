@@ -486,27 +486,18 @@ function RTSE_samePageReply(aEvent)
   // Convert the form so that it posts to Blog Thread's Commentary if "reply"
   // is clicked from a Blog itself.
   let doc = this.ownerDocument;
-  let blogID = doc.URL.split("&")[0].split("id=")[1];
-  let commID;
-  switch(blogID) {
-    case "2176351":
-    //Tech Blog
-        commID = "2221303";
-        break;
-    case "2186795":
-    //P&CE Blog
-        commID = "2186937";
-        break;
-    default:
-    //Not a blog
-        break;
-  }
-  if(commID) {
-    alert("Now Replying Directly to Blog Commentary Thread");
-    doc.forms.namedItem('post').elements.namedItem('to').value = "/forum/viewTopic.php?id=" + commID;
-    doc.forms.namedItem('post').elements.namedItem('return').value = "/forum/viewTopic.php?id=" +commID;
-    doc.forms.namedItem('post').elements.namedItem('previewTitle').value = "The Tech Blog Commentary";
-    doc.forms.namedItem('post').action = "/forum/replyPost.php?id=" + commID;
+  let blogId = doc.URL.split("&")[0].split("id=")[1];
+  let threads = {
+    "2176351": "2221303",
+    "2186795": "2186937"
+  };
+
+  if(blogId in threads) {
+    doc.defaultView.status = "Now replying directly to Blog Commentary Thread.";
+    doc.forms.namedItem("post").elements.namedItem("to").value = "/forum/viewTopic.php?id=" + threads[blogId];
+    doc.forms.namedItem("post").elements.namedItem("return").value = "/forum/viewTopic.php?id=" + threads[blogId];
+    doc.forms.namedItem("post").elements.namedItem("previewTitle").value = "The Tech Blog Commentary";
+    doc.forms.namedItem("post").action = "/forum/replyPost.php?id=" + threads[blogId];
   }
   
   let buttonText = gRTSE.prefsGetBool("extensions.rtse.editor.buttonText");
