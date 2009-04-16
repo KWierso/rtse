@@ -483,15 +483,30 @@ function RTSE_samePageReply(aEvent)
     editor = this.ownerDocument.forms.namedItem('post').elements.namedItem('body');
   }
 
-  // Convert the form so that it posts to the Tech Blog Commentary if "reply"
-  // is clicked from the Tech Blog itself.
+  // Convert the form so that it posts to Blog Thread's Commentary if "reply"
+  // is clicked from a Blog itself.
   let doc = this.ownerDocument;
-  if(doc.URL.split("&")[0] == "http://" + doc.domain + "/forum/viewTopic.php?id=2176351") {
+  let blogID = doc.URL.split("&")[0].split("id=")[1];
+  let commID;
+  switch(blogID) {
+    case "2176351":
+    //Tech Blog
+        commID = "2221303";
+        break;
+    case "2186795":
+    //P&CE Blog
+        commID = "2186937";
+        break;
+    default:
+    //Not a blog
+        break;
+  }
+  if(commID) {
     alert("Now Replying Directly to Blog Commentary Thread");
-    doc.forms.namedItem('post').elements.namedItem('to').value = "/forum/viewTopic.php?id=2221303";
-    doc.forms.namedItem('post').elements.namedItem('return').value = "/forum/viewTopic.php?id=2221303";
+    doc.forms.namedItem('post').elements.namedItem('to').value = "/forum/viewTopic.php?id=" + commID;
+    doc.forms.namedItem('post').elements.namedItem('return').value = "/forum/viewTopic.php?id=" +commID;
     doc.forms.namedItem('post').elements.namedItem('previewTitle').value = "The Tech Blog Commentary";
-    doc.forms.namedItem('post').action = "/forum/replyPost.php?id=2221303";
+    doc.forms.namedItem('post').action = "/forum/replyPost.php?id=" + commID;
   }
   
   let buttonText = gRTSE.prefsGetBool("extensions.rtse.editor.buttonText");
