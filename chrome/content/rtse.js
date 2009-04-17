@@ -118,6 +118,15 @@ var RTSE = {
           // Permalinks
           RTSE_postPermalink(doc);
       }
+      
+      // Modify links for user comment pages
+      if(doc.location.href.match("comments") == 'comments' || doc.location.href.match("profile.php") == 'profile.php') {
+          // Replies
+          RTSE_modifyReply(doc);
+
+          // Quotes
+          RTSE_modifyQuote(doc);
+      }
     }
   },
   

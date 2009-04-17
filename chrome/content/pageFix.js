@@ -468,10 +468,13 @@ function RTSE_samePageReply(aEvent)
   name=name.replace(new RegExp('\t','gmi'),'');
   name=name.replace(new RegExp('\n','gmi'),'');
 
-  num = this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode
-                .getElementsByTagName('td')[0].getElementsByTagName('a')[0]
+  try {
+    num = this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode
+                .getElementsByTagName('td')[0].getElementsByTagName("span")[0].getElementsByTagName('a')[0]
                 .firstChild.data;
-  num = num.replace(/#([0-9]+)/,'$1');
+    num = num.replace(/#([0-9]+)/,'$1');
+  } catch(e) { /* this is either a comments page, or postPermalink did not run correctly */ }
+
   // Append to editor
   let editor;
   let text = '[i]In reply to '+name+', #'+num+':[/i]\n\n';
@@ -545,6 +548,7 @@ function RTSE_modifyReply(aDoc)
 {
   if(!RTSE.editor.replaceableElements(aDoc))
     return;
+
   let elms = RTSE_evaluateXPath(aDoc, "//td[@id='pageContent']/table/tbody/tr[1]/td/table/tbody/tr[3]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/span[3]/span[1]/a/b");
   if(elms.length == 0)
     elms = RTSE_evaluateXPath(aDoc, "//td[@id='pageContent']/table/tbody/tr[2]/td/table/tbody/tr[3]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/span[3]/span[1]/a/b");
@@ -556,6 +560,11 @@ function RTSE_modifyReply(aDoc)
     elms = RTSE_evaluateXPath(aDoc, "//td[@id='pageContent']/table/tbody/tr[2]/td/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/span[3]/span[1]/a/b");
   if(elms.length == 0)
     elms = RTSE_evaluateXPath(aDoc, "//td[@id='pageContent']/table/tbody/tr[2]/td/table/tbody/tr/td/table[2]/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/span[3]/span[1]/a/b");
+  if(elms.length == 0)
+    elms = RTSE_evaluateXPath(aDoc, "//td[@id='pageContent']/table/tbody/tr/td/table/tbody/tr[1]/td/table[2]/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/span[3]/span[1]/a/b");
+  if(elms.length == 0) {
+    elms = RTSE_evaluateXPath(aDoc.getElementById("comments").parentNode, "//table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/span[3]/span[1]/a/b");
+  }
   for (let i in elms) {    
     elms[i].parentNode.removeAttribute("href");
 	elms[i].parentNode.removeAttribute("onclick");
@@ -582,6 +591,11 @@ function RTSE_modifyQuote(aDoc)
     elms = RTSE_evaluateXPath(aDoc, "//td[@id='pageContent']/table/tbody/tr[2]/td/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/span[3]/span[2]/a/b");
   if(elms.length == 0)
     elms = RTSE_evaluateXPath(aDoc, "//td[@id='pageContent']/table/tbody/tr[2]/td/table/tbody/tr/td/table[2]/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/span[3]/span[2]/a/b");
+  if(elms.length == 0)
+    elms = RTSE_evaluateXPath(aDoc, "//td[@id='pageContent']/table/tbody/tr/td/table/tbody/tr[1]/td/table[2]/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/span[3]/span[2]/a/b");
+  if(elms.length == 0) {
+    elms = RTSE_evaluateXPath(aDoc.getElementById("comments").parentNode, "//table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/span[3]/span[2]/a/b");
+  }
   for (let i in elms) {    
     elms[i].parentNode.removeAttribute("href");
 	elms[i].parentNode.removeAttribute("onclick");
