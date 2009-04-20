@@ -12,6 +12,7 @@
 <!ENTITY Extras.sidebar "Show Sidebar">
 <!ENTITY Extras.header "Show Header">
 <!ENTITY Extras.journal "Show Journal Sidebar">
+<!ENTITY Extras.redirect "Redirect Blog and Commentary Posts">
 
 <!ENTITY Preferences.name "Site Preferences">
 <!ENTITY Preferences.link.groupcaption "Displayed links">

@@ -617,6 +617,9 @@
       <preference id="pref_journal"
                   name="extensions.rtse.journals"
                   type="bool"/>
+      <preference id="pref_redirect"
+                  name="extensions.rtse.extras.formRedirect"
+                  type="bool"/>
     </preferences>
     <vbox flex="1">
       <groupbox>
@@ -660,6 +663,7 @@
           <checkbox label="&Extras.journal;" preference="pref_journal"/>
         </groupbox>
       </groupbox>
+      <checkbox label="&Extras.redirect;" preference="pref_redirect"/>
     </vbox>
   </prefpane> 
 </prefwindow>

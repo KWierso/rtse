@@ -476,8 +476,11 @@ function RTSE_samePageReply(aEvent)
   } catch(e) { /* this is either a comments page, or postPermalink did not run correctly */ }
 
   // Append to editor
-  let editor;
-  let text = '[i]In reply to '+name+', #'+num+':[/i]\n\n';
+  let editor, text;
+  if(num)
+    text = '[i]In reply to '+name+', #'+num+':[/i]\n\n';
+  else
+    text = '[i]In reply to '+name+':[/i]\n\n';
   let useEditor = gRTSE.prefsGetBool("extensions.rtse.editor");
   if (useEditor) {
     editor = document.getElementById("rtse-editor-body");
@@ -495,23 +498,40 @@ function RTSE_samePageReply(aEvent)
     "2186795": "2186937"
   };
   let titles = {
-    "2176351": "Tech",
-    "2186795": "P&CE"
+    "2176351": "Tech Blog Commentary Thread",
+    "2186795": "P&CE Blog Commentary Thread"
   };
 
-  if(blogId in threads) {
-    // Show notificationbox to inform the user
-    let notifyBox = gBrowser.getNotificationBox();
-    let box = notifyBox.appendNotification("Now Replying Directly to " + titles[blogId] + " Commentary Thread", "rtse-direct", null, notifyBox.PRIORITY_INFO_LOW, null);
-    box.persistence = 0;
-
-    // Change the form to reply directly to commentary thread
-    doc.forms.namedItem("post").elements.namedItem("to").value = "/forum/viewTopic.php?id=" + threads[blogId];
-    doc.forms.namedItem("post").elements.namedItem("return").value = "/forum/viewTopic.php?id=" + threads[blogId];
-    doc.forms.namedItem("post").elements.namedItem("previewTitle").value = titles[blogId] + " Blog Commentary";
-    doc.forms.namedItem("post").action = "/forum/replyPost.php?id=" + threads[blogId];
+  if(gRTSE.prefsGetBool("extensions.rtse.extras.formRedirect")) {
+    if(blogId in threads) {
+      RTSE_modifyForm(doc, "/forum/viewTopic.php?id=" + threads[blogId], "/forum/viewTopic.php?id=" + threads[blogId],
+                      titles[blogId], "/forum/replyPost.php?id=" + threads[blogId]);
+    }
+    if(doc.URL.match("/comments/") == "/comments/" || doc.URL.match("/members/profile.php") == "/members/profile.php") {
+      let uID;
+      try {
+         uID = this.parentNode.parentNode.parentNode.parentNode.parentNode
+                   .parentNode.parentNode.parentNode.parentNode.parentNode
+                   .getElementsByTagName('td')[0]
+                   .getElementsByTagName('table')[0]
+                   .getElementsByTagName('tbody')[0]
+                   .getElementsByTagName('tr')[1].getElementsByTagName('td')[0]
+                   .getElementsByTagName('span')[0]
+                   .firstChild.firstChild.href.split("?uid=")[1];
+      } catch(e) {
+         uID = this.parentNode.parentNode.parentNode.parentNode.parentNode
+                   .parentNode.parentNode.parentNode.parentNode.parentNode
+                   .getElementsByTagName('td')[0]
+                   .getElementsByTagName('table')[0]
+                   .getElementsByTagName('tbody')[0]
+                   .getElementsByTagName('tr')[1].getElementsByTagName('td')[0]
+                   .getElementsByTagName('a')[0].href.split("?uid=")[1];
+      }
+      RTSE_modifyForm(doc, "/members/comments/commentPost.php?uid=" + uID, doc.URL,
+                      name + "'s Comments", "/members/comments/commentPost.php?uid=" + uID);
+    }
   }
-  
+
   let buttonText = gRTSE.prefsGetBool("extensions.rtse.editor.buttonText");
   if(buttonText) {
       //insert 'reply to' text at cursor
@@ -537,6 +557,31 @@ function RTSE_samePageReply(aEvent)
     editor.dispatchEvent(e);
   }
   editor.focus();
+}
+
+/**
+ * Modifies the post form on the current page to post to a different page
+ *
+ * @param aDoc The document to be modified
+ * @param toVal The post's destination value
+ * @param returnVal The page that the site loads after submission
+ * @param previewTitleVal The name of the page being previewed
+ * @param actionVal The form's new action parameter
+ */
+function RTSE_modifyForm(aDoc, toVal, returnVal, previewTitleVal, actionVal)
+{
+    // Show notificationbox to inform the user
+    let notifyBox = gBrowser.getNotificationBox();
+    notifyBox.removeAllNotifications(false)
+    let box = notifyBox.appendNotification("Now Replying Directly to " + previewTitleVal, "rtse-direct", null, notifyBox.PRIORITY_INFO_LOW, null);
+    box.persistence = 0;
+
+    previewTitleVal = previewTitleVal.replace("'", "&#039;");
+    // Change the form to reply directly to commentary thread
+    aDoc.forms.namedItem("post").elements.namedItem("to").value = toVal;
+    aDoc.forms.namedItem("post").elements.namedItem("return").value = returnVal;
+    aDoc.forms.namedItem("post").elements.namedItem("previewTitle").value = previewTitleVal;
+    aDoc.forms.namedItem("post").action = actionVal;
 }
 
 /**
@@ -793,3 +838,4 @@ function RTSE_addSearchPlugins(aDoc)
     head.appendChild(link);
   }
 }
+

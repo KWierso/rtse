@@ -22,6 +22,7 @@ pref("extensions.rtse.extras.tabLink0","/forum/viewTopic.php?id=2184252");
 pref("extensions.rtse.extras.tabLink1","http://www.google.com");
 pref("extensions.rtse.extras.tabLink2","");
 pref("extensions.rtse.extras.tabLink3","");
+pref("extensions.rtse.extras.formRedirect",true);
 
 pref("extensions.rtse.link.enabled",true);
 pref("extensions.rtse.link.user",true);
