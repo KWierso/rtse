@@ -6,7 +6,6 @@
 <!ENTITY Tooltip.image "image url">
 <!ENTITY Tooltip.quote "quoted text">
 <!ENTITY Tooltip.link "link name">
-<!ENTITY Tooltip.code "code text">
 <!ENTITY Tooltip.color "colored text">
 <!ENTITY Tooltip.locked "This is a Friends Only journal.">
 <!ENTITY Tooltip.unlocked "This journal is viewable to everyone.">

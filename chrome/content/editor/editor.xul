@@ -80,11 +80,6 @@
                 class="rtse-editor-button"
                 oncommand="RTSE.editor.link();"
                 tooltip="rtse-editor-tooltip-link"/>
-        <button id="rtse-editor-code"
-                class="rtse-editor-button"
-                oncommand="RTSE.editor.insertTag('code');"
-                hidden="true"
-                tooltip="rtse-editor-tooltip-code"/>
         <button id="rtse-editor-color"
                 class="rtse-editor-button"
                 type="menu"

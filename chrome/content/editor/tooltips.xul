@@ -78,11 +78,10 @@
       </description>
       <label value="alt + l"/>
     </tooltip>
-    <tooltip id="rtse-editor-tooltip-color" orient="vertical">
+    <tooltip id="rtse-editor-tooltip-color">
       <description>
         [color=value]<html:strong>&Tooltip.color;</html:strong>[/color]
       </description>
-      <label value="alt + c"/>
     </tooltip>
     <tooltip id="rtse-editor-tooltip-unlocked">
       <label value="&Tooltip.unlocked;"/>
