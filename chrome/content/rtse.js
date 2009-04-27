@@ -62,7 +62,8 @@ var RTSE = {
     var doc=aEvent.originalTarget;
 
     /* Run on all RT pages */
-    if( /^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com(.*)?$/.test(doc.location.href) ) {
+    if( /^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com(.*)?$/.test(doc.location.href) ||
+        /^https?:\/\/roosterteeth\.com(.*)?$/.test(doc.location.href) ) {
       // Add custom CSS
       RTSE_addCSS(doc);
       
@@ -253,3 +254,4 @@ var RTSE = {
     }
   }
 };
+
