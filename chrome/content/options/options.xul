@@ -183,9 +183,6 @@
   </prefpane>
   <prefpane id="extensions" label="&Extension.name;" flex="1">
     <preferences>
-      <preference id="pref_sponsor"
-                  name="extensions.rtse.sponsor"
-                  type="bool"/>
       <preference id="pref_smilies"
                   name="extensions.rtse.smilies"
                   type="bool"/>
@@ -206,11 +203,6 @@
         <checkbox id="quoteReply"
                   label="&Extension.enablequotereply;"
                   preference="pref_quoteReply"/>
-        <spacer style="height:10px;"/>
-        <checkbox id="sponsor"
-                  label="&Extension.enablesponsoronly;"
-                  preference="pref_sponsor"/>
-        <description>&Extension.sponsoronlylabel;</description>
         <spacer style="height:10px;"/>
         <vbox>
           <hbox>  

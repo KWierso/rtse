@@ -24,9 +24,9 @@
 <!ENTITY Preferences.link.journal "Journal">
 <!ENTITY Preferences.link.messages "Messages">
 <!ENTITY Preferences.link.settings "Settings">
-<!ENTITY Preferences.link.myStats "Stats">
-<!ENTITY Preferences.link.modHistory "Mod History">
-<!ENTITY Preferences.link.friendJournals "Friends' Journals">
+<!ENTITY Preferences.link.myStats "Stats (Sponsor-only)">
+<!ENTITY Preferences.link.modHistory "Mod History (Sponsor-only)">
+<!ENTITY Preferences.link.friendJournals "Friends' Journals (Sponsor-only)">
 <!ENTITY Preferences.link.sponsor "Sponsorship">
 <!ENTITY Preferences.link.star "Show star next to sponsorship link">
 <!ENTITY Preferences.link.avatar "Show your avatar image">
@@ -37,8 +37,6 @@
 
 <!ENTITY Extension.name "Site Extensions">
 <!ENTITY Extension.addedfeatures "Added Features">
-<!ENTITY Extension.enablesponsoronly "Enable Sponsor-only features">
-<!ENTITY Extension.sponsoronlylabel "Notice: This will only give you Sponsor-only features if you are actually a sponsor.">
 <!ENTITY Extension.enablesmiley "Enable Smilies">
 <!ENTITY Extension.importsmiley "Import Smilies">
 <!ENTITY Tooltip.smileys "Browse for a custom smilies.xml file">

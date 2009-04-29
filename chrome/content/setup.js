@@ -36,11 +36,6 @@ var wizard = {
   */
   apply: function apply() {
     try {
-
-      // Sponsor
-      gRTSE.prefsSetBool("extensions.rtse.sponsor",
-                         document.getElementById("sponsor").checked);
-
       // Editor
       gRTSE.prefsSetBool("extensions.rtse.editor",
                          document.getElementById("editor").checked);
@@ -52,14 +47,7 @@ var wizard = {
                          document.getElementById("header").checked);
 
       // userInfo extra links
-      if(document.getElementById("userInfo").checked) {
-        if(!document.getElementById("sponsor").checked) {
-            gRTSE.prefsSetBool("extensions.rtse.link.myStats", false);
-            gRTSE.prefsSetBool("extensions.rtse.link.modHistory", false);
-            gRTSE.prefsSetBool("extensions.rtse.link.friendJournals", false);
-        }
-      }
-      else {
+      if(!document.getElementById("userInfo").checked) {
         gRTSE.prefsSetBool("extensions.rtse.link.enabled", false);
       }
 

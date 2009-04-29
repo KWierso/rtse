@@ -49,11 +49,6 @@
 		<spacer style="height:10px"/>
 		<checkbox id="editor" checked="true" label="&Sitepref.ATEenable;"/>
         <spacer style="height:10px"/>
-        <hbox>
-			<checkbox checked="false" label="&Signin.sponsorlabel;" id="sponsor"/>
-		</hbox>
-		<description maxwidth="300">&Signin.sponsortext;</description>
-        <spacer style="height:10px"/>
         <description>&Sitepref.replyTextlabel;</description>
         <checkbox id="replytext" checked="true" label="&Sitepref.replyTextenable;"/>
     </wizardpage>

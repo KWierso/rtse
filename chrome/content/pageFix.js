@@ -278,7 +278,7 @@ function RTSE_addToUserInfo(doc) {
         var userName = userLinks[0];
         var newNames = new Array( userName.innerHTML, "Sign Out", "Comments", "Log", 
             "Journal", "Messages", "Settings", "My Stats", "Mod History", 
-            "Friend Journals", "Sponsor");
+            "Friend Journals", gRTSE.prefsGetBool("extensions.rtse.sponsor") ? "Sponsor" : "Become a Sponsor");
         if(doc.domain == "ah.roosterteeth.com")
             newNames[7] = "Stats";
         var newLinks = new Array( "/members/", "/members/signout.php", 

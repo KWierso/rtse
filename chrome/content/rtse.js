@@ -64,6 +64,14 @@ var RTSE = {
     /* Run on all RT pages */
     if( /^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com(.*)?$/.test(doc.location.href) ||
         /^https?:\/\/roosterteeth\.com(.*)?$/.test(doc.location.href) ) {
+
+      // Get Sponsor status for this browser session
+      let sponsElem = doc.getElementById("userInfo").getElementsByTagName("td")[0]
+                        .getElementsByTagName("a")[5];
+     // if(sponsElem.innerHTML == "Become a Sponsor")
+        gRTSE.prefsSetBool("extensions.rtse.sponsor", sponsElem.innerHTML != "Become a Sponsor");
+      
+
       // Add custom CSS
       RTSE_addCSS(doc);
       
@@ -254,4 +262,3 @@ var RTSE = {
     }
   }
 };
-
