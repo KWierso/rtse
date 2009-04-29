@@ -102,15 +102,21 @@ RTSE.editor =
   },
 
  /**
+  * Determine Sponsor Smilies visibility
+  */
+  sponsorSmilies: function sponsorSmilies() {
+    let sponsor = RTSE.sponsor;
+
+    document.getElementById("rtse-editor-sponsorSmilies").hidden = !sponsor;
+    document.getElementById("rtse-editor-color").hidden = !sponsor;
+  },
+
+ /**
   * Performs the preference sensative setup of data for the editor.
   */
   setup: function setup()
   {
-    var sponsor = gRTSE.prefsGetBool("extensions.rtse.sponsor");
-
-    // Visibility
-    document.getElementById("rtse-editor-sponsorSmilies").hidden = !sponsor;
-    document.getElementById("rtse-editor-color").hidden = !sponsor;
+    let sponsor = RTSE.sponsor;
 
     // Real Time Preview
     /*
@@ -825,7 +831,7 @@ RTSE.editor =
       aText = aText.replace(/\[link=(.*?)\](.*?)\[\/link\]/g, "<a href='$1'>$2</a>");
 
       // Sponsor Only Stuff
-      if (!gRTSE.prefsGetBool("extensions.rtse.sponsor"))
+      if (!RTSE.sponsor)
         return aText;
 
       aText = aText.replace(/\[color=(#[0-9A-Fa-f]{1,6})\]/g,

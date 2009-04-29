@@ -269,7 +269,7 @@ function RTSE_addToUserInfo(doc) {
     /* Adds additional links to the userInfo element in the site header */
     if(doc.getElementById("userInfo").getElementsByTagName("a").length != 2) {
         var lng = 11;
-        if (!gRTSE.prefsGetBool("extensions.rtse.sponsor")) {
+        if (!RTSE.sponsor) {
             lng = 7;
         }
         var userInfo = RTSE_evaluateXPath(doc,"//table[@id='userInfo']");
@@ -278,7 +278,7 @@ function RTSE_addToUserInfo(doc) {
         var userName = userLinks[0];
         var newNames = new Array( userName.innerHTML, "Sign Out", "Comments", "Log", 
             "Journal", "Messages", "Settings", "My Stats", "Mod History", 
-            "Friend Journals", gRTSE.prefsGetBool("extensions.rtse.sponsor") ? "Sponsor" : "Become a Sponsor");
+            "Friend Journals", RTSE.sponsor ? "Sponsor" : "Become a Sponsor");
         if(doc.domain == "ah.roosterteeth.com")
             newNames[7] = "Stats";
         var newLinks = new Array( "/members/", "/members/signout.php", 
@@ -792,7 +792,7 @@ function RTSE_HTMLtoBB(aText)
 
   aText = aText.replace(/<span style="background-color: rgb\(221, 221, 221\); color: rgb\(221, 221, 221\);">(.*?)<\/span>/, "[spoiler]$1[/spoiler]");
   // Sponsor stuff for colors (preserves if you are a sponsor)
-  if (gRTSE.prefsGetBool('extensions.rtse.sponsor')) {
+  if (RTSE.sponsor) {
     while(/<span style="color: rgb(.*?);">/.test(aText)) {
        let numbers = aText.split(/<span style="color: rgb\(/)[1].split(/\);">/)[0].split(", ");
        for(i in numbers) {

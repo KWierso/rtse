@@ -26,6 +26,9 @@
 var gRTSE=Components.classes['@shawnwilsher.com/rtse;1']
                     .getService(Components.interfaces.nsIRTSE);
 var RTSE = {
+  // Initialize sponsor setting for session
+  sponsor: false,
+
  /**
   * Function that initializes everything for each windows
   */
@@ -57,6 +60,15 @@ var RTSE = {
     pb.removeObserver("extensions.rtse", RTSE_PrefsChangeObserver);
   },
 
+  updateSponsor: function(doc) {
+    let userInfoElem = doc.getElementById("userInfo").getElementsByTagName("td")[0]
+                      .getElementsByTagName("a");
+    try {
+        this.sponsor = userInfoElem[5].innerHTML == "Sponsor" ||
+                       userInfoElem[6].innerHTML == "Sponsor";
+    } catch(e) { this.sponsor = false; }
+  },
+
   onPageLoad: function(aEvent) {
     /* the document is doc */
     var doc=aEvent.originalTarget;
@@ -66,11 +78,8 @@ var RTSE = {
         /^https?:\/\/roosterteeth\.com(.*)?$/.test(doc.location.href) ) {
 
       // Get Sponsor status for this browser session
-      let sponsElem = doc.getElementById("userInfo").getElementsByTagName("td")[0]
-                        .getElementsByTagName("a")[5];
-     // if(sponsElem.innerHTML == "Become a Sponsor")
-        gRTSE.prefsSetBool("extensions.rtse.sponsor", sponsElem.innerHTML != "Become a Sponsor");
-      
+      RTSE.updateSponsor(doc);
+      RTSE.editor.sponsorSmilies();
 
       // Add custom CSS
       RTSE_addCSS(doc);
@@ -162,7 +171,7 @@ var RTSE = {
       document.getElementById('rtse-user-watch').setAttribute('oncommand','gBrowser.addTab("http://'+
             sub+'.roosterteeth.com/members/addWatch.php?uid='+uid+'");');
       /* View Log */
-      if (!gRTSE.prefsGetBool("extensions.rtse.sponsor")) {
+      if (!RTSE.sponsor) {
           document.getElementById('rtse-user-log').style.display = 'none';
       } else {
           document.getElementById('rtse-user-log').style.display = '';
