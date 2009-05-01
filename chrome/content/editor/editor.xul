@@ -273,6 +273,11 @@
                    class="rtse-sponsor-smiley"
                    onclick="RTSE.editor.insertTag('smiley12');"/>
           </vbox>
+          <vbox pack="center">
+            <image src="chrome://rtse/content/images/smiley13.gif"
+                   class="rtse-sponsor-smiley"
+                   onclick="RTSE.editor.insertTag('smiley13');"/>
+          </vbox>
         </hbox>
         <spacer flex="1"/>
         <button id="rtse-editor-preview"
