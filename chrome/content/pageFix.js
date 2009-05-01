@@ -36,13 +36,14 @@ function RTSE_pageJump(aDoc)
     let maxPage;
     let allA;
     let elementArray = [];
+    let elements;
 
     let newText = aDoc.createElement("span");
     newText.style.fontSize = "x-small";
     newText.appendChild(aDoc.createTextNode("Page Jump: "));
 
     let newInput = aDoc.createElement("input");
-    newInput.style.width = "8%";
+    newInput.style.width = "20px";
     newInput.style.fontSize = "x-small";
     newInput.style.height = "10px";
     newInput.maxLength = "6";
@@ -52,16 +53,19 @@ function RTSE_pageJump(aDoc)
     newText.verticalAlign = "middle";
     newText.style.padding = "1px";
 
-    // Need to find a better way to get the page range elements. 
-    // This only works on forum and group forum pages, since
-    // the other parts of the site put the page ranges elsewhere on the page
-    let elements = RTSE_evaluateXPath(aDoc.getElementById("pageContent"),"//table/tbody/tr[3]/td/table/tbody/tr/td/table/tbody/tr/td[2]");
+    // Find all page number elements for modification.
+    elements = RTSE_evaluateXPath(aDoc.getElementById("pageContent"),"//table/tbody/tr/td/table/tbody/tr/td/a/b");
     for(let i in elements) {
         try {
-            if(elements[i].getElementsByTagName("a")[0].href.match(/page=1/))
-                elementArray.push(elements[i]);
+            if(elements[i].parentNode.parentNode.getElementsByTagName("a")[0].href.match(/page=1/) &&
+                    !elements[i].parentNode.parentNode.innerHTML.match("new reply") ) // Don't let watchlist items get added!
+                elementArray.push(elements[i].parentNode.parentNode);
         } catch(e) { }
     }
+
+    // If there are no page numbers on the current page, terminate function immediately.
+    if(elementArray.length == 0)
+        return;
 
     try {
         // Get the highest allowed page number
@@ -72,28 +76,30 @@ function RTSE_pageJump(aDoc)
             maxPage = maxPage.firstChild;
         maxPage = parseInt(maxPage.innerHTML);
 
-        // Insert Jump box at top of thread. (Journals, too)
-        elementArray[0].insertBefore(newText.cloneNode(true), elementArray[0].childNodes[0]);
-        elementArray[0].insertBefore(aDoc.createTextNode("  "), elementArray[0].childNodes[1]);
-        elementArray[0].getElementsByTagName("input")[0].addEventListener("keydown", function(e) { 
-            // Validate the value in the textbox
-            if(e.keyCode == 13) {
-                if(!this.value.match(/\D/g)) {
-                    if(this.value >= 1 && this.value <= maxPage) {
-                        // If everything's okay, jump to specified page.
-                        let newURL = aDoc.URL.split("#")[0].split("&page=")[0] + "&page=" + this.value;
-                        aDoc.location.href = newURL; 
-                    } else {
-                        alert("Page value not in the accepted range of pages!");
-                    }
-                } else { alert("Only numeric values are acceptable. Please remove any non-numeric values from the textbox."); }
-            }
-        }, false);
+        if(elementArray.length > 1) {
+        // Insert Jump box at top of page.
+            elementArray[0].insertBefore(newText.cloneNode(true), elementArray[0].childNodes[0]);
+            elementArray[0].insertBefore(aDoc.createTextNode("  "), elementArray[0].childNodes[1]);
+            elementArray[0].getElementsByTagName("input")[0].addEventListener("keydown", function(e) { 
+                // Validate the value in the textbox
+                if(e.keyCode == 13) {
+                    if(!this.value.match(/\D/g)) {
+                        if(this.value >= 1 && this.value <= maxPage) {
+                            // If everything's okay, jump to specified page.
+                            let newURL = aDoc.URL.split("#")[0].split("&page=")[0] + "&page=" + this.value;
+                            aDoc.location.href = newURL; 
+                        } else {
+                            alert("Page value not in the accepted range of pages!");
+                        }
+                    } else { alert("Only numeric values are acceptable. Please remove any non-numeric values from the textbox."); }
+                }
+            }, false);
+        }
 
-        // Insert Jump box at bottom of thread.
-        elementArray[1].appendChild(aDoc.createElement("br"));
-        elementArray[1].appendChild(newText.cloneNode(true));
-        elementArray[1].getElementsByTagName("input")[0].addEventListener("keydown", function(e) { 
+        // Insert Jump box at bottom of page.
+        elementArray[elementArray.length - 1].appendChild(aDoc.createElement("br"));
+        elementArray[elementArray.length - 1].appendChild(newText.cloneNode(true));
+        elementArray[elementArray.length - 1].getElementsByTagName("input")[0].addEventListener("keydown", function(e) { 
             // Validate the value in the textbox
             if(e.keyCode == 13) {
                 if(!this.value.match(/\D/g)) {

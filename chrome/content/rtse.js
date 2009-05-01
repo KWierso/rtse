@@ -97,6 +97,9 @@ var RTSE = {
       /* Forum Quick Jump */
       RTSE_forumListBox(doc);
 
+      // Page jump
+      RTSE_pageJump(doc);
+
       // MozSearch
       RTSE_addSearchPlugins(doc);
     } else
@@ -123,9 +126,6 @@ var RTSE = {
       // Run on all other pages with posts
       if( doc.location.href.match("entry.php") == 'entry.php' || doc.location.href.match("viewEntry.php") == 'viewEntry.php' || 
               doc.location.href.match("viewTopic.php") == 'viewTopic.php' || doc.location.href.match("image.php") == 'image.php') {
-          
-          // Page jump
-          RTSE_pageJump(doc);
 
           // Replies
           RTSE_modifyReply(doc);
