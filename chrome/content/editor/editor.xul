@@ -209,74 +209,161 @@
         <spacer flex="1"/>
         <hbox id="rtse-editor-sponsorSmilies" hidden="true">
           <vbox pack="center">
-            <image src="chrome://rtse/content/images/smiley0.gif"
-                   class="rtse-sponsor-smiley"
-                   onclick="RTSE.editor.insertTag('smiley0');"/>
-          </vbox>
-          <vbox pack="center">
-            <image src="chrome://rtse/content/images/smiley1.gif"
-                   class="rtse-sponsor-smiley"
-                   onclick="RTSE.editor.insertTag('smiley1');"/>
-          </vbox>
-          <vbox pack="center">
-            <image src="chrome://rtse/content/images/smiley2.gif"
-                   class="rtse-sponsor-smiley"
-                   onclick="RTSE.editor.insertTag('smiley2');"/>
-          </vbox>
-          <vbox pack="center">
-            <image src="chrome://rtse/content/images/smiley3.gif"
-                   class="rtse-sponsor-smiley"
-                   onclick="RTSE.editor.insertTag('smiley3');"/>
-          </vbox>
-          <vbox pack="center">
-            <image src="chrome://rtse/content/images/smiley4.gif"
-                   class="rtse-sponsor-smiley"
-                   onclick="RTSE.editor.insertTag('smiley4');"/>
-          </vbox>
-          <vbox pack="center">
-            <image src="chrome://rtse/content/images/smiley5.gif"
-                   class="rtse-sponsor-smiley"
-                   onclick="RTSE.editor.insertTag('smiley5');"/>
-          </vbox>
-          <vbox pack="center">
-            <image src="chrome://rtse/content/images/smiley6.gif"
-                   class="rtse-sponsor-smiley"
-                   onclick="RTSE.editor.insertTag('smiley6');"/>
-          </vbox>
-          <vbox pack="center">
-            <image src="chrome://rtse/content/images/smiley7.gif"
-                   class="rtse-sponsor-smiley"
-                   onclick="RTSE.editor.insertTag('smiley7');"/>
-          </vbox>
-          <vbox pack="center">
-            <image src="chrome://rtse/content/images/smiley8.gif"
-                   class="rtse-sponsor-smiley"
-                   onclick="RTSE.editor.insertTag('smiley8');"/>
-          </vbox>
-          <vbox pack="center">
-            <image src="chrome://rtse/content/images/smiley9.gif"
-                   class="rtse-sponsor-smiley"
-                   onclick="RTSE.editor.insertTag('smiley9');"/>
-          </vbox>
-          <vbox pack="center">
-            <image src="chrome://rtse/content/images/smiley10.gif"
-                   class="rtse-sponsor-smiley"
-                   onclick="RTSE.editor.insertTag('smiley10');"/>
-          </vbox>
-          <vbox pack="center">
-            <image src="chrome://rtse/content/images/smiley11.gif"
-                   class="rtse-sponsor-smiley"
-                   onclick="RTSE.editor.insertTag('smiley11');"/>
-          </vbox>
-          <vbox pack="center">
-            <image src="chrome://rtse/content/images/smiley12.gif"
-                   class="rtse-sponsor-smiley"
-                   onclick="RTSE.editor.insertTag('smiley12');"/>
-          </vbox>
-          <vbox pack="center">
-            <image src="chrome://rtse/content/images/smiley13.gif"
-                   class="rtse-sponsor-smiley"
-                   onclick="RTSE.editor.insertTag('smiley13');"/>
+            <hbox flex="2">
+              <vbox pack="center">
+                <image src="chrome://rtse/content/images/smiley0.gif"
+                       class="rtse-sponsor-smiley"
+                       onclick="RTSE.editor.insertTag('smiley0');"/>
+              </vbox>
+              <vbox pack="center">
+                <image src="chrome://rtse/content/images/smiley1.gif"
+                       class="rtse-sponsor-smiley"
+                       onclick="RTSE.editor.insertTag('smiley1');"/>
+              </vbox>
+              <vbox pack="center">
+                <image src="chrome://rtse/content/images/smiley2.gif"
+                       class="rtse-sponsor-smiley"
+                       onclick="RTSE.editor.insertTag('smiley2');"/>
+              </vbox>
+              <vbox pack="center">
+                <image src="chrome://rtse/content/images/smiley3.gif"
+                       class="rtse-sponsor-smiley"
+                       onclick="RTSE.editor.insertTag('smiley3');"/>
+              </vbox>
+              <vbox pack="center">
+                <image src="chrome://rtse/content/images/smiley4.gif"
+                       class="rtse-sponsor-smiley"
+                       onclick="RTSE.editor.insertTag('smiley4');"/>
+              </vbox>
+              <vbox pack="center">
+                <image src="chrome://rtse/content/images/smiley5.gif"
+                       class="rtse-sponsor-smiley"
+                       onclick="RTSE.editor.insertTag('smiley5');"/>
+              </vbox>
+              <vbox pack="center">
+                <image src="chrome://rtse/content/images/smiley6.gif"
+                       class="rtse-sponsor-smiley"
+                       onclick="RTSE.editor.insertTag('smiley6');"/>
+              </vbox>
+              <vbox pack="center">
+                <image src="chrome://rtse/content/images/smiley7.gif"
+                       class="rtse-sponsor-smiley"
+                       onclick="RTSE.editor.insertTag('smiley7');"/>
+              </vbox>
+              <vbox pack="center">
+                <image src="chrome://rtse/content/images/smiley8.gif"
+                       class="rtse-sponsor-smiley"
+                       onclick="RTSE.editor.insertTag('smiley8');"/>
+              </vbox>
+              <vbox pack="center">
+                <image src="chrome://rtse/content/images/smiley9.gif"
+                       class="rtse-sponsor-smiley"
+                       onclick="RTSE.editor.insertTag('smiley9');"/>
+              </vbox>
+              <vbox pack="center">
+                <image src="chrome://rtse/content/images/smiley10.gif"
+                       class="rtse-sponsor-smiley"
+                       onclick="RTSE.editor.insertTag('smiley10');"/>
+              </vbox>
+              <vbox pack="center">
+                <image src="chrome://rtse/content/images/smiley11.gif"
+                       class="rtse-sponsor-smiley"
+                       onclick="RTSE.editor.insertTag('smiley11');"/>
+              </vbox>
+              <vbox pack="center">
+                <image src="chrome://rtse/content/images/smiley12.gif"
+                       class="rtse-sponsor-smiley"
+                       onclick="RTSE.editor.insertTag('smiley12');"/>
+              </vbox>
+              <vbox pack="center">
+                <image src="chrome://rtse/content/images/smiley13.gif"
+                       class="rtse-sponsor-smiley"
+                       onclick="RTSE.editor.insertTag('smiley13');"/>
+              </vbox>
+            </hbox>
+            <spacer id="rtse-editor-ahSmileySpacer" hidden="true" flex="1"/>
+            <hbox id="rtse-editor-ahSmilies" hidden="true">
+              <vbox pack="center">
+                <image src="chrome://rtse/content/images/smiley14.gif"
+                       class="rtse-sponsor-smiley"
+                       onclick="RTSE.editor.insertTag('smiley14');"/>
+              </vbox>
+              <vbox pack="center">
+                <image src="chrome://rtse/content/images/smiley15.gif"
+                       class="rtse-sponsor-smiley"
+                       onclick="RTSE.editor.insertTag('smiley15');"/>
+              </vbox>
+              <vbox pack="center">
+                <image src="chrome://rtse/content/images/smiley16.gif"
+                       class="rtse-sponsor-smiley"
+                       onclick="RTSE.editor.insertTag('smiley16');"/>
+              </vbox>
+              <vbox pack="center">
+                <image src="chrome://rtse/content/images/smiley17.gif"
+                       class="rtse-sponsor-smiley"
+                       onclick="RTSE.editor.insertTag('smiley17');"/>
+              </vbox>
+              <vbox pack="center">
+                <image src="chrome://rtse/content/images/smiley18.gif"
+                       class="rtse-sponsor-smiley"
+                       onclick="RTSE.editor.insertTag('smiley18');"/>
+              </vbox>
+              <vbox pack="center">
+                <image src="chrome://rtse/content/images/smiley19.gif"
+                       class="rtse-sponsor-smiley"
+                       onclick="RTSE.editor.insertTag('smiley19');"/>
+              </vbox>
+              <vbox pack="center">
+                <image src="chrome://rtse/content/images/smiley20.gif"
+                       class="rtse-sponsor-smiley"
+                       onclick="RTSE.editor.insertTag('smiley20');"/>
+              </vbox>
+              <vbox pack="center">
+                <image src="chrome://rtse/content/images/smiley21.gif"
+                       class="rtse-sponsor-smiley"
+                       onclick="RTSE.editor.insertTag('smiley21');"/>
+              </vbox>
+              <vbox pack="center">
+                <image src="chrome://rtse/content/images/smiley22.gif"
+                       class="rtse-sponsor-smiley"
+                       onclick="RTSE.editor.insertTag('smiley22');"/>
+              </vbox>
+              <vbox pack="center">
+                <image src="chrome://rtse/content/images/smiley23.gif"
+                       class="rtse-sponsor-smiley"
+                       onclick="RTSE.editor.insertTag('smiley23');"/>
+              </vbox>
+              <vbox pack="center">
+                <image src="chrome://rtse/content/images/smiley24.gif"
+                       class="rtse-sponsor-smiley"
+                       onclick="RTSE.editor.insertTag('smiley24');"/>
+              </vbox>
+              <vbox pack="center">
+                <image src="chrome://rtse/content/images/smiley25.gif"
+                       class="rtse-sponsor-smiley"
+                       onclick="RTSE.editor.insertTag('smiley25');"/>
+              </vbox>
+              <vbox pack="center">
+                <image src="chrome://rtse/content/images/smiley26.gif"
+                       class="rtse-sponsor-smiley"
+                       onclick="RTSE.editor.insertTag('smiley26');"/>
+              </vbox>
+              <vbox pack="center">
+                <image src="chrome://rtse/content/images/smiley27.gif"
+                       class="rtse-sponsor-smiley"
+                       onclick="RTSE.editor.insertTag('smiley27');"/>
+              </vbox>
+              <vbox pack="center">
+                <image src="chrome://rtse/content/images/smiley28.gif"
+                       class="rtse-sponsor-smiley"
+                       onclick="RTSE.editor.insertTag('smiley28');"/>
+              </vbox>
+              <vbox pack="center">
+                <image src="chrome://rtse/content/images/smiley29.gif"
+                       class="rtse-sponsor-smiley"
+                       onclick="RTSE.editor.insertTag('smiley29');"/>
+              </vbox>
+            </hbox>
           </vbox>
         </hbox>
         <spacer flex="1"/>

@@ -44,6 +44,7 @@
 <!ENTITY Extension.enableadvancededitor "Enable Advanced Text Editor">
 <!ENTITY Extension.enablequotereply "Reply Text with Quotes">
 <!ENTITY Extension.samepagereplies "Use Same Page for Replies">
+<!ENTITY Extension.enableahsmilies "Display Achievement Hunter Smilies across the site">
 
 <!ENTITY ForumJump.name "Forum Jump List">
 <!ENTITY ForumJump.caption "Forum Jump Filter">

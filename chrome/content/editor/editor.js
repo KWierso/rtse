@@ -106,9 +106,13 @@ RTSE.editor =
   */
   sponsorSmilies: function sponsorSmilies() {
     let sponsor = RTSE.sponsor;
+    let ahSmileys = gRTSE.prefsGetBool("extensions.rtse.ahSmilies");
 
     document.getElementById("rtse-editor-sponsorSmilies").hidden = !sponsor;
     document.getElementById("rtse-editor-color").hidden = !sponsor;
+
+    document.getElementById("rtse-editor-ahSmileySpacer").hidden = !ahSmileys;
+    document.getElementById("rtse-editor-ahSmilies").hidden = !ahSmileys;
   },
 
  /**

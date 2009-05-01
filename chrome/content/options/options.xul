@@ -192,6 +192,9 @@
       <preference id="pref_quoteReply"
                   name="extensions.rtse.editor.quoteReply"
                   type="bool"/>
+      <preference id="pref_ahSmilies"
+                  name="extensions.rtse.ahSmilies"
+                  type="bool"/>
     </preferences>
     <vbox flex="1">
       <groupbox width="400">
@@ -203,6 +206,10 @@
         <checkbox id="quoteReply"
                   label="&Extension.enablequotereply;"
                   preference="pref_quoteReply"/>
+        <spacer style="height:10px;"/>
+        <checkbox id="ahSmilies"
+                  label="&Extension.enableahsmilies;"
+                  preference="pref_ahSmilies"/>
         <spacer style="height:10px;"/>
         <vbox>
           <hbox>  
