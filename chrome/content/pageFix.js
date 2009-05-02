@@ -833,9 +833,11 @@ function RTSE_addSearchPlugins(aDoc)
 {
   var head = aDoc.getElementsByTagName("head")[0];
   var titles = ["RT User Search",
+                "RT Tag Search",
                 "RT Forum Thread Search",
                 "RT Forum Post Search"];
   var hrefs = ["http://files.shawnwilsher.com/projects/rtse/search/users.xml",
+               "http://files.shawnwilsher.com/projects/rtse/search/tags.xml",
                "http://files.shawnwilsher.com/projects/rtse/search/threads.xml",
                "http://files.shawnwilsher.com/projects/rtse/search/posts.xml"];
   var link;
