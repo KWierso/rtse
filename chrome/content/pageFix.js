@@ -481,20 +481,6 @@ function RTSE_samePageReply(aEvent)
     num = num.replace(/#([0-9]+)/,'$1');
   } catch(e) { /* this is either a comments page, or postPermalink did not run correctly */ }
 
-  // Append to editor
-  let editor, text;
-  if(num)
-    text = '[i]In reply to '+name+', #'+num+':[/i]\n\n';
-  else
-    text = '[i]In reply to '+name+':[/i]\n\n';
-  let useEditor = gRTSE.prefsGetBool("extensions.rtse.editor");
-  if (useEditor) {
-    editor = document.getElementById("rtse-editor-body");
-    RTSE.editor.ensureEditorIsVisible();
-  } else {
-    editor = this.ownerDocument.forms.namedItem('post').elements.namedItem('body');
-  }
-
   // Convert the form so that it posts to Blog Thread's Commentary if "reply"
   // is clicked from a Blog itself.
   let doc = this.ownerDocument;
@@ -512,6 +498,7 @@ function RTSE_samePageReply(aEvent)
     if(blogId in threads) {
       RTSE_modifyForm(doc, "/forum/viewTopic.php?id=" + threads[blogId], "/forum/viewTopic.php?id=" + threads[blogId],
                       titles[blogId], "/forum/replyPost.php?id=" + threads[blogId]);
+      num = "[link=" + doc.URL.split("&page=")[0] + "&post=" + num +"]Blog Post #" + num + "[/link]";
     }
     if(doc.URL.match("/comments/") == "/comments/" || doc.URL.match("/members/profile.php") == "/members/profile.php") {
       let uID;
@@ -536,6 +523,23 @@ function RTSE_samePageReply(aEvent)
       RTSE_modifyForm(doc, "/members/comments/commentPost.php?uid=" + uID, doc.URL,
                       name + "'s Comments", "/members/comments/commentPost.php?uid=" + uID);
     }
+  }
+
+  // Append to editor
+  let editor, text;
+  if(num) {
+    if(num.search("#") < 0)
+      num = "#" + num;
+    text = '[i]In reply to '+name+', '+num+':[/i]\n\n';
+  }
+  else
+    text = '[i]In reply to '+name+':[/i]\n\n';
+  let useEditor = gRTSE.prefsGetBool("extensions.rtse.editor");
+  if (useEditor) {
+    editor = document.getElementById("rtse-editor-body");
+    RTSE.editor.ensureEditorIsVisible();
+  } else {
+    editor = this.ownerDocument.forms.namedItem('post').elements.namedItem('body');
   }
 
   let buttonText = gRTSE.prefsGetBool("extensions.rtse.editor.buttonText");
