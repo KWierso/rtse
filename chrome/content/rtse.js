@@ -104,21 +104,21 @@ var RTSE = {
       RTSE_addSearchPlugins(doc);
     } else
       return;
-    
+
     /* Run on journal pages */
-    if( /^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com\/members\/journal(.*)?$/.test(doc.location.href) ) {
+    if( /^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com\/members\/journal(.*)?$/.test(doc.location.href) ||
+        /^https?:\/\/roosterteeth\.com\/members\/journal(.*)?$/.test(doc.location.href) ) {
         /* Run on your journal page */
         if( /^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com\/members\/journal\/?$/.test(doc.location.href) ||
-            /^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com\/members\/journal\/index\.php.*$/.test(doc.location.href) ) {
+            /^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com\/members\/journal\/index\.php.*$/.test(doc.location.href) ||
+            /^https?:\/\/roosterteeth\.com\/members\/journal\/?$/.test(doc.location.href) ||
+            /^https?:\/\/roosterteeth\.com\/members\/journal\/index\.php.*$/.test(doc.location.href) ) {
             /* Fix Search */
             try {
                 RTSE_fixSearch(doc);
             } catch(e) {
                 //If the user is not using the beta journal layout, fail quietly.
             }
-
-            /* Editor */
-            RTSE_insertEditor(doc,'journal');
         }
     }
 

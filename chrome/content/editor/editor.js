@@ -167,10 +167,13 @@ RTSE.editor =
   initDoc: function initDoc(aEvent)
   {
     var doc = aEvent.originalTarget;
-    if (!/^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com(.*)?$/.test(doc.location.href))
+    if (!/^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com(.*)?$/.test(doc.location.href) &&
+        !/^https?:\/\/roosterteeth\.com(.*)?$/.test(doc.location.href))
       return;
+
     if (!RTSE.editor.replaceableElements(doc))
       return;
+
     var form = doc.createElement("form");
     form.setAttribute("name", "rtse");
     form.setAttribute("style", "display: none;");
@@ -211,7 +214,8 @@ RTSE.editor =
     var browser = gBrowser.getBrowserForTab(gBrowser.selectedTab);
     var doc = browser.contentDocument;
     if (gRTSE.prefsGetBool("extensions.rtse.editor") &&
-        /^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com(.*)?$/.test(doc.location.href))
+        /^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com(.*)?$/.test(doc.location.href) &&
+        /^https?:\/\/roosterteeth\.com(.*)?$/.test(doc.location.href))
       show = RTSE.editor.replaceableElements(doc);
     document.getElementById("rtse-statusbar-editor").hidden = !show;
   },
@@ -261,7 +265,8 @@ RTSE.editor =
     var doc = gBrowser.getBrowserForTab(gBrowser.selectedTab).contentDocument;
 
     if (doc.forms && !doc.forms.namedItem("rtse") ||
-        !/^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com(.*)?$/.test(doc.location.href)) {
+        !/^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com(.*)?$/.test(doc.location.href) ||
+        !/^https?:\/\/roosterteeth\.com(.*)?$/.test(doc.location.href)) {
       RTSE.editor.ensureEditorIsHidden();
       return;
     }
@@ -447,9 +452,11 @@ RTSE.editor =
   {
     var doc = aEvent.originalTarget;
     if (!gRTSE.prefsGetBool("extensions.rtse.editor") ||
-        !/^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com(.*)?$/.test(doc.location.href))
+        (!/^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com(.*)?$/.test(doc.location.href) &&
+        !/^https?:\/\/roosterteeth\.com(.*)?$/.test(doc.location.href)))
       return;
     const DATA = RTSE.editor.dataFields;
+
     var form = doc.forms.namedItem("post");
     if (!form) return;
 
