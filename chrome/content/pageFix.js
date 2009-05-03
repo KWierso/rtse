@@ -58,7 +58,8 @@ function RTSE_pageJump(aDoc)
     for(let i in elements) {
         try {
             if(elements[i].parentNode.parentNode.getElementsByTagName("a")[0].href.match(/page=1/) &&
-                    !elements[i].parentNode.parentNode.innerHTML.match("new") ) // Don't let watchlist items get added!
+                    !elements[i].parentNode.parentNode.innerHTML.match("new") && 
+                    !elements[i].parentNode.parentNode.innerHTML.match("Go Back") ) // Don't let watchlist items get added!
                 elementArray.push(elements[i].parentNode.parentNode);
         } catch(e) { }
     }
