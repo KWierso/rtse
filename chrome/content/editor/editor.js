@@ -214,8 +214,8 @@ RTSE.editor =
     var browser = gBrowser.getBrowserForTab(gBrowser.selectedTab);
     var doc = browser.contentDocument;
     if (gRTSE.prefsGetBool("extensions.rtse.editor") &&
-        /^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com(.*)?$/.test(doc.location.href) &&
-        /^https?:\/\/roosterteeth\.com(.*)?$/.test(doc.location.href))
+        (/^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com(.*)?$/.test(doc.location.href) ||
+        /^https?:\/\/roosterteeth\.com(.*)?$/.test(doc.location.href)))
       show = RTSE.editor.replaceableElements(doc);
     document.getElementById("rtse-statusbar-editor").hidden = !show;
   },
