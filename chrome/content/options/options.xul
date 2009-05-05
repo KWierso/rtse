@@ -259,6 +259,9 @@
       <preference id="pref_forum34"
                   name="extensions.rtse.forum.34"
                   type="bool"/>
+      <preference id="pref_forum42"
+                  name="extensions.rtse.forum.42"
+                  type="bool"/>
 
       <preference id="pref_forum9"
                   name="extensions.rtse.forum.9"
@@ -424,6 +427,10 @@
         <richlistitem orient="vertical">
           <checkbox id="forum34" preference="pref_forum34"/>
           <description>&ForumJump.rtevents;</description>
+        </richlistitem>
+        <richlistitem orient="vertical">
+          <checkbox id="forum42" preference="pref_forum42"/>
+          <description>&ForumJump.rtlive;</description>
         </richlistitem>
 
         <richlistitem><label value="&ForumJump.projects;" style="font-weight:bold;"/></richlistitem>
