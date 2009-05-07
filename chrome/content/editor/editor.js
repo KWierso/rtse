@@ -262,10 +262,6 @@ RTSE.editor =
   */
   toggleEditor: function toggleEditor(aEvent)
   {
-    // Don't hide editor if it's just the ad banner reloading on the site
-    if(aEvent.originalTarget.URL.search("INSERT_RANDOM_NUMBER_HERE") > 0)
-        return;
-
     var doc = gBrowser.getBrowserForTab(gBrowser.selectedTab).contentDocument;
 
     if (doc.forms && !doc.forms.namedItem("rtse") ||
