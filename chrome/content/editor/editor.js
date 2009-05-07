@@ -799,7 +799,7 @@ RTSE.editor =
     aEvent.stopPropagation();
     aEvent.preventDefault();
 
-    var key = String.fromCharCode(aEvent.charCode);
+    var key = String.fromCharCode(aEvent.charCode).toLowerCase();;
 
     switch (key) {
       case "b":
