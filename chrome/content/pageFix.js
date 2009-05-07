@@ -502,7 +502,7 @@ function RTSE_samePageReply(aEvent)
                       titles[blogId], "/forum/replyPost.php?id=" + threads[blogId]);
       num = "[link=" + doc.URL.split("&page=")[0] + "&post=" + num +"]Blog Post #" + num + "[/link]";
     }
-    if(doc.URL.match("/comments/") == "/comments/" || doc.URL.match("/members/profile.php") == "/members/profile.php") {
+  /*  if(doc.URL.match("/comments/") == "/comments/" || doc.URL.match("/members/profile.php") == "/members/profile.php") {
       let uID;
       try {
          uID = this.parentNode.parentNode.parentNode.parentNode.parentNode
@@ -524,7 +524,7 @@ function RTSE_samePageReply(aEvent)
       }
       RTSE_modifyForm(doc, "/members/comments/commentPost.php?uid=" + uID, doc.URL,
                       name + "'s Comments", "/members/comments/commentPost.php?uid=" + uID);
-    }
+    } */
   }
 
   // Append to editor
