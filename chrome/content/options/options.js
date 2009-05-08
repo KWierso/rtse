@@ -52,6 +52,11 @@ function onAccept() {
   return true;
 }
 
+function onDisclosure() {
+    return window.openDialog("chrome://rtse/content/options/changelog.xul", "changelog", 
+                                "chrome,modal,centerscreen");
+}
+
 /**
  * Function to disable/enable the forum jump filter
  */

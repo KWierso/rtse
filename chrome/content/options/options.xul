@@ -38,10 +38,12 @@
             xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
             maxwidth="500"
             onload="return load();"
-            buttons="accept,cancel"
+            buttons="accept,cancel, disclosure"
             ondialogaccept="return onAccept();"
+            ondialogdisclosure="return onDisclosure();"
             buttonlabelaccept="&Options.accept;"
-            buttonlabelcancel="&Options.cancel;">
+            buttonlabelcancel="&Options.cancel;"
+            buttonlabeldisclosure="Changelog">
     <script type="application/x-javascript"
             src="chrome://rtse/content/options/options.js"/>
     <script type="application/x-javascript"
