@@ -150,35 +150,36 @@ var RTSE = {
   
   _menu: function() {
     /* Context Menu Goodies */
-    let url=gBrowser.getBrowserAtIndex(gBrowser.mTabContainer.selectedIndex).contentDocument.location.href;
-    if( gContextMenu.onImage && gContextMenu.onLink &&
-      /^https?:\/\/([a-zA-Z]+).roosterteeth.com(.*)?$/.test(url) &&
-      gContextMenu.target.parentNode.href &&
-      /profile\.php\?uid=[0-9]+$/.test(gContextMenu.target.parentNode.href) ) {
-      /* Should target only user avatars */
-      gContextMenu.showItem("rtse-sub-menu",true);
-      let target=new String(gContextMenu.target.parentNode.href);
-      let uid=target.replace(/^https?:\/\/([a-zA-Z]+).roosterteeth.com\/members\/profile.php\?uid=([0-9]+)$/,'$2','$1');
-      let sub = target.replace(/^https?:\/\/([a-zA-Z]+).roosterteeth.com\/members\/profile.php\?uid=([0-9]+)$/,'$1','$2');;
+    let url=gBrowser.getBrowserAtIndex(gBrowser.mTabContainer.selectedIndex).contentDocument.location;
 
-      /* Send PM */
-      document.getElementById('rtse-user-sendPM').setAttribute('oncommand','gBrowser.addTab("http://'+
-            sub+'.roosterteeth.com/members/messaging/send.php?to='+uid+'");');
-      /* Add Friend */
-      document.getElementById('rtse-user-friends').setAttribute('oncommand','gBrowser.addTab("http://'+
-            sub+'.roosterteeth.com/members/addFriend.php?uid='+uid+'");');
-      /* Watch */
-      document.getElementById('rtse-user-watch').setAttribute('oncommand','gBrowser.addTab("http://'+
-            sub+'.roosterteeth.com/members/addWatch.php?uid='+uid+'");');
-      /* View Log */
-      if (!RTSE.sponsor) {
-          document.getElementById('rtse-user-log').style.display = 'none';
-      } else {
-          document.getElementById('rtse-user-log').style.display = '';
-      }
-      document.getElementById('rtse-user-log').setAttribute('oncommand','gBrowser.addTab("http://'+
-		  sub+'.roosterteeth.com/members/log.php?uid='+uid+'");');
-      
+    if( gContextMenu.onImage && gContextMenu.onLink &&
+       (/^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com(.*)?$/.test(url.href) ||
+       /^https?:\/\/roosterteeth\.com(.*)?$/.test(url.href)) &&
+       gContextMenu.target.parentNode.href &&
+       /avatar/.test(gContextMenu.target.className) ) {
+          /* Should target only user avatars */
+          gContextMenu.showItem("rtse-sub-menu",true);
+          let uid = gContextMenu.target.getAttribute("onerror");
+          uid = uid.split(/uid=/)[1].split(/\"/)[0];
+          let dom = url.hostname;
+
+          /* Send PM */
+          document.getElementById('rtse-user-sendPM').setAttribute('oncommand','gBrowser.addTab("http://'+
+            dom + '/members/messaging/send.php?to='+uid+'");');
+          /* Add Friend */
+          document.getElementById('rtse-user-friends').setAttribute('oncommand','gBrowser.addTab("http://'+
+            dom + 'roosterteeth.com/members/addFriend.php?uid='+uid+'");');
+          /* Watch */
+          document.getElementById('rtse-user-watch').setAttribute('oncommand','gBrowser.addTab("http://'+
+            dom + 'roosterteeth.com/members/addWatch.php?uid='+uid+'");');
+          /* View Log */
+          if (!RTSE.sponsor) {
+            document.getElementById('rtse-user-log').style.display = 'none';
+          } else {
+            document.getElementById('rtse-user-log').style.display = '';
+          }
+          document.getElementById('rtse-user-log').setAttribute('oncommand','gBrowser.addTab("http://'+
+            dom + '.roosterteeth.com/members/log.php?uid='+uid+'");');
     } else {
       gContextMenu.showItem("rtse-sub-menu",false);
     }
