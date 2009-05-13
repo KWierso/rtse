@@ -42,6 +42,11 @@
                 position="4"
                 image="chrome://rtse/skin/images/global/log.png"
                 class="menuitem-iconic"/>
+      <menuitem id="rtse-tournament-bracket"
+                label="&ContextMenu.tourneyBracket.label;"
+                position="5"
+                image="chrome://rtse/skin/images/global/view-bracket.png"
+                class="menuitem-iconic"/>
     </menupopup>
   </menu>
 </popup>

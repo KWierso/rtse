@@ -5,5 +5,6 @@
 <!ENTITY ContextMenu.watch.label "Watch User">
 <!ENTITY ContextMenu.addFriend.label "Add User to Friends">
 <!ENTITY ContextMenu.log.label "View User's Log">
+<!ENTITY ContextMenu.tourneyBracket.label "View Tournament Bracket">
 
 <!ENTITY Statusbar.editor.tooltip "The Rooster Teeth Site Extender is enabled on this page">

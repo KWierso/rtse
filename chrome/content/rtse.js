@@ -152,34 +152,72 @@ var RTSE = {
     /* Context Menu Goodies */
     let url=gBrowser.getBrowserAtIndex(gBrowser.mTabContainer.selectedIndex).contentDocument.location;
 
-    if( gContextMenu.onImage && gContextMenu.onLink &&
-       (/^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com(.*)?$/.test(url.href) ||
-       /^https?:\/\/roosterteeth\.com(.*)?$/.test(url.href)) &&
-       gContextMenu.target.parentNode.href &&
-       /avatar/.test(gContextMenu.target.className) ) {
-          /* Should target only user avatars */
-          gContextMenu.showItem("rtse-sub-menu",true);
-          let uid = gContextMenu.target.getAttribute("onerror");
-          uid = uid.split(/uid=/)[1].split(/\"/)[0];
-          let dom = url.hostname;
+    // Help handle the ONline div
+    let targetON = false;
+    if(gContextMenu.onLink && gContextMenu.target.innerHTML == "ON" && 
+       /onTag/.test(gContextMenu.target.parentNode.id) && !gContextMenu.onImage ) {
+         targetON = true;
+    }
 
-          /* Send PM */
-          document.getElementById('rtse-user-sendPM').setAttribute('oncommand','gBrowser.addTab("http://'+
-            dom + '/members/messaging/send.php?to='+uid+'");');
-          /* Add Friend */
-          document.getElementById('rtse-user-friends').setAttribute('oncommand','gBrowser.addTab("http://'+
-            dom + 'roosterteeth.com/members/addFriend.php?uid='+uid+'");');
-          /* Watch */
-          document.getElementById('rtse-user-watch').setAttribute('oncommand','gBrowser.addTab("http://'+
-            dom + 'roosterteeth.com/members/addWatch.php?uid='+uid+'");');
-          /* View Log */
-          if (!RTSE.sponsor) {
-            document.getElementById('rtse-user-log').style.display = 'none';
-          } else {
-            document.getElementById('rtse-user-log').style.display = '';
+    if( gContextMenu.onLink && (/^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com(.*)?$/.test(url.href) ||
+       /^https?:\/\/roosterteeth\.com(.*)?$/.test(url.href)) &&
+       ( (gContextMenu.onImage && gContextMenu.target.parentNode.href) || targetON ) ) {
+          /* Should target only user avatars */
+          if(/avatar av1/.test(gContextMenu.target.className)) {
+              gContextMenu.showItem("rtse-sub-menu",true);
+              let target = gContextMenu.target;
+
+              // Adjust target if over the ONline div
+              if(targetON) {
+                target = gContextMenu.target.parentNode.parentNode.getElementsByTagName("a")[1];
+              }
+
+              let uid = target.getAttribute("onerror");
+              uid = uid.split(/uid=/)[1].split(/\"/)[0];
+              let dom = url.hostname;
+
+              // Make sure tourney elements are hidden and the user items are visible
+              document.getElementById('rtse-tournament-bracket').style.display = 'none';
+              document.getElementById('rtse-user-log').style.display = '';
+              document.getElementById('rtse-user-watch').style.display = '';
+              document.getElementById('rtse-user-friends').style.display = '';
+              document.getElementById('rtse-user-sendPM').style.display = '';
+              
+              /* Send PM */
+              document.getElementById('rtse-user-sendPM').setAttribute('oncommand','gBrowser.addTab("http://'+
+                dom + '/members/messaging/send.php?to='+uid+'");');
+              /* Add Friend */
+              document.getElementById('rtse-user-friends').setAttribute('oncommand','gBrowser.addTab("http://'+
+                dom + '/members/addFriend.php?uid='+uid+'");');
+              /* Watch */
+              document.getElementById('rtse-user-watch').setAttribute('oncommand','gBrowser.addTab("http://'+
+                dom + '/members/addWatch.php?uid='+uid+'");');
+              /* View Log */
+              if (!RTSE.sponsor) {
+                document.getElementById('rtse-user-log').style.display = 'none';
+              } else {
+                document.getElementById('rtse-user-log').style.display = '';
+              }
+              document.getElementById('rtse-user-log').setAttribute('oncommand','gBrowser.addTab("http://'+
+                dom + '/members/log.php?uid='+uid+'");');
           }
-          document.getElementById('rtse-user-log').setAttribute('oncommand','gBrowser.addTab("http://'+
-            dom + '.roosterteeth.com/members/log.php?uid='+uid+'");');
+          if(/tournaments\/event.php/.test(gContextMenu.target.parentNode.href) ){
+            gContextMenu.showItem("rtse-sub-menu",true);
+
+            let dom = url.hostname;
+            let tid = gContextMenu.target.parentNode.href.split("id=")[1];
+            
+            // Make sure user elements are hidden and tourney items are visible
+            document.getElementById('rtse-user-log').style.display = 'none';
+            document.getElementById('rtse-user-watch').style.display = 'none';
+            document.getElementById('rtse-user-friends').style.display = 'none';
+            document.getElementById('rtse-user-sendPM').style.display = 'none';
+            document.getElementById('rtse-tournament-bracket').style.display = '';
+
+            /* View Tourney Bracket */
+            document.getElementById('rtse-tournament-bracket').setAttribute('oncommand','gBrowser.addTab("http://'+
+              dom + '/tournaments/bracket.php?id='+tid+'");');
+          }
     } else {
       gContextMenu.showItem("rtse-sub-menu",false);
     }
