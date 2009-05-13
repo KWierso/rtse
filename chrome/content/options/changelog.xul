@@ -34,8 +34,8 @@
         buttons="cancel"
         buttonlabelcancel="&Changelog.okay;"
         title="&Changelog.title;"
-        width="500"
-        height="350">
+        width="700"
+        height="450">
 
   <hbox id="rtse-about-content" class="rtse-content" align="center">
     <html:iframe id="rtse-changelog-iframe" src="chrome://rtse/content/options/changelog.xhtml" flex="1"/>
