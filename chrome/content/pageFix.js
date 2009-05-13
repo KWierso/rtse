@@ -502,7 +502,7 @@ function RTSE_samePageReply(aEvent)
                       titles[blogId], "/forum/replyPost.php?id=" + threads[blogId]);
       num = "[link=" + doc.URL.split("&page=")[0] + "&post=" + num +"]Blog Post #" + num + "[/link]";
     }
-  /*  if(doc.URL.match("/comments/") == "/comments/" || doc.URL.match("/members/profile.php") == "/members/profile.php") {
+    if(doc.URL.match("/comments/") == "/comments/" || doc.URL.match("/members/profile.php") == "/members/profile.php") {
       let uID;
       try {
          uID = this.parentNode.parentNode.parentNode.parentNode.parentNode
@@ -510,21 +510,22 @@ function RTSE_samePageReply(aEvent)
                    .getElementsByTagName('td')[0]
                    .getElementsByTagName('table')[0]
                    .getElementsByTagName('tbody')[0]
-                   .getElementsByTagName('tr')[1].getElementsByTagName('td')[0]
-                   .getElementsByTagName('span')[0]
-                   .firstChild.firstChild.href.split("?uid=")[1];
-      } catch(e) {
-         uID = this.parentNode.parentNode.parentNode.parentNode.parentNode
+                   .getElementsByTagName('img')[0].getAttribute("onerror");
+         uID = uID.split(/uid=/)[1].split(/\"/)[0];
+      } catch(e) { // User is using the "Old User Block" style. Can't find the uID
+    /*     uID = this.parentNode.parentNode.parentNode.parentNode.parentNode
                    .parentNode.parentNode.parentNode.parentNode.parentNode
                    .getElementsByTagName('td')[0]
                    .getElementsByTagName('table')[0]
                    .getElementsByTagName('tbody')[0]
                    .getElementsByTagName('tr')[1].getElementsByTagName('td')[0]
                    .getElementsByTagName('a')[0].href.split("?uid=")[1];
+    */
       }
-      RTSE_modifyForm(doc, "/members/comments/commentPost.php?uid=" + uID, doc.URL,
-                      name + "'s Comments", "/members/comments/commentPost.php?uid=" + uID);
-    } */
+      if(uID != null) // Only modify the form if the uID can be found
+        RTSE_modifyForm(doc, "/members/comments/commentPost.php?uid=" + uID, doc.URL,
+                  name + "'s Comments", "/members/comments/commentPost.php?uid=" + uID);
+    } 
   }
 
   // Append to editor
