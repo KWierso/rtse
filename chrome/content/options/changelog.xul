@@ -38,6 +38,6 @@
         height="450">
 
   <hbox id="rtse-about-content" class="rtse-content" align="center">
-    <html:iframe id="rtse-changelog-iframe" src="chrome://rtse/content/options/changelog.xhtml" flex="1"/>
+    <html:iframe id="rtse-changelog-iframe" src="chrome://rtse/content/options/changelog.xhtml" flex="1" height="350"/>
   </hbox>
 </dialog>
