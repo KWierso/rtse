@@ -57,8 +57,9 @@ function RTSE_pageJump(aDoc)
     elements = RTSE_evaluateXPath(aDoc.getElementById("pageContent"),"//table/tbody/tr/td/table/tbody/tr/td/a/b");
     for(let i in elements) {
         try {
-            if(elements[i].parentNode.parentNode.getElementsByTagName("a")[0].href.match(/page=1/) &&
-                    !elements[i].parentNode.parentNode.innerHTML.match("new") && 
+            if((elements[i].parentNode.parentNode.getElementsByTagName("a")[0].href.match(/page=1/) ||
+                    elements[i].parentNode.parentNode.getElementsByTagName("a")[0].innerHTML == "Add a Comment") &&
+                    !elements[i].parentNode.parentNode.innerHTML.match("new ") && 
                     !elements[i].parentNode.parentNode.innerHTML.match("Back") ) // Don't let watchlist items get added!
                 elementArray.push(elements[i].parentNode.parentNode);
         } catch(e) { }
