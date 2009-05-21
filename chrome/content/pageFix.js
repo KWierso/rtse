@@ -772,7 +772,8 @@ function RTSE_deconvertExtraBB(aDoc)
 
   // Smilies
   if (gRTSE.prefsGetBool('extensions.rtse.editor')) {
-    body.value = RTSE.smilies.deconvert(body.value);
+  if(RTSE.smilies.data.ok)
+    body.value = RTSE.smilies.deconvertText(body.value);
   }
 
   body.value = body.value.replace(/\[b\]Quoting ([a-zA-Z0-9_]{4,12}):\[\/b\]\[quote\]([\s\S]+)\[\/quote\]/g,'[quote=$1]$2[/quote]');
