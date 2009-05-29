@@ -102,6 +102,53 @@ Smilies.prototype =
     this.mLoaded = false;
   },
 
+  convertText: function(aText)
+  // EFFECTS: Converts aText into image tags where appropriate
+  {
+    var out=aText;
+    var key,regEx;
+    for( var i in this.mNames ) {
+      for( var j in this.mKeys[this.mNames[i]] ) {
+        key=this.mKeys[this.mNames[i]][j];
+        
+        // Cleans up for a good Regular Expression
+        key=key.replace(/\)/g,'\\)');
+        key=key.replace(/\(/g,'\\(');
+        key=key.replace(/\*/g,'\\*');
+        key=key.replace(/\?/g,'\\?');
+        
+        // Making Regular Expression and replacing
+        regEx=new RegExp(key,'gi');
+        out=out.replace(regEx,'[img]'+this.mPaths[this.mNames[i]]+'[/img]');
+      }
+    }
+    
+    return out;
+  },
+
+  deconvertText: function(aText)
+  // EFFECTS: Does the opposite of convertText
+  {
+    var out=aText;
+    var key,path,regEx;
+    for( var i in this.mNames ) {
+      // Getting a key for each path
+      key=this.mKeys[this.mNames[i]][0];
+      path=this.mPaths[this.mNames[i]];
+      path='[img]'+path+'[/img]';
+      
+      // Cleaning up path for Regular Expression
+      path=path.replace(/\[/g,'\\[');
+      path=path.replace(/\]/g,'\\]');
+      
+      // Making regular expression and replacing
+      regEx=new RegExp(path,'gi');
+      out=out.replace(regEx,key);
+    }
+    
+    return out;
+  },
+
   load: function(aFile)
   // EFFECTS: Loads the nsIFile aFile into memory
   {

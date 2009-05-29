@@ -236,7 +236,11 @@ var RTSE = {
       this.data = Components.classes["@shawnwilsher.com/smilies;1"]
                             .getService(Components.interfaces.nsISmilies);
       if (!this.data) return false;
-      
+
+      this.converter = Components.classes["@mozilla.org/intl/scriptableunicodeconverter"]
+                                 .createInstance(Components.interfaces.nsIScriptableUnicodeConverter);
+      this.converter.charset = "UTF-8";
+
       // Loading file
       var file=Components.classes["@mozilla.org/file/directory_service;1"]
                          .getService(Components.interfaces.nsIProperties)
@@ -268,51 +272,24 @@ var RTSE = {
       return this.data.ok;
     },
 
-    convertText: function(aText)
-    // EFFECTS: Converts aText into image tags where appropriate
+   /**
+    * Converts the supplied text using the XPCOM method
+    * @param aText the text to be converted
+    * @return the converted text
+    */
+    convert: function convert(aText)
     {
-      let items = this.items;
-      var out=aText;
-      var key,regEx;
-      for( var i in items ) {
-        for( var j in items[i].name ) {
-          key=items[i].key;
-
-          // Cleans up for a good Regular Expression
-          key=key.replace(/\)/g,'\\)');
-          key=key.replace(/\(/g,'\\(');
-          key=key.replace(/\*/g,'\\*');
-          key=key.replace(/\?/g,'\\?');
-
-          // Making Regular Expression and replacing
-          regEx=new RegExp(key,'gi');
-          out=out.replace(regEx,'[img]'+items[i].path+'[/img]');
-        }
-      }
-      return out;
+      return this.data.ok ? this.converter.ConvertToUnicode(this.data.convertText(this.converter.ConvertFromUnicode(aText))) + this.converter.Finish() : aText;
     },
 
-    deconvertText: function(aText)
-    // EFFECTS: Does the opposite of convertText
+   /**
+    * Removes any conversions that may have taken place from convert
+    * @param aText the text to be deconverted
+    * @return unconverted text
+    */
+    deconvert: function deconvert(aText)
     {
-      let items = this.items;
-      var out=aText;
-      var key,path,regEx;
-      for( var i in items ) {
-        // Getting a key for each path
-        key=items[i].key;
-        path=items[i].path;
-        path='[img]'+path+'[/img]';
-
-        // Cleaning up path for Regular Expression
-        path=path.replace(/\[/g,'\\[');
-        path=path.replace(/\]/g,'\\]');
-
-        // Making regular expression and replacing
-        regEx=new RegExp(path,'gi');
-        out=out.replace(regEx,key);
-      }
-      return out;
+      return this.data.ok ? this.converter.ConvertToUnicode(this.data.deconvertText(this.converter.ConvertFromUnicode(aText))) + this.converter.Finish() : aText;
     },
 
     ///////////////////////////////////////////////////////////////////////////

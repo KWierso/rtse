@@ -874,10 +874,7 @@ RTSE.editor =
     // Smilies
     if (gRTSE.prefsGetBool('extensions.rtse.editor')) {
       var checkbox = document.getElementById("rtse-editor-convertSmilies");
-      if (checkbox.checked) {
-        if(RTSE.smilies.data.ok)
-            aText = RTSE.smilies.convertText(aText);
-      }
+      if (checkbox.checked) aText = RTSE.smilies.convert(aText);
     }
 
     // BB Code
