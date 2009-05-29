@@ -171,7 +171,7 @@ RTSE.editor =
         !/^https?:\/\/roosterteeth\.com(.*)?$/.test(doc.location.href))
       return;
 
-    if (!RTSE.editor.replaceableElements(doc))
+    if (!RTSE.editor.replaceableElements(doc) || /\/members\/messaging\/send.php\?tid=(.*)?$/.test(doc.location.href))
       return;
 
     var form = doc.createElement("form");
