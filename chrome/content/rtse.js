@@ -279,7 +279,12 @@ var RTSE = {
     */
     convert: function convert(aText)
     {
-      return this.data.ok ? this.converter.ConvertToUnicode(this.data.convertText(this.converter.ConvertFromUnicode(aText))) + this.converter.Finish() : aText;
+      return this.data.ok ? 
+                        this.converter.ConvertToUnicode(
+                            this.data.convertText(
+                                this.converter.ConvertFromUnicode(aText)
+                            )
+                        ) + this.converter.Finish() : aText;
     },
 
    /**
@@ -289,7 +294,12 @@ var RTSE = {
     */
     deconvert: function deconvert(aText)
     {
-      return this.data.ok ? this.converter.ConvertToUnicode(this.data.deconvertText(this.converter.ConvertFromUnicode(aText))) + this.converter.Finish() : aText;
+      return this.data.ok ? 
+                        this.converter.ConvertToUnicode(
+                            this.data.deconvertText(
+                                this.converter.ConvertFromUnicode(aText)
+                            )
+                        ) + this.converter.Finish() : aText;
     },
 
     ///////////////////////////////////////////////////////////////////////////
