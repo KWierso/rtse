@@ -298,8 +298,20 @@ RTSE.editor =
       RTSE.editor.getProperty(doc, "show-title") != "true";
     document.getElementById("rtse-editor-toUser").hidden =
       RTSE.editor.getProperty(doc, "show-toUser") != "true";
-    document.getElementById("rtse-editor-friendsOnly").hidden =
-      RTSE.editor.getProperty(doc, "show-friendsOnly") != "true";
+    let friendsOnly = document.getElementById("rtse-editor-friendsOnly");
+    friendsOnly.hidden = RTSE.editor.getProperty(doc, "show-friendsOnly") != "true";
+    if(!friendsOnly.hidden) {
+      if(RTSE.editor.getProperty(doc, "friendsOnly") == 1) {
+        friendsOnly.checked = true;
+        friendsOnly.image = "chrome://rtse/content/images/locked.png";
+        friendsOnly.tooltip = "rtse-editor-tooltip-locked";
+      } else {
+        friendsOnly.checked = false;
+        friendsOnly.image = "chrome://rtse/content/images/unlocked.png";
+        friendsOnly.tooltip = "rtse-editor-tooltip-unlocked";
+      }
+    }
+
     $("rtse-poll-container").hidden =
       RTSE.editor.getProperty(doc, "show-pollq") != "true";
 
