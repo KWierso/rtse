@@ -855,3 +855,19 @@ function RTSE_addSearchPlugins(aDoc)
   }
 }
 
+function RTSE_findOnDomain(dom)
+// EFFECT: Returns boolean variable if 'dom' is a roosterteeth domain
+{
+    let periods = dom.match(/\./g).length;
+    if(periods == 1)
+        dom = dom.split(".")[0];
+    if(periods == 2) 
+        dom = dom.split(".")[1];
+
+    let domains = ["roosterteeth", "achievementhunter", "strangerhood"];
+
+    if(domains.indexOf(dom) >= 0)
+        return true;
+    else
+        return false;
+}

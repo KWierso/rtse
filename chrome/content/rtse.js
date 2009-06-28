@@ -73,79 +73,76 @@ var RTSE = {
     /* the document is doc */
     var doc=aEvent.originalTarget;
 
+    if(RTSE_findOnDomain(doc.domain)) {
     /* Run on all RT pages */
-    if( /^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com(.*)?$/.test(doc.location.href) ||
-        /^https?:\/\/roosterteeth\.com(.*)?$/.test(doc.location.href) ) {
+        let rtURL = doc.location.href.split(doc.domain)[1];
 
-      // Get Sponsor status for this browser session
-      RTSE.updateSponsor(doc);
-      RTSE.editor.sponsorSmilies();
+        // Get Sponsor status for this browser session
+        RTSE.updateSponsor(doc);
+        RTSE.editor.sponsorSmilies();
 
-      // Add custom CSS
-      RTSE_addCSS(doc);
-      
-      /*Add UserInfo Links*/
-      if(gRTSE.prefsGetBool("extensions.rtse.link.enabled"))
-        RTSE_addToUserInfo(doc);
+        // Add custom CSS
+        RTSE_addCSS(doc);
 
-      /*Add Extra Tab*/
-      RTSE_addExtraTab(doc);
+        /*Add UserInfo Links*/
+        if(gRTSE.prefsGetBool("extensions.rtse.link.enabled"))
+          RTSE_addToUserInfo(doc);
 
-      // Fix Links
-      RTSE_linkFix(doc);
-      
-      /* Forum Quick Jump */
-      RTSE_forumListBox(doc);
+        /*Add Extra Tab*/
+        RTSE_addExtraTab(doc);
 
-      // Page jump
-      RTSE_pageJump(doc);
+        // Fix Links
+        RTSE_linkFix(doc);
+          
+        /* Forum Quick Jump */
+        RTSE_forumListBox(doc);
 
-      // MozSearch
-      RTSE_addSearchPlugins(doc);
-    } else
-      return;
+        // Page jump
+        RTSE_pageJump(doc);
 
-    /* Run on journal pages */
-    if( /^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com\/members\/journal(.*)?$/.test(doc.location.href) ||
-        /^https?:\/\/roosterteeth\.com\/members\/journal(.*)?$/.test(doc.location.href) ) {
-        /* Run on your journal page */
-        if( /^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com\/members\/journal\/?$/.test(doc.location.href) ||
-            /^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com\/members\/journal\/index\.php.*$/.test(doc.location.href) ||
-            /^https?:\/\/roosterteeth\.com\/members\/journal\/?$/.test(doc.location.href) ||
-            /^https?:\/\/roosterteeth\.com\/members\/journal\/index\.php.*$/.test(doc.location.href) ) {
-            /* Fix Search */
-            try {
-                RTSE_fixSearch(doc);
-            } catch(e) {
-                //If the user is not using the beta journal layout, fail quietly.
+        // MozSearch
+        RTSE_addSearchPlugins(doc);
+
+        /* Run on journal pages */
+        if( /^\/members\/journal(.*)?$/.test(rtURL) ) {
+            /* Run on your journal page */
+            if( /^\/members\/journal\/?$/.test(rtURL) ||
+                /^\/members\/journal\/index\.php.*$/.test(rtURL) ) {
+                /* Fix Search */
+                try {
+                    RTSE_fixSearch(doc);
+                } catch(e) {
+                    //If the user is not using the beta journal layout, fail quietly.
+                }
             }
         }
-    }
 
-    if(doc.getElementById("pageContent").getElementsByTagName("span")[0].innerHTML!="Locked:") {
-      // Run on all other pages with posts
-      if( doc.location.href.match("entry.php") == 'entry.php' || doc.location.href.match("viewEntry.php") == 'viewEntry.php' || 
-              doc.location.href.match("viewTopic.php") == 'viewTopic.php' || doc.location.href.match("image.php") == 'image.php') {
+        if(doc.getElementById("pageContent").getElementsByTagName("span")[0].innerHTML!="Locked:") {
+          // Run on all other pages with posts
+          if( doc.location.href.match("entry.php") == 'entry.php' || doc.location.href.match("viewEntry.php") == 'viewEntry.php' || 
+                  doc.location.href.match("viewTopic.php") == 'viewTopic.php' || doc.location.href.match("image.php") == 'image.php') {
 
-          // Replies
-          RTSE_modifyReply(doc);
+              // Replies
+              RTSE_modifyReply(doc);
 
-          // Quotes
-          RTSE_modifyQuote(doc);
+              // Quotes
+              RTSE_modifyQuote(doc);
 
-          // Permalinks
-          RTSE_postPermalink(doc);
-      }
-      
-      // Modify links for user comment pages
-      if(doc.location.href.match("comments") == 'comments' || doc.location.href.match("profile.php") == 'profile.php') {
-          // Replies
-          RTSE_modifyReply(doc);
+              // Permalinks
+              RTSE_postPermalink(doc);
+          }
+          
+          // Modify links for user comment pages
+          if(doc.location.href.match("comments") == 'comments' || doc.location.href.match("profile.php") == 'profile.php') {
+              // Replies
+              RTSE_modifyReply(doc);
 
-          // Quotes
-          RTSE_modifyQuote(doc);
-      }
-    }
+              // Quotes
+              RTSE_modifyQuote(doc);
+          }
+        }
+    } else
+        return;
   },
   
   _menu: function() {

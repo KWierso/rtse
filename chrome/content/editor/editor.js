@@ -167,8 +167,7 @@ RTSE.editor =
   initDoc: function initDoc(aEvent)
   {
     var doc = aEvent.originalTarget;
-    if (!/^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com(.*)?$/.test(doc.location.href) &&
-        !/^https?:\/\/roosterteeth\.com(.*)?$/.test(doc.location.href))
+    if (!RTSE_findOnDomain(doc.domain))
       return;
 
     if (!RTSE.editor.replaceableElements(doc) || /\/members\/messaging\/send.php\?tid=(.*)?$/.test(doc.location.href))
@@ -213,9 +212,8 @@ RTSE.editor =
     var show = false;
     var browser = gBrowser.getBrowserForTab(gBrowser.selectedTab);
     var doc = browser.contentDocument;
-    if (gRTSE.prefsGetBool("extensions.rtse.editor") &&
-        (/^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com(.*)?$/.test(doc.location.href) ||
-        /^https?:\/\/roosterteeth\.com(.*)?$/.test(doc.location.href)))
+    if ( gRTSE.prefsGetBool("extensions.rtse.editor") &&
+        RTSE_findOnDomain(doc.domain) )
       show = RTSE.editor.replaceableElements(doc);
     document.getElementById("rtse-statusbar-editor").hidden = !show;
   },
@@ -265,8 +263,7 @@ RTSE.editor =
     var doc = gBrowser.getBrowserForTab(gBrowser.selectedTab).contentDocument;
 
     if (doc.forms && !doc.forms.namedItem("rtse") ||
-        !/^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com(.*)?$/.test(doc.location.href) ||
-        !/^https?:\/\/roosterteeth\.com(.*)?$/.test(doc.location.href)) {
+        !RTSE_findOnDomain(doc.domain)) {
       RTSE.editor.ensureEditorIsHidden();
       return;
     }
@@ -464,8 +461,7 @@ RTSE.editor =
   {
     var doc = aEvent.originalTarget;
     if (!gRTSE.prefsGetBool("extensions.rtse.editor") ||
-        (!/^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com(.*)?$/.test(doc.location.href) &&
-        !/^https?:\/\/roosterteeth\.com(.*)?$/.test(doc.location.href)))
+        !RTSE_findOnDomain(doc.domain))
       return;
     const DATA = RTSE.editor.dataFields;
 
