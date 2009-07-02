@@ -160,7 +160,7 @@ var RTSE = {
        /^https?:\/\/roosterteeth\.com(.*)?$/.test(url.href)) &&
        ( (gContextMenu.onImage && gContextMenu.target.parentNode.href) || targetON ) ) {
           /* Should target only user avatars */
-          if(/avatar av1/.test(gContextMenu.target.className)) {
+          if(/avatar av{0,1}/.test(gContextMenu.target.className)) {
               gContextMenu.showItem("rtse-sub-menu",true);
               let target = gContextMenu.target;
 
