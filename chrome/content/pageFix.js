@@ -759,6 +759,12 @@ function RTSE_convertExtraBB(aEvent)
   var form = doc.forms.namedItem("post");
   var body = form.elements.namedItem("body");
 
+  // Reset all buttons in the ATE
+  var editor = document.getElementById("rtse-editor");
+  var buttons = editor.getElementsByTagName("button");
+  for(let i in buttons)
+    buttons[i].checked = false;
+
   body.value = RTSE.editor.convertExtraBB(body.value);
 }
 
