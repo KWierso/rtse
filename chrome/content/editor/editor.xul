@@ -89,17 +89,17 @@
           <menupopup>
             <menuitem label="&Color.red;" value="FF0000"
                       oncommand="RTSE.editor.colorize(this.value);"/>
-            <menuitem label="&Color.orange;" value="FFAA00"
+            <menuitem label="&Color.orange;" value="F87A17"
                       oncommand="RTSE.editor.colorize(this.value);"/>
-            <menuitem label="&Color.yellow;" value="DDFF00"
+            <menuitem label="&Color.yellow;" value="FFFF00"
                       oncommand="RTSE.editor.colorize(this.value);"/>
-            <menuitem label="&Color.green;" value="00FF00"
+            <menuitem label="&Color.green;" value="347C17"
                       oncommand="RTSE.editor.colorize(this.value);"/>
             <menuitem label="&Color.blue;" value="0000FF"
                       oncommand="RTSE.editor.colorize(this.value);"/>
-            <menuitem label="&Color.violet;" value="AA00FF"
+            <menuitem label="&Color.violet;" value="8D38C9"
                       oncommand="RTSE.editor.colorize(this.value);"/>
-            <menuitem label="&Color.brown;" value="AA8800"
+            <menuitem label="&Color.brown;" value="980517"
                       oncommand="RTSE.editor.colorize(this.value);"/>
             <menuitem label="&Color.white;" value="FFFFFF"
                       oncommand="RTSE.editor.colorize(this.value);"/>
