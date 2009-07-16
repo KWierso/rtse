@@ -870,7 +870,7 @@ function RTSE_findOnDomain(dom)
     if(periods == 2) 
         dom = dom.split(".")[1];
 
-    let domains = ["roosterteeth", "achievementhunter", "strangerhood"];
+    let domains = ["roosterteeth", "achievementhunter", "strangerhood", "redvsblue"];
 
     if(domains.indexOf(dom) >= 0)
         return true;
