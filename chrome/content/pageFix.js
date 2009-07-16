@@ -127,8 +127,10 @@ function RTSE_linkFix(aDoc)
 //          scroll into view as opposed to loading a new url.
 {
   // Scroll Into view for links on same page
+
+  var regEx = /^http:\/\/((|panics.|magic.|m.|myspace.)roosterteeth|achievementhunter|strangerhood|redvsblue).com(.*)$/i;
   var loc = aDoc.location.href
-                .replace(/^https?:\/\/(www|rvb|sh|panics|magic|myspace|ah|m)\.roosterteeth\.com(.*)$/i,'$2');
+                .replace(regEx,'$2');
   var func = function showMe(aEvent) {
     var id = this.href.replace(/^.*?#([\S\s]+)$/i,'$1');
     var doc = this.ownerDocument;
@@ -147,7 +149,7 @@ function RTSE_linkFix(aDoc)
   // Remove target and keep same flavor
   if (!gRTSE.prefsGetBool("extensions.rtse.fixLinks")) return;
   links = RTSE_evaluateXPath(aDoc,'//a[@target="_blank"]');
-  var regEx = /^http:\/\/(www|rvb|sh|panics|magic|myspace|ah|m).roosterteeth.com(.*)$/i;
+
   for (var i = (links.length - 1); i >= 0; --i) {
     if (links[i].href.match(regEx)) {
       links[i].removeAttribute('target');
