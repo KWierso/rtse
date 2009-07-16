@@ -1,10 +1,12 @@
 @-moz-document 
-   url-prefix("http://www.roosterteeth.com/members/journal/"),
-   url-prefix("http://rvb.roosterteeth.com/members/journal/"),
-   url-prefix("http://sh.roosterteeth.com/members/journal/"),
-   url-prefix("http://ah.roosterteeth.com/members/journal/"),
+   url-prefix("http://roosterteeth.com/members/journal/"),
+   url-prefix("http://redvsblue.com/members/journal/"),
+   url-prefix("http://strangerhood.com/members/journal/"),
+   url-prefix("http://achievementhunter.com/members/journal/"),
    url-prefix("http://magic.roosterteeth.com/members/journal/"),
-   url-prefix("http://panics.roosterteeth.com/members/journal/")
+   url-prefix("http://panics.roosterteeth.com/members/journal/"),
+   url-prefix("http://m.roosterteeth.com/members/journal/"),
+   url-prefix("http://myspace.roosterteeth.com/members/journal/")
 {
 
 #pageContent>table>tbody>tr>td>table>tbody>tr>td>table>tbody>tr>td[width="250"]{
