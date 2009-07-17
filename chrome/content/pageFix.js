@@ -127,10 +127,9 @@ function RTSE_linkFix(aDoc)
 //          scroll into view as opposed to loading a new url.
 {
   // Scroll Into view for links on same page
-
   var regEx = /^http:\/\/((|panics.|magic.|m.|myspace.)roosterteeth|achievementhunter|strangerhood|redvsblue).com(.*)$/i;
   var loc = aDoc.location.href
-                .replace(regEx,'$2');
+                .replace(regEx,'$3');
   var func = function showMe(aEvent) {
     var id = this.href.replace(/^.*?#([\S\s]+)$/i,'$1');
     var doc = this.ownerDocument;
@@ -153,7 +152,7 @@ function RTSE_linkFix(aDoc)
   for (var i = (links.length - 1); i >= 0; --i) {
     if (links[i].href.match(regEx)) {
       links[i].removeAttribute('target');
-      links[i].href=links[i].href.replace(regEx, '$2');
+      links[i].href=links[i].href.replace(regEx, '$3');
     } else if (links[i].href.match(/^\/(.*)$/i)) {
       links[i].removeAttribute('target');
     }
