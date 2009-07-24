@@ -427,7 +427,7 @@ function RTSE_addExtraTab(aDoc) {
 function RTSE_postPermalink(aDoc)
 // EFFECTS: Adds a permalink to posts on a page in aDoc
 {
-    let elms=RTSE_evaluateXPath(aDoc,"//td[@id='pageContent']/table/tbody/tr[1]/td/table/tbody/tr[3]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[1]/span");
+    let elms=RTSE_evaluateXPath(aDoc,"//td[@id='pageContent']/table/tbody/tr[1]/td[1]/table/tbody/tr[1]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[1]/span");
     if(elms.length == 0)
         elms=RTSE_evaluateXPath(aDoc,"//td[@id='pageContent']/table/tbody/tr[1]/td/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[1]/span");
     let a,text,num;
@@ -609,7 +609,7 @@ function RTSE_modifyReply(aDoc)
   if(!RTSE.editor.replaceableElements(aDoc))
     return;
 
-  let elms = RTSE_evaluateXPath(aDoc, "//td[@id='pageContent']/table/tbody/tr[1]/td/table/tbody/tr[3]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/span[3]/span[1]/a/b");
+  let elms = RTSE_evaluateXPath(aDoc, "//td[@id='pageContent']/table/tbody/tr[1]/td[1]/table/tbody/tr[1]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/span[3]/span[1]/a/b");
   if(elms.length == 0)
     elms = RTSE_evaluateXPath(aDoc, "//td[@id='pageContent']/table/tbody/tr[2]/td/table/tbody/tr[3]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/span[3]/span[1]/a/b");
   if(elms.length == 0)
@@ -640,7 +640,7 @@ function RTSE_modifyQuote(aDoc)
   let span,a,b;
   if(!RTSE.editor.replaceableElements(aDoc))
     return;
-  let elms = RTSE_evaluateXPath(aDoc, "//td[@id='pageContent']/table/tbody/tr[1]/td/table/tbody/tr[3]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/span[3]/span[2]/a/b");
+  let elms = RTSE_evaluateXPath(aDoc, "//td[@id='pageContent']/table/tbody/tr[1]/td[1]/table/tbody/tr[1]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/span[3]/span[2]/a/b");
   if(elms.length == 0)
     elms = RTSE_evaluateXPath(aDoc, "//td[@id='pageContent']/table/tbody/tr[2]/td/table/tbody/tr[3]/td/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[1]/td[2]/div/span[3]/span[2]/a/b");
   if(elms.length == 0)
