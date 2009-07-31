@@ -1,6 +1,7 @@
 @-moz-document domain("roosterteeth.com"),
                domain("redvsblue.com"),
                domain("achievementhunter.com"),
+               domain("roosterteethcomics.com"),
                domain("strangerhood.com") {
   td.sidebar {
     display:none;

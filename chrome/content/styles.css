@@ -1,6 +1,7 @@
 @-moz-document domain("roosterteeth.com"),
                domain("redvsblue.com"),
                domain("achievementhunter.com"),
+               domain("roosterteethcomics.com"),
                domain("strangerhood.com") {
   h2 + b + i + u + del + blockquote[style="border: 1px solid rgb(204, 204, 204); padding: 4px; background-color: rgb(241, 241, 241);"] {
     display:none;
