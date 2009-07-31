@@ -2,7 +2,7 @@
                domain("redvsblue.com"),
                domain("achievementhunter.com"),
                domain("strangerhood.com") {
-  td.projectsBar {
+  td.headerAd {
     display:none;
   }
 }

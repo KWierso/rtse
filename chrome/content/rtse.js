@@ -89,13 +89,15 @@ var RTSE = {
           RTSE_addToUserInfo(doc);
 
         /*Add Extra Tab*/
-        RTSE_addExtraTab(doc);
+    // DISABLED UNTIL WE CAN RELOCATE IT
+        //RTSE_addExtraTab(doc);
 
         // Fix Links
         RTSE_linkFix(doc);
           
         /* Forum Quick Jump */
-        RTSE_forumListBox(doc);
+    // DISABLED UNTIL WE CAN RELOCATE IT
+        //RTSE_forumListBox(doc);
 
         // Page jump
         RTSE_pageJump(doc);
