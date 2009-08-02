@@ -235,6 +235,7 @@ function RTSE_forumListBox(doc) {
     return bundle.GetStringFromName(aName);
   };
   var option;
+
   /* Creating the listBox */
   for (var i = (ids.length - 1); i >= 0; --i) {
     try {
@@ -256,16 +257,17 @@ function RTSE_forumListBox(doc) {
   }, false);
 
   /* Now that we have the listBox all filled up... */
-  let ref = doc.getElementById('tabsHolder')
-            .getElementsByTagName("table")[1]
-            .firstChild.firstChild;
-  let cont = doc.createElement('td');
-  listBox.setAttribute("style", "position:relative;right:1px;top:-1px;");
+  let ref = doc.getElementById('headerImage');
+
+  let cont = doc.createElement('div');
+  listBox.setAttribute("style", "position:absolute;left:15px;top:5px;");
+  listBox.setAttribute("align", "right");
   cont.appendChild(listBox);
-  cont.style.padding = "0px 3px 3px 0px";
-  cont.setAttribute("align", "right");
+  cont.style.padding = "3px 0px 0px 3px";
+  cont.setAttribute("align", "left");
   cont.setAttribute("valign", "middle");
-  ref.replaceChild(cont, ref.childNodes[3]);
+  cont.setAttribute("width", "350px");
+  ref.insertBefore(cont, ref.firstChild);
 }
 
 function RTSE_fixSearch(doc) {

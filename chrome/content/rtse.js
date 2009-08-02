@@ -94,10 +94,9 @@ var RTSE = {
 
         // Fix Links
         RTSE_linkFix(doc);
-          
+
         /* Forum Quick Jump */
-    // DISABLED UNTIL WE CAN RELOCATE IT
-        //RTSE_forumListBox(doc);
+        RTSE_forumListBox(doc);
 
         // Page jump
         RTSE_pageJump(doc);
