@@ -379,46 +379,65 @@ function RTSE_addExtraTab(aDoc) {
                     gRTSE.prefsGetString("extensions.rtse.extras.tabLink1") + "," +
                     gRTSE.prefsGetString("extensions.rtse.extras.tabLink2") + "," +
                     gRTSE.prefsGetString("extensions.rtse.extras.tabLink3") + ",";
-        
+
         let textArray = texts.split(",");
         let linkArray = links.split(",");
-        
+
         if(textArray.length > 0 && linkArray.length > 0) {
-            //cuts off the end of the list of tabs, allowing us to directly insert  our new tab
-            var tabs = aDoc.getElementById("sddm");
-            var arr = tabs.innerHTML.split("");
-            var idx = tabs.innerHTML.length-5;
-            arr.splice(idx,5);
-            tabs.innerHTML = arr.join("");
-            
+            // Get the element that contains all of the tabs
+            let tabs = aDoc.getElementById("barLight").getElementsByTagName("table")[0]
+                           .getElementsByTagName("td")[1].getElementsByTagName("table")[1]
+                           .getElementsByTagName("td")[0];
+
+             // Create the tab header element
+             let newTabDiv = aDoc.createElement("div");
+             newTabDiv.className = "navDivTop";
+             newTabDiv.setAttribute("style", "padding-right:3px;");
+
+             // Create the text and link for the tab header
+             let newTabLink = aDoc.createElement("a");
+             newTabLink.id="navButton9";
+             newTabLink.className = "navbutton";
+             newTabLink.href = linkArray[0];
+             newTabLink.setAttribute("onmouseover", "navShow(9);");
+             newTabLink.innerHTML = textArray[0];
+
+             // Create the container for the dropdown links
+             let newChildDiv = aDoc.createElement("div");
+             newChildDiv.id = "navDiv9";
+             newChildDiv.className = "navDiv";
+             newChildDiv.setAttribute("style", "top:15px;");
+
+             // Another div, because that's the way the site's dropdowns work
+             let newInnerDiv = aDoc.createElement("div");
+             newInnerDiv.setAttribute("style", "z-index:999;");
+
+             // Attach everything together and append to the navBar
+             newChildDiv.appendChild(newInnerDiv);
+             newTabDiv.appendChild(newTabLink);
+             newTabDiv.appendChild(newChildDiv);
+             tabs.insertBefore(newTabDiv, tabs.lastChild);
+
             if(textArray[0] == "")
                 textArray[0] = " ";
             if(linkArray[0] == "")
                 linkArray[0] = " ";
-            //remove the "href="+linkArray[0]+" portion if you wish for the tab header to do nothing.
-            tabs.innerHTML += "<li><a class='tabRoot' id='mlink7' href="+linkArray[0]+" onmouseover='mopen(\"7\");' onmouseout='mclosetime();'>"+textArray[0]+"</a>"+
-                    "<div id='m7' class='hold' style='border: 0pt none ; background: transparent none repeat scroll 0% 0%; padding-top: 0px; z-index: 210; width: 150px; -moz-background-clip: border; -moz-background-origin: padding; -moz-background-inline-policy: continuous; outline-color: -moz-use-text-color; outline-style: none; outline-width: 0pt;' onmouseover='mcancelclosetime()'>"+
-                    "<div style='visibility: inherit; position: static; z-index: 220;' onmouseover='mcancelclosetime()' onmouseout='mclosetime()'>"+
-                    "</div>"+
-                    "</div>"+
-                    "</li></ul>";
 
+            // Insert the links into the dropdown
             for(let i = 1; i < 4 && i < textArray.length && i < linkArray.length; i++) {
                 let newChildLink = aDoc.createElement("a");
                 newChildLink.href = linkArray[i];
+                newChildLink.className = "navHovLink";
                 newChildLink.innerHTML = textArray[i];
                 if(textArray[i] != "" && linkArray[i] != "") {
-                    aDoc.getElementById("m7").firstChild.appendChild(newChildLink);
+                    newInnerDiv.appendChild(newChildLink);
                 }
             }
 
-            if(aDoc.getElementById("m7").firstChild.firstChild == null) {
-                tabs.lastChild.removeChild(tabs.lastChild.lastChild);
-            } else {
-                let newSpan = aDoc.createElement("span");
-                newSpan.className = "redBar";
-                aDoc.getElementById("m7").getElementsByTagName("div")[0].appendChild(newSpan);
-            }
+            // Hide the dropdown element if there are no links added
+            if(newInnerDiv.firstChild == null) {
+                newChildDiv.setAttribute("style", "display:none !important;");
+            } 
         }
     } catch(e) {
         throw("addExtraTab() experienced an error. Try validating its options.");

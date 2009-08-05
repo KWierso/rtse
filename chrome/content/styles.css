@@ -10,4 +10,8 @@
   .header a.small > b {
     cursor:pointer;
   }
+  
+  #barLight img[src="http://images.roosterteeth.com/assets/style/flashy/bits/navArrow.png"]  {
+    display: none;
+  }
 }
