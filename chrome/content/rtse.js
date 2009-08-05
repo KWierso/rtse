@@ -89,8 +89,7 @@ var RTSE = {
           RTSE_addToUserInfo(doc);
 
         /*Add Extra Tab*/
-    // DISABLED UNTIL WE CAN RELOCATE IT
-        //RTSE_addExtraTab(doc);
+        RTSE_addExtraTab(doc);
 
         // Fix Links
         RTSE_linkFix(doc);
