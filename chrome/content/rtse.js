@@ -220,6 +220,44 @@ var RTSE = {
     }
   },
 
+  // Stylesheet handling
+  // Registers and unregisters stylesheets for instant application of preferences.
+  registerStyleSheets: function registerStyleSheets()
+  {
+      var sss = Cc["@mozilla.org/content/style-sheet-service;1"]
+                      .getService(Ci.nsIStyleSheetService);
+      var ios = Cc["@mozilla.org/network/io-service;1"]
+                      .getService(Ci.nsIIOService);
+      var uri2 = ios.newURI("chrome://rtse/content/styles2.css", null, null);
+      var uri3 = ios.newURI("chrome://rtse/content/styles3.css", null, null);
+      var uri4 = ios.newURI("chrome://rtse/content/styles4.css", null, null);
+
+      if(!gRTSE.prefsGetBool("extensions.rtse.sidebar")) {
+        if(!sss.sheetRegistered(uri2, sss.USER_SHEET))
+            sss.loadAndRegisterSheet(uri2, sss.USER_SHEET);
+              
+      } else {
+        if(sss.sheetRegistered(uri2, sss.USER_SHEET))
+            sss.unregisterSheet(uri2, sss.USER_SHEET);
+      }
+
+      if(!gRTSE.prefsGetBool("extensions.rtse.header")) {
+        if(!sss.sheetRegistered(uri3, sss.USER_SHEET))
+            sss.loadAndRegisterSheet(uri3, sss.USER_SHEET);
+      } else {
+        if(sss.sheetRegistered(uri3, sss.USER_SHEET))
+            sss.unregisterSheet(uri3, sss.USER_SHEET);
+      }
+
+      if(!gRTSE.prefsGetBool("extensions.rtse.journals")) {
+        if(!sss.sheetRegistered(uri4, sss.USER_SHEET))
+            sss.loadAndRegisterSheet(uri4, sss.USER_SHEET);
+      } else {
+        if(sss.sheetRegistered(uri4, sss.USER_SHEET))
+            sss.unregisterSheet(uri4, sss.USER_SHEET);
+      }
+  },
+
  /**
   * Object that takes care of smilie conversion
   */

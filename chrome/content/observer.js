@@ -33,6 +33,11 @@ var RTSE_PrefsChangeObserver =
       case "extensions.rtse.smilies":
         RTSE.editor.setup();
         break;
+      case "extensions.rtse.header":
+      case "extensions.rtse.sidebar":
+      case "extensions.rtse.journals":
+        RTSE.registerStyleSheets();
+        break;
     }
   }
 };

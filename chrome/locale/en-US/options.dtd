@@ -8,7 +8,7 @@
 <!ENTITY Extras.tab.enable "Enable the Extra Tab">
 <!ENTITY Extras.text "Text">
 <!ENTITY Extras.link "Link">
-<!ENTITY Extras.csscaption "Show/Hide Elements on the Page (Requires Browser Restart to take effect)">
+<!ENTITY Extras.csscaption "Show/Hide Elements on the Page">
 <!ENTITY Extras.sidebar "Show Sidebar">
 <!ENTITY Extras.header "Show Header">
 <!ENTITY Extras.journal "Show Journal Sidebar">
