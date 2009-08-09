@@ -280,7 +280,7 @@ function RTSE_fixSearch(doc) {
 function RTSE_addToUserInfo(doc) {
     /* Adds additional links to the userInfo element in the site header */
     if(doc.getElementById("userInfo").getElementsByTagName("a").length != 2) {
-        var lng = 11;
+        var lng = 12;
         if (!RTSE.sponsor) {
             lng = 7;
         }
@@ -288,30 +288,37 @@ function RTSE_addToUserInfo(doc) {
         userInfo = userInfo[0].firstChild.firstChild.firstChild;
         var userLinks = userInfo.getElementsByTagName('a');
         var userName = userLinks[0];
+
+        // All potential items for inclusion, along with their preferences
         var newNames = new Array( userName.innerHTML, "Sign Out", "Comments", "Log", 
-            "Journal", "Messages", "Settings", "My Stats", "Mod History", 
-            "Friend Journals", RTSE.sponsor ? "Sponsor" : "Become a Sponsor");
-        if(doc.domain == "ah.roosterteeth.com")
-            newNames[7] = "Stats";
+            "Journal", "Messages", "Images", "My Stats", "Mod History", "Friend Journals", 
+            RTSE.sponsor ? "Sponsor" : "Become a Sponsor", "Settings");
         var newLinks = new Array( "/members/", "/members/signout.php", 
             "/members/comments/", "/members/log.php", "/members/journal", 
-            "/members/messaging/", "/members/settings/", "/members/stats/myStats.php", 
+            "/members/messaging/", "/members/images/", "/members/stats/myStats.php", 
             "/members/modHistory.php?nc=1", "/members/journal/friendsJournals.php?nc=1", 
-            "/sponsRedir.php");
+            "/sponsRedir.php", "/members/settings/");
         var checkPrefs = new Array( "extensions.rtse.link.user", "extensions.rtse.link.signOut", 
         "extensions.rtse.link.comments", "extensions.rtse.link.log", "extensions.rtse.link.journal", 
-        "extensions.rtse.link.messages", "extensions.rtse.link.settings", "extensions.rtse.link.myStats", 
+        "extensions.rtse.link.messages", "extensions.rtse.link.images", "extensions.rtse.link.myStats", 
         "extensions.rtse.link.modHistory", "extensions.rtse.link.friendJournals", 
-        "extensions.rtse.link.sponsor", "extensions.rtse.link.avatar");
+        "extensions.rtse.link.sponsor", "extensions.rtse.link.avatar", "extensions.rtse.link.settings");
+
+        // Initialize new element and some counters
         var td = "";
         var line1 = 0;
         var line2 = 0;
         var line3 = 0;
-        if(userLinks[1].innerHTML.match("new") ||
-                userLinks[1].innerHTML.match("comic")) {
-            td += "<a class='userInfo' style='opacity: 0.5;' " +
-              "href='/members/'>You have new alerts</a>&nbsp;&middot;&nbsp;";
+
+        // Does the user have any alerts displayed?
+        if(userLinks[1] != "http://" + doc.domain + "/members/signout.php" &&
+           userLinks[1] != "https://" + doc.domain + "/members/signout.php") {
+                td += "<a class='userInfo' style='opacity: 0.5;' " +
+                      "href='" + userLinks[1] +"'>" + userLinks[1].innerHTML + 
+                      "</a>&nbsp;&middot;&nbsp;";
         }
+
+        // Compute how many items will be on each line
         for(i = 0; i < lng; i++) {
             if (gRTSE.prefsGetBool(checkPrefs[i])) {
                 if(i < 2) {
@@ -325,12 +332,14 @@ function RTSE_addToUserInfo(doc) {
                 }
             }
         }
+
+        // Add first two rows for everybody, add third row for sponsors
         for(i = 0; i < lng; i++) {
             if(i == 2 && line1 > 0 || i == 7 && line2 > 0) {
                 td += "<br\>";
             }
             if (gRTSE.prefsGetBool(checkPrefs[i])) {
-                if(i == 10 && gRTSE.prefsGetBool("extensions.rtse.link.star")) {
+                if(i == 7 && gRTSE.prefsGetBool("extensions.rtse.link.star")) {
                         td += "<img " +
                             "src='/assets/images/subscriberStarSmallTrans.png'" +
                             " style='float: none;'>&nbsp;&nbsp;";
@@ -351,15 +360,26 @@ function RTSE_addToUserInfo(doc) {
                 }
             }
         }
-        if(lng==7 && gRTSE.prefsGetBool(checkPrefs[10])){
+
+        // Add any of the enabled non-sponsor items from the third row
+        if(lng==7 && (gRTSE.prefsGetBool(checkPrefs[10]) || gRTSE.prefsGetBool(checkPrefs[10])) ) {
             td += "<br\>"
             if(gRTSE.prefsGetBool("extensions.rtse.link.star")){
                 td += "&nbsp;<img src='/assets/images/subscriberStarSmallTrans.png' " +
                 "style='float: none;'>&nbsp;";
             }
-            td += "<a href=" + newLinks[10] + " class=userInfo>" + newNames[10] + "</a>";
+            if(gRTSE.prefsGetBool(checkPrefs[10]))
+                td += "<a href=" + newLinks[10] + " class=userInfo>" + newNames[10] + "</a>";
+            if(gRTSE.prefsGetBool(checkPrefs[10]) || gRTSE.prefsGetBool(checkPrefs[10]))
+                td += "&nbsp;&middot;&nbsp;";
+            if(gRTSE.prefsGetBool(checkPrefs[11]))
+                td += "<a href=" + newLinks[11] + " class=userInfo>" + newNames[11] + "</a>";
         }
+
+        // Replace the element on the page
         userInfo.innerHTML = td;
+
+        // Hide the user's avatar image if so desired
         if(!gRTSE.prefsGetBool(checkPrefs[11])) {
             userInfo.parentNode.getElementsByTagName("td")[1].style.display = "none";
         }

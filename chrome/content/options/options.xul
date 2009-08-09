@@ -75,8 +75,8 @@
      <preference id="link_messages"
                   name="extensions.rtse.link.messages"
                   type="bool"/>
-     <preference id="link_settings"
-                  name="extensions.rtse.link.settings"
+     <preference id="link_images"
+                  name="extensions.rtse.link.images"
                   type="bool"/>
      <preference id="link_myStats"
                   name="extensions.rtse.link.myStats"
@@ -89,6 +89,9 @@
                   type="bool"/>
      <preference id="link_sponsor"
                   name="extensions.rtse.link.sponsor"
+                  type="bool"/>
+     <preference id="link_settings"
+                  name="extensions.rtse.link.settings"
                   type="bool"/>
      <preference id="link_star"
                   name="extensions.rtse.link.star"
@@ -122,53 +125,58 @@
           <checkbox id="signOut"
           label="&Preferences.link.signOut;"
           preference="link_signOut"/>
-        </richlistitem>        
+        </richlistitem>
         <richlistitem orient="vertical">
-          <checkbox id="comments" 
+          <checkbox id="comments"
           label="&Preferences.link.comments;"
           preference="link_comments"/>
-        </richlistitem>        
+        </richlistitem>
         <richlistitem orient="vertical">
-          <checkbox id="log" 
+          <checkbox id="log"
           label="&Preferences.link.log;"
           preference="link_log"/>
         </richlistitem>
         <richlistitem orient="vertical">
-          <checkbox id="journal" 
+          <checkbox id="journal"
           label="&Preferences.link.journal;"
           preference="link_journal"/>
-        </richlistitem>        
+        </richlistitem>
         <richlistitem orient="vertical">
           <checkbox id="messages" 
           label="&Preferences.link.messages;"
           preference="link_messages"/>
-        </richlistitem>  
+        </richlistitem>
         <richlistitem orient="vertical">
-          <checkbox id="settings" 
-          label="&Preferences.link.settings;"
-          preference="link_settings"/>
-        </richlistitem>         
+          <checkbox id="images"
+          label="&Preferences.link.images;"
+          preference="link_images"/>
+        </richlistitem>
         <richlistitem orient="vertical">
           <checkbox id="myStats"
           label="&Preferences.link.myStats;"
           preference="link_myStats"/>
-        </richlistitem>        
+        </richlistitem>
         <richlistitem orient="vertical">
           <checkbox id="modHistory"
           label="&Preferences.link.modHistory;"
           preference="link_modHistory"/>
-        </richlistitem>        
+        </richlistitem>
         <richlistitem orient="vertical">
           <checkbox id="friendJournals" 
           label="&Preferences.link.friendJournals;"
           preference="link_friendJournals"/>
-        </richlistitem>        
+        </richlistitem>
         <richlistitem orient="vertical">
           <checkbox id="sponsor" 
           label="&Preferences.link.sponsor;"
           preference="link_sponsor"
           oncommand="starboxtoggle()"/>
-        </richlistitem>        
+        </richlistitem>
+        <richlistitem orient="vertical">
+          <checkbox id="settings" 
+          label="&Preferences.link.settings;"
+          preference="link_settings"/>
+        </richlistitem>
         <richlistitem orient="vertical">
           <checkbox id="star" 
           label="&Preferences.link.star;"
@@ -179,7 +187,7 @@
           label="&Preferences.link.avatar;"
           preference="link_avatar"/>
         </richlistitem>
-       </richlistbox>      
+       </richlistbox>
       </groupbox>
     </vbox>
   </prefpane>

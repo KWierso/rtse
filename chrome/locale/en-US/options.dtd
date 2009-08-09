@@ -23,11 +23,12 @@
 <!ENTITY Preferences.link.log "Log">
 <!ENTITY Preferences.link.journal "Journal">
 <!ENTITY Preferences.link.messages "Messages">
-<!ENTITY Preferences.link.settings "Settings">
+<!ENTITY Preferences.link.images "Images">
 <!ENTITY Preferences.link.myStats "Stats (Sponsor-only)">
 <!ENTITY Preferences.link.modHistory "Mod History (Sponsor-only)">
 <!ENTITY Preferences.link.friendJournals "Friends' Journals (Sponsor-only)">
 <!ENTITY Preferences.link.sponsor "Sponsorship">
+<!ENTITY Preferences.link.settings "Settings">
 <!ENTITY Preferences.link.star "Show star next to sponsorship link">
 <!ENTITY Preferences.link.avatar "Show your avatar image">
 
