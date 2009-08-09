@@ -148,7 +148,8 @@ var RTSE = {
   _menu: function() {
     /* Context Menu Goodies */
     let url=gBrowser.getBrowserAtIndex(gBrowser.mTabContainer.selectedIndex).contentDocument.location;
-
+    let regEx=/^https?:\/\/((|panics.|magic.|m.|myspace.)roosterteeth|achievementhunter|strangerhood|redvsblue|roosterteethcomics).com(.*)$/i
+    
     // Help handle the ONline div
     let targetON = false;
     if(gContextMenu.onLink && gContextMenu.target.innerHTML == "ON" && 
@@ -156,8 +157,7 @@ var RTSE = {
          targetON = true;
     }
 
-    if( gContextMenu.onLink && (/^https?:\/\/([a-zA-Z]+)\.roosterteeth\.com(.*)?$/.test(url.href) ||
-       /^https?:\/\/roosterteeth\.com(.*)?$/.test(url.href)) &&
+    if( gContextMenu.onLink && regEx.test(url.href) &&
        ( (gContextMenu.onImage && gContextMenu.target.parentNode.href) || targetON ) ) {
           /* Should target only user avatars */
           if(/avatar av{0,1}/.test(gContextMenu.target.className)) {
