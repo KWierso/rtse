@@ -165,3 +165,54 @@ function addTab() {
     document.getElementById('tab_desc').hidden =
         !document.getElementById('tab').checked;
 }
+
+/**
+ * Function restores RTSE to initial configuration
+ *
+ */
+function resetRTSE() {
+    let confirm = window.confirm(document.getElementById("string-bundle")
+                                         .getString('resetConfirm'));
+
+    if(confirm) {
+        // Erase user's smilies.xml file
+        let old = Components.classes["@mozilla.org/file/directory_service;1"]
+                            .createInstance(Components.interfaces.nsIProperties)
+                            .get("ProfD", Components.interfaces.nsIFile);
+        old.append("rtse");
+        old.append("smilies.xml");
+        if (old.exists()) old.remove(false);
+
+        // Replaces smilies.xml with the default file
+        const ID = "rtse-nightly@shawnwilsher.com"
+        let file = Components.classes["@mozilla.org/file/directory_service;1"]
+                             .getService(Components.interfaces.nsIProperties)
+                             .get("ProfD", Components.interfaces.nsIFile);
+        file.append("rtse");
+        if (!file.exists())
+          file.create(Components.interfaces.nsIFile.DIRECTORY_TYPE, 0755);
+
+        let ext = Components.classes["@mozilla.org/extensions/manager;1"]
+                            .getService(Components.interfaces.nsIExtensionManager)
+                            .getInstallLocation(ID)
+                            .getItemLocation(ID);
+        ext.append("defaults");
+        ext.append("smilies.xml");
+        ext.copyTo(file, "smilies.xml");
+
+        // Get array of all non-default RTSE preferences, and reset them to default.
+        let prefs = Components.classes["@mozilla.org/preferences-service;1"]
+                              .getService(Components.interfaces.nsIPrefService);
+        prefs = prefs.getBranch("extensions.rtse.");
+        let children = prefs.getChildList("",{});
+        for(i in children){
+            if(prefs.prefHasUserValue(children[i])) {
+                prefs.clearUserPref(children[i]);
+            }
+        }
+
+        // Re-run the initial setup wizard
+        return window.openDialog('chrome://rtse/content/setupwizard.xul',
+                                 'RTSEsetup','chrome,centerscreen');
+    }
+}

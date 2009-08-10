@@ -48,6 +48,9 @@
             src="chrome://rtse/content/options/options.js"/>
     <script type="application/x-javascript"
             src="chrome://rtse/content/functions.js"/>
+    <stringbundleset id="stringbundleset">
+        <stringbundle id="string-bundle" src="chrome://rtse/locale/options.properties"/>
+    </stringbundleset>
 
   <prefpane id="prefs" label="&Preferences.name;" flex="1">
     <preferences>
@@ -680,6 +683,8 @@
         </groupbox>
       </groupbox>
       <checkbox label="&Extras.redirect;" preference="pref_redirect"/>
+      <spacer style="height:30px;"/>
+      <button label="&Extras.resetRTSE;" oncommand="resetRTSE();"/>
     </vbox>
   </prefpane> 
 </prefwindow>
