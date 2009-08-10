@@ -40,11 +40,17 @@ var wizard = {
       gRTSE.prefsSetBool("extensions.rtse.editor",
                          document.getElementById("editor").checked);
 
-      // Sidebar/Header
+      // "In reply to" text when quoting
+      gRTSE.prefsSetBool("extensions.rtse.editor.quoteReply", 
+                         document.getElementById("replytext").checked)
+
+      // Sidebar/Header/FriendsJournal
       gRTSE.prefsSetBool("extensions.rtse.sidebar",
                          document.getElementById("sidebar").checked);
       gRTSE.prefsSetBool("extensions.rtse.header",
                          document.getElementById("header").checked);
+      gRTSE.prefsSetBool("extensions.rtse.journals",
+                         document.getElementById("journal").checked);
 
       // userInfo extra links
       if(!document.getElementById("userInfo").checked) {
