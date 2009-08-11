@@ -925,3 +925,37 @@ function RTSE_findOnDomain(dom)
     else
         return false;
 }
+
+function RTSE_adjustFloatingBar(aDoc) {
+// EFFECT: Modifies aspects of the floating nav bar to compensate
+//         for the changed height of the header due to RTSE's 
+//         "show/hide header" option
+    // Adjust initial position of the navbar
+    let firstScript = aDoc.getElementsByTagName("script")[0];
+    firstScript.innerHTML = "topNavPos = 120;";
+    eval(firstScript.innerHTML);
+    aDoc.getElementById("floatingNavDiv").style.top = null;
+    aDoc.getElementById("floatingNavDiv").style.top = "120px";
+    aDoc.getElementById("floatingNavDiv").style.zIndex = null;
+    aDoc.getElementById("floatingNavDiv").style.zIndex = "120";
+
+    // Override RT's updateNavScroll() method to enforce adjusted height
+    let head= aDoc.getElementsByTagName('head')[0];
+    let script= aDoc.createElement('script');
+    script.type= 'text/javascript';
+    script.innerHTML = "function updateNavScroll() {" +
+                         "var pos = window.scrollY;" +
+                         "topNavPos = 120;" +
+                         "var st = document.getElementById('floatingNavDiv');" +
+                         "if (pos < topNavPos && st.style.position != 'absolute') {" +
+                         "   st.style.position = 'absolute';" +
+                         "   st.style.top = '120px';" +
+                         "} else if (pos >= topNavPos && st.style.position != 'fixed') {" +
+                         "   st.style.position = 'fixed';" +
+                         "   st.style.top = '0';" +
+                         "}" +
+                       "} " + 
+                       "updateNavScroll();";
+    head.appendChild(script);
+    eval(script.innerHTML);
+}

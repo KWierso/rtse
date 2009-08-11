@@ -97,6 +97,10 @@ var RTSE = {
         /* Forum Quick Jump */
         RTSE_forumListBox(doc);
 
+        /* Adjust positioning of floating navbar */
+        if(!gRTSE.prefsGetBool("extensions.rtse.header"))
+          RTSE_adjustFloatingBar(doc);
+
         // Page jump
         RTSE_pageJump(doc);
 
