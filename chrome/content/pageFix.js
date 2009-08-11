@@ -934,31 +934,39 @@ function RTSE_adjustFloatingBar(aDoc) {
     let firstScript = aDoc.getElementsByTagName("script")[0];
     firstScript.innerHTML = "topNavPos = 120;";
     eval(firstScript.innerHTML);
-    aDoc.getElementById("floatingNavDiv").style.top = null;
-    if(aDoc.defaultView.scrollY >= 120)
-        aDoc.getElementById("floatingNavDiv").style.top = "0px";
-    else
-        aDoc.getElementById("floatingNavDiv").style.top = "120px";
-    aDoc.getElementById("floatingNavDiv").style.zIndex = null;
-    aDoc.getElementById("floatingNavDiv").style.zIndex = "120";
 
-    // Override RT's updateNavScroll() method to enforce adjusted height
-    let head= aDoc.getElementsByTagName('head')[0];
-    let script= aDoc.createElement('script');
-    script.type= 'text/javascript';
-    script.innerHTML = "function updateNavScroll() {" +
-                         "var pos = window.scrollY;" +
-                         "topNavPos = 120;" +
-                         "var st = document.getElementById('floatingNavDiv');" +
-                         "if (pos < topNavPos && st.style.position != 'absolute') {" +
-                         "   st.style.position = 'absolute';" +
-                         "   st.style.top = '120px';" +
-                         "} else if (pos >= topNavPos && st.style.position != 'fixed') {" +
-                         "   st.style.position = 'fixed';" +
-                         "   st.style.top = '0';" +
-                         "}" +
-                       "} " + 
-                       "updateNavScroll();";
-    head.appendChild(script);
-    eval(script.innerHTML);
+    let scrolling = aDoc.getElementsByTagName("body")[0]
+                        .getElementsByTagName("script")[0];
+    if(scrolling.innerHTML.search("updateNavScroll") >=0)
+    {
+        aDoc.getElementById("floatingNavDiv").style.top = null;
+        if(aDoc.defaultView.scrollY >= 120)
+            aDoc.getElementById("floatingNavDiv").style.top = "0px";
+        else
+            aDoc.getElementById("floatingNavDiv").style.top = "120px";
+        aDoc.getElementById("floatingNavDiv").style.zIndex = null;
+        aDoc.getElementById("floatingNavDiv").style.zIndex = "120";
+
+        // Override RT's updateNavScroll() method to enforce adjusted height
+        let head= aDoc.getElementsByTagName('head')[0];
+        let script= aDoc.createElement('script');
+        script.type= 'text/javascript';
+        script.innerHTML = "function updateNavScroll() {" +
+                             "var pos = window.scrollY;" +
+                             "topNavPos = 120;" +
+                             "var st = document.getElementById('floatingNavDiv');" +
+                             "if (pos < topNavPos && st.style.position != 'absolute') {" +
+                             "   st.style.position = 'absolute';" +
+                             "   st.style.top = '120px';" +
+                             "} else if (pos >= topNavPos && st.style.position != 'fixed') {" +
+                             "   st.style.position = 'fixed';" +
+                             "   st.style.top = '0';" +
+                             "}" +
+                           "} " + 
+                           "updateNavScroll();";
+        head.appendChild(script);
+        eval(script.innerHTML);
+    } else {
+        aDoc.getElementById("floatingNavDiv").style.top = "120px";
+    }
 }
