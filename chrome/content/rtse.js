@@ -84,6 +84,12 @@ var RTSE = {
         // Add custom CSS
         RTSE_addCSS(doc);
 
+        /* Adjust positioning of floating navbar */
+        try {
+            if(!gRTSE.prefsGetBool("extensions.rtse.header"))
+              RTSE_adjustFloatingBar(doc);
+        } catch(e) { /* It breaks here? That's weird */ }
+
         /*Add UserInfo Links*/
         if(gRTSE.prefsGetBool("extensions.rtse.link.enabled"))
           RTSE_addToUserInfo(doc);
@@ -96,10 +102,6 @@ var RTSE = {
 
         /* Forum Quick Jump */
         RTSE_forumListBox(doc);
-
-        /* Adjust positioning of floating navbar */
-        if(!gRTSE.prefsGetBool("extensions.rtse.header"))
-          RTSE_adjustFloatingBar(doc);
 
         // Page jump
         RTSE_pageJump(doc);
