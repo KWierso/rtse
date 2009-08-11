@@ -935,7 +935,10 @@ function RTSE_adjustFloatingBar(aDoc) {
     firstScript.innerHTML = "topNavPos = 120;";
     eval(firstScript.innerHTML);
     aDoc.getElementById("floatingNavDiv").style.top = null;
-    aDoc.getElementById("floatingNavDiv").style.top = "120px";
+    if(aDoc.defaultView.scrollY >= 120)
+        aDoc.getElementById("floatingNavDiv").style.top = "0px";
+    else
+        aDoc.getElementById("floatingNavDiv").style.top = "120px";
     aDoc.getElementById("floatingNavDiv").style.zIndex = null;
     aDoc.getElementById("floatingNavDiv").style.zIndex = "120";
 
