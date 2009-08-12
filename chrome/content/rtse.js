@@ -150,7 +150,7 @@ var RTSE = {
     } else
         return;
   },
-  
+
   _menu: function() {
     /* Context Menu Goodies */
     let url=gBrowser.getBrowserAtIndex(gBrowser.mTabContainer.selectedIndex).contentDocument.location;
@@ -185,7 +185,7 @@ var RTSE = {
               document.getElementById('rtse-user-watch').style.display = '';
               document.getElementById('rtse-user-friends').style.display = '';
               document.getElementById('rtse-user-sendPM').style.display = '';
-              
+
               /* Send PM */
               document.getElementById('rtse-user-sendPM').setAttribute('oncommand','gBrowser.addTab("http://'+
                 dom + '/members/messaging/send.php?to='+uid+'");');
@@ -209,7 +209,7 @@ var RTSE = {
 
             let dom = url.hostname;
             let tid = gContextMenu.target.parentNode.href.split("id=")[1];
-            
+
             // Make sure user elements are hidden and tourney items are visible
             document.getElementById('rtse-user-log').style.display = 'none';
             document.getElementById('rtse-user-watch').style.display = 'none';
@@ -241,7 +241,7 @@ var RTSE = {
       if(!gRTSE.prefsGetBool("extensions.rtse.sidebar")) {
         if(!sss.sheetRegistered(uri2, sss.USER_SHEET))
             sss.loadAndRegisterSheet(uri2, sss.USER_SHEET);
-              
+
       } else {
         if(sss.sheetRegistered(uri2, sss.USER_SHEET))
             sss.unregisterSheet(uri2, sss.USER_SHEET);
