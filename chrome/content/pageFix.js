@@ -946,6 +946,7 @@ function RTSE_adjustFloatingBar(aDoc) {
             aDoc.getElementById("floatingNavDiv").style.top = "120px";
         aDoc.getElementById("floatingNavDiv").style.zIndex = null;
         aDoc.getElementById("floatingNavDiv").style.zIndex = "120";
+        aDoc.getElementById("floatingNavDiv").className = "adjusted";
 
         // Override RT's updateNavScroll() method to enforce adjusted height
         let head= aDoc.getElementsByTagName('head')[0];

@@ -9,4 +9,7 @@
   #headerImage {
     height: 120px !important;
   }
+  #floatingNavDiv[class=]{
+    top: 120px !important;
+  }
 }
