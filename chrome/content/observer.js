@@ -36,6 +36,7 @@ var RTSE_PrefsChangeObserver =
       case "extensions.rtse.header":
       case "extensions.rtse.sidebar":
       case "extensions.rtse.journals":
+      case "extensions.rtse.homepage":
         RTSE.registerStyleSheets();
         break;
     }

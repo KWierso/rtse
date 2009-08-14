@@ -9,6 +9,16 @@ pref("extensions.rtse.ahSmilies", false);
 pref("extensions.rtse.sidebar", true);
 pref("extensions.rtse.header", true);
 pref("extensions.rtse.journals", true);
+pref("extensions.rtse.homepage", true);
+pref("extensions.rtse.homepage.0", false);
+pref("extensions.rtse.homepage.1", false);
+pref("extensions.rtse.homepage.2", false);
+pref("extensions.rtse.homepage.3", false);
+pref("extensions.rtse.homepage.4", false);
+pref("extensions.rtse.homepage.5", false);
+pref("extensions.rtse.homepage.6", false);
+pref("extensions.rtse.homepage.7", false);
+pref("extensions.rtse.homepage.8", false);
 
 pref("extensions.rtse.editor.buttonText",true);
 pref("extensions.rtse.editor.quoteReply",true);

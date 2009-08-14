@@ -1,0 +1,35 @@
+@-moz-document domain(roosterteeth.com),
+               domain(redvsblue.com),
+               domain(achievementhunter.com),
+               domain(roosterteethcomics.com),
+               domain(strangerhood.com) {
+    #Awards:not(.shown) {
+        display: none !important;
+    }
+    div[id="Recent Topics"]:not(.shown) {
+        display: none !important;
+    }
+    div[id="Mod Summary"]:not(.shown)  {
+        display: none !important;
+    }
+    #myAlerts:not(.shown)  {
+        /* Disable until "show/hide" button can be inserted
+           display: none !important; */
+    }
+    div[id="Make a Journal Entry"]:not(.shown)  {
+        display: none !important;
+    }
+    #Watching:not(.shown)  {
+        display: none !important;
+    }
+    div[id="My Friends"]:not(.shown)  {
+        display: none !important;
+    }
+    #Groups:not(.shown)  {
+        display: none !important;
+    }
+    #Tournaments:not(.shown)  {
+        display: none !important;
+    }
+}
+/*"images", "breakdown", "tagged", "avatar", */

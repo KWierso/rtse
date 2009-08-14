@@ -971,3 +971,70 @@ function RTSE_adjustFloatingBar(aDoc) {
         aDoc.getElementById("floatingNavDiv").style.top = "120px";
     }
 }
+
+function RTSE_hideHomepageElements(aDoc) {
+// EFFECT: Adds a "Show/Hide" button to many items on the user's homepage.
+//         Correctly initializes which elements are hidden via preferences.
+    // Identifiers for all of the elements available to hide
+    let allElementIDs = ["images", "breakdown", "tagged", "Awards", 
+                         "Recent Topics", "avatar", "Mod Summary", 
+                         /*"myAlertHolder",*/ "Make a Journal Entry", "Watching",
+                         "My Friends", "Groups", "Tournaments"];
+
+    let elementsWithID = new Array();
+
+    // Put all elements that actually have ID's set in HTML into a separate array
+    for(let i in allElementIDs) {
+        if(allElementIDs[i] != "images" && allElementIDs[i] != "breakdown" &&
+           allElementIDs[i] != "tagged" && allElementIDs[i] != "avatar") {
+            elementsWithID.push(aDoc.getElementById(allElementIDs[i]));
+        } else {
+            //alert("not id'd: " + i);
+        }
+    }
+
+    // For all of the ID'd elements, check their preferences,
+    //  insert the show/hide button, and preset their appearance,
+    for(let i in elementsWithID) {
+        let parentCell = aDoc.createElement("td");
+        let button = aDoc.createElement("a");
+        if(gRTSE.prefsGetBool("extensions.rtse.homepage." + i)) {
+            button.innerHTML = "Hide";
+            aDoc.getElementById(elementsWithID[i].id).className = "shown";
+        } else {
+            button.innerHTML = "Show";
+            button.setAttribute("hidden", "true");
+        }
+        button.className = "small title";
+        button.setAttribute("name", elementsWithID[i].id);
+        button.setAttribute("number", i);
+        parentCell.appendChild(button);
+
+        // Add the onClick event to each button
+        button.addEventListener("click", RTSE_toggleHomepageElement, false);
+
+        let insertion = elementsWithID[i].parentNode.getElementsByTagName("tr")[1];
+        insertion.insertBefore(parentCell, insertion.getElementsByTagName("td")[0]);
+    }
+}
+
+function RTSE_toggleHomepageElement() {
+// EFFECTS: Shows the element if it was hidden upon the click.
+//          Hides the element if it was shown upon the click.
+//          Sets preferences accordingly.
+    let elID = this.name;
+    let doc = this.ownerDocument;
+    let pref = "extensions.rtse.homepage." + this.getAttribute("number");
+
+    if(this.hasAttribute("hidden")) {
+        doc.getElementById(elID).className = "shown";
+        this.innerHTML = "Hide";
+        this.removeAttribute("hidden");
+        gRTSE.prefsSetBool(pref, true);
+    } else {
+        doc.getElementById(elID).className = "";
+        this.innerHTML = "Show";
+        this.setAttribute("hidden", "true");
+        gRTSE.prefsSetBool(pref, false);
+    }
+}

@@ -516,6 +516,11 @@ RTSE.editor =
     editor.setAttribute("style", style);
     ref.parentNode.replaceChild(editor, ref);
 
+    // If Hide Homepage Elements is enabled, and if the "Make a Journal Entry" pref is set to display,
+    // make sure that the replaced element has the correct className for visibility.
+    if(gRTSE.prefsGetBool("extensions.rtse.homepage.3") && !gRTSE.prefsGetBool("extensions.rtse.homepage"))
+        editor.className = "shown";
+
     // If editing or previewing a post, automatically display the editor
     if(doc.location.href.match("editMe.php") || doc.location.href.match("editEntry.php") || doc.location.href.match("preview.php")) { 
         RTSE.editor.ensureEditorIsVisible();
