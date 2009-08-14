@@ -997,6 +997,8 @@ function RTSE_hideHomepageElements(aDoc) {
     //  insert the show/hide button, and preset their appearance,
     for(let i in elementsWithID) {
         let parentCell = aDoc.createElement("td");
+        parentCell.style.width="45px";
+        parentCell.style.padding="5px";
         let button = aDoc.createElement("a");
         if(gRTSE.prefsGetBool("extensions.rtse.homepage." + i)) {
             button.innerHTML = "Hide";
