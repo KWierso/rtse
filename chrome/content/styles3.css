@@ -3,7 +3,7 @@
                domain("achievementhunter.com"),
                domain("roosterteethcomics.com"),
                domain("strangerhood.com") {
-  td.sideItem {
+  td.sideItem>center {
     display:none !important;
   }
   #headerImage {
