@@ -800,6 +800,11 @@ RTSE.editor =
   */
   keypressListener: function keypressListener(aEvent)
   {
+    // Hide editor if "esc" key is pressed while in the editor
+    if(aEvent.keyCode == "27") {
+        RTSE.editor.ensureEditorIsHidden();
+    }
+
     if (!/mac/i.test(navigator.platform) && !aEvent.altKey ||
         /mac/i.test(navigator.platform) && !aEvent.ctrlKey  ) {
       return;
