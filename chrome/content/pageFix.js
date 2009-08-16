@@ -978,7 +978,7 @@ function RTSE_hideHomepageElements(aDoc) {
     // Identifiers for all of the elements available to hide
     let allElementIDs = ["images", "breakdown", "tagged", "Awards", 
                          "Recent Topics", "avatar", "Mod Summary", 
-                         /*"myAlertHolder",*/ "Make a Journal Entry", "Watching",
+                         "myAlertHolder", "Make a Journal Entry", "Watching",
                          "My Friends", "Groups", "Tournaments"];
 
     let elementsWithID = new Array();
@@ -1002,21 +1002,37 @@ function RTSE_hideHomepageElements(aDoc) {
         let button = aDoc.createElement("a");
         if(gRTSE.prefsGetBool("extensions.rtse.homepage." + i)) {
             button.innerHTML = "Hide";
-            aDoc.getElementById(elementsWithID[i].id).className = "shown";
+            if(i != 3) {
+                aDoc.getElementById(elementsWithID[i].id).className = "shown";
+            } else {
+                aDoc.getElementById("myAlerts").className = "shown";
+            }
         } else {
             button.innerHTML = "Show";
             button.setAttribute("hidden", "true");
         }
         button.className = "small title";
-        button.setAttribute("name", elementsWithID[i].id);
-        button.setAttribute("number", i);
-        parentCell.appendChild(button);
+        if(i != 3) {
+            button.setAttribute("name", elementsWithID[i].id);
+            button.setAttribute("number", i);
+            parentCell.appendChild(button);
 
-        // Add the onClick event to each button
-        button.addEventListener("click", RTSE_toggleHomepageElement, false);
+            // Add the onClick event to each button
+            button.addEventListener("click", RTSE_toggleHomepageElement, false);
 
-        let insertion = elementsWithID[i].parentNode.getElementsByTagName("tr")[1];
-        insertion.insertBefore(parentCell, insertion.getElementsByTagName("td")[0]);
+            let insertion = elementsWithID[i].parentNode.getElementsByTagName("tr")[1];
+            insertion.insertBefore(parentCell, insertion.getElementsByTagName("td")[0]);
+        } else {
+            button.setAttribute("name", "myAlerts");
+            button.setAttribute("number", i);
+
+            // Add the onClick event to each button
+            button.addEventListener("click", RTSE_toggleHomepageElement, false);
+            
+            elementsWithID[i].className = "box";
+            let insertion = elementsWithID[i];
+            insertion.insertBefore(button, insertion.firstChild);
+        }
     }
 }
 

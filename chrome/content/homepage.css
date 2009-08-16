@@ -19,8 +19,7 @@
         display: none !important;
     }
     #myAlerts:not(.shown)  {
-        /* Disable until "show/hide" button can be inserted
-           display: none !important; */
+           display: none !important;
     }
     div[id="Make a Journal Entry"]:not(.shown)  {
         display: none !important;
