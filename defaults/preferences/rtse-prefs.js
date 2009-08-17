@@ -37,6 +37,7 @@ pref("extensions.rtse.extras.formRedirect",true);
 pref("extensions.rtse.link.enabled",true);
 pref("extensions.rtse.link.user",true);
 pref("extensions.rtse.link.signOut",true);
+pref("extensions.rtse.link.groups",true);
 pref("extensions.rtse.link.comments",true);
 pref("extensions.rtse.link.log",true);
 pref("extensions.rtse.link.journal",true);

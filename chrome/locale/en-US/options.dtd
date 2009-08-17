@@ -21,6 +21,7 @@
 <!ENTITY Preferences.link.user "Username">
 <!ENTITY Preferences.link.signOut "Sign Out">
 <!ENTITY Preferences.link.comments "Comments">
+<!ENTITY Preferences.link.groups "Groups">
 <!ENTITY Preferences.link.log "Log">
 <!ENTITY Preferences.link.journal "Journal">
 <!ENTITY Preferences.link.messages "Messages">

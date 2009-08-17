@@ -69,6 +69,9 @@
      <preference id="link_comments" 
                   name="extensions.rtse.link.comments"
                   type="bool"/>
+     <preference id="link_groups" 
+                  name="extensions.rtse.link.groups"
+                  type="bool"/>
      <preference id="link_log"
                   name="extensions.rtse.link.log"
                   type="bool"/>
@@ -128,6 +131,11 @@
           <checkbox id="signOut"
           label="&Preferences.link.signOut;"
           preference="link_signOut"/>
+        </richlistitem>
+        <richlistitem orient="vertical">
+          <checkbox id="groups"
+          label="&Preferences.link.groups;"
+          preference="link_groups"/>
         </richlistitem>
         <richlistitem orient="vertical">
           <checkbox id="comments"
