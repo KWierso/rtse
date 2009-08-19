@@ -131,7 +131,8 @@ var RTSE = {
         if(doc.getElementById("pageContent").getElementsByTagName("span")[0].innerHTML!="Locked:") {
           // Run on all other pages with posts
           if( doc.location.href.match("entry.php") == 'entry.php' || doc.location.href.match("viewEntry.php") == 'viewEntry.php' || 
-                  doc.location.href.match("viewTopic.php") == 'viewTopic.php' || doc.location.href.match("image.php") == 'image.php') {
+                  doc.location.href.match("viewTopic.php") == 'viewTopic.php' || doc.location.href.match("image.php") == 'image.php' ||
+                  doc.location.href.match("strip.php") == 'strip.php' || doc.location.href.match("episode.php") == 'episode.php') {
 
               // Replies
               RTSE_modifyReply(doc);
