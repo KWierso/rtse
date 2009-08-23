@@ -216,3 +216,15 @@ function resetRTSE() {
                                  'RTSEsetup','chrome,centerscreen');
     }
 }
+
+/**
+ * Function: Selects or unselects all forums for the jump list with one checkbox
+ *
+ */
+function forumAll() {
+    let allCheckboxes = document.getElementById('forums').getElementsByTagName("checkbox");
+    let checked = document.getElementById('forumAll').checked;
+    for(let i in allCheckboxes) {
+        allCheckboxes[i].checked = checked;
+    }
+}

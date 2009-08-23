@@ -409,6 +409,9 @@
                 oncommand="forumJump();"/>
       <spacer style="height:10px;"/>
       <description id="forums_desc">&ForumJump.desc;</description>
+      <checkbox id="forumAll"
+                label="&ForumJump.all;"
+                oncommand="forumAll();"/>
       <richlistbox id="forums" maxheight="200" flex="1">
         <richlistitem><label value="&ForumJump.special;" style="font-weight:bold;"/></richlistitem>
         <richlistitem orient="vertical">

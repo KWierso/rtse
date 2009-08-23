@@ -53,6 +53,7 @@
 <!ENTITY ForumJump.caption "Forum Jump Filter">
 <!ENTITY ForumJump.enable "Enable the Forum Jump Box">
 <!ENTITY ForumJump.desc "This allows you to filter what is shown in the Forum Jump list.">
+<!ENTITY ForumJump.all "Select/Deselect All Forums">
 
 <!ENTITY ForumJump.special "Special">
 <!ENTITY ForumJump.sponsor "You know you're cool.">
