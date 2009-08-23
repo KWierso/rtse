@@ -226,5 +226,7 @@ function forumAll() {
     let checked = document.getElementById('forumAll').checked;
     for(let i in allCheckboxes) {
         allCheckboxes[i].checked = checked;
+        if(allCheckboxes[i].id) // For some reason, extra elements were being included in the loop,
+            allCheckboxes[i].doCommand(); // This if statement prevents them from being used
     }
 }
