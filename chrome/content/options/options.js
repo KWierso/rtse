@@ -217,10 +217,6 @@ function resetRTSE() {
     }
 }
 
-function reinitEditor() {
-    alert("Reset the ATE here");
-}
-
 /**
  * Function: Selects or unselects all forums for the jump list with one checkbox
  *
