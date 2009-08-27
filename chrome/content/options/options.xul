@@ -695,6 +695,7 @@
       </groupbox>
       <checkbox label="&Extras.redirect;" preference="pref_redirect"/>
       <spacer style="height:30px;"/>
+      <button label="&Extras.reinitializeEditor;" oncommand="reinitEditor();"/>
       <button label="&Extras.resetRTSE;" oncommand="resetRTSE();"/>
     </vbox>
   </prefpane> 

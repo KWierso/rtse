@@ -14,6 +14,7 @@
 <!ENTITY Extras.journal "Show Journal Sidebar">
 <!ENTITY Extras.redirect "Redirect Blog and Commentary Posts">
 <!ENTITY Extras.resetRTSE "Reset RTSE to initial configuration">
+<!ENTITY Extras.reinitializeEditor "Reinitialize ATE">
 
 <!ENTITY Preferences.name "Site Preferences">
 <!ENTITY Preferences.link.groupcaption "Displayed links">
