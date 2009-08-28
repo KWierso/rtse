@@ -3,8 +3,13 @@
 
 <!ENTITY ContextMenu.sendPM.label "Send Private Message">
 <!ENTITY ContextMenu.watch.label "Watch User">
+<!ENTITY ContextMenu.block.label "Block User">
 <!ENTITY ContextMenu.addFriend.label "Add User to Friends">
 <!ENTITY ContextMenu.log.label "View User's Log">
+<!ENTITY ContextMenu.journal.label "View User's Journal">
+<!ENTITY ContextMenu.images.label "View User's Images">
+<!ENTITY ContextMenu.comments.label "View User's Comments">
 <!ENTITY ContextMenu.tourneyBracket.label "View Tournament Bracket">
+<!ENTITY ContextMenu.threadWatch.label "Watch Thread">
 
 <!ENTITY Statusbar.editor.tooltip "The Rooster Teeth Site Extender is enabled on this page">

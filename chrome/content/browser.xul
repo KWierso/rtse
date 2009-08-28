@@ -20,6 +20,8 @@
   <menu id="rtse-sub-menu"  
         hidden="true"
         label="&Extension.shortName;"
+        image="chrome://rtse/skin/images/icon.png"
+        class="menu-iconic"
         position="1">
     <menupopup>
       <menuitem id="rtse-user-sendPM"
@@ -32,22 +34,47 @@
                 position="2"
                 image="chrome://rtse/skin/images/global/add-watch.png"
                 class="menuitem-iconic"/>
+      <menuitem id="rtse-user-block"
+                label="&ContextMenu.block.label;"
+                position="3"
+                image="chrome://rtse/skin/images/global/block.png"
+                class="menuitem-iconic"/>
       <menuitem id="rtse-user-friends"
                 label="&ContextMenu.addFriend.label;"
-                position="3"
+                position="4"
                 image="chrome://rtse/skin/images/global/add-friend.png"
                 class="menuitem-iconic"/>
       <menuitem id="rtse-user-log"
                 label="&ContextMenu.log.label;"
-                position="4"
+                position="5"
                 image="chrome://rtse/skin/images/global/log.png"
                 class="menuitem-iconic"/>
+      <menuitem id="rtse-user-journal"
+                label="&ContextMenu.journal.label;"
+                position="6"
+                image="chrome://rtse/skin/images/global/journal.png"
+                class="menuitem-iconic"/>
+      <menuitem id="rtse-user-images"
+                label="&ContextMenu.images.label;"
+                position="7"
+                image="chrome://rtse/skin/images/global/images.png"
+                class="menuitem-iconic"/>
+      <menuitem id="rtse-user-comments"
+                label="&ContextMenu.comments.label;"
+                position="8"
+                image="chrome://rtse/skin/images/global/comments.png"
+                class="menuitem-iconic"/>      
       <menuitem id="rtse-tournament-bracket"
                 label="&ContextMenu.tourneyBracket.label;"
-                position="5"
+                position="9"
                 image="chrome://rtse/skin/images/global/view-bracket.png"
                 class="menuitem-iconic"/>
-    </menupopup>
+      <menuitem id="rtse-thread-watch"
+                label="&ContextMenu.threadWatch.label;"
+                position="10"
+                image="chrome://rtse/skin/images/global/add-friend.png"
+                class="menuitem-iconic"/>
+      </menupopup>
   </menu>
 </popup>
 
