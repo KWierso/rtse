@@ -146,7 +146,9 @@ var RTSE = {
           }
           
           // Modify links for user comment pages
-          if(doc.location.href.match("comments") == 'comments' || doc.location.href.match("profile.php") == 'profile.php') {
+          if(doc.location.href.match("comments") == 'comments' || doc.location.href.match("profile.php") == 'profile.php'||
+            (doc.getElementById("Add a Comment") && doc.getElementById(" Friends") && doc.getElementById("The Goods"))) 
+          {              // Those getElementById's essentially confirm that this is a user's profile
               // Replies
               RTSE_modifyReply(doc);
 
@@ -162,7 +164,7 @@ var RTSE = {
     /* Context Menu Goodies */
     let url=gBrowser.getBrowserAtIndex(gBrowser.mTabContainer.selectedIndex).contentDocument.location;
     let regEx=/^https?:\/\/((|panics.|magic.|m.|myspace.)roosterteeth|achievementhunter|strangerhood|redvsblue|roosterteethcomics).com(.*)$/i
-    
+
     // Help handle the ONline div
     let targetON = false;
     if(gContextMenu.onLink && gContextMenu.target.innerHTML == "ON" && 
@@ -198,7 +200,7 @@ var RTSE = {
             document.getElementById('rtse-user-journal').style.display = '';
             document.getElementById('rtse-user-images').style.display = '';
             document.getElementById('rtse-user-comments').style.display = '';
-              
+
             /* Send PM */
             document.getElementById('rtse-user-sendPM').setAttribute('oncommand','gBrowser.addTab("http://'+
               dom + '/members/messaging/send.php?to='+uid+'");');
@@ -211,12 +213,14 @@ var RTSE = {
             /* Block */
             document.getElementById('rtse-user-block').setAttribute('oncommand','gBrowser.addTab("http://'+
               dom + '/members/addBlock.php?uid='+uid+'");');
+
             /* View Log */
             if (!RTSE.sponsor) {
               document.getElementById('rtse-user-log').style.display = 'none';
             }
             document.getElementById('rtse-user-log').setAttribute('oncommand','gBrowser.addTab("http://'+
                 dom + '/members/log.php?uid='+uid+'");');
+
             /* View Journal */
             document.getElementById('rtse-user-journal').setAttribute('oncommand','gBrowser.addTab("http://'+
               dom + '/members/journal/?uid='+uid+'");');
@@ -227,7 +231,6 @@ var RTSE = {
             document.getElementById('rtse-user-comments').setAttribute('oncommand','gBrowser.addTab("http://'+
               dom + '/members/comments/?uid='+uid+'");');
           }
-
           if(/tournaments\/event.php/.test(gContextMenu.target.parentNode.href) ){
             gContextMenu.showItem("rtse-sub-menu",true);
 
@@ -250,7 +253,6 @@ var RTSE = {
             document.getElementById('rtse-tournament-bracket').setAttribute('oncommand','gBrowser.addTab("http://'+
               dom + '/tournaments/bracket.php?id='+tid+'");');
           }
-
           if(/forum\/viewTopic.php/.test(gContextMenu.target.href) ){
             gContextMenu.showItem("rtse-sub-menu",true);
 

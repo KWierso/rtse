@@ -547,7 +547,10 @@ function RTSE_samePageReply(aEvent)
                       titles[blogId], "/forum/replyPost.php?id=" + threads[blogId]);
       num = "[link=" + doc.URL.split("&page=")[0] + "&post=" + num +"]Blog Post #" + num + "[/link]";
     }
-    if(doc.URL.match("/comments/") == "/comments/" || doc.URL.match("/members/profile.php") == "/members/profile.php") {
+    if( (doc.URL.match("/comments/") == "/comments/" || doc.URL.match("/members/profile.php") == "/members/profile.php") ||
+           (doc.getElementById("Add a Comment") && doc.getElementById(" Friends") && doc.getElementById("The Goods"))) 
+                        // Those getElementById's essentially confirm that this is a user's profile
+    {
       let uID;
       try {
          uID = this.parentNode.parentNode.parentNode.parentNode.parentNode
