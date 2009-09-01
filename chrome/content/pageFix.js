@@ -555,8 +555,8 @@ function RTSE_samePageReply(aEvent)
                    .getElementsByTagName('td')[0]
                    .getElementsByTagName('table')[0]
                    .getElementsByTagName('tbody')[0]
-                   .getElementsByTagName('img')[0].getAttribute("onerror");
-         uID = uID.split(/uid=/)[1].split(/\"/)[0];
+                   .getElementsByTagName('img')[0].getAttribute("src");
+         uID = uID.split("?")[1];
       } catch(e) { // User is using the "Old User Block" style. Can't find the uID
     /*     uID = this.parentNode.parentNode.parentNode.parentNode.parentNode
                    .parentNode.parentNode.parentNode.parentNode.parentNode
