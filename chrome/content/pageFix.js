@@ -982,7 +982,7 @@ function RTSE_hideHomepageElements(aDoc) {
     let allElementIDs = ["images", "breakdown", "tagged", "Awards", 
                          "Recent Topics", "avatar", "Mod Summary", 
                          "myAlertHolder", "Make a Journal Entry", "Watching",
-                         "My Friends", "Groups", "Tournaments"];
+                         "My Friends", "Groups", "Tournaments", "Store Wishlist"];
 
     let elementsWithID = new Array();
 

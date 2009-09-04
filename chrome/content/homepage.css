@@ -36,5 +36,8 @@
     #Tournaments:not(.shown)  {
         display: none !important;
     }
+    div[id="Store Wishlist"]:not(.shown)  {
+        display: none !important;
+    }
 }
 /* "images", "breakdown", "tagged", "avatar", */
