@@ -570,9 +570,14 @@ function RTSE_samePageReply(aEvent)
                    .getElementsByTagName('a')[0].href.split("?uid=")[1];
     */
       }
-      if(uID != null) // Only modify the form if the uID can be found
+      if(uID != null && uID != "undefined") // Only modify the form if the uID can be found
         RTSE_modifyForm(doc, "/members/comments/commentPost.php?uid=" + uID, doc.URL,
                   name + "'s Comments", "/members/comments/commentPost.php?uid=" + uID);
+      else {
+        alert("This user's ID number cannot be found for some reason. " +
+                         "You should probably reconsider hitting 'submit' " +
+                         "before you make a fool of yourself.");
+      }
     } 
   }
 
