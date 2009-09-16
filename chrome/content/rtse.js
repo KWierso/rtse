@@ -174,7 +174,8 @@ var RTSE = {
 
     if( gContextMenu.onLink && regEx.test(url.href) &&
        ( (gContextMenu.onImage && gContextMenu.target.parentNode.href) || targetON || 
-         /forum\/viewTopic.php/.test(gContextMenu.target.href) ) ) {
+         /forum\/viewTopic.php/.test(gContextMenu.target.href) || 
+         gContextMenu.target == "[object XPCNativeWrapper [object HTMLDivElement]]" ) ) {
           /* Should target only user avatars */
           if(/avatar av{0,1}/.test(gContextMenu.target.className)) {
             gContextMenu.showItem("rtse-sub-menu",true);
@@ -200,6 +201,7 @@ var RTSE = {
             document.getElementById('rtse-user-journal').style.display = '';
             document.getElementById('rtse-user-images').style.display = '';
             document.getElementById('rtse-user-comments').style.display = '';
+            document.getElementById('rtse-search-last').style.display = 'none';
 
             /* Send PM */
             document.getElementById('rtse-user-sendPM').setAttribute('oncommand','gBrowser.addTab("http://'+
@@ -248,6 +250,7 @@ var RTSE = {
             document.getElementById('rtse-user-comments').style.display = 'none';
             document.getElementById('rtse-thread-watch').style.display = 'none';
             document.getElementById('rtse-tournament-bracket').style.display = '';
+            document.getElementById('rtse-search-last').style.display = 'none';
 
             /* View Tourney Bracket */
             document.getElementById('rtse-tournament-bracket').setAttribute('oncommand','gBrowser.addTab("http://'+
@@ -270,6 +273,7 @@ var RTSE = {
             document.getElementById('rtse-user-comments').style.display = 'none';
             document.getElementById('rtse-tournament-bracket').style.display = 'none';
             document.getElementById('rtse-thread-watch').style.display = '';
+            document.getElementById('rtse-search-last').style.display = 'none';
 
             /* Watch Thread */
             if(!/groups\//.test(gContextMenu.target.href)) {
@@ -278,6 +282,33 @@ var RTSE = {
             } else {
                 document.getElementById('rtse-thread-watch').setAttribute('oncommand','gBrowser.addTab("http://'+
                   dom + '/groups/forum/watch.php?id='+tid+'&return=/groups/forum/viewTopic.php?id='+tid+'");');
+            }
+          }
+          if(gContextMenu.target.parentNode.className == "available"){
+
+            let link = gContextMenu.target.parentNode.href;
+            let threadOrJournal = gContextMenu.target.parentNode.getElementsByTagName("div")[1].innerHTML;
+            if(threadOrJournal == "Forum Thread" || (threadOrJournal == "Comments" && /members\/journal\/entry.php/.test(link)) ) {
+                gContextMenu.showItem("rtse-sub-menu",true);
+
+                // Make only thread items visible
+                document.getElementById('rtse-user-log').style.display = 'none';
+                document.getElementById('rtse-user-watch').style.display = 'none';
+                document.getElementById('rtse-user-block').style.display = 'none';
+                document.getElementById('rtse-user-friends').style.display = 'none';
+                document.getElementById('rtse-user-sendPM').style.display = 'none';
+                document.getElementById('rtse-user-journal').style.display = 'none';
+                document.getElementById('rtse-user-images').style.display = 'none';
+                document.getElementById('rtse-user-comments').style.display = 'none';
+                document.getElementById('rtse-tournament-bracket').style.display = 'none';
+                document.getElementById('rtse-thread-watch').style.display = 'none';
+                document.getElementById('rtse-search-last').style.display = '';
+
+                /* Go to Last Page of Link */
+                document.getElementById('rtse-search-last').setAttribute('oncommand',
+                    'gBrowser.addTab("' + link + '&page=9999999");');
+            } else {
+                gContextMenu.showItem("rtse-sub-menu", false);
             }
           }
     } else {

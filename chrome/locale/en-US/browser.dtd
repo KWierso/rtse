@@ -11,5 +11,6 @@
 <!ENTITY ContextMenu.comments.label "View User's Comments">
 <!ENTITY ContextMenu.tourneyBracket.label "View Tournament Bracket">
 <!ENTITY ContextMenu.threadWatch.label "Watch Thread">
+<!ENTITY ContextMenu.searchLast.label "Go to Last Page">
 
 <!ENTITY Statusbar.editor.tooltip "The Rooster Teeth Site Extender is enabled on this page">

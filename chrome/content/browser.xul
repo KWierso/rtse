@@ -74,6 +74,10 @@
                 position="10"
                 image="chrome://rtse/skin/images/global/add-friend.png"
                 class="menuitem-iconic"/>
+      <menuitem id="rtse-search-last"
+                label="&ContextMenu.searchLast.label;"
+                position="11"
+                class="menuitem-iconic"/>
       </menupopup>
   </menu>
 </popup>
