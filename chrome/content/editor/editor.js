@@ -253,11 +253,30 @@ RTSE.editor =
     return count;
   },
 
- /**
-  * Shows/hides the editor and preview pane
-  *
-  * @param aEvent The event passed to the function
-  */
+  /**
+   *  Add or remove the form element controlling Tweeting
+   */
+  toggleTweet: function toggleTweet() {
+    var doc = gBrowser.getBrowserForTab(gBrowser.selectedTab).contentDocument;
+    let form = doc.forms.namedItem("post");
+
+    let checked = document.getElementById("rtse-editor-tweet").checked;
+    if(checked) {
+        let tweetInput = doc.createElement("input");
+        tweetInput.setAttribute("name", "tweet");
+        tweetInput.setAttribute("type", "hidden");
+        tweetInput.setAttribute("value", "on");
+        form.appendChild(tweetInput);
+    } else {
+        form.removeChild(form.elements.namedItem("tweet"));
+    }
+  },
+
+  /**
+   * Shows/hides the editor and preview pane
+   *
+   * @param aEvent The event passed to the function
+   */
   toggleEditor: function toggleEditor(aEvent)
   {
     var doc = gBrowser.getBrowserForTab(gBrowser.selectedTab).contentDocument;
@@ -295,6 +314,8 @@ RTSE.editor =
       RTSE.editor.getProperty(doc, "show-title") != "true";
     document.getElementById("rtse-editor-toUser").hidden =
       RTSE.editor.getProperty(doc, "show-toUser") != "true";
+    document.getElementById("rtse-editor-tweet").hidden = 
+      (!doc.getElementById("Make a Journal Entry"));
     let friendsOnly = document.getElementById("rtse-editor-friendsOnly");
     friendsOnly.hidden = RTSE.editor.getProperty(doc, "show-friendsOnly") != "true";
     if(!friendsOnly.hidden) {

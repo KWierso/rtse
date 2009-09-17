@@ -192,11 +192,16 @@
                    hidden="true"
                    spellcheck="true"/>
           <hbox>
-            <spacer flex="1"/>
             <button id="rtse-poll-add-answer"
                     class="rtse-editor-button"
                     label="Add Answer"
                     oncommand="RTSE.editor.addPollAnswer();"/>
+            <spacer flex="1"/>
+            <checkbox id="rtse-editor-tweet"
+                      label="Tweet this journal"
+                      checked="false"
+                      hidden="true"
+                      oncommand="RTSE.editor.toggleTweet();"/>
           </hbox>
         </vbox>
       </hbox>
