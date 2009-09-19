@@ -291,7 +291,7 @@ var RTSE = {
             if(threadOrJournal == "Forum Thread" || (threadOrJournal == "Comments" && /members\/journal\/entry.php/.test(link)) ) {
                 gContextMenu.showItem("rtse-sub-menu",true);
 
-                // Make only thread items visible
+                // Make only last-page items visible
                 document.getElementById('rtse-user-log').style.display = 'none';
                 document.getElementById('rtse-user-watch').style.display = 'none';
                 document.getElementById('rtse-user-block').style.display = 'none';
@@ -306,7 +306,7 @@ var RTSE = {
 
                 /* Go to Last Page of Link */
                 document.getElementById('rtse-search-last').setAttribute('oncommand',
-                    'gBrowser.addTab("' + link + '&page=9999999");');
+                    "gBrowser.getBrowserAtIndex(gBrowser.mTabContainer.selectedIndex).contentDocument.location = '" + link + "&page=9999999';");
             } else {
                 gContextMenu.showItem("rtse-sub-menu", false);
             }
