@@ -78,6 +78,10 @@
                 label="&ContextMenu.searchLast.label;"
                 position="11"
                 class="menuitem-iconic"/>
+      <menuitem id="rtse-no-uid"
+                label="&ContextMenu.noUid.label;"
+                position="12"
+                class="menuitem-iconic"/>
       </menupopup>
   </menu>
 </popup>

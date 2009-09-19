@@ -190,48 +190,65 @@ var RTSE = {
             uid = uid.split("?")[1];
             let dom = url.hostname;
 
-            // Make only user items visible
-            document.getElementById('rtse-tournament-bracket').style.display = 'none';
-            document.getElementById('rtse-thread-watch').style.display = 'none';
-            document.getElementById('rtse-user-log').style.display = '';
-            document.getElementById('rtse-user-watch').style.display = '';
-            document.getElementById('rtse-user-block').style.display = '';
-            document.getElementById('rtse-user-friends').style.display = '';
-            document.getElementById('rtse-user-sendPM').style.display = '';
-            document.getElementById('rtse-user-journal').style.display = '';
-            document.getElementById('rtse-user-images').style.display = '';
-            document.getElementById('rtse-user-comments').style.display = '';
-            document.getElementById('rtse-search-last').style.display = 'none';
+            // Only show the items if the uID can be found
+            if(uid) {
+                // Make only user items visible
+                document.getElementById('rtse-tournament-bracket').style.display = 'none';
+                document.getElementById('rtse-thread-watch').style.display = 'none';
+                document.getElementById('rtse-user-log').style.display = '';
+                document.getElementById('rtse-user-watch').style.display = '';
+                document.getElementById('rtse-user-block').style.display = '';
+                document.getElementById('rtse-user-friends').style.display = '';
+                document.getElementById('rtse-user-sendPM').style.display = '';
+                document.getElementById('rtse-user-journal').style.display = '';
+                document.getElementById('rtse-user-images').style.display = '';
+                document.getElementById('rtse-user-comments').style.display = '';
+                document.getElementById('rtse-no-uid').style.display = 'none';
+                document.getElementById('rtse-search-last').style.display = 'none';
 
-            /* Send PM */
-            document.getElementById('rtse-user-sendPM').setAttribute('oncommand','gBrowser.addTab("http://'+
-              dom + '/members/messaging/send.php?to='+uid+'");');
-            /* Add Friend */
-            document.getElementById('rtse-user-friends').setAttribute('oncommand','gBrowser.addTab("http://'+
-              dom + '/members/addFriend.php?uid='+uid+'");');
-            /* Watch */
-            document.getElementById('rtse-user-watch').setAttribute('oncommand','gBrowser.addTab("http://'+
-              dom + '/members/addWatch.php?uid='+uid+'");');
-            /* Block */
-            document.getElementById('rtse-user-block').setAttribute('oncommand','gBrowser.addTab("http://'+
-              dom + '/members/addBlock.php?uid='+uid+'");');
+                /* Send PM */
+                document.getElementById('rtse-user-sendPM').setAttribute('oncommand','gBrowser.addTab("http://'+
+                  dom + '/members/messaging/send.php?to='+uid+'");');
+                /* Add Friend */
+                document.getElementById('rtse-user-friends').setAttribute('oncommand','gBrowser.addTab("http://'+
+                  dom + '/members/addFriend.php?uid='+uid+'");');
+                /* Watch */
+                document.getElementById('rtse-user-watch').setAttribute('oncommand','gBrowser.addTab("http://'+
+                  dom + '/members/addWatch.php?uid='+uid+'");');
+                /* Block */
+                document.getElementById('rtse-user-block').setAttribute('oncommand','gBrowser.addTab("http://'+
+                  dom + '/members/addBlock.php?uid='+uid+'");');
 
-            /* View Log */
-            if (!RTSE.sponsor) {
-              document.getElementById('rtse-user-log').style.display = 'none';
+                /* View Log */
+                if (!RTSE.sponsor) {
+                  document.getElementById('rtse-user-log').style.display = 'none';
+                }
+                document.getElementById('rtse-user-log').setAttribute('oncommand','gBrowser.addTab("http://'+
+                    dom + '/members/log.php?uid='+uid+'");');
+
+                /* View Journal */
+                document.getElementById('rtse-user-journal').setAttribute('oncommand','gBrowser.addTab("http://'+
+                  dom + '/members/journal/?uid='+uid+'");');
+                /* View Images */
+                document.getElementById('rtse-user-images').setAttribute('oncommand','gBrowser.addTab("http://'+
+                  dom + '/members/images/?uid='+uid+'");');
+                /* View Comments */
+                document.getElementById('rtse-user-comments').setAttribute('oncommand','gBrowser.addTab("http://'+
+                  dom + '/members/comments/?uid='+uid+'");');
+            } else {
+                document.getElementById('rtse-tournament-bracket').style.display = 'none';
+                document.getElementById('rtse-thread-watch').style.display = 'none';
+                document.getElementById('rtse-user-log').style.display = 'none';
+                document.getElementById('rtse-user-watch').style.display = 'none';
+                document.getElementById('rtse-user-block').style.display = 'none';
+                document.getElementById('rtse-user-friends').style.display = 'none';
+                document.getElementById('rtse-user-sendPM').style.display = 'none';
+                document.getElementById('rtse-user-journal').style.display = 'none';
+                document.getElementById('rtse-user-images').style.display = 'none';
+                document.getElementById('rtse-user-comments').style.display = 'none';
+                document.getElementById('rtse-no-uid').style.display = '';
+                document.getElementById('rtse-search-last').style.display = 'none';
             }
-            document.getElementById('rtse-user-log').setAttribute('oncommand','gBrowser.addTab("http://'+
-                dom + '/members/log.php?uid='+uid+'");');
-
-            /* View Journal */
-            document.getElementById('rtse-user-journal').setAttribute('oncommand','gBrowser.addTab("http://'+
-              dom + '/members/journal/?uid='+uid+'");');
-            /* View Images */
-            document.getElementById('rtse-user-images').setAttribute('oncommand','gBrowser.addTab("http://'+
-              dom + '/members/images/?uid='+uid+'");');
-            /* View Comments */
-            document.getElementById('rtse-user-comments').setAttribute('oncommand','gBrowser.addTab("http://'+
-              dom + '/members/comments/?uid='+uid+'");');
           }
           if(/tournaments\/event.php/.test(gContextMenu.target.parentNode.href) ){
             gContextMenu.showItem("rtse-sub-menu",true);
@@ -250,6 +267,7 @@ var RTSE = {
             document.getElementById('rtse-user-comments').style.display = 'none';
             document.getElementById('rtse-thread-watch').style.display = 'none';
             document.getElementById('rtse-tournament-bracket').style.display = '';
+            document.getElementById('rtse-no-uid').style.display = 'none';
             document.getElementById('rtse-search-last').style.display = 'none';
 
             /* View Tourney Bracket */
@@ -273,6 +291,7 @@ var RTSE = {
             document.getElementById('rtse-user-comments').style.display = 'none';
             document.getElementById('rtse-tournament-bracket').style.display = 'none';
             document.getElementById('rtse-thread-watch').style.display = '';
+            document.getElementById('rtse-no-uid').style.display = 'none';
             document.getElementById('rtse-search-last').style.display = 'none';
 
             /* Watch Thread */
@@ -302,6 +321,7 @@ var RTSE = {
                 document.getElementById('rtse-user-comments').style.display = 'none';
                 document.getElementById('rtse-tournament-bracket').style.display = 'none';
                 document.getElementById('rtse-thread-watch').style.display = 'none';
+                document.getElementById('rtse-no-uid').style.display = 'none';
                 document.getElementById('rtse-search-last').style.display = '';
 
                 /* Go to Last Page of Link */
