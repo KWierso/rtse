@@ -194,6 +194,9 @@ RTSE.editor =
       form.appendChild(elm);
     }
 
+    // Pre-add "Tweet" input element
+        RTSE.editor.toggleTweet();
+
     // Event Listeners
     form = doc.forms.namedItem("post");
     form.addEventListener("submit", RTSE_convertExtraBB, false);
@@ -262,13 +265,21 @@ RTSE.editor =
 
     let checked = document.getElementById("rtse-editor-tweet").checked;
     if(checked) {
-        let tweetInput = doc.createElement("input");
-        tweetInput.setAttribute("name", "tweet");
-        tweetInput.setAttribute("type", "hidden");
-        tweetInput.setAttribute("value", "on");
-        form.appendChild(tweetInput);
+        try {
+            let tweetInput = doc.createElement("input");
+            tweetInput.setAttribute("name", "tweet");
+            tweetInput.setAttribute("type", "hidden");
+            tweetInput.setAttribute("value", "on");
+            form.appendChild(tweetInput);
+        } catch (e) {
+            //Apparently this didn't work
+        }
     } else {
-        form.removeChild(form.elements.namedItem("tweet"));
+        try {
+            form.removeChild(form.elements.namedItem("tweet"));
+        } catch (e) {
+            //Apparently this didn't work
+        }
     }
   },
 

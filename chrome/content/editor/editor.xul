@@ -199,7 +199,7 @@
             <spacer flex="1"/>
             <checkbox id="rtse-editor-tweet"
                       label="Tweet this journal"
-                      checked="false"
+                      checked="true"
                       hidden="true"
                       oncommand="RTSE.editor.toggleTweet();"/>
           </hbox>
