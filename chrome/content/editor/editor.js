@@ -326,7 +326,7 @@ RTSE.editor =
     document.getElementById("rtse-editor-toUser").hidden =
       RTSE.editor.getProperty(doc, "show-toUser") != "true";
     document.getElementById("rtse-editor-tweet").hidden = 
-      (!doc.getElementById("Make a Journal Entry"));
+      (!doc.getElementsByName("tweet")[0]);
     let friendsOnly = document.getElementById("rtse-editor-friendsOnly");
     friendsOnly.hidden = RTSE.editor.getProperty(doc, "show-friendsOnly") != "true";
     if(!friendsOnly.hidden) {
