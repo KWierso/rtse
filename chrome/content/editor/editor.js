@@ -195,6 +195,7 @@ RTSE.editor =
     }
 
     // Pre-add "Tweet" input element
+    if(doc.getElementById("Make a Journal Entry") && doc.getElementsByName("tweet")[0])
         RTSE.editor.toggleTweet();
 
     // Event Listeners
@@ -326,7 +327,8 @@ RTSE.editor =
     document.getElementById("rtse-editor-toUser").hidden =
       RTSE.editor.getProperty(doc, "show-toUser") != "true";
     document.getElementById("rtse-editor-tweet").hidden = 
-      (!doc.getElementsByName("tweet")[0]);
+      !(doc.getElementsByName("tweet")[0] &&
+       doc.getElementById("Make a Journal Entry"));
     let friendsOnly = document.getElementById("rtse-editor-friendsOnly");
     friendsOnly.hidden = RTSE.editor.getProperty(doc, "show-friendsOnly") != "true";
     if(!friendsOnly.hidden) {
