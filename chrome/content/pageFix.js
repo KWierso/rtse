@@ -127,7 +127,7 @@ function RTSE_linkFix(aDoc)
 //          scroll into view as opposed to loading a new url.
 {
   // Scroll Into view for links on same page
-  var regEx = /^http:\/\/((|panics.|magic.|m.|myspace.)roosterteeth|achievementhunter|strangerhood|redvsblue|roosterteethcomics).com(.*)$/i;
+  var regEx = /^http:\/\/((|panics.|magic.|m.|myspace.)roosterteeth|achievementhunter|strangerhood|redvsblue|roosterteethcomics|captaindynamic).com(.*)$/i;
   var loc = aDoc.location.href
                 .replace(regEx,'$3');
   var func = function showMe(aEvent) {
@@ -927,7 +927,7 @@ function RTSE_findOnDomain(dom)
     if(periods == 2) 
         dom = dom.split(".")[1];
 
-    let domains = ["roosterteeth", "achievementhunter", "strangerhood", "redvsblue", "roosterteethcomics"];
+    let domains = ["roosterteeth", "achievementhunter", "strangerhood", "redvsblue", "roosterteethcomics", "captaindynamic"];
 
     if(domains.indexOf(dom) >= 0)
         return true;

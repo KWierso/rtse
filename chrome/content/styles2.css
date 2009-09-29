@@ -2,7 +2,8 @@
                domain("redvsblue.com"),
                domain("achievementhunter.com"),
                domain("roosterteethcomics.com"),
-               domain("strangerhood.com") {
+               domain("strangerhood.com"),
+               domain("captaindynamic.com") {
   td.sidebar {
     display:none;
   }

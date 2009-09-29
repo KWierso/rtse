@@ -3,11 +3,13 @@
                url(http://achievementhunter.com/members/),
                url(http://roosterteethcomics.com/members/),
                url(http://strangerhood.com/members/),
+               url(http://captaindynamic.com/members/),
                url(http://roosterteeth.com/members/index.php),
                url(http://redvsblue.com/members/index.php),
                url(http://achievementhunter.com/members/index.php),
                url(http://roosterteethcomics.com/members/index.php),
-               url(http://strangerhood.com/members/index.php) {
+               url(http://strangerhood.com/members/index.php),
+               url(http://captaindynamic.com/members/index.php) {
 
     #Awards:not(.shown) {
         display: none !important;
