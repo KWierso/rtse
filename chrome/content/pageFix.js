@@ -263,7 +263,7 @@ function RTSE_forumListBox(doc) {
   listBox.setAttribute("style", "position:absolute;left:15px;top:5px;");
   listBox.setAttribute("align", "right");
   cont.appendChild(listBox);
-  cont.style.padding = "3px 0px 0px 3px";
+  cont.style.padding = "1px 0px 0px 1px";
   cont.setAttribute("align", "left");
   cont.setAttribute("valign", "middle");
   cont.setAttribute("width", "350px");
