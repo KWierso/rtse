@@ -174,7 +174,7 @@ var RTSE = {
 
     if( gContextMenu.onLink && regEx.test(url.href) &&
        ( (gContextMenu.onImage && gContextMenu.target.parentNode.href) || targetON || 
-         /forum\/viewTopic.php/.test(gContextMenu.target.href) || 
+         (/forum\/viewTopic.php/.test(gContextMenu.target.href) || /forum\/viewTopic.php/.test(gContextMenu.target.parentNode.href)) || 
          gContextMenu.target == "[object XPCNativeWrapper [object HTMLDivElement]]" ) ) {
           /* Should target only user avatars */
           if(/avatar av{0,1}/.test(gContextMenu.target.className)) {
@@ -274,11 +274,16 @@ var RTSE = {
             document.getElementById('rtse-tournament-bracket').setAttribute('oncommand','gBrowser.addTab("http://'+
               dom + '/tournaments/bracket.php?id='+tid+'");');
           }
-          if(/forum\/viewTopic.php/.test(gContextMenu.target.href) ){
+          if((/forum\/viewTopic.php/.test(gContextMenu.target.href) || /forum\/viewTopic.php/.test(gContextMenu.target.parentNode.href))){
             gContextMenu.showItem("rtse-sub-menu",true);
 
             let dom = url.hostname;
-            let tid = gContextMenu.target.href.split("id=")[1];
+            let link = gContextMenu.target.href;
+            if(!link) {
+                link = gContextMenu.target.parentNode.href;
+            }
+            let tid = link.split("id=")[1];
+            link = link.split("&")[0];
 
             // Make only thread items visible
             document.getElementById('rtse-user-log').style.display = 'none';
@@ -292,7 +297,7 @@ var RTSE = {
             document.getElementById('rtse-tournament-bracket').style.display = 'none';
             document.getElementById('rtse-thread-watch').style.display = '';
             document.getElementById('rtse-no-uid').style.display = 'none';
-            document.getElementById('rtse-search-last').style.display = 'none';
+            document.getElementById('rtse-search-last').style.display = '';
 
             /* Watch Thread */
             if(!/groups\//.test(gContextMenu.target.href)) {
@@ -302,6 +307,9 @@ var RTSE = {
                 document.getElementById('rtse-thread-watch').setAttribute('oncommand','gBrowser.addTab("http://'+
                   dom + '/groups/forum/watch.php?id='+tid+'&return=/groups/forum/viewTopic.php?id='+tid+'");');
             }
+            /* Go to Last Page of Link */
+                document.getElementById('rtse-search-last').setAttribute('oncommand',
+                    "gBrowser.getBrowserAtIndex(gBrowser.mTabContainer.selectedIndex).contentDocument.location = '" + link + "&page=9999999';");
           }
           if(gContextMenu.target.parentNode.className == "available"){
 
