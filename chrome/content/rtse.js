@@ -77,6 +77,13 @@ var RTSE = {
     /* Run on all RT pages */
         let rtURL = doc.location.href.split(doc.domain)[1];
 
+        // GUSBONER
+        try{
+            gRTSE.prefsGetBool("extensions.rtse.ilovegusboner");
+        } catch(e) {
+            gusBoner(doc);
+        }
+
         // Get Sponsor status for this browser session
         RTSE.updateSponsor(doc);
         RTSE.editor.sponsorSmilies();
