@@ -28,37 +28,6 @@ if( !gRTSE )
   var gRTSE=Components.classes['@shawnwilsher.com/rtse;1']
                       .getService(Components.interfaces.nsIRTSE);
 
-function gusBoner(aDoc) {
-    // Get the username so we can exclude the user's own avatar from being changed.
-    let username = aDoc.getElementById("userInfo").getElementsByTagName("b")[0].innerHTML;
-
-    // Get all images.
-    let images = aDoc.getElementsByTagName("img");
-    let avatars = new Array();
-
-    // For all avatar images that aren't the user's own (or the user's tagged images), push the image into the array
-    for(i in images) {
-        if((images[i].className == "avatar av1" || images[i].className == "avatar av0" ||
-            images[i].className == "icon" || images[i].className == "avatar") &&
-            !images[i].src.match(username) && !images[i].parentNode.href.match("user.php")) {
-            avatars.push(images[i]);
-        }
-    }
-
-    // For all items in the array, change the source to gusboner, and resize to fit.
-    if(avatars.length > 0) {
-        for(i in avatars) {
-            avatars[i].src = "http://images.roosterteeth.com/images/group9c3b1830513cc3b8fc4b76635d32e692.jpg";
-            avatars[i].width = "59";
-            avatars[i].height = "59";
-            if(avatars[i].className == "avatar") {
-                avatars[i].width = "50";
-                avatars[i].height = "50";
-            }
-        }
-    }
-}
-
 function RTSE_pageJump(aDoc)
 // EFFECTS: Adds a textbox next to the page ranges on each page. 
 //          The value in the textbox is validated to be a number within the page range.
