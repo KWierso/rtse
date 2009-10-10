@@ -171,6 +171,11 @@ var RTSE = {
 
             RTSE_modifyForm(doc, null, lastPageURL, null, null, true);
         }
+
+        // Add Watchlist and Alerts if enabled.
+        if( (rtURL != "/members/" && rtURL != "/members/index.php" && rtURL != "members/signin.php") && 
+                gRTSE.prefsGetBool("extensions.rtse.watchlist") )
+            RTSE_addWatchlistAlerts(doc);
     } else
         return;
   },

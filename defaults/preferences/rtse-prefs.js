@@ -9,6 +9,7 @@ pref("extensions.rtse.ahSmilies", false);
 pref("extensions.rtse.sidebar", true);
 pref("extensions.rtse.header", true);
 pref("extensions.rtse.journals", true);
+pref("extensions.rtse.watchlist", false);
 pref("extensions.rtse.homepage", true);
 pref("extensions.rtse.homepage.0", false);
 pref("extensions.rtse.homepage.1", false);

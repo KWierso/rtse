@@ -1072,3 +1072,143 @@ function RTSE_toggleHomepageElement() {
         gRTSE.prefsSetBool(pref, false);
     }
 }
+
+function RTSE_addWatchlistAlerts(aDoc) {
+// EFFECTS: Pulls in a copy of the user's watchlist and alerts from their homepage.
+//          Places these copies on every page of RT.
+// PARAMS:  aDoc - The current document.
+
+    let window = aDoc.defaultView;
+
+    //set this to true to add a "Clear Watchlist" button to every page
+        let clearEnabled = false;
+
+    // Define and open an HTTPRequest for the user's homepage.
+    let httpRequest=new XMLHttpRequest();
+    // Have to use aDoc's domain to fulfull Firefox's same-domain requirements
+    httpRequest.open("GET",'http://'+aDoc.domain+'/members/index.php', true); 
+    httpRequest.onreadystatechange=function(){
+        if(httpRequest.readyState==4){
+            // When the HTTPRequest is finished, process the received data.
+            if(httpRequest.status==200) {
+                // Split off everything after this HTML as the beginnings of the Watchlist section.
+                let requestParts=httpRequest.responseText.split("View Watchlist</a></td></tr></table></td></tr></table>");
+
+                // Split off everything after this HTML as the beginnings of the Alerts section.
+                let requestParts2=httpRequest.responseText.split("<td id='myAlertHolder'>");
+
+                // Remove everything from the Alerts section after this HTML is encountered.
+                let alertlistParts=requestParts2[1].split("</td>");
+
+                // Stick that raw HTML from the alerts section into a new div element.
+                let alertlist=aDoc.createElement('div');
+                alertlist.innerHTML=alertlistParts[0];
+                alertlist.getElementsByTagName("td")[0].background= "transparent";
+
+                // Remove everything from the Watchlist section after this HTML is encountered.
+                let requestholder = requestParts[1].split("<tr><td height='16' /></tr>");
+                requestholder[0] += "</td></tr></table></div>";
+
+                // Stick that raw HTML from the watchlist section into a new div element.
+                let watchlist =aDoc.createElement('div');
+                watchlist.innerHTML = requestholder[0];
+                watchlist.innerHTML = watchlist.innerHTML.replace('id="Watching"', 'id="Watching" class="shown"');
+
+                // The 'clear' element. XXX (Don't have any way to change this yet outside of modifying this file!!!)
+                let clear = aDoc.createElement("a");
+                clear.className = "small";
+                clear.innerHTML = "<b>Clear Watchlist</b>";
+                clear.href = "http://" + aDoc.domain + "/members/clearWatchAlerts.php";
+
+                // Check to see if there's actually any items in the watchlist.
+                let watchlisttest=/You have no new alerts\./i;
+                let watchLength=watchlisttest.test(watchlist.innerHTML);
+
+                if(watchLength != false) {
+                    watchlist.innerHTML="<b>Your watchlist is blank.</b>";
+                }
+
+                // If there's a "Forum" section on the page already, add the watchlist content into that section.
+                if(aDoc.URL.search(/\/forum\//) != -1) {
+                    let Forum = aDoc.getElementById("Forum");
+                    if(Forum == null)
+                        Forum = aDoc.getElementById("Group Forum");
+                    let trs = Forum.getElementsByTagName("tr");
+
+                    // Add the 'clear' element if it is enabled.
+                    let clearEl = trs[0].getElementsByTagName("td")[5].childNodes[1];
+                    if(clearEnabled) {
+                        clearEl.appendChild(aDoc.createTextNode(" [ "));
+                        clearEl.appendChild(clear);
+                        clearEl.appendChild(aDoc.createTextNode(" ] "));
+                    }
+
+                    // If the watchlist does contain items, add them to the "Forum" section.
+                    if(watchlist.innerHTML != "<b>Your watchlist is blank.</b>") {
+                        try {
+                            let insidethedivs;
+                            let tr2 = watchlist.getElementsByTagName("table");
+
+                            let innerdivs = watchlist.getElementsByTagName('div');
+
+                            let dividernum;
+                            for(i=1;i<innerdivs.length;i++) {
+                                if(innerdivs[i].className == "divider") {
+                                    dividernum=i;
+                                }
+
+                                if(innerdivs[i].className != "divider") {
+                                    innerdivs[i].style.width = "237px";
+                                    innerdivs[i].style.padding = "8px 0pt";
+                                    innerdivs[i].style.float = "left";
+                                    insidethedivs = innerdivs[i].getElementsByTagName("*");
+                                }
+                            }
+
+                            while(trs[4].hasChildNodes()) {
+                                trs[4].removeChild(trs[4].firstChild);
+                            }
+
+                            trs[4].appendChild(aDoc.createElement("td"));
+                            trs[4].firstChild.appendChild(tr2[0]);
+                            trs[4].firstChild.borderTop = "1px solid rgb(221, 221, 221)"; 
+                            trs[4].firstChild.paddingTop = "3px";
+                            trs[4].firstChild.colSpan = "2";
+                        }
+                        catch(err) {
+                            let tbodyneeded = Forum.getElementsByTagName("tbody");
+                            let newtr = aDoc.createElement("tr");
+                            tbodyneeded[1].insertBefore(newtr, tbodyneeded[1].firstChild.nextSibling);
+                            trs[4].innerHTML = "<td style='border-top: 1px solid rgb(221, 221, 221); padding-top: 3px;' colspan='2'><table>" + tr2[0].innerHTML + "</table></td>";
+                            let tables = Forum.getElementsByTagName("table");
+                        }
+                    }
+                }
+                // Otherwise, just put it near the top of the page.
+                // XXX (This needs to be better placed. Profile pages make the watchlist crunched into the corner of the page.)
+                else {
+                    watchlist.setAttribute('align', 'center');
+                    if(watchlist.innerHTML != "<b>Your watchlist is blank.</b>" && clearEnabled) {
+                        let clearDiv = aDoc.createElement("div");
+                        clearDiv.setAttribute('align', 'left');
+                        clearDiv.appendChild(aDoc.createTextNode(" [ "));
+                        clearDiv.appendChild(clear);
+                        clearDiv.appendChild(aDoc.createTextNode(" ] "));
+
+                        watchlist.insertBefore(clearDiv, watchlist.firstChild);
+                    }
+                    aDoc.getElementById('pageContent').getElementsByTagName("table")[2]
+                                                     .insertBefore(watchlist,aDoc.getElementById('pageContent')
+                                                     .getElementsByTagName("table")[2].firstChild);
+                }
+                aDoc.getElementById('pageContent').getElementsByTagName("table")[2]
+                                                 .insertBefore(alertlist,aDoc.getElementById('pageContent')
+                                                 .getElementsByTagName("table")[2].firstChild);
+            } else {
+                window.console=window.console||{log:opera.postError}||{log:alert};
+                console.log("Error loading watchlist page\n"+ httpRequest.status +":"+ httpRequest.statusText);
+            }
+        }
+    };
+    httpRequest.send(null);
+}
