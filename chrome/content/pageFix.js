@@ -279,7 +279,7 @@ function RTSE_fixSearch(doc) {
 
 function RTSE_addToUserInfo(doc) {
     /* Adds additional links to the userInfo element in the site header */
-    if(doc.getElementById("userInfo").getElementsByTagName("a").length != 2) {
+    if(doc.getElementById("userInfo").getElementsByTagName("a").length != 3) {
         var lng = 13;
         if (!RTSE.sponsor) {
             lng = 8;
