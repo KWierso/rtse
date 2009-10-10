@@ -156,6 +156,21 @@ var RTSE = {
               RTSE_modifyQuote(doc);
           }
         }
+
+        // Modify post form for journal entries to direct user to the latest page of the journal when replying
+        if(doc.location.href.match("/members/journal/entry.php") == "/members/journal/entry.php") {
+            let lastPageURL = doc.location.href;
+
+            // Does the URL already have a page number?
+            if(lastPageURL.search("&page=") == -1) {
+                lastPageURL = lastPageURL + "&page=9999999";
+            }
+            else {
+                lastPageURL = lastPageURL.split("&page=")[0] + "&page=9999999";
+            }
+
+            RTSE_modifyForm(doc, null, lastPageURL, null, null, true);
+        }
     } else
         return;
   },

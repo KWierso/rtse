@@ -635,20 +635,27 @@ function RTSE_samePageReply(aEvent)
  * @param previewTitleVal The name of the page being previewed
  * @param actionVal The form's new action parameter
  */
-function RTSE_modifyForm(aDoc, toVal, returnVal, previewTitleVal, actionVal)
+function RTSE_modifyForm(aDoc, toVal, returnVal, previewTitleVal, actionVal, noMessage)
 {
     // Show notificationbox to inform the user
-    let notifyBox = gBrowser.getNotificationBox();
-    notifyBox.removeAllNotifications(false)
-    let box = notifyBox.appendNotification("Now Replying Directly to " + previewTitleVal, "rtse-direct", null, notifyBox.PRIORITY_INFO_LOW, null);
-    box.persistence = 0;
+    if(noMessage == null) {
+        let notifyBox = gBrowser.getNotificationBox();
+        notifyBox.removeAllNotifications(false)
+        let box = notifyBox.appendNotification("Now Replying Directly to " + previewTitleVal, "rtse-direct", null, notifyBox.PRIORITY_INFO_LOW, null);
+        box.persistence = 0;
+    }
 
-    previewTitleVal = previewTitleVal.replace("'", "&#039;");
-    // Change the form to reply directly to commentary thread
-    aDoc.forms.namedItem("post").elements.namedItem("to").value = toVal;
-    aDoc.forms.namedItem("post").elements.namedItem("return").value = returnVal;
-    aDoc.forms.namedItem("post").elements.namedItem("previewTitle").value = previewTitleVal;
-    aDoc.forms.namedItem("post").action = actionVal;
+    // Change the form to reply directly to the intended location
+    if(toVal != null)
+        aDoc.forms.namedItem("post").elements.namedItem("to").value = toVal;
+    if(returnVal != null)
+        aDoc.forms.namedItem("post").elements.namedItem("return").value = returnVal;
+    if(previewTitleVal != null) {
+        previewTitleVal = previewTitleVal.replace("'", "&#039;");
+        aDoc.forms.namedItem("post").elements.namedItem("previewTitle").value = previewTitleVal;
+    }
+    if(actionVal != null)
+        aDoc.forms.namedItem("post").action = actionVal;
 }
 
 /**
