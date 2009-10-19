@@ -88,7 +88,11 @@ function RTSE_pageJump(aDoc)
                     if(!this.value.match(/\D/g)) {
                         if(this.value >= 1 && this.value <= maxPage) {
                             // If everything's okay, jump to specified page.
-                            let newURL = aDoc.URL.split("#")[0].split("&page=")[0] + "&page=" + this.value;
+                            let newURL;
+                            if(aDoc.URL.match("modHistory.php") == "modHistory.php")
+                                newURL = "http://" + aDoc.domain + "/members/modHistory.php?nc=1&page=" + this.value;
+                            else
+                                newURL = aDoc.URL.split("#")[0].split("&page=")[0] + "&page=" + this.value;
                             aDoc.location.href = newURL; 
                         } else {
                             alert("Page value not in the accepted range of pages!");
@@ -107,7 +111,11 @@ function RTSE_pageJump(aDoc)
                 if(!this.value.match(/\D/g)) {
                     if(this.value >= 1 && this.value <= maxPage) {
                         // If everything's okay, jump to specified page.
-                        let newURL = aDoc.URL.split("#")[0].split("&page=")[0] + "&page=" + this.value;
+                        let newURL;
+                        if(aDoc.URL.match("modHistory.php") == "modHistory.php")
+                            newURL = "http://" + aDoc.domain + "/members/modHistory.php?nc=1&page=" + this.value;
+                        else
+                            newURL = aDoc.URL.split("#")[0].split("&page=")[0] + "&page=" + this.value;
                         aDoc.location.href = newURL; 
                     } else {
                         alert("Page value not in the accepted range of pages!");
