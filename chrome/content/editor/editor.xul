@@ -205,6 +205,28 @@
           </hbox>
         </vbox>
       </hbox>
+      <hbox id="rtse-editor-quoteBox" hidden="true">
+        <button id="rtse-editor-quote1"
+                label="Quote #1"
+                tooltiptext="Quote #1"
+                class="rtse-editor-button"
+                oncommand="RTSE.editor.insertTag('quotebutton1');"/>
+        <button id="rtse-editor-quote2"
+                label="Quote #2"
+                tooltiptext="Quote #2"
+                class="rtse-editor-button"
+                oncommand="RTSE.editor.insertTag('quotebutton2');"/>
+        <button id="rtse-editor-quote3"
+                label="Quote #3"
+                tooltiptext="Quote #3"
+                class="rtse-editor-button"
+                oncommand="RTSE.editor.insertTag('quotebutton3');"/>
+        <button id="rtse-editor-quote4"
+                label="Quote #4"
+                tooltiptext="Quote #4"
+                class="rtse-editor-button"
+                oncommand="RTSE.editor.insertTag('quotebutton4');"/>
+      </hbox>
       <hbox flex="1" id="rtse-editor-lower-bar">
         <checkbox id="rtse-editor-convertSmilies"
                   label="Convert Custom Smilies"
@@ -383,32 +405,6 @@
         <button id="rtse-editor-placeholder"
                 class="rtse-editor-button"
                 hidden="true"/>
-      </hbox>
-      <hbox id="rtse-editor-quoteBox" hidden="true">
-        <button id="rtse-editor-quote1"
-                label="Quote #1"
-                tooltiptext="Quote #1"
-                class="rtse-editor-button"
-                tabindex="4"
-                oncommand="RTSE.editor.insertTag('quotebutton1');"/>
-        <button id="rtse-editor-quote2"
-                label="Quote #2"
-                tooltiptext="Quote #2"
-                class="rtse-editor-button"
-                tabindex="5"
-                oncommand="RTSE.editor.insertTag('quotebutton2');"/>
-        <button id="rtse-editor-quote3"
-                label="Quote #3"
-                tooltiptext="Quote #3"
-                class="rtse-editor-button"
-                tabindex="6"
-                oncommand="RTSE.editor.insertTag('quotebutton3');"/>
-        <button id="rtse-editor-quote4"
-                label="Quote #4"
-                tooltiptext="Quote #4"
-                class="rtse-editor-button"
-                tabindex="7"
-                oncommand="RTSE.editor.insertTag('quotebutton4');"/>
       </hbox>
     </vbox>
   </panel>
