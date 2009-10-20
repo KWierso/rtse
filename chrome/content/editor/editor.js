@@ -115,6 +115,30 @@ RTSE.editor =
     document.getElementById("rtse-editor-ahSmilies").hidden = !ahSmileys;
   },
 
+/**
+  * Determine Quote Button Visibility
+  */
+  quoteButtons: function quoteButtons() {
+    let quoteBox = gRTSE.prefsGetBool("extensions.rtse.extras.quoteButtons");
+    let quoteButton1 = gRTSE.prefsGetString("extensions.rtse.extras.quoteButton1");
+    let quoteButton2 = gRTSE.prefsGetString("extensions.rtse.extras.quoteButton2");
+    let quoteButton3 = gRTSE.prefsGetString("extensions.rtse.extras.quoteButton3");
+    let quoteButton4 = gRTSE.prefsGetString("extensions.rtse.extras.quoteButton4");
+
+     document.getElementById("rtse-editor-quoteBox").hidden = !quoteBox;
+     document.getElementById("rtse-editor-quote1").hidden = quoteButton1 == "";
+     document.getElementById("rtse-editor-quote1").setAttribute("tooltiptext", quoteButton1);
+
+     document.getElementById("rtse-editor-quote2").hidden = quoteButton2 == "";
+     document.getElementById("rtse-editor-quote2").setAttribute("tooltiptext", quoteButton2);
+
+     document.getElementById("rtse-editor-quote3").hidden = quoteButton3 == "";
+     document.getElementById("rtse-editor-quote3").setAttribute("tooltiptext", quoteButton3);
+
+     document.getElementById("rtse-editor-quote4").hidden = quoteButton4 == "";
+     document.getElementById("rtse-editor-quote4").setAttribute("tooltiptext", quoteButton4);
+  },
+
  /**
   * Performs the preference sensative setup of data for the editor.
   */
@@ -693,8 +717,15 @@ RTSE.editor =
         bool = elm ? elm.checked : false;
         tag = bool ? "[/" + aID + "]" :  "[" + aID + "]"
       } else {
-        // Ok, so apparently we are just inserting whatever was passed
-        tag = aID;
+        // One of the quote buttons was pressed, paste that quote here
+        if(aID.match(/quotebutton[0-9]+/)) {
+          let buttonNumber = aID.split("quotebutton")[1];
+          
+          tag = gRTSE.prefsGetString("extensions.rtse.extras.quoteButton" + buttonNumber);
+        }
+        else
+          // Ok, so apparently we are just inserting whatever was passed
+          tag = aID;
       }
       var pos = text.selectionStart + tag.length;
       if (elm)

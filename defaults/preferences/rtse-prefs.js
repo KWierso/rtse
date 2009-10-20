@@ -1,4 +1,4 @@
-pref("general.useragent.extra.rtse","RTSE/1.2.0.20090831");
+pref("general.useragent.extra.rtse","RTSE/1.2.0.20091009");
 pref("extensions.rtse.editor",true);
 pref("extensions.rtse.firstInstall",true);
 pref("extensions.rtse.talkback",false);
@@ -35,6 +35,12 @@ pref("extensions.rtse.extras.tabLink1","http://www.google.com");
 pref("extensions.rtse.extras.tabLink2","");
 pref("extensions.rtse.extras.tabLink3","");
 pref("extensions.rtse.extras.formRedirect",true);
+
+pref("extensions.rtse.extras.quoteButtons",false);
+pref("extensions.rtse.extras.quoteButton1","");
+pref("extensions.rtse.extras.quoteButton2","");
+pref("extensions.rtse.extras.quoteButton3","");
+pref("extensions.rtse.extras.quoteButton4","");
 
 pref("extensions.rtse.link.enabled",true);
 pref("extensions.rtse.link.user",true);

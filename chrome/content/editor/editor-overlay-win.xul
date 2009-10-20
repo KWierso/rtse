@@ -37,4 +37,13 @@
   <button id="rtse-editor-submit"
           class="rtse-editor-button image-button"/>
 
+  <button id="rtse-editor-quote1"
+          class="rtse-editor-button image-button"/>
+  <button id="rtse-editor-quote2"
+          class="rtse-editor-button image-button"/>
+  <button id="rtse-editor-quote3"
+          class="rtse-editor-button image-button"/>
+  <button id="rtse-editor-quote4"
+          class="rtse-editor-button image-button"/>
+
 </overlay>

@@ -56,5 +56,13 @@
           label="Preview"/>
   <button id="rtse-editor-submit"
           label="Submit"/>
+  <button id="rtse-editor-quote1"
+          label="Quote #1"/>
+  <button id="rtse-editor-quote2"
+          label="Quote #2"/>
+  <button id="rtse-editor-quote3"
+          label="Quote #3"/>
+  <button id="rtse-editor-quote4"
+          label="Quote #4"/>
 
 </overlay>

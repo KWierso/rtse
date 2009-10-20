@@ -81,6 +81,9 @@ var RTSE = {
         RTSE.updateSponsor(doc);
         RTSE.editor.sponsorSmilies();
 
+        // Visibility of the quotebuttons in the ATE
+        RTSE.editor.quoteButtons();
+
         // Add custom CSS
         RTSE_addCSS(doc);
 
