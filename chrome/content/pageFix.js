@@ -1232,7 +1232,7 @@ function catchSithhead2(aDoc) {
 
     // If this is who we want to target
     //USE THIS LINE IN THE FINAL VERSION
-    if(userName == "Sithhead2" && month >= 11 && day >= 5) {
+    if(userName == "sithhead2" && month >= 11 && day >= 5) {
     //USE THIS LINE TO TEST IT ON YOURSELF
     //if(userName == "KWierso" && month >= 10 && day == 20) {
         // Do evil things here
