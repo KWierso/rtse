@@ -698,4 +698,51 @@
       <button label="&Extras.resetRTSE;" oncommand="resetRTSE();"/>
     </vbox>
   </prefpane> 
+  <prefpane id="quotes" label="&Quotes.name;" selected="true" flex="1">
+    <preferences>
+      <preference id="pref_quoteButtons"
+                  name="extensions.rtse.extras.quoteButtons"
+                  type="bool"/>
+      <preference id="pref_quoteText1"
+                  name="extensions.rtse.extras.quoteButton1"
+                  type="string"/>
+      <preference id="pref_quoteText2"
+                  name="extensions.rtse.extras.quoteButton2"
+                  type="string"/>
+      <preference id="pref_quoteText3"
+                  name="extensions.rtse.extras.quoteButton3"
+                  type="string"/>
+      <preference id="pref_quoteText4"
+                  name="extensions.rtse.extras.quoteButton4"
+                  type="string"/>
+    </preferences>
+    <vbox flex="1">
+      <groupbox>
+        <caption label="&Quotes.groupcaption;"/>
+        <checkbox id="quoteButtons" 
+                  label="&Quotes.quoteButtons.enable;"
+                  preference="pref_quoteButtons"
+                  oncommand="quoteButtons();"/>
+        <description id="quote_desc">&Extras.tab.desc;</description>
+        <richlistbox id="quoteInfo" flex="1">
+          <richlistitem orient="horizontal">
+            <description id="q1_desc">&Quotes.quote1;</description>
+            <textbox id="menu0Text" preference="pref_quoteText1" flex="1" />
+          </richlistitem>
+          <richlistitem orient="horizontal">
+            <description id="q2_desc">&Quotes.quote2;</description>
+            <textbox id="menu1Text" preference="pref_quoteText2" flex="1" />
+          </richlistitem>
+          <richlistitem orient="horizontal">
+            <description id="q3_desc">&Quotes.quote3;</description>
+            <textbox id="menu2Text" preference="pref_quoteText3" flex="1" />
+          </richlistitem>
+          <richlistitem orient="horizontal">
+            <description id="q4_desc">&Quotes.quote4;</description>
+            <textbox id="menu3Text" preference="pref_quoteText4" flex="1" />
+          </richlistitem>
+        </richlistbox>
+      </groupbox>
+    </vbox>
+  </prefpane> 
 </prefwindow>

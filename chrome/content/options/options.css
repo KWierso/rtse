@@ -8,15 +8,18 @@
   -moz-appearance: none !important;
 }
 
-radio[pane=extras] {
+radio[pane=quotes] {
   -moz-image-region:rect(0px, 32px, 32px, 0px)
 }
-radio[pane=prefs] {
+radio[pane=extras] {
   -moz-image-region:rect(0px, 64px, 32px, 32px)
 }
-radio[pane=extensions] {
+radio[pane=prefs] {
   -moz-image-region:rect(0px, 96px, 32px, 64px)
 }
-radio[pane=forumJump] {
+radio[pane=extensions] {
   -moz-image-region:rect(0px, 128px, 32px, 96px)
+}
+radio[pane=forumJump] {
+  -moz-image-region:rect(0px, 160px, 32px, 128px)
 }

@@ -26,8 +26,9 @@
 var gRTSE=Components.classes['@shawnwilsher.com/rtse;1']
                     .getService(Components.interfaces.nsIRTSE);
 function load() {
-    // Load Smilies Preview
-    displaySmilies();
+
+  // Load Smilies Preview
+  displaySmilies();
 
   // Forum Names
   var bundle = document.getElementById('bundle_forums');
@@ -40,7 +41,8 @@ function load() {
       topic[0].setAttribute('label', bundle.getString(id));
     }
   }
-  
+
+  quoteButtons();
   addTab();
   forumJump();
   linkDisplay();
@@ -164,6 +166,13 @@ function addTab() {
         !document.getElementById('tab').checked;
     document.getElementById('tab_desc').hidden =
         !document.getElementById('tab').checked;
+}
+
+function quoteButtons() {
+    document.getElementById('quoteInfo').hidden =
+        !document.getElementById('quoteButtons').checked;
+    document.getElementById('quote_desc').hidden =
+        !document.getElementById('quoteButtons').checked;
 }
 
 /**

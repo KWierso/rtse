@@ -2,6 +2,14 @@
 <!ENTITY Options.accept "Accept">
 <!ENTITY Options.cancel "Cancel">
 
+<!ENTITY Quotes.name "Quotes">
+<!ENTITY Quotes.groupcaption "Adds buttons to auto-paste texts of your choice.">
+<!ENTITY Quotes.quoteButtons.enable "Enable the Quote Buttons">
+<!ENTITY Quotes.quote1 "Quote #1:">
+<!ENTITY Quotes.quote2 "Quote #2:">
+<!ENTITY Quotes.quote3 "Quote #3:">
+<!ENTITY Quotes.quote4 "Quote #4:">
+
 <!ENTITY Extras.name "Extras">
 <!ENTITY Extras.groupcaption "Additional Features">
 <!ENTITY Extras.tab.desc "Extra Tab">
