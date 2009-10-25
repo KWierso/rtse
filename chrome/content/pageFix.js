@@ -561,23 +561,20 @@ function RTSE_samePageReply(aEvent)
     {
       let uID;
       try {
-         uID = this.parentNode.parentNode.parentNode.parentNode.parentNode
-                   .parentNode.parentNode.parentNode.parentNode.parentNode
-                   .getElementsByTagName('td')[0]
-                   .getElementsByTagName('table')[0]
-                   .getElementsByTagName('tbody')[0]
-                   .getElementsByTagName('img')[0].getAttribute("src");
-         uID = uID.split("?")[1];
-      } catch(e) { // User is using the "Old User Block" style. Can't find the uID
-    /*     uID = this.parentNode.parentNode.parentNode.parentNode.parentNode
-                   .parentNode.parentNode.parentNode.parentNode.parentNode
-                   .getElementsByTagName('td')[0]
-                   .getElementsByTagName('table')[0]
-                   .getElementsByTagName('tbody')[0]
-                   .getElementsByTagName('tr')[1].getElementsByTagName('td')[0]
-                   .getElementsByTagName('a')[0].href.split("?uid=")[1];
-    */
-      }
+         // Get uID for redirection from the "Conversation" button
+         uID = this.parentNode.parentNode.parentNode.getElementsByTagName('span')[3]
+                   .firstElementChild.href;
+         uID = uID.split("with=")[1];
+
+         // Saving the old way of finding the uID, since it might come in handy in the future
+         // uID = this.parentNode.parentNode.parentNode.parentNode.parentNode
+                   // .parentNode.parentNode.parentNode.parentNode.parentNode
+                   // .getElementsByTagName('td')[0]
+                   // .getElementsByTagName('table')[0]
+                   // .getElementsByTagName('tbody')[0]
+                   // .getElementsByTagName('img')[0].getAttribute("src");
+         // uID = uID.split("?")[1];
+      } catch(e) { /* Something went wrong and we can't find the uID */ }
       if(uID != null && uID != "undefined") { // Only modify the form if the uID can be found
          if(doc.URL.match("/conversation.php") != "/conversation.php") // Don't redirect form if on a conversation page
             RTSE_modifyForm(doc, "/members/comments/commentPost.php?uid=" + uID, doc.URL,
@@ -649,7 +646,11 @@ function RTSE_modifyForm(aDoc, toVal, returnVal, previewTitleVal, actionVal, noM
     if(noMessage == null) {
         let notifyBox = gBrowser.getNotificationBox();
         notifyBox.removeAllNotifications(false)
-        let box = notifyBox.appendNotification("Now Replying Directly to " + previewTitleVal, "rtse-direct", null, notifyBox.PRIORITY_INFO_LOW, null);
+        let box = notifyBox.appendNotification("Now Replying Directly to " + previewTitleVal, 
+                                               "rtse-direct", 
+                                               null, 
+                                               notifyBox.PRIORITY_INFO_LOW, 
+                                               Array({label: "Restore Original Target", callback: RTSE_restoreForm, popup: null}));
         box.persistence = 0;
     }
 
@@ -664,6 +665,20 @@ function RTSE_modifyForm(aDoc, toVal, returnVal, previewTitleVal, actionVal, noM
     }
     if(actionVal != null)
         aDoc.forms.namedItem("post").action = actionVal;
+}
+
+/**
+ * Restore the post form to the original information
+ */
+function RTSE_restoreForm() {
+    let aDoc = gBrowser.contentDocument;
+    let originalForm = aDoc.getElementById("originalForm");
+
+    // Get the attributes from the hidden element and replace the modified values with the originals
+    aDoc.forms.namedItem("post").elements.namedItem("to").value = originalForm.getAttribute("to");
+    aDoc.forms.namedItem("post").elements.namedItem("return").value = originalForm.getAttribute("return");
+    aDoc.forms.namedItem("post").elements.namedItem("previewTitle").value = originalForm.getAttribute("previewTitle");
+    aDoc.forms.namedItem("post").action = originalForm.getAttribute("action");
 }
 
 /**
@@ -701,6 +716,18 @@ function RTSE_modifyReply(aDoc)
     if(!gRTSE.prefsGetBool("extensions.rtse.editor"))
         elms[i].parentNode.href = aDoc.getElementById("Post") ? "#Post" : "#add";
     elms[i].addEventListener("click", RTSE_samePageReply, false);
+  }
+
+  // Add the original form's attributes to a hidden element for restoration if the redirect pref is set
+  if(gRTSE.prefsGetBool("extensions.rtse.extras.formRedirect")) {
+    let originalForm = aDoc.createElement("div");
+    originalForm.id = "originalForm";
+    originalForm.setAttribute("style", "display: none !important;");
+    originalForm.setAttribute("to", aDoc.forms.namedItem("post").elements.namedItem("to").value);
+    originalForm.setAttribute("return", aDoc.forms.namedItem("post").elements.namedItem("return").value);
+    originalForm.setAttribute("previewTitle", aDoc.forms.namedItem("post").elements.namedItem("previewTitle").value);
+    originalForm.setAttribute("action", aDoc.forms.namedItem("post").action);
+    aDoc.getElementsByTagName("body")[0].appendChild(originalForm);
   }
 }
 
