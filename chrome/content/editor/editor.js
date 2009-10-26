@@ -194,7 +194,7 @@ RTSE.editor =
     if (!RTSE_findOnDomain(doc.domain))
       return;
 
-    if (!RTSE.editor.replaceableElements(doc) || /\/members\/messaging\/send.php\?tid=(.*)?$/.test(doc.location.href))
+    if (!RTSE.editor.replaceableElements(doc))
       return;
 
     var form = doc.createElement("form");
@@ -543,7 +543,7 @@ RTSE.editor =
     }
 
     // Taking care of hidden fields that get removed
-    var elms = ["uid"];
+    var elms = ["uid", "tid"];
     for (let i in elms) {
       let elm = form.elements.namedItem(elms[i]);
       if (elm) {
