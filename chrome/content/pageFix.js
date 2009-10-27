@@ -656,9 +656,9 @@ function RTSE_modifyForm(aDoc, toVal, returnVal, previewTitleVal, actionVal, noM
         notifyBox.removeAllNotifications(false)
         let box = notifyBox.appendNotification("Now Replying Directly to " + previewTitleVal, 
                                                "rtse-direct", 
-                                               null, 
+                                               "chrome://rtse/skin/images/icon.png", 
                                                notifyBox.PRIORITY_INFO_LOW, 
-                                               Array({label: "Restore Original Target", callback: RTSE_restoreForm, popup: null}));
+                                               Array({label: "Restore Original Target", callback: RTSE_restoreForm}));
         box.persistence = 0;
     }
 
@@ -1171,6 +1171,13 @@ function RTSE_addWatchlistAlerts(aDoc) {
                     watchlist.innerHTML="<b>Your watchlist is blank.</b>";
                 }
 
+                // Are there breadcrumbs on this page?
+                let crumbTd = aDoc.getElementById('pageContent').getElementsByTagName("td")[2].className == "crumbTd";
+
+                // Remove ugly styles from the watchlist element
+                watchlist.firstElementChild.innerHTML = watchlist.firstElementChild.innerHTML
+                         .replace('class="border boxBorder" style="background: none repeat scroll 0% 0% rgb(250, 250, 250); border-top: 0pt none;"', "");
+
                 // If there's a "Forum" section on the page already, add the watchlist content into that section.
                 if(aDoc.URL.search(/\/forum\//) != -1) {
                     let Forum = aDoc.getElementById("Forum");
@@ -1240,13 +1247,30 @@ function RTSE_addWatchlistAlerts(aDoc) {
 
                         watchlist.insertBefore(clearDiv, watchlist.firstChild);
                     }
-                    aDoc.getElementById('pageContent').getElementsByTagName("table")[2]
-                                                     .insertBefore(watchlist,aDoc.getElementById('pageContent')
-                                                     .getElementsByTagName("table")[2].firstChild);
+
+                    // If the page has breadcrumbs, put the watchlist in a different place
+                    if(crumbTd) {
+                        aDoc.getElementById('pageContent').getElementsByTagName("table")[2]
+                                                         .insertBefore(watchlist,aDoc.getElementById('pageContent')
+                                                         .getElementsByTagName("table")[2].firstChild);
+                    } else {
+                        aDoc.getElementById('pageContent').getElementsByTagName("td")[0]
+                                                          .insertBefore(watchlist,aDoc.getElementById('pageContent')
+                                                          .getElementsByTagName("td")[0].firstChild);
+                    }
                 }
-                aDoc.getElementById('pageContent').getElementsByTagName("table")[2]
-                                                 .insertBefore(alertlist,aDoc.getElementById('pageContent')
-                                                 .getElementsByTagName("table")[2].firstChild);
+
+                // Account for presence of breadcrumbs
+                if(crumbTd) {
+                    aDoc.getElementById('pageContent').getElementsByTagName("table")[2]
+                                                     .insertBefore(alertlist,aDoc.getElementById('pageContent')
+                                                     .getElementsByTagName("table")[2].firstChild);
+                } else {
+                    alertlist.setAttribute("style", "padding-top: 8px !important");
+                    aDoc.getElementById('pageContent').getElementsByTagName("td")[0]
+                                                      .insertBefore(alertlist,aDoc.getElementById('pageContent')
+                                                      .getElementsByTagName("td")[0].firstChild);
+                }
             } else {
                 window.console=window.console||{log:opera.postError}||{log:alert};
                 console.log("Error loading watchlist page\n"+ httpRequest.status +":"+ httpRequest.statusText);
