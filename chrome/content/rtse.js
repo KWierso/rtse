@@ -142,13 +142,19 @@ var RTSE = {
                   doc.location.href.match("episode.php") == 'episode.php') {
 
               // Replies
-              RTSE_modifyReply(doc);
+              try {
+                RTSE_modifyReply(doc);
+              } catch(e) { /* Eat any errors that occur here */}
 
               // Quotes
-              RTSE_modifyQuote(doc);
+              try {
+                RTSE_modifyQuote(doc);
+              } catch(e) { /* Eat any errors that occur here */}
 
               // Permalinks
-              RTSE_postPermalink(doc);
+              try {
+                RTSE_postPermalink(doc);
+              } catch(e) { /* Eat any errors that occur here */}
           }
           
           // Modify links for user comment pages
@@ -156,10 +162,14 @@ var RTSE = {
             (doc.getElementById("Add a Comment") && doc.getElementById(" Friends") && doc.getElementById("The Goods"))) 
           {              // Those getElementById's essentially confirm that this is a user's profile
               // Replies
-              RTSE_modifyReply(doc);
+              try {
+                RTSE_modifyReply(doc);
+              } catch(e) { /* Eat any errors that occur here */}
 
               // Quotes
-              RTSE_modifyQuote(doc);
+              try {
+                RTSE_modifyQuote(doc);
+              } catch(e) { /* Eat any errors that occur here */}
           }
         }
 
