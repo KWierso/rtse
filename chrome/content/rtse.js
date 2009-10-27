@@ -134,45 +134,47 @@ var RTSE = {
             }
         }
 
-        if(doc.getElementById("pageContent").getElementsByTagName("span")[0].innerHTML!="Locked:") {
-          // Run on all other pages with posts
-          if( doc.location.href.match("entry.php") == 'entry.php' || doc.location.href.match("viewEntry.php") == 'viewEntry.php' || 
-                  doc.location.href.match("viewTopic.php") == 'viewTopic.php' || doc.location.href.match("image.php") == 'image.php' ||
-                  doc.location.href.match("strip.php") == 'strip.php' || doc.location.href.match("viewItem.php") == 'viewItem.php' ||
-                  doc.location.href.match("episode.php") == 'episode.php') {
+        let isLocked = doc.getElementById("pageContent").getElementsByTagName("span")[0];
+        if(isLocked) {
+            if(isLocked.innerHTML!="Locked:") {
+              // Run on all other pages with posts
+              if( doc.location.href.match("entry.php") == 'entry.php' || doc.location.href.match("viewEntry.php") == 'viewEntry.php' || 
+                      doc.location.href.match("viewTopic.php") == 'viewTopic.php' || doc.location.href.match("image.php") == 'image.php' ||
+                      doc.location.href.match("strip.php") == 'strip.php' || doc.location.href.match("viewItem.php") == 'viewItem.php' ||
+                      doc.location.href.match("episode.php") == 'episode.php') {
 
-              // Replies
-              try {
-                RTSE_modifyReply(doc);
-              } catch(e) { /* Eat any errors that occur here */}
+                  // Replies
+                  try {
+                    RTSE_modifyReply(doc);
+                  } catch(e) { /* Eat any errors that occur here */}
 
-              // Quotes
-              try {
-                RTSE_modifyQuote(doc);
-              } catch(e) { /* Eat any errors that occur here */}
+                  // Quotes
+                  try {
+                    RTSE_modifyQuote(doc);
+                  } catch(e) { /* Eat any errors that occur here */}
 
-              // Permalinks
-              try {
-                RTSE_postPermalink(doc);
-              } catch(e) { /* Eat any errors that occur here */}
-          }
-          
-          // Modify links for user comment pages
-          if(doc.location.href.match("comments") == 'comments' || doc.location.href.match("profile.php") == 'profile.php'||
-            (doc.getElementById("Add a Comment") && doc.getElementById(" Friends") && doc.getElementById("The Goods"))) 
-          {              // Those getElementById's essentially confirm that this is a user's profile
-              // Replies
-              try {
-                RTSE_modifyReply(doc);
-              } catch(e) { /* Eat any errors that occur here */}
+                  // Permalinks
+                  try {
+                    RTSE_postPermalink(doc);
+                  } catch(e) { /* Eat any errors that occur here */}
+              }
+              
+              // Modify links for user comment pages
+              if(doc.location.href.match("comments") == 'comments' || doc.location.href.match("profile.php") == 'profile.php'||
+                (doc.getElementById("Add a Comment") && doc.getElementById(" Friends") && doc.getElementById("The Goods"))) 
+              {              // Those getElementById's essentially confirm that this is a user's profile
+                  // Replies
+                  try {
+                    RTSE_modifyReply(doc);
+                  } catch(e) { /* Eat any errors that occur here */}
 
-              // Quotes
-              try {
-                RTSE_modifyQuote(doc);
-              } catch(e) { /* Eat any errors that occur here */}
-          }
+                  // Quotes
+                  try {
+                    RTSE_modifyQuote(doc);
+                  } catch(e) { /* Eat any errors that occur here */}
+              }
+            }
         }
-
         // Modify post form for journal entries to direct user to the latest page of the journal when replying
         if(doc.location.href.match("/members/journal/entry.php") == "/members/journal/entry.php") {
             let lastPageURL = doc.location.href;
