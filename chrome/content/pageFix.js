@@ -1055,43 +1055,46 @@ function RTSE_hideHomepageElements(aDoc) {
     // For all of the ID'd elements, check their preferences,
     //  insert the show/hide button, and preset their appearance,
     for(let i in elementsWithID) {
-        let parentCell = aDoc.createElement("td");
-        parentCell.style.width="45px";
-        parentCell.style.padding="5px";
-        let button = aDoc.createElement("a");
-        if(gRTSE.prefsGetBool("extensions.rtse.homepage." + i)) {
-            button.innerHTML = "Hide";
-            if(i != 3) {
-                aDoc.getElementById(elementsWithID[i].id).className = "shown";
+        try {
+            let parentCell = aDoc.createElement("td");
+            parentCell.style.width="45px";
+            parentCell.style.padding="5px";
+            let button = aDoc.createElement("a");
+            if(gRTSE.prefsGetBool("extensions.rtse.homepage." + i)) {
+                button.innerHTML = "Hide";
+                if(i != 3) {
+                    aDoc.getElementById(elementsWithID[i].id).className = "shown";
+                } else {
+                    aDoc.getElementById("myAlerts").className = "shown";
+                }
             } else {
-                aDoc.getElementById("myAlerts").className = "shown";
+                button.innerHTML = "Show";
+                button.setAttribute("hidden", "true");
             }
-        } else {
-            button.innerHTML = "Show";
-            button.setAttribute("hidden", "true");
-        }
-        button.className = "small title";
-        if(i != 3) {
-            button.setAttribute("name", elementsWithID[i].id);
-            button.setAttribute("number", i);
-            parentCell.appendChild(button);
+            button.className = "small title";
 
-            // Add the onClick event to each button
-            button.addEventListener("click", RTSE_toggleHomepageElement, false);
+            if(i != 3) {
+                button.setAttribute("name", elementsWithID[i].id);
+                button.setAttribute("number", i);
+                parentCell.appendChild(button);
 
-            let insertion = elementsWithID[i].parentNode.getElementsByTagName("tr")[1];
-            insertion.insertBefore(parentCell, insertion.getElementsByTagName("td")[0]);
-        } else {
-            button.setAttribute("name", "myAlerts");
-            button.setAttribute("number", i);
+                // Add the onClick event to each button
+                button.addEventListener("click", RTSE_toggleHomepageElement, false);
 
-            // Add the onClick event to each button
-            button.addEventListener("click", RTSE_toggleHomepageElement, false);
-            
-            elementsWithID[i].className = "box";
-            let insertion = elementsWithID[i];
-            insertion.insertBefore(button, insertion.firstChild);
-        }
+                let insertion = elementsWithID[i].parentNode.getElementsByTagName("tr")[1];
+                insertion.insertBefore(parentCell, insertion.getElementsByTagName("td")[0]);
+            } else {
+                button.setAttribute("name", "myAlerts");
+                button.setAttribute("number", i);
+
+                // Add the onClick event to each button
+                button.addEventListener("click", RTSE_toggleHomepageElement, false);
+                
+                elementsWithID[i].className = "box";
+                let insertion = elementsWithID[i];
+                insertion.insertBefore(button, insertion.firstChild);
+            }
+        } catch(e) { /* Ignore any missing elements */ }
     }
 }
 
