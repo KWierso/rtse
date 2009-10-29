@@ -1232,7 +1232,7 @@ function RTSE_addWatchlistAlerts(aDoc) {
                             let tbodyneeded = Forum.getElementsByTagName("tbody");
                             let newtr = aDoc.createElement("tr");
                             tbodyneeded[1].insertBefore(newtr, tbodyneeded[1].firstChild.nextSibling);
-                            trs[4].innerHTML = "<td style='border-top: 1px solid rgb(221, 221, 221); padding-top: 3px;' colspan='2'><table>" + tr2[0].innerHTML + "</table></td>";
+                            trs[4].innerHTML = "<td style='border-top: 1px solid rgb(221, 221, 221); padding-top: 3px;' colspan='2'><table>" + watchlist.innerHTML + "</table></td>";
                             let tables = Forum.getElementsByTagName("table");
                         }
                     }
@@ -1257,9 +1257,14 @@ function RTSE_addWatchlistAlerts(aDoc) {
                                                          .insertBefore(watchlist,aDoc.getElementById('pageContent')
                                                          .getElementsByTagName("table")[2].firstChild);
                     } else {
-                        aDoc.getElementById('pageContent').getElementsByTagName("td")[0]
-                                                          .insertBefore(watchlist,aDoc.getElementById('pageContent')
-                                                          .getElementsByTagName("td")[0].firstChild);
+                        if(aDoc.getElementById('pageContent').getElementsByTagName("td")[0].className == "content topContent")
+                            aDoc.getElementById('pageContent').getElementsByTagName("td")[0]
+                                                              .insertBefore(watchlist,aDoc.getElementById('pageContent')
+                                                              .getElementsByTagName("td")[0].firstChild);
+                        else
+                            aDoc.getElementById('pageContent').getElementsByTagName("td")[1]
+                                                              .insertBefore(watchlist,aDoc.getElementById('pageContent')
+                                                              .getElementsByTagName("td")[1].firstChild);
                     }
                 }
 
@@ -1269,10 +1274,14 @@ function RTSE_addWatchlistAlerts(aDoc) {
                                                      .insertBefore(alertlist,aDoc.getElementById('pageContent')
                                                      .getElementsByTagName("table")[2].firstChild);
                 } else {
-                    alertlist.setAttribute("style", "padding-top: 8px !important");
-                    aDoc.getElementById('pageContent').getElementsByTagName("td")[0]
-                                                      .insertBefore(alertlist,aDoc.getElementById('pageContent')
-                                                      .getElementsByTagName("td")[0].firstChild);
+                    if(aDoc.getElementById('pageContent').getElementsByTagName("td")[0].className == "content topContent")
+                            aDoc.getElementById('pageContent').getElementsByTagName("td")[0]
+                                                              .insertBefore(alertlist,aDoc.getElementById('pageContent')
+                                                              .getElementsByTagName("td")[0].firstChild);
+                        else
+                            aDoc.getElementById('pageContent').getElementsByTagName("td")[1]
+                                                              .insertBefore(alertlist,aDoc.getElementById('pageContent')
+                                                              .getElementsByTagName("td")[1].firstChild);
                 }
             } else {
                 window.console=window.console||{log:opera.postError}||{log:alert};
