@@ -1180,6 +1180,10 @@ function RTSE_addWatchlistAlerts(aDoc) {
                 // Remove ugly styles from the watchlist element
                 watchlist.firstElementChild.innerHTML = watchlist.firstElementChild.innerHTML
                          .replace('class="border boxBorder" style="background: none repeat scroll 0% 0% rgb(250, 250, 250); border-top: 0pt none;"', "");
+                // Firefox 3.5.* has different attributes than Minefield. Need to replace other things to handle it correctly.
+                watchlist.innerHTML = watchlist.innerHTML.replace('class="border boxBorder" style="border-top: 0pt none; background: rgb(250, 250, 250) ' +
+                                                                  'none repeat scroll 0% 0%; -moz-background-clip: border; -moz-background-origin: padding; ' +
+                                                                  '-moz-background-inline-policy: continuous;"', "");
 
                 // If there's a "Forum" section on the page already, add the watchlist content into that section.
                 if(aDoc.URL.search(/\/forum\//) != -1) {
