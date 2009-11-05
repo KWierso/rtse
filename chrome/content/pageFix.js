@@ -1126,7 +1126,7 @@ function RTSE_hideHomepageElements(aDoc) {
         button.addEventListener("click", RTSE_toggleHomepageElement, false);
         taggedImages.insertBefore(button, taggedImages.firstChild);
 
-    } catch(e) { alert(e);/* Don't do anything if it isn't there */ }
+    } catch(e) { /* Don't do anything if it isn't there */ }
 }
 
 function RTSE_toggleHomepageElement() {
