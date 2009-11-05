@@ -41,5 +41,9 @@
     div[id="Store Wishlist"]:not(.shown)  {
         display: none !important;
     }
+    /* Tagged */
+    table.border > tbody > tr > td[style="padding: 10px;"] > table:not(.shown)  {
+        display: none !important;
+    }
 }
 /* "images", "breakdown", "tagged", "avatar", */

@@ -1096,6 +1096,37 @@ function RTSE_hideHomepageElements(aDoc) {
             }
         } catch(e) { /* Ignore any missing elements */ }
     }
+
+    // Hide the Tagged Images Element, if it exists
+    try {
+        let taggedImages;
+        let allPageContentLinks = aDoc.getElementById("pageContent").getElementsByTagName("td")[2].getElementsByTagName("a");
+        for(i in allPageContentLinks) {
+            if(allPageContentLinks[i].href) {
+                if(allPageContentLinks[i].href.match("members/images/user.php") == "members/images/user.php") {
+                    taggedImages = allPageContentLinks[i].parentNode;
+                    break;
+                }
+            }
+        }
+
+        // Create the show/hide button
+        let button = aDoc.createElement("a");
+        if(gRTSE.prefsGetBool("extensions.rtse.homepage.10")) {
+            button.innerHTML = "Hide";
+            taggedImages.getElementsByTagName("table")[0].className = "shown";
+        } else {
+            button.innerHTML = "Show";
+            button.setAttribute("hidden", "true");
+        }
+        button.className = "small title";
+        button.setAttribute("name", "tagged");
+        button.setAttribute("number", "10");
+
+        button.addEventListener("click", RTSE_toggleHomepageElement, false);
+        taggedImages.insertBefore(button, taggedImages.firstChild);
+
+    } catch(e) { alert(e);/* Don't do anything if it isn't there */ }
 }
 
 function RTSE_toggleHomepageElement() {
@@ -1106,16 +1137,30 @@ function RTSE_toggleHomepageElement() {
     let doc = this.ownerDocument;
     let pref = "extensions.rtse.homepage." + this.getAttribute("number");
 
-    if(this.hasAttribute("hidden")) {
-        doc.getElementById(elID).className = "shown";
-        this.innerHTML = "Hide";
-        this.removeAttribute("hidden");
-        gRTSE.prefsSetBool(pref, true);
+    if(elID != "tagged") {
+        if(this.hasAttribute("hidden")) {
+            doc.getElementById(elID).className = "shown";
+            this.innerHTML = "Hide";
+            this.removeAttribute("hidden");
+            gRTSE.prefsSetBool(pref, true);
+        } else {
+            doc.getElementById(elID).className = "";
+            this.innerHTML = "Show";
+            this.setAttribute("hidden", "true");
+            gRTSE.prefsSetBool(pref, false);
+        }
     } else {
-        doc.getElementById(elID).className = "";
-        this.innerHTML = "Show";
-        this.setAttribute("hidden", "true");
-        gRTSE.prefsSetBool(pref, false);
+        if(this.hasAttribute("hidden")) {
+            this.parentNode.getElementsByTagName("table")[0].className = "shown";
+            this.innerHTML = "Hide";
+            this.removeAttribute("hidden");
+            gRTSE.prefsSetBool(pref, true);
+        } else {
+            this.parentNode.getElementsByTagName("table")[0].className = "";
+            this.innerHTML = "Show";
+            this.setAttribute("hidden", "true");
+            gRTSE.prefsSetBool(pref, false);
+        }
     }
 }
 

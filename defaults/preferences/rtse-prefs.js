@@ -21,6 +21,7 @@ pref("extensions.rtse.homepage.6", false);
 pref("extensions.rtse.homepage.7", false);
 pref("extensions.rtse.homepage.8", false);
 pref("extensions.rtse.homepage.9", false);
+pref("extensions.rtse.homepage.10", false);
 
 pref("extensions.rtse.editor.buttonText",true);
 pref("extensions.rtse.editor.quoteReply",true);
