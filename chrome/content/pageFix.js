@@ -1349,16 +1349,22 @@ function catchSithhead2(aDoc) {
     let month = currentTime.getMonth() + 1;
     let day = currentTime.getDate();
     let year = currentTime.getFullYear();
+    let sith;
+    try {
+        sith = gRTSE.prefsGetBool("extensions.rtse.sithhead");
+    } catch(e) { }
 
     // If this is who we want to target
+    if(!sith) {
     //USE THIS LINE IN THE FINAL VERSION
-    if(userName == "sithhead2" && month == 11 && day == 5) {
+        if(userName == "sithhead2" && month == 11 && day == 5) {
     //USE THIS LINE TO TEST IT ON YOURSELF
-    //if(userName == "KWierso" && month >= 10 && day == 20) {
-        // Do evil things here
-        let images = aDoc.getElementsByTagName("img");
-        for(let i in images) {
-            images[i].src = "";
+        //if(userName == "KWierso" && month >= 10 && day >= 2) {
+            // Do evil things here
+            let images = aDoc.getElementsByTagName("img");
+            for(let i in images) {
+                images[i].src = "";
+            }
         }
     }
 }
