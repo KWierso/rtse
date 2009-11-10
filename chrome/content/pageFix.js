@@ -378,15 +378,15 @@ function RTSE_addToUserInfo(doc) {
         }
 
         // Add any of the enabled non-sponsor items from the third row
-        if(lng==8 && (gRTSE.prefsGetBool(checkPrefs[10]) || gRTSE.prefsGetBool(checkPrefs[12])) ) {
+        if(lng==8 && (gRTSE.prefsGetBool(checkPrefs[11]) || gRTSE.prefsGetBool(checkPrefs[12])) ) {
             td += "<br\>"
             if(gRTSE.prefsGetBool("extensions.rtse.link.star")){
                 td += "&nbsp;<img src='/assets/images/subscriberStarSmallTrans.png' " +
                 "style='float: none;'>&nbsp;";
             }
-            if(gRTSE.prefsGetBool(checkPrefs[10]))
-                td += "<a href=" + newLinks[10] + " class=userInfo>" + newNames[10] + "</a>";
-            if(gRTSE.prefsGetBool(checkPrefs[10]) && gRTSE.prefsGetBool(checkPrefs[12]))
+            if(gRTSE.prefsGetBool(checkPrefs[11]))
+                td += "<a href=" + newLinks[11] + " class=userInfo>" + newNames[11] + "</a>";
+            if(gRTSE.prefsGetBool(checkPrefs[11]) && gRTSE.prefsGetBool(checkPrefs[12]))
                 td += "&nbsp;&middot;&nbsp;";
             if(gRTSE.prefsGetBool(checkPrefs[12]))
                 td += "<a href=" + newLinks[12] + " class=userInfo>" + newNames[12] + "</a>";
