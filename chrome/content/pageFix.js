@@ -971,18 +971,24 @@ function RTSE_addSearchPlugins(aDoc)
 function RTSE_findOnDomain(dom)
 // EFFECT: Returns boolean variable if 'dom' is a roosterteeth domain
 {
-    let periods = dom.match(/\./g).length;
-    if(periods == 1)
-        dom = dom.split(".")[0];
-    if(periods == 2) 
-        dom = dom.split(".")[1];
+    // about:blank doesn't pass a domain, but it still calls this function
+    // Prevent it from trying to run on about:blank.
+    if(dom) {
+        let periods = dom.match(/\./g).length;
+        if(periods == 1)
+            dom = dom.split(".")[0];
+        if(periods == 2) 
+            dom = dom.split(".")[1];
 
-    let domains = ["roosterteeth", "achievementhunter", "strangerhood", "redvsblue", "roosterteethcomics", "captaindynamic"];
+        let domains = ["roosterteeth", "achievementhunter", "strangerhood", "redvsblue", "roosterteethcomics", "captaindynamic"];
 
-    if(domains.indexOf(dom) >= 0)
-        return true;
-    else
+        if(domains.indexOf(dom) >= 0)
+            return true;
+        else
+            return false;
+    } else {
         return false;
+    }
 }
 
 function RTSE_adjustFloatingBar(aDoc) {
