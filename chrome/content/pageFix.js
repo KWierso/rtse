@@ -951,12 +951,12 @@ function RTSE_addSearchPlugins(aDoc)
   var head = aDoc.getElementsByTagName("head")[0];
   var titles = ["RT User Search",
                 "RT Tag Search",
-                "RT Forum Thread Search",
-                "RT Forum Post Search"];
-  var hrefs = ["http://files.shawnwilsher.com/projects/rtse/search/users.xml",
-               "http://files.shawnwilsher.com/projects/rtse/search/tags.xml",
-               "http://files.shawnwilsher.com/projects/rtse/search/threads.xml",
-               "http://files.shawnwilsher.com/projects/rtse/search/posts.xml"];
+                "RT Thread Search",
+                "RT Post Search"];
+  var hrefs = ["http://roosterteethsiteextender.com/rtsefiles/search/users.xml",
+               "http://roosterteethsiteextender.com/rtsefiles/search/tags.xml",
+               "http://roosterteethsiteextender.com/rtsefiles/search/threads.xml",
+               "http://roosterteethsiteextender.com/rtsefiles/search/posts.xml"];
   var link;
   for (var i = (titles.length - 1); i >= 0; --i) {
     link = aDoc.createElement("link");
