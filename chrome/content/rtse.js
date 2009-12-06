@@ -404,6 +404,10 @@ var RTSE = {
                 gContextMenu.showItem("rtse-sub-menu", false);
             }
           }
+          // Old user block breaks expected functionality. Hide user-related elements on old user block.
+          if(/icon/.test(gContextMenu.target.className) ) {
+            gContextMenu.showItem("rtse-sub-menu",false);
+          }
     } else {
       gContextMenu.showItem("rtse-sub-menu",false);
     }
