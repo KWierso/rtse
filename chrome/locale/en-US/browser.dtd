@@ -13,5 +13,9 @@
 <!ENTITY ContextMenu.threadWatch.label "Watch Thread">
 <!ENTITY ContextMenu.noUid.label "Can't find user ID. Sorry.">
 <!ENTITY ContextMenu.searchLast.label "Go to Last Page">
+<!ENTITY ContextMenu.searchGroupNews.label "Go to Group News">
+<!ENTITY ContextMenu.searchGroupForum.label "Go to Group Forum">
+<!ENTITY ContextMenu.searchGroupImages.label "Go to Group Images">
+<!ENTITY ContextMenu.searchGroupMembers.label "Go to Group Member List">
 
 <!ENTITY Statusbar.editor.tooltip "The Rooster Teeth Site Extender is enabled on this page">

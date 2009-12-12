@@ -78,9 +78,25 @@
                 label="&ContextMenu.searchLast.label;"
                 position="11"
                 class="menuitem-iconic"/>
+      <menuitem id="rtse-search-group-news"
+                label="&ContextMenu.searchGroupNews.label;"
+                position="12"
+                class="menuitem-iconic"/>
+      <menuitem id="rtse-search-group-forum"
+                label="&ContextMenu.searchGroupForum.label;"
+                position="13"
+                class="menuitem-iconic"/>
+      <menuitem id="rtse-search-group-images"
+                label="&ContextMenu.searchGroupImages.label;"
+                position="14"
+                class="menuitem-iconic"/>
+      <menuitem id="rtse-search-group-members"
+                label="&ContextMenu.searchGroupMembers.label;"
+                position="15"
+                class="menuitem-iconic"/>
       <menuitem id="rtse-no-uid"
                 label="&ContextMenu.noUid.label;"
-                position="12"
+                position="16"
                 class="menuitem-iconic"/>
       </menupopup>
   </menu>
