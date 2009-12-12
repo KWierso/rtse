@@ -200,27 +200,28 @@ var RTSE = {
     let url=gBrowser.getBrowserAtIndex(gBrowser.mTabContainer.selectedIndex).contentDocument.location;
     let regEx=/^https?:\/\/((|panics.|magic.|m.|myspace.)roosterteeth|achievementhunter|strangerhood|redvsblue|roosterteethcomics|captaindynamic).com(.*)$/i
 
-    // Help handle the ONline div
-    let targetON = false;
-    if(gContextMenu.onLink && gContextMenu.target.innerHTML == "ON" && 
-       /onTag/.test(gContextMenu.target.parentNode.id) && !gContextMenu.onImage ) {
-         targetON = true;
-    }
+    // Hide the menu by default. Only show it if conditions are met.
+    gContextMenu.showItem("rtse-sub-menu",false);
 
-    if( gContextMenu.onLink && regEx.test(url.href) &&
-       ( (gContextMenu.onImage && gContextMenu.target.parentNode.href) || targetON || 
-         (/forum\/viewTopic.php/.test(gContextMenu.target.href) || /forum\/viewTopic.php/.test(gContextMenu.target.parentNode.href)) || 
-         (/members\/journal\/entry.php/.test(gContextMenu.target.href) || /members\/journal\/entry.php/.test(gContextMenu.target.parentNode.href)) || 
-         gContextMenu.target == "[object XPCNativeWrapper [object HTMLDivElement]]" ) ) {
-          /* Should target only user avatars */
-          if(/avatar av{0,1}/.test(gContextMenu.target.className)) {
+    //These checks occur regardless of context
+    if(gContextMenu.onLink && regEx.test(url.href)) {
+
+        // Are we on the ONline user div?
+        let targetON = false;
+        if(gContextMenu.target.innerHTML == "ON" &&  /onTag/.test(gContextMenu.target.parentNode.id) && !gContextMenu.onImage ) {
+            targetON = true;
+        }
+
+        // User/Avatar context items
+        if( (gContextMenu.onImage && gContextMenu.target.parentNode.href) || targetON) {
+          let target = gContextMenu.target;
+
+          // Adjust target if over the ONline div
+          if(targetON) {
+            target = gContextMenu.target.parentNode.parentNode.getElementsByTagName("a")[1].getElementsByTagName("img")[0];
+          }
+          if(/avatar av{0,1}/.test(target.className)) {
             gContextMenu.showItem("rtse-sub-menu",true);
-            let target = gContextMenu.target;
-
-            // Adjust target if over the ONline div
-            if(targetON) {
-              target = gContextMenu.target.parentNode.parentNode.getElementsByTagName("a")[1];
-            }
 
             let uid = target.getAttribute("src");
             uid = uid.split("?")[1];
@@ -246,26 +247,26 @@ var RTSE = {
                 document.getElementById('rtse-search-group-images').style.display = 'none';
                 document.getElementById('rtse-search-group-members').style.display = 'none';
 
-                /* Send PM */
+                // Send PM
                     RTSE_openContextItem("rtse-user-sendPM", "http://" + dom + "/members/messaging/send.php?to=" + uid, 1);
-                /* Add Friend */
+                // Add Friend
                     RTSE_openContextItem("rtse-user-friends", "http://" + dom + "/members/addFriend.php?uid=" + uid, 1);
-                /* Watch */
+                // Watch
                     RTSE_openContextItem("rtse-user-watch", "http://" + dom + "/members/addWatch.php?uid=" + uid, 1);
-                /* Block */
+                // Block
                     RTSE_openContextItem("rtse-user-block", "http://" + dom + "/members/addBlock.php?uid=" + uid, 1);
 
-                /* View Log */
+                // View Log
                 if (!RTSE.sponsor) {
                   document.getElementById('rtse-user-log').style.display = 'none';
                 }
                 RTSE_openContextItem("rtse-user-log", "http://" + dom + "/members/log.php?uid=" + uid, 1);
 
-                /* View Journal */
+                // View Journal
                 RTSE_openContextItem("rtse-user-journal", "http://" + dom + "/members/journal/?uid=" + uid, 1);
-                /* View Images */
+                // View Images
                 RTSE_openContextItem("rtse-user-images", "http://" + dom + "/members/images/?uid=" + uid, 1);
-                /* View Comments */
+                // View Comments
                 RTSE_openContextItem("rtse-user-comments", "http://" + dom + "/members/comments/?uid=" + uid, 1);
             } else {
                 document.getElementById('rtse-tournament-bracket').style.display = 'none';
@@ -286,6 +287,7 @@ var RTSE = {
                 document.getElementById('rtse-search-group-members').style.display = 'none';
             }
           }
+          // Tournament context items
           if(/tournaments\/event.php/.test(gContextMenu.target.parentNode.href) ){
             gContextMenu.showItem("rtse-sub-menu",true);
 
@@ -313,7 +315,9 @@ var RTSE = {
             /* View Tourney Bracket */
             RTSE_openContextItem("rtse-tournament-bracket", "http://" + dom + "/tournaments/bracket.php?id=" + tid, 1);
           }
-          if((/forum\/viewTopic.php/.test(gContextMenu.target.href) || /forum\/viewTopic.php/.test(gContextMenu.target.parentNode.href))){
+        }
+        // Forum Thread context items
+        if(/forum\/viewTopic.php/.test(gContextMenu.target.href) || /forum\/viewTopic.php/.test(gContextMenu.target.parentNode.href)) {
             gContextMenu.showItem("rtse-sub-menu",true);
 
             let dom = url.hostname;
@@ -352,8 +356,9 @@ var RTSE = {
             }
             /* Go to Last Page of Link */
                 RTSE_openContextItem("rtse-search-last", link + "&page=9999999", 0);
-          }
-          if((/members\/journal\/entry.php/.test(gContextMenu.target.href) || /members\/journal\/entry.php/.test(gContextMenu.target.parentNode.href))){
+        }
+        // Journal Entry context items
+        if(/members\/journal\/entry.php/.test(gContextMenu.target.href) || /members\/journal\/entry.php/.test(gContextMenu.target.parentNode.href)) {
             gContextMenu.showItem("rtse-sub-menu",true);
 
             let dom = url.hostname;
@@ -384,80 +389,77 @@ var RTSE = {
 
             /* Go to Last Page of Link */
                 RTSE_openContextItem("rtse-search-last", link + "&page=9999999", 0);
-          }
-          if(gContextMenu.target.parentNode.className == "available"){
-            let link = gContextMenu.target.parentNode.href;
-            let typeCheck = gContextMenu.target.parentNode.getElementsByTagName("div")[1].innerHTML;
-            switch(typeCheck) {
-              case "Forum Thread":
-              case "Comments":
-                if(typeCheck == "Comments") {
-                    if(!/members\/journal\/entry.php/.test(link)) {
-                        break;
+        }
+        if(gContextMenu.target == "[object XPCNativeWrapper [object HTMLDivElement]]") {
+            // Search Dropdown context items (thread, journal and group items)
+            if(gContextMenu.target.parentNode.className == "available"){
+                let link = gContextMenu.target.parentNode.href;
+                let typeCheck = gContextMenu.target.parentNode.getElementsByTagName("div")[1].innerHTML;
+                switch(typeCheck) {
+                  case "Forum Thread":
+                  case "Comments":
+                    if(typeCheck == "Comments") {
+                        if(!/members\/journal\/entry.php/.test(link)) {
+                            break;
+                        }
                     }
+                    gContextMenu.showItem("rtse-sub-menu",true);
+
+                    // Make only last-page items visible
+                    document.getElementById('rtse-user-log').style.display = 'none';
+                    document.getElementById('rtse-user-watch').style.display = 'none';
+                    document.getElementById('rtse-user-block').style.display = 'none';
+                    document.getElementById('rtse-user-friends').style.display = 'none';
+                    document.getElementById('rtse-user-sendPM').style.display = 'none';
+                    document.getElementById('rtse-user-journal').style.display = 'none';
+                    document.getElementById('rtse-user-images').style.display = 'none';
+                    document.getElementById('rtse-user-comments').style.display = 'none';
+                    document.getElementById('rtse-tournament-bracket').style.display = 'none';
+                    document.getElementById('rtse-thread-watch').style.display = 'none';
+                    document.getElementById('rtse-no-uid').style.display = 'none';
+                    document.getElementById('rtse-search-last').style.display = '';
+                    document.getElementById('rtse-search-group-news').style.display = 'none';
+                    document.getElementById('rtse-search-group-forum').style.display = 'none';
+                    document.getElementById('rtse-search-group-images').style.display = 'none';
+                    document.getElementById('rtse-search-group-members').style.display = 'none';
+
+                    /* Go to Last Page of Link */
+                    RTSE_openContextItem("rtse-search-last", link + "&page=9999999", 0);
+                    break;
+                  case "Group":
+                    gContextMenu.showItem("rtse-sub-menu",true);
+
+                    let dom = url.hostname;
+                    let gID = link.split("id=")[1].split("&")[0];
+                    // Make only Group items visible
+                    document.getElementById('rtse-user-log').style.display = 'none';
+                    document.getElementById('rtse-user-watch').style.display = 'none';
+                    document.getElementById('rtse-user-block').style.display = 'none';
+                    document.getElementById('rtse-user-friends').style.display = 'none';
+                    document.getElementById('rtse-user-sendPM').style.display = 'none';
+                    document.getElementById('rtse-user-journal').style.display = 'none';
+                    document.getElementById('rtse-user-images').style.display = 'none';
+                    document.getElementById('rtse-user-comments').style.display = 'none';
+                    document.getElementById('rtse-tournament-bracket').style.display = 'none';
+                    document.getElementById('rtse-thread-watch').style.display = 'none';
+                    document.getElementById('rtse-no-uid').style.display = 'none';
+                    document.getElementById('rtse-search-last').style.display = 'none';
+                    document.getElementById('rtse-search-group-news').style.display = '';
+                    document.getElementById('rtse-search-group-forum').style.display = '';
+                    document.getElementById('rtse-search-group-images').style.display = '';
+                    document.getElementById('rtse-search-group-members').style.display = '';
+
+                    /* Open each Group item in a new tab when clicked */
+                    RTSE_openContextItem("rtse-search-group-news", "http://" + dom + "/groups/news/?id=" + gID, 1);
+                    RTSE_openContextItem("rtse-search-group-forum", "http://" + dom + "/groups/forum/?id=" + gID, 1);
+                    RTSE_openContextItem("rtse-search-group-images", "http://" + dom + "/groups/images/?id=" + gID, 1);
+                    RTSE_openContextItem("rtse-search-group-members", "http://" + dom + "/groups/members.php?id=" + gID, 1);
+                    break;
+                  default:
+                    gContextMenu.showItem("rtse-sub-menu", false);
                 }
-                gContextMenu.showItem("rtse-sub-menu",true);
-
-                // Make only last-page items visible
-                document.getElementById('rtse-user-log').style.display = 'none';
-                document.getElementById('rtse-user-watch').style.display = 'none';
-                document.getElementById('rtse-user-block').style.display = 'none';
-                document.getElementById('rtse-user-friends').style.display = 'none';
-                document.getElementById('rtse-user-sendPM').style.display = 'none';
-                document.getElementById('rtse-user-journal').style.display = 'none';
-                document.getElementById('rtse-user-images').style.display = 'none';
-                document.getElementById('rtse-user-comments').style.display = 'none';
-                document.getElementById('rtse-tournament-bracket').style.display = 'none';
-                document.getElementById('rtse-thread-watch').style.display = 'none';
-                document.getElementById('rtse-no-uid').style.display = 'none';
-                document.getElementById('rtse-search-last').style.display = '';
-                document.getElementById('rtse-search-group-news').style.display = 'none';
-                document.getElementById('rtse-search-group-forum').style.display = 'none';
-                document.getElementById('rtse-search-group-images').style.display = 'none';
-                document.getElementById('rtse-search-group-members').style.display = 'none';
-
-                /* Go to Last Page of Link */
-                RTSE_openContextItem("rtse-search-last", link + "&page=9999999", 0);
-                break;
-              case "Group":
-                gContextMenu.showItem("rtse-sub-menu",true);
-
-                let dom = url.hostname;
-                let gID = link.split("id=")[1].split("&")[0];
-                // Make only Group items visible
-                document.getElementById('rtse-user-log').style.display = 'none';
-                document.getElementById('rtse-user-watch').style.display = 'none';
-                document.getElementById('rtse-user-block').style.display = 'none';
-                document.getElementById('rtse-user-friends').style.display = 'none';
-                document.getElementById('rtse-user-sendPM').style.display = 'none';
-                document.getElementById('rtse-user-journal').style.display = 'none';
-                document.getElementById('rtse-user-images').style.display = 'none';
-                document.getElementById('rtse-user-comments').style.display = 'none';
-                document.getElementById('rtse-tournament-bracket').style.display = 'none';
-                document.getElementById('rtse-thread-watch').style.display = 'none';
-                document.getElementById('rtse-no-uid').style.display = 'none';
-                document.getElementById('rtse-search-last').style.display = 'none';
-                document.getElementById('rtse-search-group-news').style.display = '';
-                document.getElementById('rtse-search-group-forum').style.display = '';
-                document.getElementById('rtse-search-group-images').style.display = '';
-                document.getElementById('rtse-search-group-members').style.display = '';
-
-                /* Open each Group item in a new tab when clicked */
-                RTSE_openContextItem("rtse-search-group-news", "http://" + dom + "/groups/news/?id=" + gID, 1);
-                RTSE_openContextItem("rtse-search-group-forum", "http://" + dom + "/groups/forum/?id=" + gID, 1);
-                RTSE_openContextItem("rtse-search-group-images", "http://" + dom + "/groups/images/?id=" + gID, 1);
-                RTSE_openContextItem("rtse-search-group-members", "http://" + dom + "/groups/members.php?id=" + gID, 1);
-                break;
-              default:
-                gContextMenu.showItem("rtse-sub-menu", false);
             }
-          }
-          // Old user block breaks expected functionality. Hide user-related elements on old user block.
-          if(/icon/.test(gContextMenu.target.className) ) {
-            gContextMenu.showItem("rtse-sub-menu",false);
-          }
-    } else {
-      gContextMenu.showItem("rtse-sub-menu",false);
+        }
     }
   },
 
