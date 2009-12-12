@@ -456,13 +456,13 @@ var RTSE = {
 
                 /* Go to Last Page of Link */
                 document.getElementById('rtse-search-group-news').setAttribute('oncommand',
-                    "gBrowser.getBrowserAtIndex(gBrowser.mTabContainer.selectedIndex).contentDocument.location = 'http://" + dom + "/groups/news/?id=" + gID + "';");
+                    "gBrowser.addTab('http://" + dom + "/groups/news/?id=" + gID + "');");
                 document.getElementById('rtse-search-group-forum').setAttribute('oncommand',
-                    "gBrowser.getBrowserAtIndex(gBrowser.mTabContainer.selectedIndex).contentDocument.location = 'http://" + dom + "/groups/forum/?id=" + gID + "';");
+                    "gBrowser.addTab('http://" + dom + "/groups/forum/?id=" + gID + "');");
                 document.getElementById('rtse-search-group-images').setAttribute('oncommand',
-                    "gBrowser.getBrowserAtIndex(gBrowser.mTabContainer.selectedIndex).contentDocument.location = 'http://" + dom + "/groups/images/?id=" + gID + "';");
+                    "gBrowser.addTab('http://" + dom + "/groups/images/?id=" + gID + "');");
                 document.getElementById('rtse-search-group-members').setAttribute('oncommand',
-                    "gBrowser.getBrowserAtIndex(gBrowser.mTabContainer.selectedIndex).contentDocument.location = 'http://" + dom + "/groups/members.php?id=" + gID + "';");
+                    "gBrowser.addTab('http://" + dom + "/groups/members.php?id=" + gID + "');");
                 break;
               default:
                 gContextMenu.showItem("rtse-sub-menu", false);
