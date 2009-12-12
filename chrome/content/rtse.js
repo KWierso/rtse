@@ -247,34 +247,26 @@ var RTSE = {
                 document.getElementById('rtse-search-group-members').style.display = 'none';
 
                 /* Send PM */
-                document.getElementById('rtse-user-sendPM').setAttribute('oncommand','gBrowser.addTab("http://'+
-                  dom + '/members/messaging/send.php?to='+uid+'");');
+                    RTSE_openContextItem("rtse-user-sendPM", "http://" + dom + "/members/messaging/send.php?to=" + uid, 1);
                 /* Add Friend */
-                document.getElementById('rtse-user-friends').setAttribute('oncommand','gBrowser.addTab("http://'+
-                  dom + '/members/addFriend.php?uid='+uid+'");');
+                    RTSE_openContextItem("rtse-user-friends", "http://" + dom + "/members/addFriend.php?uid=" + uid, 1);
                 /* Watch */
-                document.getElementById('rtse-user-watch').setAttribute('oncommand','gBrowser.addTab("http://'+
-                  dom + '/members/addWatch.php?uid='+uid+'");');
+                    RTSE_openContextItem("rtse-user-watch", "http://" + dom + "/members/addWatch.php?uid=" + uid, 1);
                 /* Block */
-                document.getElementById('rtse-user-block').setAttribute('oncommand','gBrowser.addTab("http://'+
-                  dom + '/members/addBlock.php?uid='+uid+'");');
+                    RTSE_openContextItem("rtse-user-block", "http://" + dom + "/members/addBlock.php?uid=" + uid, 1);
 
                 /* View Log */
                 if (!RTSE.sponsor) {
                   document.getElementById('rtse-user-log').style.display = 'none';
                 }
-                document.getElementById('rtse-user-log').setAttribute('oncommand','gBrowser.addTab("http://'+
-                    dom + '/members/log.php?uid='+uid+'");');
+                RTSE_openContextItem("rtse-user-log", "http://" + dom + "/members/log.php?uid=" + uid, 1);
 
                 /* View Journal */
-                document.getElementById('rtse-user-journal').setAttribute('oncommand','gBrowser.addTab("http://'+
-                  dom + '/members/journal/?uid='+uid+'");');
+                RTSE_openContextItem("rtse-user-journal", "http://" + dom + "/members/journal/?uid=" + uid, 1);
                 /* View Images */
-                document.getElementById('rtse-user-images').setAttribute('oncommand','gBrowser.addTab("http://'+
-                  dom + '/members/images/?uid='+uid+'");');
+                RTSE_openContextItem("rtse-user-images", "http://" + dom + "/members/images/?uid=" + uid, 1);
                 /* View Comments */
-                document.getElementById('rtse-user-comments').setAttribute('oncommand','gBrowser.addTab("http://'+
-                  dom + '/members/comments/?uid='+uid+'");');
+                RTSE_openContextItem("rtse-user-comments", "http://" + dom + "/members/comments/?uid=" + uid, 1);
             } else {
                 document.getElementById('rtse-tournament-bracket').style.display = 'none';
                 document.getElementById('rtse-thread-watch').style.display = 'none';
@@ -319,8 +311,7 @@ var RTSE = {
             document.getElementById('rtse-search-group-members').style.display = 'none';
 
             /* View Tourney Bracket */
-            document.getElementById('rtse-tournament-bracket').setAttribute('oncommand','gBrowser.addTab("http://'+
-              dom + '/tournaments/bracket.php?id='+tid+'");');
+            RTSE_openContextItem("rtse-tournament-bracket", "http://" + dom + "/tournaments/bracket.php?id=" + tid, 1);
           }
           if((/forum\/viewTopic.php/.test(gContextMenu.target.href) || /forum\/viewTopic.php/.test(gContextMenu.target.parentNode.href))){
             gContextMenu.showItem("rtse-sub-menu",true);
@@ -353,15 +344,14 @@ var RTSE = {
 
             /* Watch Thread */
             if(!/groups\//.test(gContextMenu.target.href)) {
-                document.getElementById('rtse-thread-watch').setAttribute('oncommand','gBrowser.addTab("http://'+
-                  dom + '/forum/watch.php?id='+tid+'&return=/forum/viewTopic.php?id='+tid+'");');
+                RTSE_openContextItem("rtse-thread-watch", "http://" + dom + 
+                    "/forum/watch.php?id=" + tid + "&return=/forum/viewTopic.php?id=" + tid, 1);
             } else {
-                document.getElementById('rtse-thread-watch').setAttribute('oncommand','gBrowser.addTab("http://'+
-                  dom + '/groups/forum/watch.php?id='+tid+'&return=/groups/forum/viewTopic.php?id='+tid+'");');
+                RTSE_openContextItem("rtse-thread-watch", "http://" + dom + 
+                    "/groups/forum/watch.php?id=" + tid + "&return=/groups/forum/viewTopic.php?id=" + tid, 1);
             }
             /* Go to Last Page of Link */
-                document.getElementById('rtse-search-last').setAttribute('oncommand',
-                    "gBrowser.getBrowserAtIndex(gBrowser.mTabContainer.selectedIndex).contentDocument.location = '" + link + "&page=9999999';");
+                RTSE_openContextItem("rtse-search-last", link + "&page=9999999", 0);
           }
           if((/members\/journal\/entry.php/.test(gContextMenu.target.href) || /members\/journal\/entry.php/.test(gContextMenu.target.parentNode.href))){
             gContextMenu.showItem("rtse-sub-menu",true);
@@ -393,8 +383,7 @@ var RTSE = {
             document.getElementById('rtse-search-group-members').style.display = 'none';
 
             /* Go to Last Page of Link */
-                document.getElementById('rtse-search-last').setAttribute('oncommand',
-                    "gBrowser.getBrowserAtIndex(gBrowser.mTabContainer.selectedIndex).contentDocument.location = '" + link + "&page=9999999';");
+                RTSE_openContextItem("rtse-search-last", link + "&page=9999999", 0);
           }
           if(gContextMenu.target.parentNode.className == "available"){
             let link = gContextMenu.target.parentNode.href;
@@ -428,8 +417,7 @@ var RTSE = {
                 document.getElementById('rtse-search-group-members').style.display = 'none';
 
                 /* Go to Last Page of Link */
-                document.getElementById('rtse-search-last').setAttribute('oncommand',
-                    "gBrowser.getBrowserAtIndex(gBrowser.mTabContainer.selectedIndex).contentDocument.location = '" + link + "&page=9999999';");
+                RTSE_openContextItem("rtse-search-last", link + "&page=9999999", 0);
                 break;
               case "Group":
                 gContextMenu.showItem("rtse-sub-menu",true);
@@ -454,15 +442,11 @@ var RTSE = {
                 document.getElementById('rtse-search-group-images').style.display = '';
                 document.getElementById('rtse-search-group-members').style.display = '';
 
-                /* Go to Last Page of Link */
-                document.getElementById('rtse-search-group-news').setAttribute('oncommand',
-                    "gBrowser.addTab('http://" + dom + "/groups/news/?id=" + gID + "');");
-                document.getElementById('rtse-search-group-forum').setAttribute('oncommand',
-                    "gBrowser.addTab('http://" + dom + "/groups/forum/?id=" + gID + "');");
-                document.getElementById('rtse-search-group-images').setAttribute('oncommand',
-                    "gBrowser.addTab('http://" + dom + "/groups/images/?id=" + gID + "');");
-                document.getElementById('rtse-search-group-members').setAttribute('oncommand',
-                    "gBrowser.addTab('http://" + dom + "/groups/members.php?id=" + gID + "');");
+                /* Open each Group item in a new tab when clicked */
+                RTSE_openContextItem("rtse-search-group-news", "http://" + dom + "/groups/news/?id=" + gID, 1);
+                RTSE_openContextItem("rtse-search-group-forum", "http://" + dom + "/groups/forum/?id=" + gID, 1);
+                RTSE_openContextItem("rtse-search-group-images", "http://" + dom + "/groups/images/?id=" + gID, 1);
+                RTSE_openContextItem("rtse-search-group-members", "http://" + dom + "/groups/members.php?id=" + gID, 1);
                 break;
               default:
                 gContextMenu.showItem("rtse-sub-menu", false);

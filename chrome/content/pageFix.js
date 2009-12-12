@@ -1346,3 +1346,20 @@ function RTSE_addWatchlistAlerts(aDoc) {
     };
     httpRequest.send(null);
 }
+
+// Open 'link' when context menu 'name' is clicked.
+// Type = 0: Opens link in current tab
+// Type = 1: Opens link in new tab
+function RTSE_openContextItem(name, link, type) {
+    try {
+        if(type == 0) {
+            document.getElementById(name).setAttribute('oncommand',
+                "gBrowser.getBrowserAtIndex(gBrowser.mTabContainer.selectedIndex).contentDocument.location = '" + link + "';");
+        }
+        if(type == 1) {
+            document.getElementById(name).setAttribute('oncommand','gBrowser.addTab("' + link + '");');
+        }
+    } catch(e) {
+        // XXX Do something like log the error here XXX
+    }
+}
