@@ -45,5 +45,10 @@
     table.border > tbody > tr > td[style="padding: 10px;"] > table:not(.shown)  {
         display: none !important;
     }
+    /* Avatar */
+    td > table > tbody > tr> td > table > tbody > tr > td > p > iframe:not(.shown), 
+    td > table > tbody > tr> td > table > tbody > tr > td > p > a:not(.shown) > img {
+        display: none !important;
+    }
 }
-/* "images", "breakdown", "tagged", "avatar", */
+/* "images", "breakdown" */

@@ -1133,17 +1133,50 @@ function RTSE_hideHomepageElements(aDoc) {
         taggedImages.insertBefore(button, taggedImages.firstChild);
 
     } catch(e) { /* Don't do anything if it isn't there */ }
+
+    // Hide Xbox Avatar/Gamercard
+    try {
+        let avatarCard;
+        let allPageContentPs = aDoc.getElementById("pageContent").getElementsByTagName("p");
+        for(i in allPageContentPs) {
+            if(allPageContentPs[i].getElementsByTagName("a")[0].href.search("http://live.xbox.com/") >= 0) {
+                avatarCard = allPageContentPs[i].getElementsByTagName("a")[0].parentNode;
+                break;
+            }
+        }
+
+        // Create the show/hide button
+        let button = aDoc.createElement("a");
+        if(gRTSE.prefsGetBool("extensions.rtse.homepage.11")) {
+            button.innerHTML = "Hide Gamercard";
+            avatarCard.getElementsByTagName("a")[0].className = "shown";
+            avatarCard.getElementsByTagName("iframe")[0].className = "shown";
+        } else {
+            button.innerHTML = "Show Gamercard";
+            button.setAttribute("hidden", "true");
+        }
+
+        button.className = "small title";
+        button.setAttribute("name", "avatar");
+        button.setAttribute("number", "11");
+
+        button.addEventListener("click", RTSE_toggleHomepageElement, false);
+        let extraLine = aDoc.createElement("br");
+        avatarCard.insertBefore(extraLine, avatarCard.firstChild);
+        avatarCard.insertBefore(button, extraLine);
+    } catch(e) { /* Eat any errors */}
 }
 
 function RTSE_toggleHomepageElement() {
 // EFFECTS: Shows the element if it was hidden upon the click.
 //          Hides the element if it was shown upon the click.
 //          Sets preferences accordingly.
+
     let elID = this.name;
     let doc = this.ownerDocument;
     let pref = "extensions.rtse.homepage." + this.getAttribute("number");
 
-    if(elID != "tagged") {
+    if(elID != "tagged" && elID != "avatar") {
         if(this.hasAttribute("hidden")) {
             doc.getElementById(elID).className = "shown";
             this.innerHTML = "Hide";
@@ -1156,16 +1189,33 @@ function RTSE_toggleHomepageElement() {
             gRTSE.prefsSetBool(pref, false);
         }
     } else {
-        if(this.hasAttribute("hidden")) {
-            this.parentNode.getElementsByTagName("table")[0].className = "shown";
-            this.innerHTML = "Hide";
-            this.removeAttribute("hidden");
-            gRTSE.prefsSetBool(pref, true);
-        } else {
-            this.parentNode.getElementsByTagName("table")[0].className = "";
-            this.innerHTML = "Show";
-            this.setAttribute("hidden", "true");
-            gRTSE.prefsSetBool(pref, false);
+        if(elID == "tagged") {
+            if(this.hasAttribute("hidden")) {
+                this.parentNode.getElementsByTagName("table")[0].className = "shown";
+                this.innerHTML = "Hide";
+                this.removeAttribute("hidden");
+                gRTSE.prefsSetBool(pref, true);
+            } else {
+                this.parentNode.getElementsByTagName("table")[0].className = "";
+                this.innerHTML = "Show";
+                this.setAttribute("hidden", "true");
+                gRTSE.prefsSetBool(pref, false);
+            }
+        }
+        if(elID == "avatar") {
+            if(this.hasAttribute("hidden")) {
+                this.parentNode.getElementsByTagName("a")[1].className = "shown";
+                this.parentNode.getElementsByTagName("iframe")[0].className = "shown";
+                this.innerHTML = "Hide Gamercard";
+                this.removeAttribute("hidden");
+                gRTSE.prefsSetBool(pref, true);
+            } else {
+                this.parentNode.getElementsByTagName("a")[1].className = "";
+                this.parentNode.getElementsByTagName("iframe")[0].className = "";
+                this.innerHTML = "Show Gamercard";
+                this.setAttribute("hidden", "true");
+                gRTSE.prefsSetBool(pref, false);
+            }
         }
     }
 }
