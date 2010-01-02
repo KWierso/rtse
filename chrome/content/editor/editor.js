@@ -191,6 +191,10 @@ RTSE.editor =
   initDoc: function initDoc(aEvent)
   {
     var doc = aEvent.originalTarget;
+    
+    if(doc.location.protocol == "about:")
+      return;
+
     if (!RTSE_findOnDomain(doc.domain))
       return;
 
@@ -240,9 +244,10 @@ RTSE.editor =
     var show = false;
     var browser = gBrowser.getBrowserForTab(gBrowser.selectedTab);
     var doc = browser.contentDocument;
-    if ( gRTSE.prefsGetBool("extensions.rtse.editor") &&
-        RTSE_findOnDomain(doc.domain) )
-      show = RTSE.editor.replaceableElements(doc);
+    if(doc.location.protocol != "about:")
+      if ( gRTSE.prefsGetBool("extensions.rtse.editor") &&
+           RTSE_findOnDomain(doc.domain) )
+        show = RTSE.editor.replaceableElements(doc);
     document.getElementById("rtse-statusbar-editor").hidden = !show;
   },
 
@@ -316,6 +321,9 @@ RTSE.editor =
   toggleEditor: function toggleEditor(aEvent)
   {
     var doc = gBrowser.getBrowserForTab(gBrowser.selectedTab).contentDocument;
+
+    if(doc.location.protocol == "about:")
+      return;
 
     if (doc.forms && !doc.forms.namedItem("rtse") ||
         !RTSE_findOnDomain(doc.domain)) {
@@ -518,6 +526,10 @@ RTSE.editor =
   insert: function insert(aEvent)
   {
     var doc = aEvent.originalTarget;
+
+    if(doc.location.protocol == "about:")
+      return;
+
     if (!gRTSE.prefsGetBool("extensions.rtse.editor") ||
         !RTSE_findOnDomain(doc.domain))
       return;

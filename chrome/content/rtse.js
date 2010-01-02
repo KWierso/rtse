@@ -73,8 +73,9 @@ var RTSE = {
     /* the document is doc */
     var doc=aEvent.originalTarget;
 
-    if(RTSE_findOnDomain(doc.domain)) {
-    /* Run on all RT pages */
+    if(doc.location.protocol != "about:")
+      if(RTSE_findOnDomain(doc.domain)) {
+      /* Run on all RT pages */
         let rtURL = doc.location.href.split(doc.domain)[1];
 
         // Get Sponsor status for this browser session
@@ -191,7 +192,7 @@ var RTSE = {
         if( (rtURL != "/members/" && rtURL != "/members/index.php" && rtURL != "members/signin.php") && 
                 gRTSE.prefsGetBool("extensions.rtse.watchlist") )
             RTSE_addWatchlistAlerts(doc);
-    } else
+      } else
         return;
   },
 
