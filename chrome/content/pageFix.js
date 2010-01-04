@@ -1165,6 +1165,37 @@ function RTSE_hideHomepageElements(aDoc) {
         avatarCard.insertBefore(extraLine, avatarCard.firstChild);
         avatarCard.insertBefore(button, extraLine);
     } catch(e) { /* Eat any errors */}
+
+    // Hide the Large Avatar Image on the page
+    try {
+        let allBNodes = aDoc.getElementById("pageContent").getElementsByTagName("b");
+        let editImageCell;
+        for(let i in allBNodes) {
+            if(allBNodes[i].parentNode.href.search("/members/images/") >= 0) {
+                editImageCell = allBNodes[i].parentNode.parentNode;
+                break;
+            }
+        }
+
+        // Create the show/hide button
+        let button = aDoc.createElement("a");
+        if(gRTSE.prefsGetBool("extensions.rtse.homepage.12")) {
+            button.innerHTML = "Hide";
+            editImageCell.parentNode.parentNode.getElementsByTagName("tr")[0]
+                         .getElementsByTagName("a")[0].className = "body shown";
+        } else {
+            button.innerHTML = "Show";
+            button.setAttribute("hidden", "true");
+        }
+
+        button.className = "small title";
+        button.setAttribute("style", "float:left; padding-left:3px;");
+        button.setAttribute("name", "images");
+        button.setAttribute("number", "12");
+
+        button.addEventListener("click", RTSE_toggleHomepageElement, false);
+        editImageCell.appendChild(button);
+    } catch(e) { /* Eat any errors that occur */ }
 }
 
 function RTSE_toggleHomepageElement() {
@@ -1176,7 +1207,7 @@ function RTSE_toggleHomepageElement() {
     let doc = this.ownerDocument;
     let pref = "extensions.rtse.homepage." + this.getAttribute("number");
 
-    if(elID != "tagged" && elID != "avatar") {
+    if(elID != "tagged" && elID != "avatar" && elID != "images") {
         if(this.hasAttribute("hidden")) {
             doc.getElementById(elID).className = "shown";
             this.innerHTML = "Hide";
@@ -1213,6 +1244,21 @@ function RTSE_toggleHomepageElement() {
                 this.parentNode.getElementsByTagName("a")[1].className = "";
                 this.parentNode.getElementsByTagName("iframe")[0].className = "";
                 this.innerHTML = "Show Gamercard";
+                this.setAttribute("hidden", "true");
+                gRTSE.prefsSetBool(pref, false);
+            }
+        }
+        if(elID == "images") {
+            if(this.hasAttribute("hidden")) {
+                this.parentNode.parentNode.parentNode.getElementsByTagName("tr")[0]
+                               .getElementsByTagName("a")[0].className = "body shown";
+                this.innerHTML = "Hide";
+                this.removeAttribute("hidden");
+                gRTSE.prefsSetBool(pref, true);
+            } else {
+                this.parentNode.parentNode.parentNode.getElementsByTagName("tr")[0]
+                               .getElementsByTagName("a")[0].className = "body";
+                this.innerHTML = "Show";
                 this.setAttribute("hidden", "true");
                 gRTSE.prefsSetBool(pref, false);
             }
