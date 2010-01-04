@@ -53,15 +53,18 @@ function RTSE()
   var uri2 = ios.newURI("chrome://rtse/content/styles2.css", null, null);
   var uri3 = ios.newURI("chrome://rtse/content/styles3.css", null, null);
   var uri4 = ios.newURI("chrome://rtse/content/styles4.css", null, null);
-  var uri5 = ios.newURI("chrome://rtse/content/homepage.css", null, null);
+  var uri5 = ios.newURI("chrome://rtse/content/styles5.css", null, null);
+  var uriHome = ios.newURI("chrome://rtse/content/homepage.css", null, null);
   if(!this.prefsGetBool("extensions.rtse.sidebar"))
     sss.loadAndRegisterSheet(uri2, sss.USER_SHEET);
   if(!this.prefsGetBool("extensions.rtse.header"))
     sss.loadAndRegisterSheet(uri3, sss.USER_SHEET);
   if(!this.prefsGetBool("extensions.rtse.journals"))
     sss.loadAndRegisterSheet(uri4, sss.USER_SHEET);
-  if(!this.prefsGetBool("extensions.rtse.homepage"))
+  if(!this.prefsGetBool("extensions.rtse.background"))
     sss.loadAndRegisterSheet(uri5, sss.USER_SHEET);
+  if(!this.prefsGetBool("extensions.rtse.homepage"))
+    sss.loadAndRegisterSheet(uriHome, sss.USER_SHEET);
 
   // Version
   const UA_STRING = "RTSE/" + this.version;
@@ -72,7 +75,7 @@ RTSE.prototype =
 {
   // OVERVIEW: This is the class definition.  Defines the functions
   //           that are exposed in the interface.
-  mVersion: '1.1.0.20090402',
+  mVersion: '1.2.0.20100103',
   mLoginSent: false,
 
   get version()

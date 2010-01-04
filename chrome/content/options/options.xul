@@ -647,6 +647,12 @@
       <preference id="pref_journal"
                   name="extensions.rtse.journals"
                   type="bool"/>
+      <preference id="pref_background"
+                  name="extensions.rtse.background"
+                  type="bool"/>
+      <preference id="pref_backgroundURL"
+                  name="extensions.rtse.backgroundURL"
+                  type="bool"/>
       <preference id="pref_redirect"
                   name="extensions.rtse.extras.formRedirect"
                   type="bool"/>
@@ -691,6 +697,10 @@
           <checkbox label="&Extras.sidebar;" preference="pref_side"/>
           <checkbox label="&Extras.header;" preference="pref_head"/>
           <checkbox label="&Extras.journal;" preference="pref_journal"/>
+          <checkbox id="backgroundCheck" label="&Extras.background;" 
+                oncommand="hideBackground();" preference="pref_background"/>
+            <textbox id="backgroundText" emptytext="&Extras.backgroundURL;" hidden="true" 
+                    preference="pref_backgroundURL" disabled="true" maxwidth="350"/>
         </groupbox>
       </groupbox>
       <checkbox label="&Extras.redirect;" preference="pref_redirect"/>

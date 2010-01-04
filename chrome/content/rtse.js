@@ -475,7 +475,8 @@ var RTSE = {
       var uri2 = ios.newURI("chrome://rtse/content/styles2.css", null, null);
       var uri3 = ios.newURI("chrome://rtse/content/styles3.css", null, null);
       var uri4 = ios.newURI("chrome://rtse/content/styles4.css", null, null);
-      var uri5 = ios.newURI("chrome://rtse/content/homepage.css", null, null);
+      var uri5 = ios.newURI("chrome://rtse/content/styles5.css", null, null);
+      var uriHome = ios.newURI("chrome://rtse/content/homepage.css", null, null);
 
       if(!gRTSE.prefsGetBool("extensions.rtse.sidebar")) {
         if(!sss.sheetRegistered(uri2, sss.USER_SHEET))
@@ -502,12 +503,21 @@ var RTSE = {
             sss.unregisterSheet(uri4, sss.USER_SHEET);
       }
 
-      if(!gRTSE.prefsGetBool("extensions.rtse.homepage")) {
-        if(!sss.sheetRegistered(uri5, sss.USER_SHEET))
+      if(!gRTSE.prefsGetBool("extensions.rtse.background")) {
+        if(!sss.sheetRegistered(uri5, sss.USER_SHEET)) {
             sss.loadAndRegisterSheet(uri5, sss.USER_SHEET);
+        }
       } else {
         if(sss.sheetRegistered(uri5, sss.USER_SHEET))
             sss.unregisterSheet(uri5, sss.USER_SHEET);
+      }
+
+      if(!gRTSE.prefsGetBool("extensions.rtse.homepage")) {
+        if(!sss.sheetRegistered(uriHome, sss.USER_SHEET))
+            sss.loadAndRegisterSheet(uriHome, sss.USER_SHEET);
+      } else {
+        if(sss.sheetRegistered(uriHome, sss.USER_SHEET))
+            sss.unregisterSheet(uriHome, sss.USER_SHEET);
       }
   },
 

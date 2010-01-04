@@ -46,6 +46,7 @@ function load() {
   addTab();
   forumJump();
   linkDisplay();
+  hideBackground();
 }
 
 function onAccept() {
@@ -173,6 +174,11 @@ function quoteButtons() {
         !document.getElementById('quoteButtons').checked;
     document.getElementById('quote_desc').hidden =
         !document.getElementById('quoteButtons').checked;
+}
+
+function hideBackground() {
+    document.getElementById('backgroundText').hidden = 
+        document.getElementById('backgroundCheck').checked;
 }
 
 /**
