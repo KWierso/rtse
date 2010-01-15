@@ -1,4 +1,4 @@
-pref("general.useragent.extra.rtse","RTSE/1.2.0.20100101");
+pref("general.useragent.extra.rtse","RTSE/1.2.0.20100104");
 pref("extensions.rtse.editor",true);
 pref("extensions.rtse.firstInstall",true);
 pref("extensions.rtse.talkback",false);
@@ -12,6 +12,7 @@ pref("extensions.rtse.journals", true);
 pref("extensions.rtse.background", true);
 pref("extensions.rtse.backgroundURL", "");
 pref("extensions.rtse.watchlist", false);
+pref("extensions.rtse.watchlistcolor", true);
 pref("extensions.rtse.homepage", true);
 pref("extensions.rtse.homepage.0", false);
 pref("extensions.rtse.homepage.1", false);

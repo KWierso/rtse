@@ -216,6 +216,9 @@
       <preference id="pref_ahSmilies"
                   name="extensions.rtse.ahSmilies"
                   type="bool"/>
+      <preference id="pref_watchlistcolor"
+                  name="extensions.rtse.watchlistcolor"
+                  type="bool"/>
     </preferences>
     <vbox flex="1">
       <groupbox width="400">
@@ -247,6 +250,13 @@
                        id="smileyPreview"
                        maxheight="120"/>
         </vbox>
+        <spacer style="height:10px;"/>
+        <groupbox width="100%">
+          <caption label="&Extension.watchlistItems;"/>
+          <checkbox id="watchlistColor"
+                    label="&Extension.watchlistColor;"
+                    preference="pref_watchlistcolor"/>
+        </groupbox>
       </groupbox>
     </vbox>
   </prefpane>

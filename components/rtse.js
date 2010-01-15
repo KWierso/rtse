@@ -55,6 +55,7 @@ function RTSE()
   var uri4 = ios.newURI("chrome://rtse/content/styles4.css", null, null);
   var uri5 = ios.newURI("chrome://rtse/content/styles5.css", null, null);
   var uriHome = ios.newURI("chrome://rtse/content/homepage.css", null, null);
+  var uriWatch = ios.newURI("chrome://rtse/content/watchlist.css", null, null);
   if(!this.prefsGetBool("extensions.rtse.sidebar"))
     sss.loadAndRegisterSheet(uri2, sss.USER_SHEET);
   if(!this.prefsGetBool("extensions.rtse.header"))
@@ -65,6 +66,8 @@ function RTSE()
     sss.loadAndRegisterSheet(uri5, sss.USER_SHEET);
   if(!this.prefsGetBool("extensions.rtse.homepage"))
     sss.loadAndRegisterSheet(uriHome, sss.USER_SHEET);
+  if(!this.prefsGetBool("extensions.rtse.watchlistcolor"))
+    sss.loadAndRegisterSheet(uriWatch, sss.USER_SHEET);
 
   // Version
   const UA_STRING = "RTSE/" + this.version;
