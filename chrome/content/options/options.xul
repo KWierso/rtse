@@ -216,6 +216,9 @@
       <preference id="pref_ahSmilies"
                   name="extensions.rtse.ahSmilies"
                   type="bool"/>
+      <preference id="pref_watchlist"
+                  name="extensions.rtse.watchlist"
+                  type="bool"/>
       <preference id="pref_watchlistcolor"
                   name="extensions.rtse.watchlistcolor"
                   type="bool"/>
@@ -253,6 +256,9 @@
         <spacer style="height:10px;"/>
         <groupbox width="100%">
           <caption label="&Extension.watchlistItems;"/>
+          <checkbox id="watchlist"
+                    label="&Extension.watchlist;"
+                    preference="pref_watchlist"/>
           <checkbox id="watchlistColor"
                     label="&Extension.watchlistColor;"
                     preference="pref_watchlistcolor"/>

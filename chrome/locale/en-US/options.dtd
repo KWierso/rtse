@@ -59,6 +59,7 @@
 <!ENTITY Extension.samepagereplies "Use Same Page for Replies">
 <!ENTITY Extension.enableahsmilies "Display Achievement Hunter Smilies across the site">
 <!ENTITY Extension.watchlistItems "Watchlist">
+<!ENTITY Extension.watchlist "Add the Watchlist to every page">
 <!ENTITY Extension.watchlistColor "Color watchlist items by context">
 
 <!ENTITY ForumJump.name "Forum Jump List">
