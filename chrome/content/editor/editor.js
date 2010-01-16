@@ -68,6 +68,10 @@ RTSE.editor =
                                               RTSE.editor.insert,
                                               false);
 
+    gBrowser.tabContainer.addEventListener("TabSelect", 
+                                           this.tabSelected,
+                                           false);
+
     RTSE.editor.setup();
 
     // Event Listeners
@@ -249,6 +253,16 @@ RTSE.editor =
            RTSE_findOnDomain(doc.domain) )
         show = RTSE.editor.replaceableElements(doc);
     document.getElementById("rtse-statusbar-editor").hidden = !show;
+  },
+
+  /**
+   * Hide the ATE when new tabs are opened.
+   */
+  tabSelected: function RTSE_tabSelected(event)
+  {
+    var browser = gBrowser.getBrowserForTab(event.target);
+    if(browser.currentURI.spec == "about:blank")
+        RTSE.editor.ensureEditorIsHidden();
   },
 
   /**
