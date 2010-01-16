@@ -521,7 +521,7 @@ var RTSE = {
             sss.unregisterSheet(uriHome, sss.USER_SHEET);
       }
 
-      if(!gRTSE.prefsGetBool("extensions.rtse.watchlistcolor")) {
+      if(gRTSE.prefsGetBool("extensions.rtse.watchlistcolor")) {
         if(!sss.sheetRegistered(uriWatch, sss.USER_SHEET))
             sss.loadAndRegisterSheet(uriWatch, sss.USER_SHEET);
       } else {

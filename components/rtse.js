@@ -66,7 +66,7 @@ function RTSE()
     sss.loadAndRegisterSheet(uri5, sss.USER_SHEET);
   if(!this.prefsGetBool("extensions.rtse.homepage"))
     sss.loadAndRegisterSheet(uriHome, sss.USER_SHEET);
-  if(!this.prefsGetBool("extensions.rtse.watchlistcolor"))
+  if(this.prefsGetBool("extensions.rtse.watchlistcolor"))
     sss.loadAndRegisterSheet(uriWatch, sss.USER_SHEET);
 
   // Version
