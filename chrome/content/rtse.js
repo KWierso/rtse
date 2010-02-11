@@ -240,6 +240,7 @@ var RTSE = {
                 document.getElementById('rtse-user-sendPM').style.display = '';
                 document.getElementById('rtse-user-journal').style.display = '';
                 document.getElementById('rtse-user-images').style.display = '';
+                document.getElementById('rtse-user-videos').style.display = '';
                 document.getElementById('rtse-user-comments').style.display = '';
                 document.getElementById('rtse-no-uid').style.display = 'none';
                 document.getElementById('rtse-search-last').style.display = 'none';
@@ -267,6 +268,8 @@ var RTSE = {
                 RTSE_openContextItem("rtse-user-journal", "http://" + dom + "/members/journal/?uid=" + uid, 1);
                 // View Images
                 RTSE_openContextItem("rtse-user-images", "http://" + dom + "/members/images/?uid=" + uid, 1);
+                // View Videos
+                RTSE_openContextItem("rtse-user-videos", "http://" + dom + "/members/videos/?uid=" + uid, 1);
                 // View Comments
                 RTSE_openContextItem("rtse-user-comments", "http://" + dom + "/members/comments/?uid=" + uid, 1);
             } else {

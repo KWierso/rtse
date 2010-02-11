@@ -59,6 +59,11 @@
                 position="7"
                 image="chrome://rtse/skin/images/global/images.png"
                 class="menuitem-iconic"/>
+      <menuitem id="rtse-user-videos"
+                label="&ContextMenu.videos.label;"
+                position="7"
+                image=""
+                class="menuitem-iconic"/>
       <menuitem id="rtse-user-comments"
                 label="&ContextMenu.comments.label;"
                 position="8"

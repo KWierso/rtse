@@ -8,6 +8,7 @@
 <!ENTITY ContextMenu.log.label "View User's Log">
 <!ENTITY ContextMenu.journal.label "View User's Journal">
 <!ENTITY ContextMenu.images.label "View User's Images">
+<!ENTITY ContextMenu.videos.label "View User's Videos">
 <!ENTITY ContextMenu.comments.label "View User's Comments">
 <!ENTITY ContextMenu.tourneyBracket.label "View Tournament Bracket">
 <!ENTITY ContextMenu.threadWatch.label "Watch Thread">
