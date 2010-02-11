@@ -296,7 +296,7 @@ function RTSE_fixSearch(doc) {
 function RTSE_addToUserInfo(doc) {
     /* Adds additional links to the userInfo element in the site header */
     if(doc.getElementById("userInfo").getElementsByTagName("a").length != 3) {
-        var lng = 13;
+        var lng = 14;
         if (!RTSE.sponsor) {
             lng = 8;
         }
@@ -307,18 +307,18 @@ function RTSE_addToUserInfo(doc) {
 
         // All potential items for inclusion, along with their preferences
         var newNames = new Array( userName.innerHTML, "Sign Out", "Groups", "Comments", "Log", 
-            "Journal", "Messages", "Images", "My Stats", "Mod History", "Friend Journals", 
+            "Journal", "Messages", "Images", "Videos", "My Stats", "Mod History", "Friend Journals", 
             RTSE.sponsor ? "Sponsor" : "Become a Sponsor", "Settings");
         var newLinks = new Array( "/members/", "/members/signout.php", "/members/groups.php",
             "/members/comments/", "/members/log.php", "/members/journal", 
-            "/members/messaging/", "/members/images/", "/members/stats/myStats.php", 
+            "/members/messaging/", "/members/images/", "/members/videos/", "/members/stats/myStats.php", 
             "/members/modHistory.php?nc=1", "/members/journal/friendsJournals.php?nc=1", 
             "/sponsRedir.php", "/members/settings/");
         var checkPrefs = new Array( "extensions.rtse.link.user", "extensions.rtse.link.signOut", 
         "extensions.rtse.link.groups", "extensions.rtse.link.comments", "extensions.rtse.link.log", 
         "extensions.rtse.link.journal", "extensions.rtse.link.messages", "extensions.rtse.link.images",
-        "extensions.rtse.link.myStats", "extensions.rtse.link.modHistory", "extensions.rtse.link.friendJournals", //8 9 10
-        "extensions.rtse.link.sponsor", "extensions.rtse.link.settings", "extensions.rtse.link.avatar"); //11 12 13
+        "extensions.rtse.link.videos", "extensions.rtse.link.myStats", "extensions.rtse.link.modHistory", 
+        "extensions.rtse.link.friendJournals", "extensions.rtse.link.sponsor", "extensions.rtse.link.settings");
 
         // Initialize new element and some counters
         var td = "";
@@ -340,7 +340,7 @@ function RTSE_addToUserInfo(doc) {
                 if(i < 2) {
                     ++line1;
                 }
-                else if(i < 8) {
+                else if(i < 9) {
                     ++line2;
                 }
                 else {
@@ -351,11 +351,11 @@ function RTSE_addToUserInfo(doc) {
 
         // Add first two rows for everybody, add third row for sponsors
         for(i = 0; i < lng; i++) {
-            if(i == 2 && line1 > 0 || i == 8 && line2 > 0) {
+            if(i == 2 && line1 > 0 || i == 9 && line2 > 0) {
                 td += "<br\>";
             }
             if (gRTSE.prefsGetBool(checkPrefs[i])) {
-                if(i == 8 && gRTSE.prefsGetBool("extensions.rtse.link.star")) {
+                if(i == 9 && gRTSE.prefsGetBool("extensions.rtse.link.star")) {
                         td += "<img " +
                             "src='/assets/images/subscriberStarSmallTrans.png'" +
                             " style='float: none;'>&nbsp;&nbsp;";
@@ -370,7 +370,7 @@ function RTSE_addToUserInfo(doc) {
                     td += "&nbsp;&middot;&nbsp;";
                     --line2;
                 }
-                if(8 <= i && line3 > 1) {
+                if(9 <= i && line3 > 1) {
                     td += "&nbsp;&middot;&nbsp;";
                     --line3;
                 }
@@ -384,12 +384,12 @@ function RTSE_addToUserInfo(doc) {
                 td += "&nbsp;<img src='/assets/images/subscriberStarSmallTrans.png' " +
                 "style='float: none;'>&nbsp;";
             }
-            if(gRTSE.prefsGetBool(checkPrefs[11]))
-                td += "<a href=" + newLinks[11] + " class=userInfo>" + newNames[11] + "</a>";
-            if(gRTSE.prefsGetBool(checkPrefs[11]) && gRTSE.prefsGetBool(checkPrefs[12]))
-                td += "&nbsp;&middot;&nbsp;";
             if(gRTSE.prefsGetBool(checkPrefs[12]))
                 td += "<a href=" + newLinks[12] + " class=userInfo>" + newNames[12] + "</a>";
+            if(gRTSE.prefsGetBool(checkPrefs[12]) && gRTSE.prefsGetBool(checkPrefs[13]))
+                td += "&nbsp;&middot;&nbsp;";
+            if(gRTSE.prefsGetBool(checkPrefs[13]))
+                td += "<a href=" + newLinks[13] + " class=userInfo>" + newNames[13] + "</a>";
         }
 
         // Replace the element on the page
