@@ -1200,6 +1200,22 @@ function RTSE_hideHomepageElements(aDoc) {
         button.addEventListener("click", RTSE_toggleHomepageElement, false);
         editImageCell.appendChild(button);
     } catch(e) { /* Eat any errors that occur */ }
+    
+    try {
+        let liteEl = aDoc.getElementsByClassName("lite").item(0);
+        liteEl.removeAttribute("href");
+
+        if(gRTSE.prefsGetBool("extensions.rtse.homepage.13")) {
+            liteEl.parentNode.parentNode.parentNode.parentNode.className = "hlines shown";
+        }
+
+        liteEl.setAttribute("name", "breakdown");
+        liteEl.setAttribute("number", "13");
+
+        liteEl.addEventListener("click", RTSE_toggleHomepageElement, false);
+    } catch(e) {
+        alert(e);
+    }
 }
 
 function RTSE_toggleHomepageElement() {
@@ -1211,7 +1227,8 @@ function RTSE_toggleHomepageElement() {
     let doc = this.ownerDocument;
     let pref = "extensions.rtse.homepage." + this.getAttribute("number");
 
-    if(elID != "tagged" && elID != "avatar" && elID != "images") {
+    // XXX This should really probably be a switch block with a default...
+    if(elID != "tagged" && elID != "avatar" && elID != "images" && elID != "breakdown") {
         if(this.hasAttribute("hidden")) {
             doc.getElementById(elID).className = "shown";
             this.innerHTML = "Hide";
@@ -1263,6 +1280,17 @@ function RTSE_toggleHomepageElement() {
                 this.parentNode.parentNode.parentNode.getElementsByTagName("tr")[0]
                                .getElementsByTagName("a")[0].className = "body";
                 this.innerHTML = "Show";
+                this.setAttribute("hidden", "true");
+                gRTSE.prefsSetBool(pref, false);
+            }
+        }
+        if(elID == "breakdown") {
+            if(this.hasAttribute("hidden")) {
+                this.parentNode.parentNode.parentNode.parentNode.className = "hlines shown";
+                this.removeAttribute("hidden");
+                gRTSE.prefsSetBool(pref, true);
+            } else {
+                this.parentNode.parentNode.parentNode.parentNode.className = "hlines";
                 this.setAttribute("hidden", "true");
                 gRTSE.prefsSetBool(pref, false);
             }
