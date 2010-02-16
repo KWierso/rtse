@@ -1207,6 +1207,8 @@ function RTSE_hideHomepageElements(aDoc) {
 
         if(gRTSE.prefsGetBool("extensions.rtse.homepage.13")) {
             liteEl.parentNode.parentNode.parentNode.parentNode.className = "hlines shown";
+        } else {
+            liteEl.setAttribute("hidden", "true");
         }
 
         liteEl.setAttribute("name", "breakdown");
