@@ -19,11 +19,11 @@
       <h3>All changes are by KWierso unless otherwise specified.</h3>
       <ul>
         <li class="cLog">
-            Bug 3 -  Hide Homepage Elements: Stat Breakdown block <br/>
-            - - This update finally completes the Hide Homepage Elements feature by 
-            allowing the user to show/hide the stat breakdown element.<br/>
-            The feature may be hard to discover, as the button to click is the Modpoint Breakdown
-            link that's already in there.
+            Bug 12 -  Hide Homepage Breakdown not correctly initializing. <br/>
+            - - This is a small fix to make sure that RTSE is initializing the breakdown hiding button's
+            attributes. Currently, if you had the breakdown element hidden, the first time you click the
+            button, nothing will happen, as RTSE doesn't know that it's already hidden.<br/>
+            This update let's RTSE know about it, so the first click on the button will show the breakdown section.
         </li>
       </ul>
     </div>
