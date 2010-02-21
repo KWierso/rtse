@@ -84,6 +84,9 @@
      <preference id="link_images"
                   name="extensions.rtse.link.images"
                   type="bool"/>
+     <preference id="link_videos"
+                  name="extensions.rtse.link.videos"
+                  type="bool"/>
      <preference id="link_myStats"
                   name="extensions.rtse.link.myStats"
                   type="bool"/>
@@ -161,6 +164,11 @@
           <checkbox id="images"
           label="&Preferences.link.images;"
           preference="link_images"/>
+        </richlistitem>
+        <richlistitem orient="vertical">
+          <checkbox id="videos"
+          label="&Preferences.link.videos;"
+          preference="link_videos"/>
         </richlistitem>
         <richlistitem orient="vertical">
           <checkbox id="myStats"

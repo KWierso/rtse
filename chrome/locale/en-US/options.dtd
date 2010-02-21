@@ -36,6 +36,7 @@
 <!ENTITY Preferences.link.journal "Journal">
 <!ENTITY Preferences.link.messages "Messages">
 <!ENTITY Preferences.link.images "Images">
+<!ENTITY Preferences.link.videos "Videos">
 <!ENTITY Preferences.link.myStats "Stats (Sponsor-only)">
 <!ENTITY Preferences.link.modHistory "Mod History (Sponsor-only)">
 <!ENTITY Preferences.link.friendJournals "Friends' Journals (Sponsor-only)">
