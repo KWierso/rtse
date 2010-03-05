@@ -723,7 +723,7 @@
           <checkbox label="&Extras.journal;" preference="pref_journal"/>
           <checkbox id="backgroundCheck" label="&Extras.background;" 
                 oncommand="hideBackground();" preference="pref_background"/>
-            <textbox id="backgroundText" emptytext="&Extras.backgroundURL;" hidden="true" 
+            <textbox id="backgroundText" placeholder="&Extras.backgroundURL;" emptytext="&Extras.backgroundURL;" hidden="true" 
                     preference="pref_backgroundURL" disabled="true" maxwidth="350"/>
         </groupbox>
       </groupbox>
