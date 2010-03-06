@@ -267,9 +267,25 @@ function RTSE_forumListBox(doc) {
   }
 
   /* Adding redirector */
-  listBox.addEventListener('change', function() {
-      if (this.options[this.selectedIndex].value != 'null')
+  listBox.addEventListener('mouseup', function(e) {
+      if (this.options[this.selectedIndex].value != 'null') {
+        if (e.ctrlKey) {
+          gBrowser.addTab(doc.domain + "/forum/forum.php?fid=" + this.options[this.selectedIndex].value);
+        } else {
           doc.location = '/forum/forum.php?fid=' + this.options[this.selectedIndex].value;
+        }
+      }
+  }, false);
+  listBox.addEventListener('keypress', function(e) {
+      if(e.keyCode == 13) {
+        if (this.options[this.selectedIndex].value != 'null') {
+          if(e.ctrlKey) {
+            gBrowser.addTab(doc.domain + "/forum/forum.php?fid=" + this.options[this.selectedIndex].value);
+          } else {
+            doc.location = '/forum/forum.php?fid=' + this.options[this.selectedIndex].value;
+          }
+        }
+      }
   }, false);
 
   /* Now that we have the listBox all filled up... */
