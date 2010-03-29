@@ -364,8 +364,12 @@ var RTSE = {
             /* Go to Last Page of Link */
                 RTSE_openContextItem("rtse-search-last", link + "&page=9999999", 0);
         }
-        // Journal Entry context items
-        if(/members\/journal\/entry.php/.test(gContextMenu.target.href) || /members\/journal\/entry.php/.test(gContextMenu.target.parentNode.href)) {
+        // Journal, Comic, News, Blog Comments context items
+        if(/members\/journal\/entry.php/.test(gContextMenu.target.href) || /members\/journal\/entry.php/.test(gContextMenu.target.parentNode.href) ||
+           /media\/viewItem.php/.test(gContextMenu.target.href) || /media\/viewItem.php/.test(gContextMenu.target.parentNode.href) ||
+           /comics\/strip.php/.test(gContextMenu.target.href) || /comics\/strip.php/.test(gContextMenu.target.parentNode.href) ||
+           /blog\//.test(gContextMenu.target.href) || /blog\//.test(gContextMenu.target.parentNode.href) ||
+           /home.php/.test(gContextMenu.target.href) || /home.php/.test(gContextMenu.target.parentNode.href)) {
             gContextMenu.showItem("rtse-sub-menu",true);
 
             let dom = url.hostname;
@@ -396,7 +400,11 @@ var RTSE = {
             document.getElementById('rtse-search-group-members').style.display = 'none';
 
             /* Go to Last Page of Link */
+            if(link.search(/\?/) > -1)
                 RTSE_openContextItem("rtse-search-last", link + "&page=9999999", 0);
+            else {
+                RTSE_openContextItem("rtse-search-last", link + "?page=9999999", 0);
+            }
         }
         if(gContextMenu.target == "[object XPCNativeWrapper [object HTMLDivElement]]") {
             // Search Dropdown context items (thread, journal and group items)
