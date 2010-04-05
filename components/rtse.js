@@ -54,7 +54,6 @@ function RTSE()
   var uri3 = ios.newURI("chrome://rtse/content/styles3.css", null, null);
   var uri4 = ios.newURI("chrome://rtse/content/styles4.css", null, null);
   var uri5 = ios.newURI("chrome://rtse/content/styles5.css", null, null);
-  var uriteehee = ios.newURI("chrome://rtse/content/teehee.css", null, null);
   var uriHome = ios.newURI("chrome://rtse/content/homepage.css", null, null);
   var uriWatch = ios.newURI("chrome://rtse/content/watchlist.css", null, null);
   if(!this.prefsGetBool("extensions.rtse.sidebar"))
@@ -69,14 +68,6 @@ function RTSE()
     sss.loadAndRegisterSheet(uriHome, sss.USER_SHEET);
   if(this.prefsGetBool("extensions.rtse.watchlistcolor"))
     sss.loadAndRegisterSheet(uriWatch, sss.USER_SHEET);
-    
-    
-  var currentTime = new Date();
-  var month = currentTime.getMonth() + 1;
-  var day = currentTime.getDate();
-  var year = currentTime.getFullYear();
-  if(month == 4 && day == 1)
-    sss.loadAndRegisterSheet(uriteehee, sss.USER_SHEET);
 
   // Version
   const UA_STRING = "RTSE/" + this.version;
