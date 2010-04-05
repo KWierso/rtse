@@ -23,6 +23,7 @@
 <!ENTITY Extras.background "Show the site's default background image">
 <!ENTITY Extras.backgroundURL "Show a different image instead">
 <!ENTITY Extras.redirect "Redirect Blog and Commentary Posts">
+<!ENTITY Extras.homepage "Enable Hide Homepage Elements Feature">
 <!ENTITY Extras.resetRTSE "Reset RTSE to initial configuration">
 
 <!ENTITY Preferences.name "Site Preferences">

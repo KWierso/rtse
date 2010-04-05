@@ -680,6 +680,10 @@
       <preference id="pref_redirect"
                   name="extensions.rtse.extras.formRedirect"
                   type="bool"/>
+      <preference id="pref_homepage"
+                  name="extensions.rtse.homepage"
+                  inverted="true"
+                  type="bool"/>
     </preferences>
     <vbox flex="1">
       <groupbox>
@@ -728,6 +732,7 @@
         </groupbox>
       </groupbox>
       <checkbox label="&Extras.redirect;" preference="pref_redirect"/>
+      <checkbox label="&Extras.homepage;" preference="pref_homepage"/>
       <spacer style="height:30px;"/>
       <button label="&Extras.resetRTSE;" oncommand="resetRTSE();"/>
     </vbox>
