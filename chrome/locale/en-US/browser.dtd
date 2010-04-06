@@ -19,4 +19,20 @@
 <!ENTITY ContextMenu.searchGroupImages.label "Go to Group Images">
 <!ENTITY ContextMenu.searchGroupMembers.label "Go to Group Member List">
 
+<!ENTITY ContextMenu.name.label "Edit Name">
+<!ENTITY ContextMenu.zip.label "Edit ZIP">
+<!ENTITY ContextMenu.location.label "Edit Location">
+<!ENTITY ContextMenu.occupation.label "Edit Occupation">
+<!ENTITY ContextMenu.about.label "Edit About Me">
+<!ENTITY ContextMenu.interests.label "Edit Interests">
+<!ENTITY ContextMenu.music.label "Edit Favorite Music">
+<!ENTITY ContextMenu.movies.label "Edit Favorite Movies">
+<!ENTITY ContextMenu.tv.label "Edit Favorite TV">
+<!ENTITY ContextMenu.books.label "Edit Favorite Books">
+<!ENTITY ContextMenu.games.label "Edit Favorit Video Games">
+<!ENTITY ContextMenu.screenname.label "Edit Screenname">
+<!ENTITY ContextMenu.gamertag.label "Edit Gamertag">
+<!ENTITY ContextMenu.twitter.label "Edit Twitter">
+<!ENTITY ContextMenu.title.label "Edit Sponsor Title">
+
 <!ENTITY Statusbar.editor.tooltip "The Rooster Teeth Site Extender is enabled on this page">

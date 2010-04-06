@@ -248,6 +248,21 @@ var RTSE = {
                 document.getElementById('rtse-search-group-forum').style.display = 'none';
                 document.getElementById('rtse-search-group-images').style.display = 'none';
                 document.getElementById('rtse-search-group-members').style.display = 'none';
+                document.getElementById('rtse-edit-name').style.display = 'none';
+                document.getElementById('rtse-edit-zip').style.display = 'none';
+                document.getElementById('rtse-edit-location').style.display = 'none';
+                document.getElementById('rtse-edit-occupation').style.display = 'none';
+                document.getElementById('rtse-edit-about').style.display = 'none';
+                document.getElementById('rtse-edit-interests').style.display = 'none';
+                document.getElementById('rtse-edit-music').style.display = 'none';
+                document.getElementById('rtse-edit-movies').style.display = 'none';
+                document.getElementById('rtse-edit-tv').style.display = 'none';
+                document.getElementById('rtse-edit-books').style.display = 'none';
+                document.getElementById('rtse-edit-games').style.display = 'none';
+                document.getElementById('rtse-edit-screenname').style.display = 'none';
+                document.getElementById('rtse-edit-gamertag').style.display = 'none';
+                document.getElementById('rtse-edit-twitter').style.display = 'none';
+                document.getElementById('rtse-edit-title').style.display = 'none';
 
                 // Send PM
                     RTSE_openContextItem("rtse-user-sendPM", "http://" + dom + "/members/messaging/send.php?to=" + uid, 1);
@@ -290,6 +305,21 @@ var RTSE = {
                 document.getElementById('rtse-search-group-forum').style.display = 'none';
                 document.getElementById('rtse-search-group-images').style.display = 'none';
                 document.getElementById('rtse-search-group-members').style.display = 'none';
+                document.getElementById('rtse-edit-name').style.display = 'none';
+                document.getElementById('rtse-edit-zip').style.display = 'none';
+                document.getElementById('rtse-edit-location').style.display = 'none';
+                document.getElementById('rtse-edit-occupation').style.display = 'none';
+                document.getElementById('rtse-edit-about').style.display = 'none';
+                document.getElementById('rtse-edit-interests').style.display = 'none';
+                document.getElementById('rtse-edit-music').style.display = 'none';
+                document.getElementById('rtse-edit-movies').style.display = 'none';
+                document.getElementById('rtse-edit-tv').style.display = 'none';
+                document.getElementById('rtse-edit-books').style.display = 'none';
+                document.getElementById('rtse-edit-games').style.display = 'none';
+                document.getElementById('rtse-edit-screenname').style.display = 'none';
+                document.getElementById('rtse-edit-gamertag').style.display = 'none';
+                document.getElementById('rtse-edit-twitter').style.display = 'none';
+                document.getElementById('rtse-edit-title').style.display = 'none';
             }
           }
           // Tournament context items
@@ -317,6 +347,21 @@ var RTSE = {
             document.getElementById('rtse-search-group-forum').style.display = 'none';
             document.getElementById('rtse-search-group-images').style.display = 'none';
             document.getElementById('rtse-search-group-members').style.display = 'none';
+            document.getElementById('rtse-edit-name').style.display = 'none';
+            document.getElementById('rtse-edit-zip').style.display = 'none';
+            document.getElementById('rtse-edit-location').style.display = 'none';
+            document.getElementById('rtse-edit-occupation').style.display = 'none';
+            document.getElementById('rtse-edit-about').style.display = 'none';
+            document.getElementById('rtse-edit-interests').style.display = 'none';
+            document.getElementById('rtse-edit-music').style.display = 'none';
+            document.getElementById('rtse-edit-movies').style.display = 'none';
+            document.getElementById('rtse-edit-tv').style.display = 'none';
+            document.getElementById('rtse-edit-books').style.display = 'none';
+            document.getElementById('rtse-edit-games').style.display = 'none';
+            document.getElementById('rtse-edit-screenname').style.display = 'none';
+            document.getElementById('rtse-edit-gamertag').style.display = 'none';
+            document.getElementById('rtse-edit-twitter').style.display = 'none';
+            document.getElementById('rtse-edit-title').style.display = 'none';
 
             /* View Tourney Bracket */
             RTSE_openContextItem("rtse-tournament-bracket", "http://" + dom + "/tournaments/bracket.php?id=" + tid, 1);
@@ -352,6 +397,21 @@ var RTSE = {
             document.getElementById('rtse-search-group-forum').style.display = 'none';
             document.getElementById('rtse-search-group-images').style.display = 'none';
             document.getElementById('rtse-search-group-members').style.display = 'none';
+            document.getElementById('rtse-edit-name').style.display = 'none';
+            document.getElementById('rtse-edit-zip').style.display = 'none';
+            document.getElementById('rtse-edit-location').style.display = 'none';
+            document.getElementById('rtse-edit-occupation').style.display = 'none';
+            document.getElementById('rtse-edit-about').style.display = 'none';
+            document.getElementById('rtse-edit-interests').style.display = 'none';
+            document.getElementById('rtse-edit-music').style.display = 'none';
+            document.getElementById('rtse-edit-movies').style.display = 'none';
+            document.getElementById('rtse-edit-tv').style.display = 'none';
+            document.getElementById('rtse-edit-books').style.display = 'none';
+            document.getElementById('rtse-edit-games').style.display = 'none';
+            document.getElementById('rtse-edit-screenname').style.display = 'none';
+            document.getElementById('rtse-edit-gamertag').style.display = 'none';
+            document.getElementById('rtse-edit-twitter').style.display = 'none';
+            document.getElementById('rtse-edit-title').style.display = 'none';
 
             /* Watch Thread */
             if(!/groups\//.test(gContextMenu.target.href)) {
@@ -398,6 +458,21 @@ var RTSE = {
             document.getElementById('rtse-search-group-forum').style.display = 'none';
             document.getElementById('rtse-search-group-images').style.display = 'none';
             document.getElementById('rtse-search-group-members').style.display = 'none';
+            document.getElementById('rtse-edit-name').style.display = 'none';
+            document.getElementById('rtse-edit-zip').style.display = 'none';
+            document.getElementById('rtse-edit-location').style.display = 'none';
+            document.getElementById('rtse-edit-occupation').style.display = 'none';
+            document.getElementById('rtse-edit-about').style.display = 'none';
+            document.getElementById('rtse-edit-interests').style.display = 'none';
+            document.getElementById('rtse-edit-music').style.display = 'none';
+            document.getElementById('rtse-edit-movies').style.display = 'none';
+            document.getElementById('rtse-edit-tv').style.display = 'none';
+            document.getElementById('rtse-edit-books').style.display = 'none';
+            document.getElementById('rtse-edit-games').style.display = 'none';
+            document.getElementById('rtse-edit-screenname').style.display = 'none';
+            document.getElementById('rtse-edit-gamertag').style.display = 'none';
+            document.getElementById('rtse-edit-twitter').style.display = 'none';
+            document.getElementById('rtse-edit-title').style.display = 'none';
 
             /* Go to Last Page of Link */
             if(link.search(/\?/) > -1)
@@ -439,6 +514,21 @@ var RTSE = {
                     document.getElementById('rtse-search-group-forum').style.display = 'none';
                     document.getElementById('rtse-search-group-images').style.display = 'none';
                     document.getElementById('rtse-search-group-members').style.display = 'none';
+                    document.getElementById('rtse-edit-name').style.display = 'none';
+                    document.getElementById('rtse-edit-zip').style.display = 'none';
+                    document.getElementById('rtse-edit-location').style.display = 'none';
+                    document.getElementById('rtse-edit-occupation').style.display = 'none';
+                    document.getElementById('rtse-edit-about').style.display = 'none';
+                    document.getElementById('rtse-edit-interests').style.display = 'none';
+                    document.getElementById('rtse-edit-music').style.display = 'none';
+                    document.getElementById('rtse-edit-movies').style.display = 'none';
+                    document.getElementById('rtse-edit-tv').style.display = 'none';
+                    document.getElementById('rtse-edit-books').style.display = 'none';
+                    document.getElementById('rtse-edit-games').style.display = 'none';
+                    document.getElementById('rtse-edit-screenname').style.display = 'none';
+                    document.getElementById('rtse-edit-gamertag').style.display = 'none';
+                    document.getElementById('rtse-edit-twitter').style.display = 'none';
+                    document.getElementById('rtse-edit-title').style.display = 'none';
 
                     /* Go to Last Page of Link */
                     RTSE_openContextItem("rtse-search-last", link + "&page=9999999", 0);
@@ -466,6 +556,21 @@ var RTSE = {
                     document.getElementById('rtse-search-group-forum').style.display = '';
                     document.getElementById('rtse-search-group-images').style.display = '';
                     document.getElementById('rtse-search-group-members').style.display = '';
+                    document.getElementById('rtse-edit-name').style.display = 'none';
+                    document.getElementById('rtse-edit-zip').style.display = 'none';
+                    document.getElementById('rtse-edit-location').style.display = 'none';
+                    document.getElementById('rtse-edit-occupation').style.display = 'none';
+                    document.getElementById('rtse-edit-about').style.display = 'none';
+                    document.getElementById('rtse-edit-interests').style.display = 'none';
+                    document.getElementById('rtse-edit-music').style.display = 'none';
+                    document.getElementById('rtse-edit-movies').style.display = 'none';
+                    document.getElementById('rtse-edit-tv').style.display = 'none';
+                    document.getElementById('rtse-edit-books').style.display = 'none';
+                    document.getElementById('rtse-edit-games').style.display = 'none';
+                    document.getElementById('rtse-edit-screenname').style.display = 'none';
+                    document.getElementById('rtse-edit-gamertag').style.display = 'none';
+                    document.getElementById('rtse-edit-twitter').style.display = 'none';
+                    document.getElementById('rtse-edit-title').style.display = 'none';
 
                     /* Open each Group item in a new tab when clicked */
                     RTSE_openContextItem("rtse-search-group-news", "http://" + dom + "/groups/news/?id=" + gID, 1);
@@ -477,6 +582,60 @@ var RTSE = {
                     gContextMenu.showItem("rtse-sub-menu", false);
                 }
             }
+        }
+        // Show direct links to the various "edit profile" pages.
+        if(gContextMenu.target.parentNode.href.match("members/editProfile.php") == "members/editProfile.php") {
+            gContextMenu.showItem("rtse-sub-menu",true);
+
+            document.getElementById('rtse-tournament-bracket').style.display = 'none';
+            document.getElementById('rtse-thread-watch').style.display = 'none';
+            document.getElementById('rtse-user-log').style.display = 'none';
+            document.getElementById('rtse-user-watch').style.display = 'none';
+            document.getElementById('rtse-user-block').style.display = 'none';
+            document.getElementById('rtse-user-friends').style.display = 'none';
+            document.getElementById('rtse-user-sendPM').style.display = 'none';
+            document.getElementById('rtse-user-journal').style.display = 'none';
+            document.getElementById('rtse-user-images').style.display = 'none';
+            document.getElementById('rtse-user-videos').style.display = 'none';
+            document.getElementById('rtse-user-comments').style.display = 'none';
+            document.getElementById('rtse-no-uid').style.display = 'none';
+            document.getElementById('rtse-search-last').style.display = 'none';
+            document.getElementById('rtse-search-group-news').style.display = 'none';
+            document.getElementById('rtse-search-group-forum').style.display = 'none';
+            document.getElementById('rtse-search-group-images').style.display = 'none';
+            document.getElementById('rtse-search-group-members').style.display = 'none';
+            document.getElementById('rtse-edit-name').style.display = '';
+            document.getElementById('rtse-edit-zip').style.display = '';
+            document.getElementById('rtse-edit-location').style.display = '';
+            document.getElementById('rtse-edit-occupation').style.display = '';
+            document.getElementById('rtse-edit-about').style.display = '';
+            document.getElementById('rtse-edit-interests').style.display = '';
+            document.getElementById('rtse-edit-music').style.display = '';
+            document.getElementById('rtse-edit-movies').style.display = '';
+            document.getElementById('rtse-edit-tv').style.display = '';
+            document.getElementById('rtse-edit-books').style.display = '';
+            document.getElementById('rtse-edit-games').style.display = '';
+            document.getElementById('rtse-edit-screenname').style.display = '';
+            document.getElementById('rtse-edit-gamertag').style.display = '';
+            document.getElementById('rtse-edit-twitter').style.display = '';
+            document.getElementById('rtse-edit-title').style.display = '';
+
+            let dom = url.hostname;
+            RTSE_openContextItem("rtse-edit-name", "http://" + dom + "/members/editField.php?field=name", 0);
+            RTSE_openContextItem("rtse-edit-zip", "http://" + dom + "/members/editField.php?field=zip", 0);
+            RTSE_openContextItem("rtse-edit-location", "http://" + dom + "/members/editField.php?field=location", 0);
+            RTSE_openContextItem("rtse-edit-occupation", "http://" + dom + "/members/editField.php?field=occupation", 0);
+            RTSE_openContextItem("rtse-edit-about", "http://" + dom + "/members/editField.php?field=about", 0);
+            RTSE_openContextItem("rtse-edit-interests", "http://" + dom + "/members/editField.php?field=interests", 0);
+            RTSE_openContextItem("rtse-edit-music", "http://" + dom + "/members/editField.php?field=favMusic", 0);
+            RTSE_openContextItem("rtse-edit-movies", "http://" + dom + "/members/editField.php?field=favMovies", 0);
+            RTSE_openContextItem("rtse-edit-tv", "http://" + dom + "/members/editField.php?field=favTV", 0);
+            RTSE_openContextItem("rtse-edit-books", "http://" + dom + "/members/editField.php?field=favBooks", 0);
+            RTSE_openContextItem("rtse-edit-games", "http://" + dom + "/members/editField.php?field=favGames", 0);
+            RTSE_openContextItem("rtse-edit-screenname", "http://" + dom + "/members/editField.php?field=screenName", 0);
+            RTSE_openContextItem("rtse-edit-gamertag", "http://" + dom + "/members/editField.php?field=gamertag", 0);
+            RTSE_openContextItem("rtse-edit-twitter", "http://" + dom + "/members/editField.php?field=twitter", 0);
+            RTSE_openContextItem("rtse-edit-title", "http://" + dom + "/members/editField.php?field=title", 0);
         }
     }
   },
