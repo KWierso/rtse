@@ -724,26 +724,33 @@ var RTSE = {
                                  .createInstance(Components.interfaces.nsIScriptableUnicodeConverter);
       this.converter.charset = "UTF-8";
 
-      // Loading file
-      var file=Components.classes["@mozilla.org/file/directory_service;1"]
+      // Get the profile directory
+      var profD = Components.classes["@mozilla.org/file/directory_service;1"]
                          .getService(Components.interfaces.nsIProperties)
                          .get("ProfD", Components.interfaces.nsIFile);
+
+      // Loading smilies file
+      var file=profD.clone();
       file.append("rtse");
       file.append("smilies.xml");
+
       if (!file.exists()) {
         // Now we have to make the file
         const ID = "rtse-nightly@shawnwilsher.com"
-        var file = Components.classes["@mozilla.org/file/directory_service;1"]
-                             .getService(Components.interfaces.nsIProperties)
-                             .get("ProfD", Components.interfaces.nsIFile);
+        var file = profD.clone();
         file.append("rtse");
+
         if (!file.exists())
           file.create(Components.interfaces.nsIFile.DIRECTORY_TYPE, 0755);
 
-        var ext = Components.classes["@mozilla.org/extensions/manager;1"]
-                            .getService(Components.interfaces.nsIExtensionManager)
-                            .getInstallLocation(ID)
-                            .getItemLocation(ID);
+        // Doing this without using the extension manager to find the addon's 
+        // installLocation means that you can't be running RTSE from outside
+        // of your profile directory (for development work). If I can figure
+        // out how to use the new API's getResourceURL(), I might be able
+        // to get that working again in the future.
+        var ext = profD.clone();
+        ext.append("extensions");
+        ext.append(ID);
         ext.append("defaults");
         ext.append("smilies.xml");
         ext.copyTo(file, "smilies.xml");

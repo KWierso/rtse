@@ -14,13 +14,16 @@
   <body>
     <div id="rtse-changelog">
       <h1>&Changelog.title;</h1>
-      <h2>04-06-2010</h2>
+      <h2>04-30-2010</h2>
       <h3>Go to http://bugzilla.roosterteethsiteextender.com for more information on each bug.</h3>
       <h3>All changes are by KWierso unless otherwise specified.</h3>
       <ul>
         <li class="cLog">
-            Bug 22 - Context Menu Expansion: Edit Profile links.<br/>
-            - - Adds the ability to jump directly to the edit page for a particular part of your profile (name/location/etc) from the "Edit Profile" button on your RT homepage.
+            Bug 26 - Remove calls to extension manager in creating the smilies file on init<br/>
+            - - With the new extension manager's API landing on the trunk, we need to remove a few calls to the old API.<br/>
+            This patch changes the way the Smilies service is initialized so that it doesn't use the old API anymore. <br/><br/>
+            A side effect of this, though, is that you can't run RTSE from outside of the profile directory for dev work anymore.<br/>
+            I hope to fix this sometime in the future, though.
         </li>
       </ul>
     </div>
