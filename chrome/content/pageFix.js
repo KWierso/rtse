@@ -825,11 +825,15 @@ function RTSE_quotePost(aEvent)
       name=name.replace(new RegExp('\t','gmi'),'');
       name=name.replace(new RegExp('\n','gmi'),'');
 
-      num = this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode
+      try {
+        num = this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode
                     .getElementsByTagName('td')[0].getElementsByTagName('a')[0]
                     .firstChild.data;
-      num = num.replace(/#([0-9]+)/,'$1');
-      text = '[i]In reply to '+name+', #'+num+':[/i]\n\n';
+        num = num.replace(/#([0-9]+)/,'$1');
+        text = '[i]In reply to '+name+', #'+num+':[/i]\n\n';
+      } catch(e) {
+        text = '[i]In reply to '+name+':[/i]\n\n';
+      }
   }
   let ref = this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
   let post = RTSE_evaluateXPath(ref,'./tr[2]/td');
