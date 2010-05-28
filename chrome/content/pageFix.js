@@ -291,6 +291,8 @@ function RTSE_forumListBox(doc) {
   /* Now that we have the listBox all filled up... */
   let ref = doc.getElementById('headerImage');
 
+  ref.getElementsByTagName("div")[0].style.top = "27px";
+  ref.getElementsByTagName("div")[0].style.height = "120px";
   let cont = doc.createElement('div');
   listBox.setAttribute("style", "position:absolute;left:15px;top:5px;");
   listBox.setAttribute("align", "right");
