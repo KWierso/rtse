@@ -269,7 +269,7 @@ function RTSE_forumListBox(doc) {
   /* Adding redirector */
   listBox.addEventListener('mouseup', function(e) {
       if (this.options[this.selectedIndex].value != 'null') {
-        if (e.ctrlKey) {
+        if (e.altKey) {
           gBrowser.addTab(doc.domain + "/forum/forum.php?fid=" + this.options[this.selectedIndex].value);
         } else {
           doc.location = '/forum/forum.php?fid=' + this.options[this.selectedIndex].value;
@@ -279,7 +279,7 @@ function RTSE_forumListBox(doc) {
   listBox.addEventListener('keypress', function(e) {
       if(e.keyCode == 13) {
         if (this.options[this.selectedIndex].value != 'null') {
-          if(e.ctrlKey) {
+          if(e.altKey) {
             gBrowser.addTab(doc.domain + "/forum/forum.php?fid=" + this.options[this.selectedIndex].value);
           } else {
             doc.location = '/forum/forum.php?fid=' + this.options[this.selectedIndex].value;
@@ -615,7 +615,7 @@ function RTSE_samePageReply(aEvent)
     if( doc.URL.match("/members/journal/entry.php") == "/members/journal/entry.php" || 
         doc.URL.match("/blog/viewEntry.php") == "/blog/viewEntry.php" ||
         doc.URL.match("/forum/viewTopic.php") == "/forum/viewTopic.php" ) {
-      if(aEvent.ctrlKey) {
+      if(aEvent.altKey) {
         let uID;
         try {
           uID = this.parentNode.parentNode.parentNode.parentNode.parentNode
