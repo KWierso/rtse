@@ -1,12 +1,12 @@
 overlay	chrome://browser/content/browser.xul	chrome://rtse/content/browser.xul
-overlay	chrome://browser/content/browser.xul	chrome://rtse/content/editor/editor.xul appversion>=3.5
+overlay	chrome://browser/content/browser.xul	chrome://rtse/content/editor/editor.xul appversion<3.7
 overlay	chrome://browser/content/browser.xul	chrome://rtse/content/editor/editor37.xul appversion>=3.7
 overlay chrome://browser/content/browser.xul	chrome://rtse/content/editor/editor-overlay-mac.xul os=Darwin
 overlay chrome://browser/content/browser.xul	chrome://rtse/content/editor/editor-overlay-win.xul os=WINNT
-overlay chrome://browser/content/browser.xul	chrome://rtse/content/editor/editor-overlay-lin.xul os=Linux
+overlay chrome://browser/content/browser.xul	chrome://rtse/content/editor/editor-overlay-win.xul os=Linux
 override chrome://rtse/skin/editor-os.css chrome://rtse/skin/editor-mac.css os=Darwin
 override chrome://rtse/skin/editor-os.css chrome://rtse/skin/editor-win.css os=WINNT
 override chrome://rtse/skin/editor-os.css chrome://rtse/skin/editor-win.css os=Linux
-content	rtse	chrome/content/
-skin	rtse	classic/1.0	chrome/skin/
-locale	rtse	en-US chrome/locale/en-US/
+content	rtse	jar:chrome/rtse.jar!/content/
+skin	rtse	classic/1.0	jar:chrome/rtse.jar!/skin/
+locale	rtse	en-US jar:chrome/rtse.jar!/locale/en-US/
