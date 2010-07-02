@@ -24,7 +24,7 @@
  * ***** END LICENSE BLOCK ***** */
 #include "nsISupports.idl"
 
-[scriptable,uuid(c1c12ae5-f798-460d-aadd-2a43714e0079)]
+[scriptable,uuid(0960cf50-d196-11da-a94d-0800200c9a66)]
 interface nsIRTSE:nsISupports
 {
   attribute string version;
