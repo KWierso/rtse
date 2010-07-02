@@ -20,33 +20,32 @@
  * the Initial Developer. All Rights Reserved.
  *
  * Contributor(s):
+ * Wes Kocher
  *
  * ***** END LICENSE BLOCK ***** */
+ 
+Components.utils.import("resource://gre/modules/XPCOMUtils.jsm");
 
 /* constants */
 const Cc = Components.classes;
 const Ci = Components.interfaces;
-const nsIRTSE     = Components.interfaces.nsIRTSE;
-const nsISupports = Components.interfaces.nsISupports;
-const CLASS_ID    = Components.ID("{0960cf50-d196-11da-a94d-0800200c9a66}");
-const CLASS_NAME  = "Rooster Teeth Site Extender XPCOM Component";
-const CONTRACT_ID = "@shawnwilsher.com/rtse;1";
+const nsIRTSE     = Ci.nsIRTSE;
+const nsISupports = Ci.nsISupports;
 
-const nsIPrefService = Components.interfaces.nsIPrefService;
-const nsIPasswordManagerInternal = Components.interfaces
-                                             .nsIPasswordManagerInternal;
-const nsIXMLHttpRequest = Components.interfaces.nsIXMLHttpRequest;
-const nsIStyleSheetService = Components.interfaces.nsIStyleSheetService;
-const nsIIOService = Components.interfaces.nsIIOService;
+const nsIPrefService = Ci.nsIPrefService;
+const nsIPasswordManagerInternal = Ci.nsIPasswordManagerInternal;
+const nsIXMLHttpRequest = Ci.nsIXMLHttpRequest;
+const nsIStyleSheetService = Ci.nsIStyleSheetService;
+const nsIIOService = Ci.nsIIOService;
 
 /* class definition */
 function RTSE()
 // OVERVIEW: This is the constructor function
 {
   // Style Sheet Loading
-  var sss = Components.classes["@mozilla.org/content/style-sheet-service;1"]
+  var sss = Cc["@mozilla.org/content/style-sheet-service;1"]
                       .getService(nsIStyleSheetService);
-  var ios = Components.classes["@mozilla.org/network/io-service;1"]
+  var ios = Cc["@mozilla.org/network/io-service;1"]
                       .getService(nsIIOService);
   var uri = ios.newURI("chrome://rtse/content/styles.css", null, null);
   sss.loadAndRegisterSheet(uri, sss.USER_SHEET);
@@ -76,6 +75,11 @@ function RTSE()
 };
 RTSE.prototype =
 {
+  classDescription: "Rooster Teeth Site Extender XPCOM Component",
+  classID: Components.ID("{0960cf50-d196-11da-a94d-0800200c9a66}"),
+  contractID: "@shawnwilsher.com/rtse;1",
+  QueryInterface: XPCOMUtils.generateQI([Ci.nsIRTSE]),
+
   // OVERVIEW: This is the class definition.  Defines the functions
   //           that are exposed in the interface.
   mVersion: '1.2.0.20100320',
@@ -148,7 +152,7 @@ RTSE.prototype =
       name: null,
       branch: null
     };
-    prefs.branch = Components.classes["@mozilla.org/preferences-service;1"]
+    prefs.branch = Cc["@mozilla.org/preferences-service;1"]
                              .getService(nsIPrefService);
     var temp = aName.split('.');
     var root = '';
@@ -158,60 +162,16 @@ RTSE.prototype =
     prefs.branch = prefs.branch.getBranch(root);
     prefs.name   = temp[temp.length - 1];
     return prefs;
-  },
-
-  QueryInterface: function(aIID)
-  {
-    if( !aIID.equals(nsIRTSE) && !aIID.equals(nsISupports) )
-      throw Components.results.NS_ERROR_NO_INTERFACE;
-    return this;
   }
 };
 
-/* class factory (hey, I didn't name it) */
-var RTSEFactory = {
-  createInstance: function(aOuter,aIID)
-  {
-    if( aOuter!=null )
-      throw Components.results.NS_ERROR_NO_AGGREGATION;
-    return (new RTSE()).QueryInterface(aIID);
-  }
-};
+var components = [RTSE];
 
-/* module definition (xpcom registration) */
-var RTSEModule = {
-  _firstTime: true,
-  registerSelf: function(aCompMgr,aFileSpec,aLocation,aType)
-  {
-    aCompMgr=aCompMgr.QueryInterface(Components.interfaces.nsIComponentRegistrar);
-    aCompMgr.registerFactoryLocation(CLASS_ID,CLASS_NAME,CONTRACT_ID,aFileSpec,aLocation,aType);
-  },
-
-  unregisterSelf: function(aCompMgr,aLocation,aType)
-  {
-    aCompMgr=aCompMgr.QueryInterface(Components.interfaces.nsIComponentRegistrar);
-    aCompMgr.unregisterFactoryLocation(CLASS_ID,aLocation);        
-  },
-  
-  getClassObject: function(aCompMgr,aCID,aIID)
-  {
-    if (!aIID.equals(Components.interfaces.nsIFactory))
-      throw Components.results.NS_ERROR_NOT_IMPLEMENTED;
-
-    if (aCID.equals(CLASS_ID))
-      return RTSEFactory;
-
-    throw Components.results.NS_ERROR_NO_INTERFACE;
-  },
-
-  canUnload: function(aCompMgr)
-  {
-    return true;
-  }
-};
-
-/* module initialization */
-function NSGetModule(aCompMgr,aFileSpec)
-{
-  return RTSEModule;
-}
+/**
+* XPCOMUtils.generateNSGetFactory was introduced in Mozilla 2 (Firefox 4).
+* XPCOMUtils.generateNSGetModule is for Mozilla 1.9.2 (Firefox 3.6).
+*/
+if (XPCOMUtils.generateNSGetFactory)
+  var NSGetFactory = XPCOMUtils.generateNSGetFactory(components);
+else
+  var NSGetModule = XPCOMUtils.generateNSGetModule(components);

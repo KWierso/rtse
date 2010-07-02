@@ -20,15 +20,17 @@
  * the Initial Developer. All Rights Reserved.
  *
  * Contributor(s):
+ * Wes Kocher
  *
  * ***** END LICENSE BLOCK ***** */
+
+ Components.utils.import("resource://gre/modules/XPCOMUtils.jsm");
 
 /* constants */
 const nsISmilies  = Components.interfaces.nsISmilies;
 const nsISupports = Components.interfaces.nsISupports;
-const CLASS_ID    = Components.ID("{258adac0-d49a-11da-a94d-0800200c9a66}");
-const CLASS_NAME  = "Smilies Plugin";
-const CONTRACT_ID = "@shawnwilsher.com/smilies;1";
+
+Components.utils.import("resource://gre/modules/XPCOMUtils.jsm");
 
 /* class definition */
 function Smilies()
@@ -38,6 +40,11 @@ function Smilies()
 };
 Smilies.prototype =
 {
+  classDescription: "Smilies Plugin",
+  classID: Components.ID("{258adac0-d49a-11da-a94d-0800200c9a66}"),
+  contractID: "@shawnwilsher.com/smilies;1",
+  QueryInterface: XPCOMUtils.generateQI([nsISmilies]),
+
   // OVERVIEW: This is the class definition.  Defines the functions
   //           that are exposed in the interface.
   mNames: null,
@@ -248,60 +255,16 @@ Smilies.prototype =
       found.push(res);
     }
     return found;
-  },
-
-  QueryInterface: function(aIID)
-  {
-    if( !aIID.equals(nsISmilies) && !aIID.equals(nsISupports) )
-      throw Components.results.NS_ERROR_NO_INTERFACE;
-    return this;
   }
 };
 
-/* class factory (hey, I didn't name it) */
-var SmiliesFactory = {
-  createInstance: function(aOuter,aIID)
-  {
-    if( aOuter!=null )
-      throw Components.results.NS_ERROR_NO_AGGREGATION;
-    return (new Smilies()).QueryInterface(aIID);
-  }
-};
+var components = [Smilies];
 
-/* module definition (xpcom registration) */
-var SmiliesModule = {
-  _firstTime: true,
-  registerSelf: function(aCompMgr,aFileSpec,aLocation,aType)
-  {
-    aCompMgr=aCompMgr.QueryInterface(Components.interfaces.nsIComponentRegistrar);
-    aCompMgr.registerFactoryLocation(CLASS_ID,CLASS_NAME,CONTRACT_ID,aFileSpec,aLocation,aType);
-  },
-
-  unregisterSelf: function(aCompMgr,aLocation,aType)
-  {
-    aCompMgr=aCompMgr.QueryInterface(Components.interfaces.nsIComponentRegistrar);
-    aCompMgr.unregisterFactoryLocation(CLASS_ID,aLocation);        
-  },
-  
-  getClassObject: function(aCompMgr,aCID,aIID)
-  {
-    if (!aIID.equals(Components.interfaces.nsIFactory))
-      throw Components.results.NS_ERROR_NOT_IMPLEMENTED;
-
-    if (aCID.equals(CLASS_ID))
-      return SmiliesFactory;
-
-    throw Components.results.NS_ERROR_NO_INTERFACE;
-  },
-
-  canUnload: function(aCompMgr)
-  {
-    return true;
-  }
-};
-
-/* module initialization */
-function NSGetModule(aCompMgr,aFileSpec)
-{
-  return SmiliesModule;
-}
+/**
+* XPCOMUtils.generateNSGetFactory was introduced in Mozilla 2 (Firefox 4).
+* XPCOMUtils.generateNSGetModule is for Mozilla 1.9.2 (Firefox 3.6).
+*/
+if (XPCOMUtils.generateNSGetFactory)
+  var NSGetFactory = XPCOMUtils.generateNSGetFactory(components);
+else
+  var NSGetModule = XPCOMUtils.generateNSGetModule(components);
