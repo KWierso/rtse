@@ -325,17 +325,17 @@ function RTSE_addToUserInfo(doc) {
 
         // All potential items for inclusion, along with their preferences
         var newNames = new Array( userName.innerHTML, "Sign Out", "Groups", "Comments", "Log", 
-            "Journal", "Messages", "Images", "Videos", "My Stats", "Mod History", "Friend Journals", 
+            "Videos", "Journal", "Messages", "Images", "My Stats", "Mod History", "Friend Journals", 
             RTSE.sponsor ? "Sponsor" : "Become a Sponsor", "Settings");
         var newLinks = new Array( "/members/", "/members/signout.php", "/members/groups.php",
-            "/members/comments/", "/members/log.php", "/members/journal", 
-            "/members/messaging/", "/members/images/", "/members/videos/", "/members/stats/myStats.php", 
+            "/members/comments/", "/members/log.php", "/members/videos/", "/members/journal", 
+            "/members/messaging/", "/members/images/", "/members/stats/myStats.php", 
             "/members/modHistory.php?nc=1", "/members/journal/friendsJournals.php?nc=1", 
             "/sponsRedir.php", "/members/settings/");
         var checkPrefs = new Array( "extensions.rtse.link.user", "extensions.rtse.link.signOut", 
         "extensions.rtse.link.groups", "extensions.rtse.link.comments", "extensions.rtse.link.log", 
-        "extensions.rtse.link.journal", "extensions.rtse.link.messages", "extensions.rtse.link.images",
-        "extensions.rtse.link.videos", "extensions.rtse.link.myStats", "extensions.rtse.link.modHistory", 
+        "extensions.rtse.link.videos", "extensions.rtse.link.journal", "extensions.rtse.link.messages", 
+        "extensions.rtse.link.images", "extensions.rtse.link.myStats", "extensions.rtse.link.modHistory", 
         "extensions.rtse.link.friendJournals", "extensions.rtse.link.sponsor", "extensions.rtse.link.settings");
 
         // Initialize new element and some counters
