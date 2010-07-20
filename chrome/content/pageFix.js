@@ -89,11 +89,17 @@ function RTSE_pageJump(aDoc)
                         if(this.value >= 1 && this.value <= maxPage) {
                             // If everything's okay, jump to specified page.
                             let newURL;
-                            if(aDoc.URL.match("modHistory.php") == "modHistory.php" || aDoc.URL.match("top.php") == "top.php") {
+                            if(aDoc.URL.match("modHistory.php") == "modHistory.php" || 
+                               aDoc.URL.match("top.php") == "top.php" ||
+                               (aDoc.URL.match("journal") == "journal" && aDoc.URL.match("uid=") != "uid=") ) {
                                 if(aDoc.URL.match("modHistory.php") == "modHistory.php")
                                     newURL = "http://" + aDoc.domain + "/members/modHistory.php?nc=1&page=" + this.value;
-                                else
+                                if(aDoc.URL.match("top.php") == "top.php")
                                     newURL = "http://" + aDoc.domain + "/forum/top.php?page=" + this.value;
+                                if(aDoc.URL.match("journal") == "journal" && aDoc.URL.match("uid=") != "uid=") {
+                                // We only want the current user's journal pages, not everyone's
+                                    newURL = "http://" + aDoc.domain + "/members/journal/?page=" + this.value;
+                                }
                             }
                             else
                                 newURL = aDoc.URL.split("#")[0].split("&page=")[0] + "&page=" + this.value;
@@ -116,11 +122,17 @@ function RTSE_pageJump(aDoc)
                     if(this.value >= 1 && this.value <= maxPage) {
                         // If everything's okay, jump to specified page.
                         let newURL;
-                        if(aDoc.URL.match("modHistory.php") == "modHistory.php" || aDoc.URL.match("top.php") == "top.php") {
+                        if(aDoc.URL.match("modHistory.php") == "modHistory.php" || 
+                           aDoc.URL.match("top.php") == "top.php" ||
+                           (aDoc.URL.match("journal") == "journal" && aDoc.URL.match("uid=") != "uid=") ) {
                             if(aDoc.URL.match("modHistory.php") == "modHistory.php")
                                 newURL = "http://" + aDoc.domain + "/members/modHistory.php?nc=1&page=" + this.value;
-                            else
+                            if(aDoc.URL.match("top.php") == "top.php")
                                 newURL = "http://" + aDoc.domain + "/forum/top.php?page=" + this.value;
+                            if(aDoc.URL.match("journal") == "journal" && aDoc.URL.match("uid=") != "uid=") {
+                            // We only want the current user's journal pages, not everyone's
+                                newURL = "http://" + aDoc.domain + "/members/journal/?page=" + this.value;
+                            }
                         }
                         else
                             newURL = aDoc.URL.split("#")[0].split("&page=")[0] + "&page=" + this.value;
