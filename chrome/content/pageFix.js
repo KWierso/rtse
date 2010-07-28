@@ -1262,19 +1262,21 @@ function RTSE_hideHomepageElements(aDoc) {
     } catch(e) { /* Eat any errors that occur */ }
     
     try {
-        let liteEl = aDoc.getElementsByClassName("lite").item(0);
-        liteEl.removeAttribute("href");
+        let statsHead = aDoc.getElementsByClassName("hlines").item(0).getElementsByTagName("b")[0];
+        let holder = aDoc.createElement("a");
+        statsHead.parentNode.appendChild(holder);
+        holder.appendChild(statsHead);
 
         if(gRTSE.prefsGetBool("extensions.rtse.homepage.13")) {
-            liteEl.parentNode.parentNode.parentNode.parentNode.className = "hlines shown";
+            holder.parentNode.parentNode.parentNode.parentNode.className = "hlines shown";
         } else {
-            liteEl.setAttribute("hidden", "true");
+            holder.setAttribute("hidden", "true");
         }
 
-        liteEl.setAttribute("name", "breakdown");
-        liteEl.setAttribute("number", "13");
+        holder.setAttribute("name", "breakdown");
+        holder.setAttribute("number", "13");
 
-        liteEl.addEventListener("click", RTSE_toggleHomepageElement, false);
+        holder.addEventListener("click", RTSE_toggleHomepageElement, false);
     } catch(e) {
         alert(e);
     }
