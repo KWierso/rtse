@@ -14,14 +14,21 @@
   <body>
     <div id="rtse-changelog">
       <h1>&Changelog.title;</h1>
-      <h2>07-16-2010</h2>
+      <h2>07-28-2010</h2>
       <h3>Go to http://bugzilla.roosterteethsiteextender.com for more information on each bug.</h3>
       <h3>All changes are by KWierso unless otherwise specified.</h3>
       <ul>
         <li class="cLog">
-            Bug 37 - Page jump broken on user's own journal pages.<br/>
-            - - The page jump box doesn't work correctly on a user's own
-            journal pages. This update should fix it.
+            Bug 38 - Remove useragent tweak from RTSE.<br/>
+            - - Firefox is going to remove the ability to easily modify the useragent string.
+            That'll either break RTSE (because we tweak the UA string), or it's just useless 
+            code (because it won't work). Either way, we should just not try to tweak the UA.
+        </li>
+        <li class="cLog">
+            Bug 39 - Mod breakdown's have disappeared. <br/>
+            - - The site is no longer displaying the mod breakdown stuff on profiles and homepages,
+            due to performance issues. With that missing, RTSE's hide homepage elements feature is 
+            broken. This update changes the function to register a different element for handling the click.
         </li>
       </ul>
     </div>
