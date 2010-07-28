@@ -1,4 +1,3 @@
-pref("general.useragent.extra.rtse","RTSE/1.2.0.20100210");
 pref("extensions.rtse.editor",true);
 pref("extensions.rtse.firstInstall",true);
 pref("extensions.rtse.talkback",false);

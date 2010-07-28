@@ -67,11 +67,6 @@ function RTSE()
     sss.loadAndRegisterSheet(uriHome, sss.USER_SHEET);
   if(this.prefsGetBool("extensions.rtse.watchlistcolor"))
     sss.loadAndRegisterSheet(uriWatch, sss.USER_SHEET);
-
-  // Version
-  const UA_STRING = "RTSE/" + this.version;
-  if (this.prefsGetString("general.useragent.extra.rtse") != UA_STRING)
-    this.prefsSetString("general.useragent.extra.rtse", UA_STRING);
 };
 RTSE.prototype =
 {
@@ -82,7 +77,7 @@ RTSE.prototype =
 
   // OVERVIEW: This is the class definition.  Defines the functions
   //           that are exposed in the interface.
-  mVersion: '1.2.0.20100320',
+  mVersion: '1.2.0.20100727',
   mLoginSent: false,
 
   get version()
