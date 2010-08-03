@@ -1139,7 +1139,7 @@ function RTSE_hideHomepageElements(aDoc) {
                 }
             } else {
                 button.innerHTML = "Show";
-                button.setAttribute("hidden", "true");
+                button.setAttribute("rtsehidden", "true");
             }
             button.className = "small title";
 
@@ -1187,7 +1187,7 @@ function RTSE_hideHomepageElements(aDoc) {
             taggedImages.getElementsByTagName("table")[0].className = "shown";
         } else {
             button.innerHTML = "Show";
-            button.setAttribute("hidden", "true");
+            button.setAttribute("rtsehidden", "true");
         }
         button.className = "small title";
         button.setAttribute("name", "tagged");
@@ -1217,7 +1217,7 @@ function RTSE_hideHomepageElements(aDoc) {
             avatarCard.getElementsByTagName("iframe")[0].className = "shown";
         } else {
             button.innerHTML = "Show Gamercard";
-            button.setAttribute("hidden", "true");
+            button.setAttribute("rtsehidden", "true");
         }
 
         button.className = "small title";
@@ -1249,7 +1249,7 @@ function RTSE_hideHomepageElements(aDoc) {
                          .getElementsByTagName("a")[0].className = "body shown";
         } else {
             button.innerHTML = "Show";
-            button.setAttribute("hidden", "true");
+            button.setAttribute("rtsehidden", "true");
         }
 
         button.className = "small title";
@@ -1270,7 +1270,7 @@ function RTSE_hideHomepageElements(aDoc) {
         if(gRTSE.prefsGetBool("extensions.rtse.homepage.13")) {
             holder.parentNode.parentNode.parentNode.parentNode.className = "hlines shown";
         } else {
-            holder.setAttribute("hidden", "true");
+            holder.setAttribute("rtsehidden", "true");
         }
 
         holder.setAttribute("name", "breakdown");
@@ -1293,69 +1293,69 @@ function RTSE_toggleHomepageElement() {
 
     // XXX This should really probably be a switch block with a default...
     if(elID != "tagged" && elID != "avatar" && elID != "images" && elID != "breakdown") {
-        if(this.hasAttribute("hidden")) {
+        if(this.hasAttribute("rtsehidden")) {
             doc.getElementById(elID).className = "shown";
             this.innerHTML = "Hide";
-            this.removeAttribute("hidden");
+            this.removeAttribute("rtsehidden");
             gRTSE.prefsSetBool(pref, true);
         } else {
             doc.getElementById(elID).className = "";
             this.innerHTML = "Show";
-            this.setAttribute("hidden", "true");
+            this.setAttribute("rtsehidden", "true");
             gRTSE.prefsSetBool(pref, false);
         }
     } else {
         if(elID == "tagged") {
-            if(this.hasAttribute("hidden")) {
+            if(this.hasAttribute("rtsehidden")) {
                 this.parentNode.getElementsByTagName("table")[0].className = "shown";
                 this.innerHTML = "Hide";
-                this.removeAttribute("hidden");
+                this.removeAttribute("rtsehidden");
                 gRTSE.prefsSetBool(pref, true);
             } else {
                 this.parentNode.getElementsByTagName("table")[0].className = "";
                 this.innerHTML = "Show";
-                this.setAttribute("hidden", "true");
+                this.setAttribute("rtsehidden", "true");
                 gRTSE.prefsSetBool(pref, false);
             }
         }
         if(elID == "avatar") {
-            if(this.hasAttribute("hidden")) {
+            if(this.hasAttribute("rtsehidden")) {
                 this.parentNode.getElementsByTagName("a")[1].className = "shown";
                 this.parentNode.getElementsByTagName("iframe")[0].className = "shown";
                 this.innerHTML = "Hide Gamercard";
-                this.removeAttribute("hidden");
+                this.removeAttribute("rtsehidden");
                 gRTSE.prefsSetBool(pref, true);
             } else {
                 this.parentNode.getElementsByTagName("a")[1].className = "";
                 this.parentNode.getElementsByTagName("iframe")[0].className = "";
                 this.innerHTML = "Show Gamercard";
-                this.setAttribute("hidden", "true");
+                this.setAttribute("rtsehidden", "true");
                 gRTSE.prefsSetBool(pref, false);
             }
         }
         if(elID == "images") {
-            if(this.hasAttribute("hidden")) {
+            if(this.hasAttribute("rtsehidden")) {
                 this.parentNode.parentNode.parentNode.getElementsByTagName("tr")[0]
                                .getElementsByTagName("a")[0].className = "body shown";
                 this.innerHTML = "Hide";
-                this.removeAttribute("hidden");
+                this.removeAttribute("rtsehidden");
                 gRTSE.prefsSetBool(pref, true);
             } else {
                 this.parentNode.parentNode.parentNode.getElementsByTagName("tr")[0]
                                .getElementsByTagName("a")[0].className = "body";
                 this.innerHTML = "Show";
-                this.setAttribute("hidden", "true");
+                this.setAttribute("rtsehidden", "true");
                 gRTSE.prefsSetBool(pref, false);
             }
         }
         if(elID == "breakdown") {
-            if(this.hasAttribute("hidden")) {
+            if(this.hasAttribute("rtsehidden")) {
                 this.parentNode.parentNode.parentNode.parentNode.className = "hlines shown";
-                this.removeAttribute("hidden");
+                this.removeAttribute("rtsehidden");
                 gRTSE.prefsSetBool(pref, true);
             } else {
                 this.parentNode.parentNode.parentNode.parentNode.className = "hlines";
-                this.setAttribute("hidden", "true");
+                this.setAttribute("rtsehidden", "true");
                 gRTSE.prefsSetBool(pref, false);
             }
         }
