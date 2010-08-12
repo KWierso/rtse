@@ -12,7 +12,7 @@
     cursor:pointer;
   }
   
-  #barLight img[src="http://images.roosterteeth.com/assets/style/flashy/bits/navArrow.png"]  {
+  #barLight .navbutton img  {
     display: none;
   }
 }
