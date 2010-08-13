@@ -12,7 +12,7 @@
     cursor:pointer;
   }
   
-  #barLight .navbutton img  {
+  #barLight .navbutton img:not(#barLogo)  {
     display: none;
   }
 }
