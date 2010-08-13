@@ -15,4 +15,14 @@
   #barLight .navbutton img:not(#barLogo)  {
     display: none;
   }
+
+  td[class="content topContent"] > table > div[align="center"] > div#Watching > table {
+    background: none !important;
+    border: 0 none !important;
+  }
+
+  div#Forum > table > tbody > tr > td > table > tbody > tr > td[colspan="2"] > table[class="border boxBorder"] {
+    background: none !important;
+    border: 0 none !important;
+  }
 }
