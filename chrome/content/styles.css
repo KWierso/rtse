@@ -16,7 +16,7 @@
     display: none;
   }
 
-  td[class="content topContent"] > table > div[align="center"] > div#Watching > table {
+  td[class="content topContent"] div[align="center"] > div#Watching > table {
     background: none !important;
     border: 0 none !important;
   }
