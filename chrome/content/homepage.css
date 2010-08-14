@@ -42,7 +42,8 @@
         display: none !important;
     }
     /* Tagged */
-    table.border > tbody > tr > td[style="padding: 10px;"] > table:not(.shown)  {
+    table > tbody > tr > td[width="250"] > table[width="100%"] > tbody > tr > td > 
+      table.border > tbody > tr > td > a + a + b + br + table[width="100%"]:not(.shown)  {
         display: none !important;
     }
     /* Avatar */
