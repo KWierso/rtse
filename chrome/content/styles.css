@@ -21,7 +21,8 @@
     border: 0 none !important;
   }
 
-  div#Forum > table > tbody > tr > td > table > tbody > tr > td[colspan="2"] > table[class="border boxBorder"] {
+  div#Forum > table > tbody > tr > td > table > tbody > tr > td[colspan="2"] > table[class="border boxBorder"], 
+  div[id="Group Forum"] > table > tbody > tr > td > table > tbody > tr > td[colspan="2"] > table[class="border boxBorder"]{
     background: none !important;
     border: 0 none !important;
   }
