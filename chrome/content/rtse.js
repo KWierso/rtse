@@ -109,6 +109,11 @@ var RTSE = {
         // Fix Links
         RTSE_linkFix(doc);
 
+        // Fix Go to Parent link for Video Mod History items
+        if(rtURL.match("members/modHistoryView.php") + "?" + rtURL.match("a=videoLinks") == 
+                       "members/modHistoryView.php?a=videoLinks")
+            RTSE_fixGoToParent(doc)
+
         /* Forum Quick Jump */
         RTSE_forumListBox(doc);
 

@@ -1555,3 +1555,15 @@ function RTSE_openContextItem(name, link, type) {
         // XXX Do something like log the error here XXX
     }
 }
+
+// Fix the "Go to Parent" links for videos in mod history
+function RTSE_fixGoToParent(aDoc) {
+    let id = aDoc.URL.split("i=")[1];
+    let links = aDoc.getElementById("pageContent").getElementsByTagName("b");
+
+    for(let i in links) {
+        if(links[i].innerHTML == "Go to Parent") {
+            links[i].parentNode.href = "/members/videos/video.php?id=" + id;
+        }
+    }
+}
