@@ -437,7 +437,7 @@ function RTSE_addExtraTab(aDoc) {
   if(gRTSE.prefsGetBool("extensions.rtse.extras.tab")) {
     // Let's not break the entire add-on if something didn't validate correctly.
     try {
-        let texts = gRTSE.prefsGetString("extensions.rtse.extras.tabText0") + "," + 
+        let texts = gRTSE.prefsGetString("extensions.rtse.extras.tabText0") + "&nbsp;," + 
                     gRTSE.prefsGetString("extensions.rtse.extras.tabText1") + "," +
                     gRTSE.prefsGetString("extensions.rtse.extras.tabText2") + "," +
                     gRTSE.prefsGetString("extensions.rtse.extras.tabText3") + ",";
