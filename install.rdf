@@ -6,7 +6,7 @@
     <em:id>rtse-nightly@shawnwilsher.com</em:id>
     <em:version>1.2.0a1</em:version>
     <em:type>2</em:type>
-    <em:unpack>true<em:unpack>
+    <em:unpack>true</em:unpack>
 
     <!-- Firefox --> 
     <em:targetApplication>
