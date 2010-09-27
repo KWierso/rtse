@@ -40,12 +40,19 @@ RTSE.editor =
   init: function init()
   {
     var elm = document.getElementById("rtse-statusbar-editor");
+    if(!elm) {
+      elm = document.getElementById("rtse-addonbar-editor");
+    }
     var click = function toggle() {
       let pane = RTSE.editor.editorElement;
-      if (pane.state == "closed")
+      if (pane.state == "closed") {
         RTSE.editor.ensureEditorIsVisible();
-      else
+        this.setAttribute("closed", "false");
+      }
+      else {
         RTSE.editor.ensureEditorIsHidden();
+        this.setAttribute("closed", "true");
+      }
     };
     elm.addEventListener("click", click, false);
 
@@ -252,7 +259,10 @@ RTSE.editor =
       if ( gRTSE.prefsGetBool("extensions.rtse.editor") &&
            RTSE_findOnDomain(doc.domain) )
         show = RTSE.editor.replaceableElements(doc);
-    document.getElementById("rtse-statusbar-editor").hidden = !show;
+    if(document.getElementById("rtse-statusbar-editor"))
+      document.getElementById("rtse-statusbar-editor").hidden = !show;
+    if(document.getElementById("rtse-addonbar-editor"))
+      document.getElementById("rtse-addonbar-editor").hidden = !show;
   },
 
   /**
@@ -431,7 +441,7 @@ RTSE.editor =
     }
 
     pane.hidden = false;
-    pane.openPopup(document.getElementById("rtse-statusbar-editor"),
+    pane.openPopup(document.getElementById("browser-bottombox"),
                    "before_start", 0, 0, false, false);
 
     /*

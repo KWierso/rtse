@@ -1,4 +1,5 @@
-overlay	chrome://browser/content/browser.xul	chrome://rtse/content/browser.xul
+overlay	chrome://browser/content/browser.xul	chrome://rtse/content/browser.xul appversion<=4.0b6
+overlay	chrome://browser/content/browser.xul	chrome://rtse/content/browser40.xul appversion>4.0b6
 overlay	chrome://browser/content/browser.xul	chrome://rtse/content/editor/editor.xul appversion<3.7
 overlay	chrome://browser/content/browser.xul	chrome://rtse/content/editor/editor37.xul appversion>=3.7
 overlay chrome://browser/content/browser.xul	chrome://rtse/content/editor/editor-overlay-mac.xul os=Darwin
