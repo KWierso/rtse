@@ -999,6 +999,9 @@ RTSE.editor =
     // BB Code
     aText = aText.replace(/\[quote=([a-zA-Z0-9_]{4,12})\]([\s\S]+)\[\/quote\]/g,'[b]Quoting $1:[/b][quote]$2[/quote]');
 
+/*
+ The site handles uppercase BBCode tags now, and this causes some issues in recent Minefield builds 
+ (see http://bugzilla.roosterteethsiteextender.com/show_bug.cgi?id=50)
     // Protecting users from themselves
     aText = aText.replace(/\[(\/)?B\]/g, "[$1b]");
     aText = aText.replace(/\[(\/)?I\]/g, "[$1i]");
@@ -1008,7 +1011,7 @@ RTSE.editor =
     aText = aText.replace(/\[(\/)?QUOTE\]/g, "[$1quote]");
     aText = aText.replace(/\[\/LINK\]/g, "[/link]");
     aText = aText.replace(/\[LINK=(.*?)\]/g, "[link=$1]");
-
+*/
     return aText;
   },
 

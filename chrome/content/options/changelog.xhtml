@@ -14,14 +14,18 @@
   <body>
     <div id="rtse-changelog">
       <h1>&Changelog.title;</h1>
-      <h2>10-19-2010</h2>
+      <h2>10-21-2010</h2>
       <h3>Go to http://bugzilla.roosterteethsiteextender.com for more information on each bug.</h3>
       <h3>All changes are by KWierso unless otherwise specified.</h3>
       <ul>
         <li class="cLog">
-            Bug 49 - addtouserinfo doesn't see that a user is signed out <br/>
-            Links were being added to the userInfo section of the page, even when the user was signed out.
-            That's fixed now.
+            Bug 50 - ATE breaking posts with [IMG] tags <br/>
+            In recent Minefield (Firefox 4) builds, the ATE started handling strings of text
+            differently, making some regular expression operations destroy post contents
+            if the post had BBCode tags in uppercase letters. <br/>
+            The good news is that those operations haven't been needed for at least a year, now,
+            as the site itself can handle those uppercase tags just fine. This update removes 
+            those operations, fixing the problem.
         </li>
       </ul>
     </div>
