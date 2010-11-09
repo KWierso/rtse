@@ -944,7 +944,7 @@ function RTSE_deconvertExtraBB(aDoc)
   if (!body) return;
 
   // Smilies
-  if (gRTSE.prefsGetBool('extensions.rtse.editor')) {
+  if (gRTSE.prefsGetBool('extensions.rtse.editor') && gRTSE.prefsGetBool('extensions.rtse.smilies')) {
     body.value = RTSE.smilies.deconvert(body.value);
   }
 

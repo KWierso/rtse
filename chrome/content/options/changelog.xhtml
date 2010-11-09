@@ -19,13 +19,10 @@
       <h3>All changes are by KWierso unless otherwise specified.</h3>
       <ul>
         <li class="cLog">
-            Bug 50 - ATE breaking posts with [IMG] tags <br/>
-            In recent Minefield (Firefox 4) builds, the ATE started handling strings of text
-            differently, making some regular expression operations destroy post contents
-            if the post had BBCode tags in uppercase letters. <br/>
-            The good news is that those operations haven't been needed for at least a year, now,
-            as the site itself can handle those uppercase tags just fine. This update removes 
-            those operations, fixing the problem.
+            Bug 51 - RTSE smilies get used if RTSE smilies are disabled in preferences (lulwut) <br/>
+            Disabling RTSE's smilies from the preference window only hides them in the ATE,
+            while still converting post contents into the RTSE smiley images on post submission.
+            This update fixes that.
         </li>
       </ul>
     </div>

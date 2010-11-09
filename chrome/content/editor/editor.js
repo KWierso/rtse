@@ -991,7 +991,7 @@ RTSE.editor =
   convertExtraBB: function convertExtraBB(aText)
   {
     // Smilies
-    if (gRTSE.prefsGetBool('extensions.rtse.editor')) {
+    if (gRTSE.prefsGetBool('extensions.rtse.editor') && gRTSE.prefsGetBool('extensions.rtse.smilies')) {
       var checkbox = document.getElementById("rtse-editor-convertSmilies");
       if (checkbox.checked) aText = RTSE.smilies.convert(aText);
     }
