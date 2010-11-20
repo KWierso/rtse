@@ -72,7 +72,6 @@
 
 <!ENTITY ForumJump.special "Special">
 <!ENTITY ForumJump.sponsor "You know you're cool.">
-<!ENTITY ForumJump.delta "Please post all your finds, problems, requests etc. here for the new website."> 
 <!ENTITY ForumJump.lvl20 "If you've got more karma than you know what to do with.">
 <!ENTITY ForumJump.lvl50 "You need to go outside, but considering your karma level, it's probably not an option.">
 <!ENTITY ForumJump.18andup "The place to get down and dirty.">
@@ -80,17 +79,14 @@
 <!ENTITY ForumJump.general "General Forums">
 <!ENTITY ForumJump.firststop "Don't be a moronic noob. Come here first. Then go be a moron.">
 <!ENTITY ForumJump.generaldiscussion "The main forum for topics on everything. Bear in mind, the universe is finite.">
-<!ENTITY ForumJump.website "For info and questions about the website.">
+<!ENTITY ForumJump.website "For anything to do with the site or our iPhone app.">
 <!ENTITY ForumJump.rtevents "This is where you talk about how much you like us and want to meet us.">
-<!ENTITY ForumJump.rtlive "If you've got a problem with RT Live, come in here.">
 
 <!ENTITY ForumJump.projects "Project Forums">
-<!ENTITY ForumJump.roosterteeth "The main Rooster Teeth forum.">
-<!ENTITY ForumJump.achievementhunter "Helping you get those achievements, one game at a time."> 
+<!ENTITY ForumJump.roosterteeth "Our live action projects including RT Shorts.">
 <!ENTITY ForumJump.redvsblue "It's just one big RvB love fest in here.">
-<!ENTITY ForumJump.stangerhood "Rooster Teeth's Sims 2 project.">
-<!ENTITY ForumJump.panics "People Acting Normal in Crazy ass Situations.">
-<!ENTITY ForumJump.magic "Who you gonna call?">
+<!ENTITY ForumJump.drunktank "The RT crew discuss gaming, films and projects that they are currently working on.">
+<!ENTITY ForumJump.achievementhunter "Helping you get those achievements, one game at a time.">
 
 <!ENTITY ForumJump.gaming "Gaming">
 <!ENTITY ForumJump.generalgaming "Non platform specific cultural jibberjabber">
@@ -98,11 +94,7 @@
 <!ENTITY ForumJump.pcgaming "You should be using your computer for better things.">
 <!ENTITY ForumJump.halo "Yes, it has its own forum.">
 <!ENTITY ForumJump.grifball "If you see something orange, hit it really hard.">
-<!ENTITY ForumJump.thesims "Even if you don't have a real life, you can still have a virtual life in these games.">
-<!ENTITY ForumJump.xbox "Like a PC, only way heavier.">
 <!ENTITY ForumJump.xbox360 "Come in here and pretend like you have one.">
-<!ENTITY ForumJump.playstation "It plays things while remaining stationary.">
-<!ENTITY ForumJump.gamecube "Just like your mom's purse.">
 <!ENTITY ForumJump.classic "Because handhelds play classic games. Get it?">
 <!ENTITY ForumJump.boardgames "Because electricity is for n00bs.">
 <!ENTITY ForumJump.playstation3 "Quit lying, everybody knows you don't really have one.">
@@ -128,3 +120,13 @@
 <!ENTITY ForumJump.bottom "Rock Bottom">
 <!ENTITY ForumJump.forumgames "Not a Gaming Forum but a forum for games">
 <!ENTITY ForumJump.basement "If you get offended by words on a monitor, you should stay out of here.">
+
+<!ENTITY ForumJump.oldies "Oldies">
+<!ENTITY ForumJump.rtlive "If you've got a problem with RT Live, come in here.">
+<!ENTITY ForumJump.magic "Who you gonna call?">
+<!ENTITY ForumJump.panics "People Acting Normal in Crazy ass Situations.">
+<!ENTITY ForumJump.strangerhood "Rooster Teeth's Sims 2 project.">
+<!ENTITY ForumJump.xbox "Like a PC, only way heavier.">
+<!ENTITY ForumJump.gamecube "Just like your mom's purse.">
+<!ENTITY ForumJump.playstation "It plays things while remaining stationary.">
+<!ENTITY ForumJump.thesims "Even if you don't have a real life, you can still have a virtual life in these games.">

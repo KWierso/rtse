@@ -67,7 +67,6 @@ pref("extensions.rtse.link.star",true);
 pref("extensions.rtse.link.avatar",true);
 
 pref("extensions.rtse.forum.101",true);
-pref("extensions.rtse.forum.109",true);
 pref("extensions.rtse.forum.103",true);
 pref("extensions.rtse.forum.106",true);
 pref("extensions.rtse.forum.104",true);
@@ -76,25 +75,18 @@ pref("extensions.rtse.forum.1",true);
 pref("extensions.rtse.forum.37",true);
 pref("extensions.rtse.forum.8",true);
 pref("extensions.rtse.forum.34",true);
-pref("extensions.rtse.forum.42",true);
 
 pref("extensions.rtse.forum.9",true);
-pref("extensions.rtse.forum.39",true); 
 pref("extensions.rtse.forum.2",true);
-pref("extensions.rtse.forum.10",true);
-pref("extensions.rtse.forum.30",true);
-pref("extensions.rtse.forum.35",true);
+pref("extensions.rtse.forum.43",true);
+pref("extensions.rtse.forum.39",true);
 
 pref("extensions.rtse.forum.3",true);
 pref("extensions.rtse.forum.41",true);
 pref("extensions.rtse.forum.18",true);
 pref("extensions.rtse.forum.19",true);
 pref("extensions.rtse.forum.36",true);
-pref("extensions.rtse.forum.26",true);
-pref("extensions.rtse.forum.20",true);
 pref("extensions.rtse.forum.31",true);
-pref("extensions.rtse.forum.21",true);
-pref("extensions.rtse.forum.22",true);
 pref("extensions.rtse.forum.23",true);
 pref("extensions.rtse.forum.24",true);
 pref("extensions.rtse.forum.32",true);
@@ -117,4 +109,11 @@ pref("extensions.rtse.forum.17",true);
 
 pref("extensions.rtse.forum.27",true);
 pref("extensions.rtse.forum.7",true);
+
+pref("extensions.rtse.forum.42",true);
+pref("extensions.rtse.forum.35",true);
+pref("extensions.rtse.forum.30",true);
+pref("extensions.rtse.forum.10",true);
+pref("extensions.rtse.forum.20",true);
+pref("extensions.rtse.forum.22",true);
 pref("extensions.rtse.forum",true);

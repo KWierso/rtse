@@ -279,9 +279,6 @@
       <preference id="pref_forum101"
                   name="extensions.rtse.forum.101"
                   type="bool"/>
-      <preference id="pref_forum109" 
-                  name="extensions.rtse.forum.109" 
-                  type="bool"/>
       <preference id="pref_forum103"
                   name="extensions.rtse.forum.103"
                   type="bool"/>
@@ -304,27 +301,18 @@
       <preference id="pref_forum34"
                   name="extensions.rtse.forum.34"
                   type="bool"/>
-      <preference id="pref_forum42"
-                  name="extensions.rtse.forum.42"
-                  type="bool"/>
 
       <preference id="pref_forum9"
                   name="extensions.rtse.forum.9"
                   type="bool"/>
-      <preference id="pref_forum39" 
-                  name="extensions.rtse.forum.39" 
-                  type="bool"/> 
       <preference id="pref_forum2"
                   name="extensions.rtse.forum.2"
                   type="bool"/>
-      <preference id="pref_forum10"
-                  name="extensions.rtse.forum.10"
+      <preference id="pref_forum43"
+                  name="extensions.rtse.forum.43"
                   type="bool"/>
-      <preference id="pref_forum30"
-                  name="extensions.rtse.forum.30"
-                  type="bool"/>
-      <preference id="pref_forum35"
-                  name="extensions.rtse.forum.35"
+      <preference id="pref_forum39"
+                  name="extensions.rtse.forum.39"
                   type="bool"/>
 
       <preference id="pref_forum3"
@@ -342,20 +330,8 @@
       <preference id="pref_forum36"
                   name="extensions.rtse.forum.36"
                   type="bool"/>
-      <preference id="pref_forum26"
-                  name="extensions.rtse.forum.26"
-                  type="bool"/>
-      <preference id="pref_forum20"
-                  name="extensions.rtse.forum.20"
-                  type="bool"/>
       <preference id="pref_forum31"
                   name="extensions.rtse.forum.31"
-                  type="bool"/>
-      <preference id="pref_forum21"
-                  name="extensions.rtse.forum.21"
-                  type="bool"/>
-      <preference id="pref_forum22"
-                  name="extensions.rtse.forum.22"
                   type="bool"/>
       <preference id="pref_forum23"
                   name="extensions.rtse.forum.23"
@@ -402,8 +378,8 @@
                   name="extensions.rtse.forum.14"
                   type="bool"/>
       <preference id="pref_forum38" 
-          name="extensions.rtse.forum.38" 
-          type="bool"/> 
+                  name="extensions.rtse.forum.38" 
+                  type="bool"/> 
       <preference id="pref_forum11"
                   name="extensions.rtse.forum.11"
                   type="bool"/>
@@ -417,6 +393,32 @@
       <preference id="pref_forum7"
                   name="extensions.rtse.forum.7"
                   type="bool"/>
+
+      <preference id="pref_forum42"
+                  name="extensions.rtse.forum.42"
+                  type="bool"/>
+      <preference id="pref_forum35"
+                  name="extensions.rtse.forum.35"
+                  type="bool"/>
+      <preference id="pref_forum30"
+                  name="extensions.rtse.forum.30"
+                  type="bool"/>
+      <preference id="pref_forum10"
+                  name="extensions.rtse.forum.10"
+                  type="bool"/>
+      <preference id="pref_forum20"
+                  name="extensions.rtse.forum.20"
+                  type="bool"/>
+      <preference id="pref_forum22"
+                  name="extensions.rtse.forum.22"
+                  type="bool"/>
+      <preference id="pref_forum21"
+                  name="extensions.rtse.forum.21"
+                  type="bool"/>
+      <preference id="pref_forum26"
+                  name="extensions.rtse.forum.26"
+                  type="bool"/>
+
       <preference id="pref_forum"
                   name="extensions.rtse.forum"
                   type="bool"/>
@@ -442,10 +444,6 @@
           <checkbox id="forum101" preference="pref_forum101"/>
           <description>&ForumJump.sponsor;</description>
         </richlistitem>
-        <richlistitem orient="vertical">
-          <checkbox id="forum109" preference="pref_forum109"/> 
-          <description>&ForumJump.delta;</description> 
-        </richlistitem> 
         <richlistitem orient="vertical"> 
           <checkbox id="forum103" preference="pref_forum103"/>
           <description>&ForumJump.lvl20;</description>
@@ -476,10 +474,6 @@
           <checkbox id="forum34" preference="pref_forum34"/>
           <description>&ForumJump.rtevents;</description>
         </richlistitem>
-        <richlistitem orient="vertical">
-          <checkbox id="forum42" preference="pref_forum42"/>
-          <description>&ForumJump.rtlive;</description>
-        </richlistitem>
 
         <richlistitem><label value="&ForumJump.projects;" style="font-weight:bold;"/></richlistitem>
         <richlistitem orient="vertical">
@@ -487,24 +481,16 @@
           <description>&ForumJump.roosterteeth;</description>
         </richlistitem>
         <richlistitem orient="vertical">
-          <checkbox id="forum39" preference="pref_forum39"/> 
-          <description>&ForumJump.achievementhunter;</description> 
-        </richlistitem> 
-        <richlistitem orient="vertical">
           <checkbox id="forum2" preference="pref_forum2"/>
           <description>&ForumJump.redvsblue;</description>
         </richlistitem>
         <richlistitem orient="vertical">
-          <checkbox id="forum10" preference="pref_forum10"/>
-          <description>&ForumJump.stangerhood;</description>
+          <checkbox id="forum43" preference="pref_forum43"/>
+          <description>&ForumJump.drunktank;</description>
         </richlistitem>
         <richlistitem orient="vertical">
-          <checkbox id="forum30" preference="pref_forum30"/>
-          <description>&ForumJump.panics;</description>
-        </richlistitem>
-        <richlistitem orient="vertical">
-          <checkbox id="forum35" preference="pref_forum35"/>
-          <description>&ForumJump.magic;</description>
+          <checkbox id="forum39" preference="pref_forum39"/>
+          <description>&ForumJump.achievementhunter;</description>
         </richlistitem>
 
         <richlistitem><label value="&ForumJump.gaming;" style="font-weight:bold;"/></richlistitem>
@@ -529,24 +515,8 @@
           <description>&ForumJump.grifball;</description>
         </richlistitem>
         <richlistitem orient="vertical">
-          <checkbox id="forum26" preference="pref_forum26"/>
-          <description>&ForumJump.thesims;</description>
-        </richlistitem>
-        <richlistitem orient="vertical">
-          <checkbox id="forum20" preference="pref_forum20"/>
-          <description>&ForumJump.xbox;</description>
-        </richlistitem>
-        <richlistitem orient="vertical">
           <checkbox id="forum31" preference="pref_forum31"/>
           <description>&ForumJump.xbox360;</description>
-        </richlistitem>
-        <richlistitem orient="vertical">
-          <checkbox id="forum21" preference="pref_forum21"/>
-          <description>&ForumJump.playstation;</description>
-        </richlistitem>
-        <richlistitem orient="vertical">
-          <checkbox id="forum22" preference="pref_forum22"/>
-          <description>&ForumJump.gamecube;</description>
         </richlistitem>
         <richlistitem orient="vertical">
           <checkbox id="forum23" preference="pref_forum23"/>
@@ -559,7 +529,8 @@
         <richlistitem orient="vertical">
           <checkbox id="forum32" preference="pref_forum32"/>
           <description>&ForumJump.playstation3;</description>
-        </richlistitem>        <richlistitem orient="vertical">
+        </richlistitem>
+        <richlistitem orient="vertical">
           <checkbox id="forum33" preference="pref_forum33"/>
           <description>&ForumJump.wii;</description>
         </richlistitem>
@@ -628,6 +599,40 @@
         <richlistitem orient="vertical">
           <checkbox id="forum7" preference="pref_forum7"/>
           <description>&ForumJump.basement;</description>
+        </richlistitem>
+
+        <richlistitem><label value="&ForumJump.oldies;" style="font-weight:bold;"/></richlistitem>
+        <richlistitem orient="vertical">
+          <checkbox id="forum42" preference="pref_forum42"/>
+          <description>&ForumJump.rtlive;</description>
+        </richlistitem>
+        <richlistitem orient="vertical">
+          <checkbox id="forum35" preference="pref_forum35"/>
+          <description>&ForumJump.magic;</description>
+        </richlistitem>
+        <richlistitem orient="vertical">
+          <checkbox id="forum30" preference="pref_forum30"/>
+          <description>&ForumJump.panics;</description>
+        </richlistitem>
+        <richlistitem orient="vertical">
+          <checkbox id="forum10" preference="pref_forum10"/>
+          <description>&ForumJump.strangerhood;</description>
+        </richlistitem>
+        <richlistitem orient="vertical">
+          <checkbox id="forum20" preference="pref_forum20"/>
+          <description>&ForumJump.xbox;</description>
+        </richlistitem>
+        <richlistitem orient="vertical">
+          <checkbox id="forum22" preference="pref_forum22"/>
+          <description>&ForumJump.gamecube;</description>
+        </richlistitem>
+        <richlistitem orient="vertical">
+          <checkbox id="forum21" preference="pref_forum21"/>
+          <description>&ForumJump.playstation;</description>
+        </richlistitem>
+        <richlistitem orient="vertical">
+          <checkbox id="forum26" preference="pref_forum26"/>
+          <description>&ForumJump.thesims;</description>
         </richlistitem>
       </richlistbox>
     </groupbox>
