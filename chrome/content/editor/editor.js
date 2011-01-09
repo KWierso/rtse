@@ -101,14 +101,6 @@ RTSE.editor =
     document.getElementById("rtse-editor-body")
             .addEventListener("keypress", RTSE.editor.keypressListener, true);
 
-    // Real Time Preview
-    /*
-    RTSE.editor.realTimePreview
-        .addEventListener("click", RTSE.editor.previewClickHandler, false);
-    document.getElementById("rtse-editor-body")
-            .addEventListener("input", RTSE.editor.realTimePreview, false);
-    */
-
     this.mOk = true;
   },
 
@@ -156,16 +148,6 @@ RTSE.editor =
   setup: function setup()
   {
     let sponsor = RTSE.sponsor;
-
-    // Real Time Preview
-    /*
-    var rtp = RTSE.editor.realTimePreview;
-    var username = gRTSE.prefsGetString("extensions.rtse.username");
-    rtp.getElementById("username").innerHTML = username;
-    rtp.getElementById("user-image")
-       .setAttribute("src", "http://66.81.80.139/" + username + ".jpg");
-    rtp.getElementById("sponsor").style.display = sponsor ? "inline" : "none";
-    */
 
     // Smilies
     var smileyState = gRTSE.prefsGetBool("extensions.rtse.smilies");
@@ -419,10 +401,7 @@ RTSE.editor =
     // XXX some kind of loop here?
     document.getElementById("rtse-editor-body").value =
       RTSE.editor.getProperty(doc, "body");
-    /*
-    if (document.getElementById("rtse-editor-body").value == "")
-      RTSE.editor.realTimePreview.getElementById("post").innerHTML = "";
-    */
+
     document.getElementById("rtse-editor-title").value =
       RTSE.editor.getProperty(doc, "title");
     document.getElementById("rtse-editor-toUser").value =
@@ -443,12 +422,6 @@ RTSE.editor =
     pane.hidden = false;
     pane.openPopup(document.getElementById("browser-bottombox"),
                    "before_start", 0, 0, false, false);
-
-    /*
-    var body = document.getElementById("rtse-editor-body");
-    if (body.value != "")
-      RTSE.editor.realTimePreview();
-    */
   },
 
  /**
@@ -941,48 +914,6 @@ RTSE.editor =
   },
 
  /**
-  * Preview event listener.  Generates the preview from the editor.
-  */
-  realTimePreview: function RTSE_realTimePreview()
-  {
-    var parser = function parser(aText)
-    {
-      aText = RTSE.editor.convertExtraBB(aText);
-
-      aText = aText.replace(/</g, "&lt;");
-      aText = aText.replace(/>/g, "&gt;");
-      aText = aText.replace(/\n/g, "<br>");
-      aText = aText.replace(/\[(\/)?([b|i|u])\]/g, "<$1$2>");
-      aText = aText.replace(/\[(\/)?s\]/g, "<$1del>");
-      aText = aText.replace(/\[img\]http:\/\/(.*?)\[\/img\]/g,
-                            "<img src='http://$1' style='float: none;'>");
-      aText = aText.replace(/\[quote\](.*?)\[\/quote\]/g,
-        "<blockquote style='border: 1px solid rgb(204, 204, 204); padding: 4px; background-color: rgb(241, 241, 241);'>$1</blockquote>");
-      aText = aText.replace(/\[link=(.*?)\](.*?)\[\/link\]/g, "<a href='$1'>$2</a>");
-
-      // Sponsor Only Stuff
-      if (!RTSE.sponsor)
-        return aText;
-
-      aText = aText.replace(/\[color=(#[0-9A-Fa-f]{1,6})\]/g,
-                            "<span style='color:$1'>");
-      aText = aText.replace(/\[color=([a-zA-Z ]+)\]/g,
-                            "<span style='color:$1'>");
-      aText = aText.replace(/\[\/color\]/g, "</span>");
-      aText = aText.replace(/\[smiley([0-9]{1,2})\]/g,
-        "<img style='float: none; clear: none; display: inline;' src='http://www.roosterteeth.com/assets/images/emoticons/smiley$1.gif'>");
-
-      return aText;
-    };
-
-    var body = document.getElementById("rtse-editor-body");
-    /*
-    var rtp  = RTSE.editor.realTimePreview;
-    rtp.getElementById("post").innerHTML = parser(body.value);
-    */
-  },
-
- /**
   * This is the parser for additional BB codes.
   *
   * @param aText The text to be converted into RT BB code
@@ -999,19 +930,6 @@ RTSE.editor =
     // BB Code
     aText = aText.replace(/\[quote=([a-zA-Z0-9_]{4,12})\]([\s\S]+)\[\/quote\]/g,'[b]Quoting $1:[/b][quote]$2[/quote]');
 
-/*
- The site handles uppercase BBCode tags now, and this causes some issues in recent Minefield builds 
- (see http://bugzilla.roosterteethsiteextender.com/show_bug.cgi?id=50)
-    // Protecting users from themselves
-    aText = aText.replace(/\[(\/)?B\]/g, "[$1b]");
-    aText = aText.replace(/\[(\/)?I\]/g, "[$1i]");
-    aText = aText.replace(/\[(\/)?U\]/g, "[$1u]");
-    aText = aText.replace(/\[(\/)?S\]/g, "[$1s]");
-    aText = aText.replace(/\[(\/)?IMG\]/g, "[$1img]");
-    aText = aText.replace(/\[(\/)?QUOTE\]/g, "[$1quote]");
-    aText = aText.replace(/\[\/LINK\]/g, "[/link]");
-    aText = aText.replace(/\[LINK=(.*?)\]/g, "[link=$1]");
-*/
     return aText;
   },
 
@@ -1087,16 +1005,5 @@ RTSE.editor =
     ];
 
     return fields;
-  },
-
- /**
-  * The document element for the real time preview
-  *
-  * @return Document element used to get to real time preview.
-  */
-  get realTimePreview()
-  {
-    return document.getElementById("rtse-editor-real-time-preview")
-                   .contentDocument;
   }
 };
