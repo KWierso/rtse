@@ -43,7 +43,7 @@ RTSE.editor =
     if(!elm) {
       elm = document.getElementById("rtse-addonbar-editor");
     }
-    var click = function toggle() {
+    var click = function toggle(e) {
       let pane = RTSE.editor.editorElement;
       if (pane.state == "closed") {
         RTSE.editor.ensureEditorIsVisible();
@@ -53,6 +53,8 @@ RTSE.editor =
         RTSE.editor.ensureEditorIsHidden();
         this.setAttribute("closed", "true");
       }
+      e.preventDefault();
+      e.stopPropagation();
     };
     try {
         elm.addEventListener("click", click, false);
