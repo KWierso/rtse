@@ -117,3 +117,6 @@ pref("extensions.rtse.forum.10",true);
 pref("extensions.rtse.forum.20",true);
 pref("extensions.rtse.forum.22",true);
 pref("extensions.rtse.forum",true);
+
+pref("extensions.rtse.addonbarwarning",true);
+

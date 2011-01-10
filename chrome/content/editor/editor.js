@@ -54,7 +54,28 @@ RTSE.editor =
         this.setAttribute("closed", "true");
       }
     };
-    elm.addEventListener("click", click, false);
+    try {
+        elm.addEventListener("click", click, false);
+    } catch(e) { 
+        /* 
+           Firefox 4b7+ note: 
+           If Button isn't added to _some_ toolbar, 
+           this listener won't attach. Which is bad.
+        */
+        if(gRTSE.prefsGetBool("extensions.rtse.addonbarwarning")) {
+            var bundle = Components.classes["@mozilla.org/intl/stringbundle;1"]
+                             .getService(Components.interfaces.nsIStringBundleService)
+                             .createBundle("chrome://rtse/locale/editor.properties");
+
+            var prompts = Components.classes["@mozilla.org/embedcomp/prompt-service;1"]
+                                    .getService(Components.interfaces.nsIPromptService);
+             
+            var promptresult = prompts.confirm(null, bundle.GetStringFromName("addonbarwarningtitle"), bundle.GetStringFromName("addonbarwarning"));
+            if(promptresult) {
+              gRTSE.prefsSetBool("extensions.rtse.addonbarwarning", false);
+            }
+        }
+    }
 
     gBrowser.mPanelContainer.addEventListener("DOMContentLoaded",
                                               RTSE.editor.toggleIcon,
