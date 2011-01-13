@@ -53,6 +53,7 @@ function RTSE()
   var uri3 = ios.newURI("chrome://rtse/content/styles3.css", null, null);
   var uri4 = ios.newURI("chrome://rtse/content/styles4.css", null, null);
   var uri5 = ios.newURI("chrome://rtse/content/styles5.css", null, null);
+  var uri6 = ios.newURI("chrome://rtse/content/styles6.css", null, null);
   var uriHome = ios.newURI("chrome://rtse/content/homepage.css", null, null);
   var uriWatch = ios.newURI("chrome://rtse/content/watchlist.css", null, null);
   if(!this.prefsGetBool("extensions.rtse.sidebar"))
@@ -63,6 +64,8 @@ function RTSE()
     sss.loadAndRegisterSheet(uri4, sss.USER_SHEET);
   if(!this.prefsGetBool("extensions.rtse.background"))
     sss.loadAndRegisterSheet(uri5, sss.USER_SHEET);
+  if(!this.prefsGetBool("extensions.rtse.videosidebar"))
+    sss.loadAndRegisterSheet(uri6, sss.USER_SHEET);
   if(!this.prefsGetBool("extensions.rtse.homepage"))
     sss.loadAndRegisterSheet(uriHome, sss.USER_SHEET);
   if(this.prefsGetBool("extensions.rtse.watchlistcolor"))

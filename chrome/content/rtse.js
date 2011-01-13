@@ -661,6 +661,7 @@ var RTSE = {
       var uri3 = ios.newURI("chrome://rtse/content/styles3.css", null, null);
       var uri4 = ios.newURI("chrome://rtse/content/styles4.css", null, null);
       var uri5 = ios.newURI("chrome://rtse/content/styles5.css", null, null);
+      var uri6 = ios.newURI("chrome://rtse/content/styles6.css", null, null);
       var uriHome = ios.newURI("chrome://rtse/content/homepage.css", null, null);
       var uriWatch = ios.newURI("chrome://rtse/content/watchlist.css", null, null);
 
@@ -712,6 +713,14 @@ var RTSE = {
       } else {
         if(sss.sheetRegistered(uriWatch, sss.USER_SHEET))
             sss.unregisterSheet(uriWatch, sss.USER_SHEET);
+      }
+
+      if(!gRTSE.prefsGetBool("extensions.rtse.videosidebar")) {
+        if(!sss.sheetRegistered(uri6, sss.USER_SHEET))
+            sss.loadAndRegisterSheet(uri6, sss.USER_SHEET);
+      } else {
+        if(sss.sheetRegistered(uri6, sss.USER_SHEET))
+            sss.unregisterSheet(uri6, sss.USER_SHEET);
       }
   },
 

@@ -36,6 +36,7 @@ var RTSE_PrefsChangeObserver =
       case "extensions.rtse.header":
       case "extensions.rtse.sidebar":
       case "extensions.rtse.journals":
+      case "extensions.rtse.videosidebar":
       case "extensions.rtse.homepage":
       case "extensions.rtse.watchlistcolor":
       case "extensions.rtse.background":

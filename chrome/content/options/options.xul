@@ -676,6 +676,9 @@
       <preference id="pref_journal"
                   name="extensions.rtse.journals"
                   type="bool"/>
+      <preference id="pref_videosidebar"
+                  name="extensions.rtse.videosidebar"
+                  type="bool"/>
       <preference id="pref_background"
                   name="extensions.rtse.background"
                   type="bool"/>
@@ -730,6 +733,7 @@
           <checkbox label="&Extras.sidebar;" preference="pref_side"/>
           <checkbox label="&Extras.header;" preference="pref_head"/>
           <checkbox label="&Extras.journal;" preference="pref_journal"/>
+          <checkbox label="&Extras.videosidebar;" preference="pref_videosidebar"/>
           <checkbox id="backgroundCheck" label="&Extras.background;" 
                 oncommand="hideBackground();" preference="pref_background"/>
             <textbox id="backgroundText" placeholder="&Extras.backgroundURL;" emptytext="&Extras.backgroundURL;" hidden="true" 

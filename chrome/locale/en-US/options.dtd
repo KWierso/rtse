@@ -20,6 +20,7 @@
 <!ENTITY Extras.sidebar "Show Sidebar">
 <!ENTITY Extras.header "Show Header">
 <!ENTITY Extras.journal "Show Journal Sidebar">
+<!ENTITY Extras.videosidebar "Show Video Sidebar">
 <!ENTITY Extras.background "Show the site's default background image">
 <!ENTITY Extras.backgroundURL "Show a different image instead">
 <!ENTITY Extras.redirect "Redirect Blog and Commentary Posts">
