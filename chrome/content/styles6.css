@@ -4,7 +4,7 @@
                domain("roosterteethcomics.com"),
                domain("strangerhood.com"),
                domain("captaindynamic.com") {
-    td.topContent > table > tbody > tr > td + td {
+    td.topContent > table > tbody > tr > td + td[valign="top"][width="300"] {
       display:none !important;
     }
 }
