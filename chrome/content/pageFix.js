@@ -21,132 +21,123 @@
  *
  * Contributor(s):
  *     Brandon Jernigan
- *
+ *     Wes Kocher
  * ***** END LICENSE BLOCK ***** */
 
 if( !gRTSE )
   var gRTSE=Components.classes['@shawnwilsher.com/rtse;1']
                       .getService(Components.interfaces.nsIRTSE);
 
-function RTSE_pageJump(aDoc)
 // EFFECTS: Adds a textbox next to the page ranges on each page. 
 //          The value in the textbox is validated to be a number within the page range.
 //          If the value is valid, the browser will jump to that page.
-{
-    let maxPage;
-    let allA;
-    let elementArray = [];
-    let elements;
+function RTSE_pageJump(aDoc) {
+  let maxPage;
+  let allA;
+  let elementArray = [];
+  let elements;
 
-    let newText = aDoc.createElement("span");
-    newText.style.fontSize = "x-small";
-    newText.appendChild(aDoc.createTextNode("Page Jump: "));
+  let newText = aDoc.createElement("span");
+  newText.style.fontSize = "x-small";
+  newText.appendChild(aDoc.createTextNode("Page Jump: "));
 
-    let newInput = aDoc.createElement("input");
-    newInput.style.width = "20px";
-    newInput.style.fontSize = "x-small";
-    newInput.style.height = "10px";
-    newInput.maxLength = "6";
-    newInput.title = "Enter a page number and press ENTER to go to that page!";
+  let newInput = aDoc.createElement("input");
+  newInput.style.width = "20px";
+  newInput.style.fontSize = "x-small";
+  newInput.style.height = "10px";
+  newInput.maxLength = "6";
+  newInput.title = "Enter a page number and press ENTER to go to that page!";
 
-    newText.appendChild(newInput);
-    newText.verticalAlign = "middle";
-    newText.style.padding = "1px";
+  newText.appendChild(newInput);
+  newText.verticalAlign = "middle";
+  newText.style.padding = "1px";
 
-    // Find all page number elements for modification.
-    elements = RTSE_evaluateXPath(aDoc.getElementById("pageContent"),"//table/tbody/tr/td/table/tbody/tr/td/a/b");
-    for(let i in elements) {
-        try {
-            if((elements[i].parentNode.parentNode.getElementsByTagName("a")[0].href.match(/page=1/) ||
-                    elements[i].parentNode.parentNode.getElementsByTagName("a")[0].innerHTML == "Add a Comment") &&
-                    !elements[i].parentNode.parentNode.innerHTML.match("new ") && 
-                    !elements[i].parentNode.parentNode.innerHTML.match("Back") ) // Don't let watchlist items get added!
-                elementArray.push(elements[i].parentNode.parentNode);
-        } catch(e) { }
-    }
-
-    // If there are no page numbers on the current page, terminate function immediately.
-    if(elementArray.length == 0)
-        return;
-
-    try {
-        // Get the highest allowed page number
-        allA = elementArray[0].getElementsByTagName("a");
-        maxPage = allA[allA.length - 1];
-        // If you're already on the last page, it's bolded on the site, so we need to account for this.
-        if(maxPage.innerHTML.match("<b>"))
-            maxPage = maxPage.firstChild;
-        maxPage = parseInt(maxPage.innerHTML);
-
-        if(elementArray.length > 1) {
-        // Insert Jump box at top of page.
-            elementArray[0].insertBefore(newText.cloneNode(true), elementArray[0].childNodes[0]);
-            elementArray[0].insertBefore(aDoc.createTextNode("  "), elementArray[0].childNodes[1]);
-            elementArray[0].getElementsByTagName("input")[0].addEventListener("keydown", function(e) { 
-                // Validate the value in the textbox
-                if(e.keyCode == 13) {
-                    if(!this.value.match(/\D/g)) {
-                        if(this.value >= 1 && this.value <= maxPage) {
-                            // If everything's okay, jump to specified page.
-                            let newURL;
-                            if(aDoc.URL.match("modHistory.php") == "modHistory.php" || 
-                               aDoc.URL.match("top.php") == "top.php" ||
-                               (aDoc.URL.match("journal") == "journal" && aDoc.URL.match("uid=") != "uid=") ) {
-                                if(aDoc.URL.match("modHistory.php") == "modHistory.php")
-                                    newURL = "http://" + aDoc.domain + "/members/modHistory.php?nc=1&page=" + this.value;
-                                if(aDoc.URL.match("top.php") == "top.php")
-                                    newURL = "http://" + aDoc.domain + "/forum/top.php?page=" + this.value;
-                                if(aDoc.URL.match("journal") == "journal" && aDoc.URL.match("uid=") != "uid=") {
-                                // We only want the current user's journal pages, not everyone's
-                                    newURL = "http://" + aDoc.domain + "/members/journal/?page=" + this.value;
-                                }
-                            }
-                            else
-                                newURL = aDoc.URL.split("#")[0].split("&page=")[0] + "&page=" + this.value;
-                            aDoc.location.href = newURL; 
-                        } else {
-                            alert("Page value not in the accepted range of pages!");
-                        }
-                    } else { alert("Only numeric values are acceptable. Please remove any non-numeric values from the textbox."); }
-                }
-            }, false);
-        }
-
-        // Insert Jump box at bottom of page.
-        elementArray[elementArray.length - 1].appendChild(aDoc.createElement("br"));
-        elementArray[elementArray.length - 1].appendChild(newText.cloneNode(true));
-        elementArray[elementArray.length - 1].getElementsByTagName("input")[0].addEventListener("keydown", function(e) { 
-            // Validate the value in the textbox
-            if(e.keyCode == 13) {
-                if(!this.value.match(/\D/g)) {
-                    if(this.value >= 1 && this.value <= maxPage) {
-                        // If everything's okay, jump to specified page.
-                        let newURL;
-                        if(aDoc.URL.match("modHistory.php") == "modHistory.php" || 
-                           aDoc.URL.match("top.php") == "top.php" ||
-                           (aDoc.URL.match("journal") == "journal" && aDoc.URL.match("uid=") != "uid=") ) {
-                            if(aDoc.URL.match("modHistory.php") == "modHistory.php")
-                                newURL = "http://" + aDoc.domain + "/members/modHistory.php?nc=1&page=" + this.value;
-                            if(aDoc.URL.match("top.php") == "top.php")
-                                newURL = "http://" + aDoc.domain + "/forum/top.php?page=" + this.value;
-                            if(aDoc.URL.match("journal") == "journal" && aDoc.URL.match("uid=") != "uid=") {
-                            // We only want the current user's journal pages, not everyone's
-                                newURL = "http://" + aDoc.domain + "/members/journal/?page=" + this.value;
-                            }
-                        }
-                        else
-                            newURL = aDoc.URL.split("#")[0].split("&page=")[0] + "&page=" + this.value;
-                        aDoc.location.href = newURL; 
-                    } else {
-                        alert("Page value not in the accepted range of pages!");
-                    }
-                } else { alert("Only numeric values are acceptable. Please remove any non-numeric values from the textbox."); }
+  // Internal function for dealing with the pageJump box
+  function pageJumpHandler(e) {
+    // Validate the value in the textbox
+    if(e.keyCode == 13) {
+      if(!this.value.match(/\D/g)) {
+        if(this.value >= 1 && this.value <= maxPage) {
+          // If everything's okay, jump to specified page.
+          let newURL;
+          if(aDoc.URL.match("modHistory.php") == "modHistory.php" || 
+             aDoc.URL.match("top.php") == "top.php" ||
+             (aDoc.URL.match("journal") == "journal" && aDoc.URL.match("uid=") != "uid=") ) {
+            if(aDoc.URL.match("modHistory.php") == "modHistory.php")
+                newURL = "http://" + aDoc.domain + "/members/modHistory.php?nc=1&page=" + this.value;
+            if(aDoc.URL.match("top.php") == "top.php")
+                newURL = "http://" + aDoc.domain + "/forum/top.php?page=" + this.value;
+            if(aDoc.URL.match("journal") == "journal" && aDoc.URL.match("uid=") != "uid=") {
+            // We only want the current user's journal pages, not everyone's
+              newURL = "http://" + aDoc.domain + "/members/journal/?page=" + this.value;
             }
-        }, false);
-    } catch(e) { 
-         // Apparently something didn't work quite right.
-         // Let's not break the entire addon because of it.
+          }
+          else {
+            // If "page" is not present in the current URL, add it
+            if(aDoc.URL.search("page=") < 0) {
+              let newstuff;
+              // Is there a "?" in the current URL? Add "?" or "&" accordingly
+              if(aDoc.URL.search("\\?") < 0) {
+                newstuff = "?page=" + this.value;
+              } else {
+                newstuff = "&page=" + this.value;
+              }
+              newURL = aDoc.URL.split("#")[0].split("&page=")[0].split("?page=")[0] + newstuff;
+            } else {
+              // Just put the desired page number after "page" in the current URL
+              newURL = aDoc.URL.split("#")[0].split("page=")[0] + "page=" + this.value;
+            }
+          }
+
+          // Go to the new page
+          aDoc.location.href = newURL; 
+        } else {
+          alert("Page value not in the accepted range of pages!");
+        }
+      } else { alert("Only numeric values are acceptable. Please remove any non-numeric values from the textbox."); }
     }
+  }
+
+  // Find all page number elements for modification.
+  elements = RTSE_evaluateXPath(aDoc.getElementById("pageContent"),"//table/tbody/tr/td/table/tbody/tr/td/a/b");
+  for(let i in elements) {
+    try {
+      if((elements[i].parentNode.parentNode.getElementsByTagName("a")[0].href.match(/page=1/) ||
+          elements[i].parentNode.parentNode.getElementsByTagName("a")[0].innerHTML == "Add a Comment") &&
+          !elements[i].parentNode.parentNode.innerHTML.match("new ") && 
+          !elements[i].parentNode.parentNode.innerHTML.match("Back") &&
+          !elements[i].parentNode.parentNode.innerHTML.match("crumbLink")  ) // Don't let watchlist items get added!
+        elementArray.push(elements[i].parentNode.parentNode);
+    } catch(e) { }
+  }
+
+  // If there are no page numbers on the current page, terminate function immediately.
+  if(elementArray.length == 0)
+    return;
+
+  try {
+    // Get the highest allowed page number
+    allA = elementArray[0].getElementsByTagName("a");
+    maxPage = allA[allA.length - 1];
+    // If you're already on the last page, it's bolded on the site, so we need to account for this.
+    if(maxPage.innerHTML.match("<b>"))
+      maxPage = maxPage.firstChild;
+
+    if(elementArray.length > 1) {
+      // Insert Jump box at top of page.
+      elementArray[0].insertBefore(newText.cloneNode(true), elementArray[0].childNodes[0]);
+      elementArray[0].insertBefore(aDoc.createTextNode("  "), elementArray[0].childNodes[1]);
+      elementArray[0].getElementsByTagName("input")[0].addEventListener("keydown", pageJumpHandler, false);
+    }
+
+    // Insert Jump box at bottom of page.
+    elementArray[elementArray.length - 1].appendChild(aDoc.createElement("br"));
+    elementArray[elementArray.length - 1].appendChild(newText.cloneNode(true));
+    elementArray[elementArray.length - 1].getElementsByTagName("input")[0].addEventListener("keydown", pageJumpHandler, false);
+  } catch(e) { 
+    // Apparently something didn't work quite right.
+    // Let's not break the entire addon because of it.
+  }
 }
 
 function RTSE_linkFix(aDoc)
