@@ -319,7 +319,7 @@ function RTSE_addToUserInfo(doc) {
     if(doc.getElementById("userInfo").getElementsByTagName("a").length > 3) {
         var lng = 14;
         if (!RTSE.sponsor) {
-            lng = 8;
+            lng = 9;
         }
         var userInfo = RTSE_evaluateXPath(doc,"//table[@id='userInfo']");
         userInfo = userInfo[0].firstChild.firstChild.firstChild;
@@ -399,7 +399,7 @@ function RTSE_addToUserInfo(doc) {
         }
 
         // Add any of the enabled non-sponsor items from the third row
-        if(lng==8 && (gRTSE.prefsGetBool(checkPrefs[11]) || gRTSE.prefsGetBool(checkPrefs[12])) ) {
+        if(lng==9 && (gRTSE.prefsGetBool(checkPrefs[11]) || gRTSE.prefsGetBool(checkPrefs[12])) ) {
             td += "<br\>"
             if(gRTSE.prefsGetBool("extensions.rtse.link.star")){
                 td += "&nbsp;<img src='/assets/images/subscriberStarSmallTrans.png' " +
