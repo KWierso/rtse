@@ -596,13 +596,12 @@ function RTSE_samePageReply(aEvent)
          uID = uID.split("with=")[1];
 
          // Saving the old way of finding the uID, since it might come in handy in the future
-         // uID = this.parentNode.parentNode.parentNode.parentNode.parentNode
-                   // .parentNode.parentNode.parentNode.parentNode.parentNode
-                   // .getElementsByTagName('td')[0]
-                   // .getElementsByTagName('table')[0]
-                   // .getElementsByTagName('tbody')[0]
-                   // .getElementsByTagName('img')[0].getAttribute("src");
-         // uID = uID.split("?")[1];
+         //uID = this.parentNode.parentNode.parentNode.parentNode.parentNode
+                   //.parentNode.parentNode.parentNode.parentNode.parentNode
+                   //.getElementsByTagName('td')[0]
+                   //.getElementsByTagName('table')[0]
+                   //.getElementsByTagName('tbody')[0]
+                   //.getElementsByTagName('img')[0].getAttribute("data-uid");
       } catch(e) { /* Something went wrong and we can't find the uID */ }
       if(uID != null && uID != "undefined") { // Only modify the form if the uID can be found
          if(doc.URL.match("/conversation.php") != "/conversation.php") // Don't redirect form if on a conversation page
@@ -626,8 +625,7 @@ function RTSE_samePageReply(aEvent)
                     .getElementsByTagName('td')[0]
                     .getElementsByTagName('table')[0]
                     .getElementsByTagName('tbody')[0]
-                    .getElementsByTagName('img')[0].getAttribute("src");
-          uID = uID.split("?")[1];
+                    .getElementsByTagName('img')[0].getAttribute("data-uid");
         } catch(e) { /* Something went wrong and we can't find the uID */ }
         if(uID != null && uID != "undefined") { // Only modify the form if the uID can be found
           RTSE_modifyForm(doc, "/members/comments/commentPost.php?uid=" + uID, doc.URL,

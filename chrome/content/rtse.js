@@ -233,8 +233,7 @@ var RTSE = {
           if(/avatar av{0,1}/.test(target.className)) {
             gContextMenu.showItem("rtse-sub-menu",true);
 
-            let uid = target.getAttribute("src");
-            uid = uid.split("?")[1];
+            let uid = target.getAttribute("data-uid");
             let dom = url.hostname;
 
             // Only show the items if the uID can be found
