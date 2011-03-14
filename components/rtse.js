@@ -80,7 +80,7 @@ RTSE.prototype =
 
   // OVERVIEW: This is the class definition.  Defines the functions
   //           that are exposed in the interface.
-  mVersion: '1.2.0.20100727',
+  mVersion: '1.3.0.20110313',
   mLoginSent: false,
 
   get version()
