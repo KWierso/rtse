@@ -70,6 +70,9 @@ function RTSE_pageJump(aDoc) {
             if(aDoc.URL.match("journal") == "journal" && aDoc.URL.match("uid=") != "uid=") {
             // We only want the current user's journal pages, not everyone's
               newURL = "http://" + aDoc.domain + "/members/journal/?page=" + this.value;
+              if(aDoc.URL.match("friendsJournals") == "friendsJournals") {
+                newURL = "http://" + aDoc.domain + "/members/journal/friendsJournals.php?page=" + this.value;
+              }
             }
           }
           else {
