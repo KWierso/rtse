@@ -1,4 +1,5 @@
 <?xml version="1.0" ?>
+<?xml-stylesheet href="chrome://rtse/skin/browser.css"?>
 <!DOCTYPE overlay SYSTEM "chrome://rtse/locale/browser.dtd">
 <overlay id="rtse-browser-overlay"
          xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
@@ -168,14 +169,17 @@
   </menu>
 </popup>
 
-<statusbar id="status-bar">
-  <statusbarpanel id="rtse-statusbar-editor"
-                  insertbefore="statusbar-display"
-                  label="&Extension.shortName;"
-                  crop="none"
-                  hidden="true"
-                  tooltiptext="&Statusbar.editor.tooltip;"/>
-</statusbar>
+
+<toolbarpalette id="BrowserToolbarPalette">
+  <toolbarbutton id="rtse-addonbar-editor" 
+                 class="toolbarbutton-1 chromeclass-toolbar-additional"
+                 label="&Extension.shortName;"
+                 image="chrome://rtse/skin/images/global/abIconActive.png"
+                 crop="none"
+                 hidden="true"
+                 tooltiptext="&Statusbar.editor.tooltip;"/>
+</toolbarpalette>
+
 
 <popupset id="mainPopupSet">
   <panel id="rtse-realtime-editor"
