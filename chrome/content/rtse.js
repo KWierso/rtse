@@ -73,7 +73,7 @@ var RTSE = {
     /* the document is doc */
     var doc=aEvent.originalTarget;
 
-    if(doc.location.protocol != "about:")
+    if(doc.location.protocol != "about:" && doc.location.protocol != "resource:")
       if(RTSE_findOnDomain(doc.domain)) {
       /* Run on all RT pages */
         let rtURL = doc.location.href.split(doc.domain)[1];
