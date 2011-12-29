@@ -456,15 +456,15 @@ function RTSE_addExtraTab(aDoc) {
 
              // Create the text and link for the tab header
              let newTabLink = aDoc.createElement("a");
-             newTabLink.id="navButton10";
+             newTabLink.id="navButton11";
              newTabLink.className = "navbutton";
              newTabLink.href = linkArray[0];
-             newTabLink.setAttribute("onmouseover", "navShow(10);");
+             newTabLink.setAttribute("onmouseover", "navShow(11);");
              newTabLink.innerHTML = textArray[0];
 
              // Create the container for the dropdown links
              let newChildDiv = aDoc.createElement("div");
-             newChildDiv.id = "navDiv10";
+             newChildDiv.id = "navDiv11";
              newChildDiv.className = "navDiv";
              newChildDiv.setAttribute("style", "top:15px;");
 
