@@ -428,6 +428,7 @@ function RTSE_addToUserInfo(doc) {
 
 function RTSE_addExtraTab(aDoc) {
 // EFFECTS: Adds a tab with user-set links
+// (If the dropdown items are paired with the wrong tab header, bump the number...
   if(gRTSE.prefsGetBool("extensions.rtse.extras.tab")) {
     // Let's not break the entire add-on if something didn't validate correctly.
     try {
