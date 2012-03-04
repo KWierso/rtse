@@ -8,9 +8,9 @@
     display:none !important;
   }
   #headerImage {
-    height: 120px !important;
+    height: 155px !important;
   }
   #floatingNavDiv:not(.adjusted){
-    top: 120px !important;
+    top: 155px !important;
   }
 }

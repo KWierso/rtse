@@ -1042,7 +1042,7 @@ function RTSE_adjustFloatingBar(aDoc) {
 //         "show/hide header" option
     // Adjust initial position of the navbar
     let firstScript = aDoc.getElementsByTagName("script")[0];
-    firstScript.innerHTML = "topNavPos = 120;";
+    firstScript.innerHTML = "topNavPos = 155;";
     eval(firstScript.innerHTML);
 
     let scrolling = aDoc.getElementsByTagName("body")[0]
@@ -1050,12 +1050,12 @@ function RTSE_adjustFloatingBar(aDoc) {
     if(scrolling.innerHTML.search("updateNavScroll") >=0)
     {
         aDoc.getElementById("floatingNavDiv").style.top = null;
-        if(aDoc.defaultView.scrollY >= 120)
+        if(aDoc.defaultView.scrollY >= 155)
             aDoc.getElementById("floatingNavDiv").style.top = "0px";
         else
-            aDoc.getElementById("floatingNavDiv").style.top = "120px";
+            aDoc.getElementById("floatingNavDiv").style.top = "155px";
         aDoc.getElementById("floatingNavDiv").style.zIndex = null;
-        aDoc.getElementById("floatingNavDiv").style.zIndex = "120";
+        aDoc.getElementById("floatingNavDiv").style.zIndex = "155";
         aDoc.getElementById("floatingNavDiv").className = "adjusted";
 
         // Override RT's updateNavScroll() method to enforce adjusted height
@@ -1064,11 +1064,11 @@ function RTSE_adjustFloatingBar(aDoc) {
         script.type= 'text/javascript';
         script.innerHTML = "function updateNavScroll() {" +
                              "var pos = window.scrollY;" +
-                             "topNavPos = 120;" +
+                             "topNavPos = 155;" +
                              "var st = document.getElementById('floatingNavDiv');" +
                              "if (pos < topNavPos && st.style.position != 'absolute') {" +
                              "   st.style.position = 'absolute';" +
-                             "   st.style.top = '120px';" +
+                             "   st.style.top = '155px';" +
                              "} else if (pos >= topNavPos && st.style.position != 'fixed') {" +
                              "   st.style.position = 'fixed';" +
                              "   st.style.top = '0';" +
@@ -1078,7 +1078,7 @@ function RTSE_adjustFloatingBar(aDoc) {
         head.appendChild(script);
         eval(script.innerHTML);
     } else {
-        aDoc.getElementById("floatingNavDiv").style.top = "120px";
+        aDoc.getElementById("floatingNavDiv").style.top = "155px";
     }
 }
 
