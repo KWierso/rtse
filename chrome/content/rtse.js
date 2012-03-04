@@ -61,11 +61,12 @@ var RTSE = {
   },
 
   updateSponsor: function(doc) {
-    let userInfoElem = doc.getElementById("userInfo").getElementsByTagName("td")[0]
-                      .getElementsByTagName("a");
     try {
-        this.sponsor = userInfoElem[5].innerHTML == "Sponsor" ||
-                       userInfoElem[6].innerHTML == "Sponsor";
+      let userInfoElem = doc.getElementById("userInfo").getElementsByTagName("td")[0]
+                        .getElementsByTagName("a");
+
+          this.sponsor = userInfoElem[5].innerHTML == "Sponsor" ||
+                         userInfoElem[6].innerHTML == "Sponsor";
     } catch(e) { this.sponsor = false; }
   },
 

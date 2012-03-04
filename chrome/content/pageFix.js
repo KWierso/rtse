@@ -295,19 +295,9 @@ function RTSE_forumListBox(doc) {
   }, false);
 
   /* Now that we have the listBox all filled up... */
-  let ref = doc.getElementById('headerImage');
-
-  ref.getElementsByTagName("div")[0].style.top = "27px";
-  ref.getElementsByTagName("div")[0].style.height = "120px";
-  let cont = doc.createElement('div');
-  listBox.setAttribute("style", "position:absolute;left:15px;top:5px;");
-  listBox.setAttribute("align", "right");
-  cont.appendChild(listBox);
-  cont.style.padding = "1px 0px 0px 1px";
-  cont.setAttribute("align", "left");
-  cont.setAttribute("valign", "middle");
-  cont.setAttribute("width", "350px");
-  ref.insertBefore(cont, ref.firstChild);
+  let ref = doc.getElementById('barRightInfo');
+  listBox.setAttribute("style", "float:left;margin-top:9px;margin-right:14px;");
+  ref.insertBefore(listBox, ref.firstChild);
 }
 
 function RTSE_fixSearch(doc) {
@@ -446,9 +436,7 @@ function RTSE_addExtraTab(aDoc) {
 
         if(textArray.length > 0 && linkArray.length > 0) {
             // Get the element that contains all of the tabs
-            let tabs = aDoc.getElementById("barLight").getElementsByTagName("table")[0]
-                           .getElementsByTagName("td")[1].getElementsByTagName("table")[1]
-                           .getElementsByTagName("td")[0];
+            let tabs = aDoc.getElementById("membersLive").parentNode.getElementsByTagName("td")[0];
 
              // Create the tab header element
              let newTabDiv = aDoc.createElement("div");
@@ -501,7 +489,7 @@ function RTSE_addExtraTab(aDoc) {
             } 
         }
     } catch(e) {
-        throw("addExtraTab() experienced an error. Try validating its options.");
+        throw("addExtraTab() experienced an error. Try validating its options." + e);
     }
   }
 }
