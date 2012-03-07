@@ -436,7 +436,7 @@ function RTSE_addExtraTab(aDoc) {
 
         if(textArray.length > 0 && linkArray.length > 0) {
             // Get the element that contains all of the tabs
-            let tabs = aDoc.getElementById("membersLive").parentNode.getElementsByTagName("td")[0];
+            let tabs = aDoc.getElementById("searchTd").parentNode.getElementsByTagName("td")[1];
 
              // Create the tab header element
              let newTabDiv = aDoc.createElement("div");
