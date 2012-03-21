@@ -96,13 +96,17 @@ var RTSE = {
         } catch(e) { /* It breaks here? That's weird */ }
 
         /*Add UserInfo Links*/
+        /* DISABLED BECAUSE THE SITE CHANGED STUFF
         if(gRTSE.prefsGetBool("extensions.rtse.link.enabled"))
           RTSE_addToUserInfo(doc);
+        */
 
         /*Hide Homepage Elements*/
+        /* DISABLED BECAUSE THE SITE CHANGED STUFF
         if((rtURL == "/members/" || rtURL == "/members/index.php") &&
             !gRTSE.prefsGetBool("extensions.rtse.homepage"))
             RTSE_hideHomepageElements(doc);
+        */
 
         /*Add Extra Tab*/
         RTSE_addExtraTab(doc);
