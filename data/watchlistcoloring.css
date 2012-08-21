@@ -1,0 +1,32 @@
+@-moz-document domain("roosterteeth.com"),
+               domain("redvsblue.com"),
+               domain("achievementhunter.com"),
+               domain("roosterteethcomics.com"),
+               domain("strangerhood.com"),
+               domain("captaindynamic.com") {
+  /* Homepage and RTSE's "Watchlist Everywhere" feature */
+  table[width][cellspacing][cellpadding] > tbody > tr > td > div[style] > a[href^="/groups/forum/viewTopic.php"] {
+    color: blue !important;
+  }
+  table[width][cellspacing][cellpadding] > tbody > tr > td > div[style] > a[href^="/forum/viewTopic.php"] {
+    color: orange !important;
+  }
+  table[width][cellspacing][cellpadding] > tbody > tr > td > div[style] > a[href^="/members/comments"] {
+    color: green !important;
+  }
+
+
+  /* Forum's default watchlist */
+  #Forum > table > tbody > tr > td > table > tbody > tr > td[colspan] table > 
+       tbody > tr > td[width="33%"] > table > tbody > tr > td > a[href^="/groups/forum/viewTopic.php"] {
+    color: blue !important;
+  }
+  #Forum > table > tbody > tr > td > table > tbody > tr > td[colspan] table > 
+       tbody > tr > td[width="33%"] > table > tbody > tr > td > a[href^="/forum/viewTopic.php"] {
+    color: orange !important;
+  }
+  #Forum > table > tbody > tr > td > table > tbody > tr > td[colspan] table > 
+       tbody > tr > td[width="33%"] > table > tbody > tr > td > a[href^="/members/comments"] {
+    color: green !important;
+  }
+}

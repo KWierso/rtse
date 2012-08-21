@@ -1,0 +1,22 @@
+@-moz-document 
+   url-prefix("http://roosterteeth.com/members/journal/"),
+   url-prefix("http://roosterteethcomics.com/members/journal/"),
+   url-prefix("http://redvsblue.com/members/journal/"),
+   url-prefix("http://strangerhood.com/members/journal/"),
+   url-prefix("http://achievementhunter.com/members/journal/"),
+   url-prefix("http://magic.roosterteeth.com/members/journal/"),
+   url-prefix("http://panics.roosterteeth.com/members/journal/"),
+   url-prefix("http://m.roosterteeth.com/members/journal/"),
+   url-prefix("http://myspace.roosterteeth.com/members/journal/"),
+   url-prefix("http://captaindynamic.com/members/journal/")
+{
+  #pageContent>table>tbody>tr>td>table>tbody>tr>td>table>tbody>tr>td[width="252"][valign="top"]{
+    display: none !important;
+  }
+  #pageContent>table>tbody>tr>td>table>tbody>tr>td>table>tbody>tr>td[width="252"][valign="top"]+td{
+    display: none !important;
+  }
+  #pageContent>table>tbody>tr>td>table>tbody>tr>td>table>tbody>tr>td[width="252"][valign="top"]+td+td{
+    width: 100% !important;
+  }
+}

@@ -1,0 +1,154 @@
+{
+    "id": "jid0-QVXoZN2I0qxeM6fXf1FoJU0cO7I", 
+    "fullName": "RTSE Lite",
+    "version": "0.3a2",
+    "description": "RTSE Lite is a version of RTSE written using the Add-on SDK. Still missing a bunch of features, but we're getting there!", 
+    "icon": "data/icon.png",
+    "author": "Wes Kocher(:KWierso)",
+    "preferences": [
+      {
+        "name": "fixLinks",
+        "title": "Fix links on RT",
+        "type": "bool",
+        "value": true
+      },
+      {
+        "name": "colorWatchlist",
+        "title": "Color watchlist by context",
+        "type": "bool",
+        "value": false
+      },
+      {
+        "name": "siteHeader",
+        "title": "Show the site header",
+        "type": "bool",
+        "value": true
+      },
+      {
+        "name": "siteSidebar",
+        "title": "Show the site sidebar",
+        "type": "bool",
+        "value": true
+      },
+      {
+        "name": "journalSidebar",
+        "title": "Show the journal sidebar",
+        "type": "bool",
+        "value": true
+      },
+      {
+        "name": "videoSidebar",
+        "title": "Show the video sidebar",
+        "type": "bool",
+        "value": true
+      },
+      {
+        "name": "userInfoName",
+        "title": "Show username in UserPane",
+        "type": "bool",
+        "value": true
+      },
+      {
+        "name": "userInfoStats",
+        "title": "Show 'Stats' in UserPane (sponsor-only)",
+        "type": "bool",
+        "value": true
+      },
+      {
+        "name": "userInfoMods",
+        "title": "Show 'Mod History' in UserPane (sponsor-only)",
+        "type": "bool",
+        "value": true
+      },
+      {
+        "name": "userInfoFJ",
+        "title": "Show 'Friends Journals' in UserPane (sponsor-only)",
+        "type": "bool",
+        "value": true
+      },
+      {
+        "name": "userInfoComments",
+        "title": "Show 'Comments' in UserPane",
+        "type": "bool",
+        "value": true
+      },
+      {
+        "name": "userInfoJournal",
+        "title": "Show 'Journal' in UserPane",
+        "type": "bool",
+        "value": true
+      },
+      {
+        "name": "userInfoImages",
+        "title": "Show 'Images' in UserPane",
+        "type": "bool",
+        "value": true
+      },
+      {
+        "name": "userInfoLinks",
+        "title": "Show 'Links' in UserPane",
+        "type": "bool",
+        "value": true
+      },
+      {
+        "name": "userInfoMessages",
+        "title": "Show 'Messages' in UserPane",
+        "type": "bool",
+        "value": true
+      },
+      {
+        "name": "userInfoRequests",
+        "title": "Show 'Requests' in UserPane",
+        "type": "bool",
+        "value": true
+      },
+      {
+        "name": "userInfoGroups",
+        "title": "Show 'Groups' in UserPane",
+        "type": "bool",
+        "value": true
+      },
+      {
+        "name": "userInfoSponsor",
+        "title": "Show 'Sponsor' in UserPane",
+        "type": "bool",
+        "value": true
+      },
+      {
+        "name": "userInfoSettings",
+        "title": "Show 'Settings' in UserPane",
+        "type": "bool",
+        "value": true
+      },
+      {
+        "name": "userInfoLog",
+        "title": "Show 'Log' in UserPane",
+        "type": "bool",
+        "value": true
+      },
+      {
+        "name": "userInfoSignout",
+        "title": "Show 'Sign Out' in UserPane",
+        "type": "bool",
+        "value": true
+      },
+      {
+        "name": "addExtraTab",
+        "title": "Add an extra tab to navbar",
+        "type": "control",
+        "label": "Configure"
+      },
+      {
+        "name": "forumListEnabled",
+        "title": "Show the forum jumplist",
+        "type": "bool",
+        "value": true
+      },
+      {
+        "name": "forumListList",
+        "title": "List of forum ids for the jumplist, separated by commas",
+        "type": "string",
+        "value": ""
+      }
+    ]
+}

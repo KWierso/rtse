@@ -1,0 +1,10 @@
+@-moz-document domain("roosterteeth.com"),
+               domain("redvsblue.com"),
+               domain("achievementhunter.com"),
+               domain("roosterteethcomics.com"),
+               domain("strangerhood.com"),
+               domain("captaindynamic.com") {
+    td.topContent > table > tbody > tr > td + td[valign="top"][width="300"] {
+      display:none !important;
+    }
+}
