@@ -5,12 +5,12 @@ DONE - Sponsor status detection
 DONE - Link fixing (all RT links from any domain stay in current tab/window)
 DONE - UserInfo Modifications
 DONE - Watchlist coloring
-PUNT - Forum Jumplist
-Extra Tab
-Show/Hide Elements
-DONE-Sidebar
-DONE-Header
-DONE-Journal Sidebar
+DONE - Forum Jumplist
+DONE - Extra Tab
+DONE - Show/Hide Elements
+DONE - Sidebar
+DONE - Header
+DONE - Journal Sidebar
 -Site's background image
 Comment redirects
 Context menu goodies
