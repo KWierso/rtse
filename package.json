@@ -139,16 +139,10 @@
         "label": "Configure"
       },
       {
-        "name": "forumListEnabled",
-        "title": "Show the forum jumplist",
-        "type": "bool",
-        "value": true
-      },
-      {
-        "name": "forumListList",
-        "title": "List of forum ids for the jumplist, separated by commas",
-        "type": "string",
-        "value": ""
+        "name": "forumListButton",
+        "title": "Add a list of forums to a dropdown for easy access",
+        "type": "control",
+        "label": "Configure"
       }
     ]
 }

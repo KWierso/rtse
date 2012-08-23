@@ -29,6 +29,9 @@ Program Functions
 */
 
 function RTSE_addExtraTab(msg) {
+  if(msg == "undefined") {
+    return;
+  }
   var extraTabData = JSON.parse(msg);
 
   if(extraTabData.length < 1)
@@ -438,6 +441,7 @@ function RTSE_addCSS()
 function RTSE_forumListBox(forumList, names) {
   /* Used to create and insert the list box to jump to a forum */
 
+  forumList.reverse();
   forumList.push("null");
   forumList.reverse();
 
@@ -510,8 +514,8 @@ self.on("message", function(message) {
     }
   } else if(message.split("::")[0] == "RTSEFORUMJUMPLISTRESPONSE") {
     let forumPrefs = JSON.parse(message.split("RTSEFORUMJUMPLISTRESPONSE::")[1]);
-    if(forumPrefs.Enabled && forumPrefs.List.length > 0) {
-      RTSE_forumListBox(forumPrefs.List.replace(" ", "").split(","), forumPrefs.Names);
+    if(typeof forumPrefs.list != "undefined") {
+      RTSE_forumListBox(forumPrefs.list, forumPrefs.names);
     }
   } else {
     // Message is unknown

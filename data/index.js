@@ -8,6 +8,11 @@ document.getElementById("extraTabSave")
   saveExtraTabData();          
 }, false);
 
+document.getElementById("forumListSave")
+        .addEventListener("click", function() {
+  saveForumListData();          
+}, false);
+
 /* 
   Port Listeners
 */
@@ -23,7 +28,17 @@ self.port.on("getExtraTab", function(msg) {
   document.getElementById("extraTabConfig").className = "";
 });
 
-
+self.port.on("getForumList", function(msg) {
+  for(let i in msg.names) {
+    if(i != "null")
+      createForumListItem(false, i, msg.names[i]);
+  }
+  for(let i in msg.settings) {
+    document.getElementById("forum" + msg.settings[i])
+            .getElementsByTagName("input")[0].checked = true;
+  }
+  document.getElementById("jumplistConfig").className = "";
+});
 
 
 switch(document.location.hash) {
@@ -32,7 +47,7 @@ switch(document.location.hash) {
     break;
 
   case "#jumplist":
-    document.getElementById("jumplistConfig").className = "";
+    self.port.emit("getForumList", "fetch");
     break;
 
   default:
@@ -40,7 +55,34 @@ switch(document.location.hash) {
 }
 
 
+function createForumListItem(checked, index, name) {
+  var tabArea = document.getElementById("forumListArea")
+                        .getElementsByTagName("tbody")[0];
+  
+  var listItem = document.createElement("tr");
+  listItem.id = "forum" + index;
+  
+  var listItemCheckbox = document.createElement("input");
+  var listItemLabel = document.createElement("p");
+  var listItemID = document.createElement("p");
 
+  listItemCheckbox.type = "checkbox";
+  listItemCheckbox.checked = checked;
+
+  listItemLabel.textContent = name;
+  listItemID.textContent = index;
+  
+  listItem.appendChild(document.createElement("td"));
+  listItem.lastElementChild.appendChild(listItemCheckbox);
+
+  listItem.appendChild(document.createElement("td"));
+  listItem.lastElementChild.appendChild(listItemLabel);
+
+  listItem.appendChild(document.createElement("td"));
+  listItem.lastElementChild.appendChild(listItemID);
+
+  tabArea.appendChild(listItem);
+}
 
 function createExtraTabItem(data) {
   var tabArea = document.getElementById("extraTabArea")
@@ -81,4 +123,20 @@ function saveExtraTabData() {
   }
 
   self.port.emit("saveExtraTabs", extraTabItems);
+}
+
+function saveForumListData() {
+  var forumListSettings = [];
+  var forumItems = document.getElementById("forumListArea")
+                        .getElementsByTagName("tbody")[0]
+                        .getElementsByTagName("tr");
+
+  for(i in forumItems) {
+    if(forumItems[i].getElementsByTagName("input")[0].checked) {
+      let thisItem = forumItems[i].lastElementChild.lastElementChild.textContent;
+      forumListSettings.push(thisItem);
+    }
+  }
+
+  self.port.emit("saveForumList", forumListSettings);
 }
