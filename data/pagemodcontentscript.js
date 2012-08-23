@@ -80,11 +80,21 @@ function RTSE_addExtraTab(msg) {
 }
 
 function RTSE_addToUserInfo(uiprefs) {
+  if(uiprefs != "undefined") {
+    uiprefs = JSON.parse(uiprefs);
+  } else {
+    return;
+  }
   // helper function to make code shorter
   function addToStyleSafely(el) {
     return el.hasAttribute("style") ? el.getAttribute("style") : "";
   }
-  
+
+  let newuiprefs = {}
+  for(i in uiprefs) {
+    newuiprefs[uiprefs[i].item] = uiprefs[i].checked;
+  }
+
   //uiprefs=="DISABLED" is message from addon script to NOT run this
   if(uiprefs != "DISABLED") {
     let paneText = document.getElementById("userPane").getElementsByTagName("div");
@@ -95,12 +105,12 @@ function RTSE_addToUserInfo(uiprefs) {
       }
     }
     
-    if(!uiprefs.Name) {
+    if(!newuiprefs.userInfoName) {
       let nametable = paneText.getElementsByTagName("table")[0];
       nametable.setAttribute("style", addToStyleSafely(nametable) + "display:none!important;");
     }
     
-    if(!uiprefs.Messages) {
+    if(!newuiprefs.userInfoMessages) {
       let panespans = paneText.getElementsByTagName("span");
       for(i in panespans) {
         if(panespans[i].innerHTML == "Messages") {
@@ -110,7 +120,7 @@ function RTSE_addToUserInfo(uiprefs) {
       }
     }
     
-    if(!uiprefs.Requests) {
+    if(!newuiprefs.userInfoRequests) {
       let panespans = paneText.getElementsByTagName("span");
       for(i in panespans) {
         if(panespans[i].innerHTML == "Requests") {
@@ -120,7 +130,7 @@ function RTSE_addToUserInfo(uiprefs) {
       }
     }
     
-    if(uiprefs.Groups) {
+    if(newuiprefs.userInfoGroups) {
       let panespans = paneText.getElementsByTagName("span");
       let groupParent;
       for(i in panespans) {
@@ -134,14 +144,14 @@ function RTSE_addToUserInfo(uiprefs) {
       groupElement.innerHTML = "Groups";
       groupElement.href = "/members/groups.php";
       let groupText = document.createElement("span");
-      if(uiprefs.Messages || uiprefs.Requests) {
+      if(newuiprefs.userInfoMessages || newuiprefs.userInfoRequests) {
         groupText.innerHTML = " &nbsp;|&nbsp; ";
       }
       groupText.appendChild(groupElement);
       groupParent.appendChild(groupText);
     }
     
-    if(uiprefs.Log) {
+    if(newuiprefs.userInfoLog) {
       let panelinks = paneText.getElementsByTagName("a");
       let logParent;
       let signoutLink;
@@ -158,13 +168,13 @@ function RTSE_addToUserInfo(uiprefs) {
       logElement.href = "/members/log.php";
       let logText = document.createElement("span");
       logText.appendChild(logElement);
-      if(uiprefs.Signout) {
+      if(newuiprefs.userInfoSignout) {
         logText.innerHTML = logText.innerHTML + " &nbsp;|&nbsp; ";
       }
       logParent.insertBefore(logText, signoutLink);
     }
     
-    if(!uiprefs.Sponsor) {
+    if(!newuiprefs.userInfoSponsor) {
       let panespans = paneText.getElementsByTagName("span");
       for(i in panespans) {
         if(panespans[i].innerHTML == "Sponsor") {
@@ -174,7 +184,7 @@ function RTSE_addToUserInfo(uiprefs) {
       }
     }
     
-    if(!uiprefs.Settings) {
+    if(!newuiprefs.userInfoSettings) {
       let panelinks = paneText.getElementsByTagName("a");
       for(i in panelinks) {
         if(panelinks[i].innerHTML == "Settings") {
@@ -184,7 +194,7 @@ function RTSE_addToUserInfo(uiprefs) {
       }
     }
     
-    if(!uiprefs.Signout) {
+    if(!newuiprefs.userInfoSignout) {
       let panelinks = paneText.getElementsByTagName("a");
       for(i in panelinks) {
         if(panelinks[i].innerHTML == "Sign Out") {
@@ -194,7 +204,7 @@ function RTSE_addToUserInfo(uiprefs) {
       }
     }
     
-    if(!uiprefs.Sponsor && !uiprefs.Settings && !uiprefs.Signout && !uiprefs.Log) {
+    if(!newuiprefs.userInfoSponsor && !newuiprefs.userInfoSettings && !newuiprefs.userInfoSignout && !newuiprefs.userInfoLog) {
       let panelinks = paneText.getElementsByTagName("a");
       for(i in panelinks) {
         if(panelinks[i].innerHTML == "Settings") {
@@ -204,7 +214,7 @@ function RTSE_addToUserInfo(uiprefs) {
       }
     }
     
-    if(!uiprefs.Messages && !uiprefs.Requests && !uiprefs.Groups) {
+    if(!newuiprefs.userInfoMessages && !newuiprefs.userInfoRequests && !newuiprefs.userInfoGroups) {
       let panespans = paneText.getElementsByTagName("span");
       for(i in panespans) {
         if(panespans[i].innerHTML == "Messages") {
@@ -214,7 +224,7 @@ function RTSE_addToUserInfo(uiprefs) {
       }
     }
     
-    if((uiprefs.FJ || uiprefs.Mods || uiprefs.Stats) && account == 2) {
+    if((newuiprefs.userInfoFJ || newuiprefs.userInfoMods || newuiprefs.userInfoStats) && account == 2) {
       let sponsDiv = document.createElement("div");
       sponsDiv.className = "paneLinks";
       let panespans = paneText.getElementsByTagName("span");
@@ -227,7 +237,7 @@ function RTSE_addToUserInfo(uiprefs) {
       }
       paneText.insertBefore(sponsDiv, nextRow);
       
-      if(uiprefs.Stats) {
+      if(newuiprefs.userInfoStats) {
         let statsLink = document.createElement("a");
         statsLink.className = "small light";
         statsLink.innerHTML = "Stats";
@@ -235,13 +245,13 @@ function RTSE_addToUserInfo(uiprefs) {
         sponsDiv.appendChild(statsLink);
       }
       
-      if(uiprefs.Stats && (uiprefs.Mods || uiprefs.FJ)) {
+      if(newuiprefs.userInfoStats && (newuiprefs.userInfoMods || newuiprefs.userInfoFJ)) {
         let emptyText = document.createElement("span");
         emptyText.innerHTML = " &nbsp;|&nbsp; ";
         sponsDiv.appendChild(emptyText);
       }
       
-      if(uiprefs.Mods) {
+      if(newuiprefs.userInfoMods) {
         let mhLink = document.createElement("a");
         mhLink.className = "small light";
         mhLink.innerHTML = "Mod History";
@@ -249,13 +259,13 @@ function RTSE_addToUserInfo(uiprefs) {
         sponsDiv.appendChild(mhLink);
       }
       
-      if((uiprefs.Stats || uiprefs.Mods) && uiprefs.FJ) {
+      if((newuiprefs.userInfoStats || newuiprefs.userInfoMods) && newuiprefs.userInfoFJ) {
         let emptyText = document.createElement("span");
         emptyText.innerHTML = " &nbsp;|&nbsp; ";
         sponsDiv.appendChild(emptyText);
       }
       
-      if(uiprefs.FJ) {
+      if(newuiprefs.userInfoFJ) {
         let fjLink = document.createElement("a");
         fjLink.className = "small light";
         fjLink.innerHTML = "Friends' Journals";
@@ -264,7 +274,7 @@ function RTSE_addToUserInfo(uiprefs) {
       }
     }
     
-    if(uiprefs.Comments || uiprefs.Journal || uiprefs.Images || uiprefs.Links) {
+    if(newuiprefs.userInfoComments || newuiprefs.userInfoJournal || newuiprefs.userInfoImages || newuiprefs.userInfoLinks) {
       let contentDiv = document.createElement("div");
       contentDiv.className = "paneLinks";
       let panespans = paneText.getElementsByTagName("span");
@@ -277,7 +287,7 @@ function RTSE_addToUserInfo(uiprefs) {
       }
       paneText.insertBefore(contentDiv, nextRow);
       
-      if(uiprefs.Comments) {
+      if(newuiprefs.userInfoComments) {
         let commLink = document.createElement("a");
         commLink.className = "small light";
         commLink.innerHTML = "Comments";
@@ -285,13 +295,13 @@ function RTSE_addToUserInfo(uiprefs) {
         contentDiv.appendChild(commLink);
       }
       
-      if(uiprefs.Stats && (uiprefs.Mods || uiprefs.FJ)) {
+      if(newuiprefs.userInfoStats && (newuiprefs.userInfoMods || newuiprefs.userInfoFJ)) {
         let emptyText = document.createElement("span");
         emptyText.innerHTML = " &nbsp;|&nbsp; ";
         contentDiv.appendChild(emptyText);
       }
       
-      if(uiprefs.Journal) {
+      if(newuiprefs.userInfoJournal) {
         let jLink = document.createElement("a");
         jLink.className = "small light";
         jLink.innerHTML = "Journal";
@@ -299,13 +309,13 @@ function RTSE_addToUserInfo(uiprefs) {
         contentDiv.appendChild(jLink);
       }
       
-      if((uiprefs.Stats || uiprefs.Mods) && uiprefs.FJ) {
+      if((newuiprefs.userInfoStats || newuiprefs.userInfoMods) && newuiprefs.userInfoFJ) {
         let emptyText = document.createElement("span");
         emptyText.innerHTML = " &nbsp;|&nbsp; ";
         contentDiv.appendChild(emptyText);
       }
       
-      if(uiprefs.Images) {
+      if(newuiprefs.userInfoImages) {
         let imgLink = document.createElement("a");
         imgLink.className = "small light";
         imgLink.innerHTML = "Images";
@@ -313,13 +323,13 @@ function RTSE_addToUserInfo(uiprefs) {
         contentDiv.appendChild(imgLink);
       }
       
-      if((uiprefs.Stats || uiprefs.Mods || uiprefs.FJ) && uiprefs.Links) {
+      if((newuiprefs.userInfoStats || newuiprefs.userInfoMods || newuiprefs.userInfoFJ) && newuiprefs.userInfoLinks) {
         let emptyText = document.createElement("span");
         emptyText.innerHTML = " &nbsp;|&nbsp; ";
         contentDiv.appendChild(emptyText);
       }
       
-      if(uiprefs.Links) {
+      if(newuiprefs.userInfoLinks) {
         let linksLink = document.createElement("a");
         linksLink.className = "small light";
         linksLink.innerHTML = "Links";
@@ -503,7 +513,8 @@ function RTSE_forumListBox(forumList, names) {
 self.on("message", function(message) {
   if(message.split("::")[0] == "RTSEUSERINFORESPONSE") {
     // Message is the userInfo display preferences
-    RTSE_addToUserInfo(JSON.parse(message.split("RTSEUSERINFORESPONSE::")[1]));
+    let uiprefs = message.split("RTSEUSERINFORESPONSE::")[1];
+    RTSE_addToUserInfo(uiprefs);
   } else if(message.split("::")[0] == "RTSELINKFIXRESPONSE") {
     if(message.split("RTSELINKFIXRESPONSE::")[1] == "true") {
       RTSE_linkFix();

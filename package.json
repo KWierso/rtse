@@ -43,94 +43,10 @@
         "value": true
       },
       {
-        "name": "userInfoName",
-        "title": "Show username in UserPane",
-        "type": "bool",
-        "value": true
-      },
-      {
-        "name": "userInfoStats",
-        "title": "Show 'Stats' in UserPane (sponsor-only)",
-        "type": "bool",
-        "value": true
-      },
-      {
-        "name": "userInfoMods",
-        "title": "Show 'Mod History' in UserPane (sponsor-only)",
-        "type": "bool",
-        "value": true
-      },
-      {
-        "name": "userInfoFJ",
-        "title": "Show 'Friends Journals' in UserPane (sponsor-only)",
-        "type": "bool",
-        "value": true
-      },
-      {
-        "name": "userInfoComments",
-        "title": "Show 'Comments' in UserPane",
-        "type": "bool",
-        "value": true
-      },
-      {
-        "name": "userInfoJournal",
-        "title": "Show 'Journal' in UserPane",
-        "type": "bool",
-        "value": true
-      },
-      {
-        "name": "userInfoImages",
-        "title": "Show 'Images' in UserPane",
-        "type": "bool",
-        "value": true
-      },
-      {
-        "name": "userInfoLinks",
-        "title": "Show 'Links' in UserPane",
-        "type": "bool",
-        "value": true
-      },
-      {
-        "name": "userInfoMessages",
-        "title": "Show 'Messages' in UserPane",
-        "type": "bool",
-        "value": true
-      },
-      {
-        "name": "userInfoRequests",
-        "title": "Show 'Requests' in UserPane",
-        "type": "bool",
-        "value": true
-      },
-      {
-        "name": "userInfoGroups",
-        "title": "Show 'Groups' in UserPane",
-        "type": "bool",
-        "value": true
-      },
-      {
-        "name": "userInfoSponsor",
-        "title": "Show 'Sponsor' in UserPane",
-        "type": "bool",
-        "value": true
-      },
-      {
-        "name": "userInfoSettings",
-        "title": "Show 'Settings' in UserPane",
-        "type": "bool",
-        "value": true
-      },
-      {
-        "name": "userInfoLog",
-        "title": "Show 'Log' in UserPane",
-        "type": "bool",
-        "value": true
-      },
-      {
-        "name": "userInfoSignout",
-        "title": "Show 'Sign Out' in UserPane",
-        "type": "bool",
-        "value": true
+        "name": "userInfoButton",
+        "title": "Determine what shows in the userInfo pane",
+        "type": "control",
+        "label": "Configure"
       },
       {
         "name": "addExtraTab",

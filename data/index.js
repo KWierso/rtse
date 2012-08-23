@@ -13,6 +13,11 @@ document.getElementById("forumListSave")
   saveForumListData();          
 }, false);
 
+document.getElementById("userInfoSave")
+        .addEventListener("click", function() {
+  saveUserInfoData();          
+}, false);
+
 /* 
   Port Listeners
 */
@@ -40,6 +45,22 @@ self.port.on("getForumList", function(msg) {
   document.getElementById("jumplistConfig").className = "";
 });
 
+self.port.on("getUserInfo", function(msg) {
+
+  if(JSON.stringify(msg) == "null") {
+    let inputs = document.getElementById("userInfoArea").getElementsByTagName("input");
+    for(let i in inputs) { 
+      inputs[i].checked = true;
+    }
+  } else {
+    for(let i in msg) {
+      document.getElementById(msg[i].item)
+              .getElementsByTagName("input")[0].checked = msg[i].checked;
+    }
+  }
+  document.getElementById("userInfoConfig").className = "";
+});
+
 
 switch(document.location.hash) {
   case "#extratab":
@@ -48,6 +69,10 @@ switch(document.location.hash) {
 
   case "#jumplist":
     self.port.emit("getForumList", "fetch");
+    break;
+
+  case "#userinfo":
+    self.port.emit("getUserInfo", "fetch");
     break;
 
   default:
@@ -139,4 +164,22 @@ function saveForumListData() {
   }
 
   self.port.emit("saveForumList", forumListSettings);
+}
+
+function saveUserInfoData() {
+  var userInfoSettings = [];
+  var userInfoItems = document.getElementById("userInfoArea")
+                        .getElementsByTagName("tbody")[0]
+                        .getElementsByTagName("tr");
+
+  for(i in userInfoItems) {
+    let thisItem = {
+    }
+
+    thisItem.item = userInfoItems[i].id;
+    thisItem.checked = userInfoItems[i].getElementsByTagName("input")[0].checked;
+    userInfoSettings.push(thisItem);
+  }
+
+  self.port.emit("saveUserInfo", userInfoSettings);
 }
