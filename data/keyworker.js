@@ -22,4 +22,5 @@ self.port.on("tag", function(tag) {
       activeElement.setSelectionRange(ss1.length + tag.length + 2, ss1.length + tag.length + 2 + selectedText.length);
     }
   }
+  self.port.emit("destroy", "blah");
 });
