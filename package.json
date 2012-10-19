@@ -1,7 +1,7 @@
 {
     "id": "jid0-QVXoZN2I0qxeM6fXf1FoJU0cO7I", 
     "fullName": "RTSE Lite",
-    "version": "0.4a1",
+    "version": "0.4a2",
     "description": "RTSE Lite is a version of RTSE written using the Add-on SDK. Still missing a bunch of features, but we're getting there!", 
     "icon": "data/icon.png",
     "author": "Wes Kocher(:KWierso)",
