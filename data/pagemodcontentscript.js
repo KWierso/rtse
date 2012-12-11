@@ -9,6 +9,7 @@ var userInfo = document.getElementById("userInfoDiv");
 var account = RTSE_updateAccount(userInfo);
 
 // Do stuff on every page
+self.postMessage("RTSE::WatchingRequest");
 self.postMessage("RTSE::LinkFixRequest");
 self.postMessage("RTSE::AddExtraTab");
 self.postMessage("RTSE::ForumJumpListRequest");
@@ -523,6 +524,25 @@ self.on("message", function(message) {
     if(message.split("RTSEADDEXTRATABRESPONSE::")[1] != "false") {
       RTSE_addExtraTab(message.split("RTSEADDEXTRATABRESPONSE::")[1]);
     }
+  } else if(message.split("::")[0] == "RTSEWATCHINGRESPONSE") {
+      // Automatically redirect from members/ to members/?s=watching
+      /*if((document.location.pathname == "/members" || document.location.pathname == "/members/") && document.location.search == "") {
+        document.location.search = "?s=watching";
+      }*/
+
+      // Adjust the links to the members/ page so it goes directly to ?s=watching
+      var sibling = document.getElementById("userInfoDiv").nextElementSibling;
+      try {
+        while(sibling.className != "myAvatar") {
+          sibling = sibling.nextElementSibling;
+        }
+      } catch(e) {console.log(e.message);}
+      sibling.getElementsByTagName("a")[0].href = "/members/?s=watching";
+
+      document.getElementById("navButton7").href = "/members/?s=watching";
+      document.getElementById("navDiv7").getElementsByTagName("a")[0].href = "/members/?s=watching";
+      document.getElementById("footNavLinks8").getElementsByTagName("a")[0].href = "/members/?s=watching";
+      document.getElementById("footNavLinks8").getElementsByTagName("a")[1].href = "/members/?s=watching";
   } else if(message.split("::")[0] == "RTSEFORUMJUMPLISTRESPONSE") {
     let forumPrefs = JSON.parse(message.split("RTSEFORUMJUMPLISTRESPONSE::")[1]);
     if(typeof forumPrefs.list != "undefined") {
