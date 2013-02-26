@@ -139,12 +139,16 @@ function saveExtraTabData() {
                         .getElementsByTagName("tbody")[0]
                         .getElementsByTagName("tr");
 
-  for(i in tabItems) {
-    var thisItem = {"label":"", "url":""}
-    thisItem.label = tabItems[i].getElementsByTagName("input")[0].value;
-    thisItem.url = tabItems[i].getElementsByTagName("input")[1].value;
-    if(thisItem.label != "" && thisItem.url != "")
-      extraTabItems.push(thisItem);
+  for(let i in tabItems) {
+    if(tabItems[i].tagName == "TR") {
+      try {
+        var thisItem = {"label":"", "url":""}
+        thisItem.label = tabItems[i].getElementsByTagName("input")[0].value;
+        thisItem.url = tabItems[i].getElementsByTagName("input")[1].value;
+        if(thisItem.label != "" && thisItem.url != "")
+          extraTabItems.push(thisItem);
+      } catch(e) { console.log(i); }
+    }
   }
 
   self.port.emit("saveExtraTabs", extraTabItems);
@@ -156,10 +160,14 @@ function saveForumListData() {
                         .getElementsByTagName("tbody")[0]
                         .getElementsByTagName("tr");
 
-  for(i in forumItems) {
-    if(forumItems[i].getElementsByTagName("input")[0].checked) {
-      let thisItem = forumItems[i].lastElementChild.lastElementChild.textContent;
-      forumListSettings.push(thisItem);
+  for (let i in forumItems) {
+    if(forumItems[i].tagName == "TR") {
+      try {
+        if(forumItems[i].getElementsByTagName("input")[0].checked) {
+          let thisItem = forumItems[i].lastElementChild.lastElementChild.textContent;
+          forumListSettings.push(thisItem);
+        }
+      } catch(e) { console.log(i); }
     }
   }
 
@@ -172,13 +180,17 @@ function saveUserInfoData() {
                         .getElementsByTagName("tbody")[0]
                         .getElementsByTagName("tr");
 
-  for(i in userInfoItems) {
-    let thisItem = {
-    }
+  for(let i in userInfoItems) {
+    if(userInfoItems[i].tagName == "TR") {
+      try {
+        let thisItem = {
+        }
 
-    thisItem.item = userInfoItems[i].id;
-    thisItem.checked = userInfoItems[i].getElementsByTagName("input")[0].checked;
-    userInfoSettings.push(thisItem);
+        thisItem.item = userInfoItems[i].id;
+        thisItem.checked = userInfoItems[i].getElementsByTagName("input")[0].checked;
+        userInfoSettings.push(thisItem);
+      } catch(e) { console.log(i); }
+    }
   }
 
   self.port.emit("saveUserInfo", userInfoSettings);
