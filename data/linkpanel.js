@@ -22,7 +22,7 @@ ok.addEventListener("click", function() {
 
 self.port.on("selectedtext", function(msg) {
   body.value = msg.linkbody;
-})
+});
 
 self.port.on("cleareverything", function() {
   body.value = "";
@@ -31,4 +31,8 @@ self.port.on("cleareverything", function() {
 
 self.port.on("focusurl", function() {
   url.focus();
+});
+
+self.port.on("forceOK", function() {
+  self.port.emit("ok", {"url":url.value, "body": body.value});
 });
