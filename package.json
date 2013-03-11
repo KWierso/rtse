@@ -5,6 +5,7 @@
     "description": "RTSE Lite is a version of RTSE written using the Add-on SDK.", 
     "icon": "data/icon.png",
     "author": "Wes Kocher(:KWierso)",
+    "permissions": {"private-browsing": true}
     "preferences": [
       {
         "name": "fixLinks",
