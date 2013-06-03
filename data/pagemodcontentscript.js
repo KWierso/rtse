@@ -459,13 +459,13 @@ function RTSE_forumListBox(forumList, names) {
   var listBox=document.createElement('select');
 
   /* Creating the listBox */
-  for (var i = 0; i < forumList.length; i++) {
+  for (let i of forumList) {
     try {
       let option=document.createElement('option');
-      option.setAttribute('value',forumList[i]);
-      option.innerHTML=names[forumList[i]];
+      option.setAttribute('value', i);
+      option.innerHTML=names[i];
       if(option.innerHTML == "undefined") {
-        option.innerHTML = "Unknown Forum (" + forumList[i] + ")";
+        option.innerHTML = "Unknown Forum (" + i + ")";
       }
       listBox.appendChild(option);
     } catch (e) { /* eat any exceptions due to bad prefs */ }

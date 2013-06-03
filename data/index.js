@@ -160,11 +160,11 @@ function saveForumListData() {
                         .getElementsByTagName("tbody")[0]
                         .getElementsByTagName("tr");
 
-  for (let i in forumItems) {
-    if(forumItems[i].tagName == "TR") {
+  for (let i of forumItems) {
+    if(i.tagName == "TR") {
       try {
-        if(forumItems[i].getElementsByTagName("input")[0].checked) {
-          let thisItem = forumItems[i].lastElementChild.lastElementChild.textContent;
+        if(i.getElementsByTagName("input")[0].checked) {
+          let thisItem = i.lastElementChild.lastElementChild.textContent;
           forumListSettings.push(thisItem);
         }
       } catch(e) { console.log(i); }
