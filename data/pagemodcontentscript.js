@@ -55,7 +55,12 @@ function RTSE_addExtraTab(msg) {
   headerImage.setAttribute("width", "10");
   headerImage.setAttribute("height", "6");
   headerImage.setAttribute("style", "padding-left:5px;");
-  headerImage.setAttribute("src", "http://s3.roosterteeth.com/assets/style/flashy/bits/navArrow.png");
+  headerImage.setAttribute("src", "data:image/png;base64," +
+    "iVBORw0KGgoAAAANSUhEUgAAAAoAAAAGCAYAAAD68A/GAAAACXBI" +
+    "WXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAG2YAABzjgAA4EoAAIZf" +
+    "AAB4gwAAyr4AADMrAAAcdsTGc5wAAAA8SURBVHjahMpBCgAwCAPB" +
+    "+PKSl28vFUQs7kUwI8DsWYAWbEAJf9i5V9ix6xaAWn731OcExy4A" +
+    "AAD//wMAQFGWeYkVCjQAAAAASUVORK5CYII=");
   
   headerLink.appendChild(headerImage);
   
@@ -142,7 +147,7 @@ function RTSE_addToUserInfo(uiprefs) {
       }
       let groupElement = document.createElement("a");
       groupElement.className = "small light";
-      groupElement.innerHTML = "Groups";
+      groupElement.textContent = "Groups";
       groupElement.href = "/members/groups.php";
       let groupText = document.createElement("span");
       if(newuiprefs.userInfoMessages || newuiprefs.userInfoRequests) {
@@ -165,7 +170,7 @@ function RTSE_addToUserInfo(uiprefs) {
       }
       let logElement = document.createElement("a");
       logElement.className = "small light";
-      logElement.innerHTML = "Log";
+      logElement.textContent = "Log";
       logElement.href = "/members/log.php";
       let logText = document.createElement("span");
       logText.appendChild(logElement);
@@ -241,7 +246,7 @@ function RTSE_addToUserInfo(uiprefs) {
       if(newuiprefs.userInfoStats) {
         let statsLink = document.createElement("a");
         statsLink.className = "small light";
-        statsLink.innerHTML = "Stats";
+        statsLink.textContent = "Stats";
         statsLink.href = "/members/stats/myStats.php";
         sponsDiv.appendChild(statsLink);
       }
@@ -255,7 +260,7 @@ function RTSE_addToUserInfo(uiprefs) {
       if(newuiprefs.userInfoMods) {
         let mhLink = document.createElement("a");
         mhLink.className = "small light";
-        mhLink.innerHTML = "Mod History";
+        mhLink.textContent = "Mod History";
         mhLink.href = "/members/modHistory.php";
         sponsDiv.appendChild(mhLink);
       }
@@ -269,7 +274,7 @@ function RTSE_addToUserInfo(uiprefs) {
       if(newuiprefs.userInfoFJ) {
         let fjLink = document.createElement("a");
         fjLink.className = "small light";
-        fjLink.innerHTML = "Friends' Journals";
+        fjLink.textContent = "Friends' Journals";
         fjLink.href = "/members/journal/friendsJournals.php";
         sponsDiv.appendChild(fjLink);
       }
@@ -291,7 +296,7 @@ function RTSE_addToUserInfo(uiprefs) {
       if(newuiprefs.userInfoComments) {
         let commLink = document.createElement("a");
         commLink.className = "small light";
-        commLink.innerHTML = "Comments";
+        commLink.textContent = "Comments";
         commLink.href = "/members/comments/";
         contentDiv.appendChild(commLink);
       }
@@ -305,7 +310,7 @@ function RTSE_addToUserInfo(uiprefs) {
       if(newuiprefs.userInfoJournal) {
         let jLink = document.createElement("a");
         jLink.className = "small light";
-        jLink.innerHTML = "Journal";
+        jLink.textContent = "Journal";
         jLink.href = "/members/journal/";
         contentDiv.appendChild(jLink);
       }
@@ -319,7 +324,7 @@ function RTSE_addToUserInfo(uiprefs) {
       if(newuiprefs.userInfoImages) {
         let imgLink = document.createElement("a");
         imgLink.className = "small light";
-        imgLink.innerHTML = "Images";
+        imgLink.textContent = "Images";
         imgLink.href = "/members/images/";
         contentDiv.appendChild(imgLink);
       }
@@ -333,7 +338,7 @@ function RTSE_addToUserInfo(uiprefs) {
       if(newuiprefs.userInfoLinks) {
         let linksLink = document.createElement("a");
         linksLink.className = "small light";
-        linksLink.innerHTML = "Links";
+        linksLink.textContent = "Links";
         linksLink.href = "/members/links.php";
         contentDiv.appendChild(linksLink);
       }
@@ -463,9 +468,9 @@ function RTSE_forumListBox(forumList, names) {
     try {
       let option=document.createElement('option');
       option.setAttribute('value', i);
-      option.innerHTML=names[i];
+      option.textContent=names[i];
       if(option.innerHTML == "undefined") {
-        option.innerHTML = "Unknown Forum (" + i + ")";
+        option.textContent = "Unknown Forum (" + i + ")";
       }
       listBox.appendChild(option);
     } catch (e) { /* eat any exceptions due to bad prefs */ }
