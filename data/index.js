@@ -27,6 +27,7 @@ self.port.on("message", function(msg) {
 });
 
 self.port.on("getExtraTab", function(msg) {
+  document.title = "RTSE - Add items to a tab";
   for(i in msg) {
     createExtraTabItem(msg[i]);
   }
@@ -34,6 +35,7 @@ self.port.on("getExtraTab", function(msg) {
 });
 
 self.port.on("getForumList", function(msg) {
+  document.title = "RTSE - Create a list of your favorite forums";
   for(let i in msg.names) {
     if(i != "null")
       createForumListItem(false, i, msg.names[i]);
@@ -46,7 +48,7 @@ self.port.on("getForumList", function(msg) {
 });
 
 self.port.on("getUserInfo", function(msg) {
-
+  document.title = "RTSE - Control what shows up in the userInfo pane";
   if(JSON.stringify(msg) == "null") {
     let inputs = document.getElementById("userInfoArea").getElementsByTagName("input");
     for(let i in inputs) { 
