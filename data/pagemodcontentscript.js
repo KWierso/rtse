@@ -544,6 +544,9 @@ self.on("message", function(message) {
       lastHeader.firstElementChild.lastElementChild.getElementsByTagName("a")[0].href = "/members/?s=watching";
       document.getElementById("footNavLinks8").getElementsByTagName("a")[0].href = "/members/?s=watching";
       document.getElementById("footNavLinks8").getElementsByTagName("a")[1].href = "/members/?s=watching";
+      
+      document.getElementById("memberBox").firstElementChild.href = "/members/?s=watching";
+      document.getElementById("userPane").getElementsByTagName("img")[0].parentNode.href = "/members/?s=watching";
   } else if(message.split("::")[0] == "RTSEFORUMJUMPLISTRESPONSE") {
     let forumPrefs = JSON.parse(message.split("RTSEFORUMJUMPLISTRESPONSE::")[1]);
     if(typeof forumPrefs.list != "undefined") {
