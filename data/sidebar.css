@@ -7,7 +7,7 @@
   #sidebar {
     display:none!important;
   }
-  #site_ContentInside2 > div, #mainPageContentContainer, #river {
+  #site_ContentInside2 > div, #mainPageContentContainer, #mainPageContentContainer > #river {
     width: 910px!important;
   }
 }
