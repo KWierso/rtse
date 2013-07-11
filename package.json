@@ -26,20 +26,14 @@
         "value": true
       },
       {
-        "name": "siteSidebar",
-        "title": "Show the site sidebar",
+        "name": "sidebar",
+        "title": "Show the sidebar in the forums elsewhere",
         "type": "bool",
         "value": true
       },
       {
-        "name": "journalSidebar",
-        "title": "Show the journal sidebar",
-        "type": "bool",
-        "value": true
-      },
-      {
-        "name": "videoSidebar",
-        "title": "Show the video sidebar",
+        "name": "memberSidebar",
+        "title": "Show the member sidebar",
         "type": "bool",
         "value": true
       },
