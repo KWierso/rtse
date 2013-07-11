@@ -4,7 +4,10 @@
                domain("roosterteethcomics.com"),
                domain("strangerhood.com"),
                domain("captaindynamic.com") {
-  td.sidebar {
-    display:none;
+  #sidebar {
+    display:none!important;
+  }
+  #site_ContentInside2 > div {
+    width: 910px!important;
   }
 }
