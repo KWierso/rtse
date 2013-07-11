@@ -38,18 +38,17 @@ function RTSE_addExtraTab(msg) {
   if(extraTabData.length < 1)
     return;
 
-  var navBar = document.getElementById("searchTd").previousElementSibling
-                       .getElementsByTagName("td")[0];
+  var navBar = document.getElementById("navButtonsInnerMost")
   
-  var newHeader = document.createElement("div");
-  newHeader.setAttribute("class", "navDivTop");
-  newHeader.setAttribute("style", "padding-right:0;");
+  var newHeader = document.createElement("ul");
+  newHeader.setAttribute("class", "nav");
+  var headerLI = document.createElement("li");
+  headerLI.setAttribute("class", "navItem");
   
   var headerLink = document.createElement("a");
   headerLink.textContent = "RTSE";
-  headerLink.setAttribute("id", "navButton99");
-  headerLink.setAttribute("class", "navbutton");
-  headerLink.setAttribute("onmouseover", "navShow(99);");
+  headerLink.setAttribute("class", "naviLink");
+  headerLink.href = "HI";
   
   var headerImage = document.createElement("img");
   headerImage.setAttribute("width", "10");
@@ -63,25 +62,27 @@ function RTSE_addExtraTab(msg) {
     "AAD//wMAQFGWeYkVCjQAAAAASUVORK5CYII=");
   
   headerLink.appendChild(headerImage);
+  headerLI.appendChild(headerLink);
   
-  var headerDiv = document.createElement("div");
-  headerDiv.setAttribute("id", "navDiv99");
-  headerDiv.setAttribute("class", "navDiv");
-  headerDiv.setAttribute("style", "top: 15px;");
+  var headerUL = document.createElement("ul");
+  headerUL.setAttribute("class", "subnav");
   
-  headerDiv.appendChild(document.createElement("div"));
-  
-  newHeader.appendChild(headerLink);
-  newHeader.appendChild(headerDiv);
+  headerLI.appendChild(headerUL);
+  newHeader.appendChild(headerLI);
   
   navBar.appendChild(newHeader);
   
   for(i in extraTabData) {
+    let itemLI = document.createElement("li");
+    itemLI.setAttribute("style", "display:block;");
+    itemLI.setAttribute("class", "subnavItem");
+    
     var itemLink = document.createElement("a");
     itemLink.setAttribute("class", "navHovLink");
     itemLink.href = extraTabData[i].url;
     itemLink.textContent = extraTabData[i].label;
-    headerDiv.firstElementChild.appendChild(itemLink);
+    headerUL.appendChild(itemLI);
+    itemLI.appendChild(itemLink);
   }
 }
 
@@ -103,16 +104,10 @@ function RTSE_addToUserInfo(uiprefs) {
 
   //uiprefs=="DISABLED" is message from addon script to NOT run this
   if(uiprefs != "DISABLED") {
-    let paneText = document.getElementById("userPane").getElementsByTagName("div");
-    for(i in paneText) {
-      if(paneText[i].className == "paneText" && paneText[i].firstElementChild.tagName == "TABLE") {
-        paneText = paneText[i];
-        break;
-      }
-    }
+    let paneText = document.getElementById("userPane").lastElementChild;
     
     if(!newuiprefs.userInfoName) {
-      let nametable = paneText.getElementsByTagName("table")[0];
+      let nametable = document.getElementById("memberBox");
       nametable.setAttribute("style", addToStyleSafely(nametable) + "display:none!important;");
     }
     
@@ -544,8 +539,9 @@ self.on("message", function(message) {
       } catch(e) {console.log(e.message);}
       sibling.getElementsByTagName("a")[0].href = "/members/?s=watching";
 
-      document.getElementById("navButton7").href = "/members/?s=watching";
-      document.getElementById("navDiv7").getElementsByTagName("a")[0].href = "/members/?s=watching";
+      let lastHeader = document.getElementById("navButtonsInnerMost").lastElementChild;
+      lastHeader.firstElementChild.firstElementChild.href = "/members/?s=watching";
+      lastHeader.firstElementChild.lastElementChild.getElementsByTagName("a")[0].href = "/members/?s=watching";
       document.getElementById("footNavLinks8").getElementsByTagName("a")[0].href = "/members/?s=watching";
       document.getElementById("footNavLinks8").getElementsByTagName("a")[1].href = "/members/?s=watching";
   } else if(message.split("::")[0] == "RTSEFORUMJUMPLISTRESPONSE") {
