@@ -44,6 +44,12 @@
         "value": false
       },
       {
+        "name": "topPostRedirect",
+        "title": "Redirect to the next post in a forum thread when going to the next page",
+        "type": "bool",
+        "value": false
+      },
+      {
         "name": "userInfoButton",
         "title": "Determine what shows in the userInfo pane",
         "type": "control",

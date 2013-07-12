@@ -10,6 +10,7 @@ var account = RTSE_updateAccount(userInfo);
 
 // Do stuff on every page
 self.postMessage("RTSE::WatchingRequest");
+self.postMessage("RTSE::NextPageRequest");
 self.postMessage("RTSE::LinkFixRequest");
 self.postMessage("RTSE::AddExtraTab");
 self.postMessage("RTSE::ForumJumpListRequest");
@@ -551,6 +552,20 @@ self.on("message", function(message) {
     let forumPrefs = JSON.parse(message.split("RTSEFORUMJUMPLISTRESPONSE::")[1]);
     if(typeof forumPrefs.list != "undefined") {
       RTSE_forumListBox(forumPrefs.list, forumPrefs.names);
+    }
+  } else if(message.split("::")[0] == "RTSENEXTPAGERESPONSE") {
+    let pages;
+    let paginationDivs = document.getElementById("commentsAreaHold").getElementsByTagName("div");
+    for(let i of paginationDivs) {
+      if(i.className == "paginationRow") {
+        pages = i.getElementsByTagName("a");
+        break;
+      }
+    }
+    for(let i of pages) {
+      if(i.textContent != "1") {
+        i.href = i.href + "#comments";
+      }
     }
   } else {
     // Message is unknown
