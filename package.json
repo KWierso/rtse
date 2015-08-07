@@ -1,7 +1,7 @@
 {
     "id": "jid0-QVXoZN2I0qxeM6fXf1FoJU0cO7I@jetpack",
     "title": "RTSE Lite",
-    "version": "0.6.0",
+    "version": "0.7.0",
     "name": "rtselite",
     "main": "lib/main.js",
     "description": "RTSE Lite is a version of RTSE written using the Add-on SDK.",
