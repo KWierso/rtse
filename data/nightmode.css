@@ -1,0 +1,136 @@
+@-moz-document domain("roosterteeth.com"),
+               domain("www.roosterteeth.com"),
+               domain("achievementhunter.com"),
+               domain("theknow.tv") {
+  #body-block, #hero-block {
+    background: #202020 none repeat scroll 0% 0%;
+  }
+  
+  #body-block > main, #hero-block > .hero-home {
+    background: #202020 none repeat scroll 0% 0%;
+    padding: 10px;
+  }
+
+  .media-content, .post-tag-label {
+    padding-right:10px;
+  }
+
+  a.edit-button:not(:hover) {
+    color: #9f9f9f !important;
+  }
+
+  a.edit-button:hover {
+    color: transparent !important;
+  }
+
+  .topics-list {
+    padding-top:15px !important;
+  }
+
+  .social-bg, .post-reply, .post-quote, .reaction, .arrow, .share-button,
+  .share-button-list, .share-button > a, .share-button-list > li:not(:hover),
+  .button, .media-list-sm-bg > li:not(:hover), a.edit-button:not(:hover) {
+    background: #9f9f9f none repeat scroll 0% 0% !important;
+    border: 1px white !important;
+    box-shadow: 0px 1px 2px 0px #9f9f9f!important;
+  }
+
+  .redactor-editor {
+    color: darkgray!important;
+  }
+
+  input[type="submit"] {
+    box-shadow: 0px 1px 2px 0px #9f9f9f !important;
+  }
+
+  .media-list-sm-bg > li {
+    background: #9f9f9f none repeat scroll 0% 0% !important;
+    color: whitesmoke!important;
+  }
+
+  .media-list-sm-bg > li > a:not(:hover) p.media-header *, .media-list-sm-bg > li:not(:hover) > a p.media-header {
+    transition-property: color, opacity;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out;
+    color: whitesmoke !important;
+  }
+
+  .media-list-sm-bg > li:hover > a p.media-header *, .media-list-sm-bg > li:hover > a p.media-header {
+    transition-property: color, opacity;
+    transition-duration: 0.2s;
+    transition-timing-function: ease-in-out;
+    color: #c30000 !important;
+  }
+
+  form.modcontrols > select {
+    background: #9f9f9f url("http://roosterteeth.com/images/interface-assets/droplist-triangles.png") no-repeat scroll 90% center !important;
+    color: whitesmoke !important;
+  }
+
+  .post-body, h1, h2, h3, h4, .nav-strip-links > li.active, .post-stamp, .media-content {
+    color: whitesmoke;
+  }
+
+  *:not(section.topics--featured) p.media-header > span {
+    color: whitesmoke !important;
+  }
+
+  .media-content a:not(:hover) {
+    color: lightblue;
+  }
+
+  p.post-body {
+    border-style: solid !important;
+    border-width: 5px !important;
+    border-color: black !important;
+  }
+
+  .comment-input, .left-sidebar {
+    background: #7a7a7a !important;
+  }
+
+  .feed-list, .topics-list {
+    background: gray !important;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .profile-header > .media-header > a {
+    color: whitesmoke !important;
+  }
+
+  #tab-content-activity, div[id="tab-content-about me"], .about-me-copy, .accordion, #tab-content-comments, #tab-content-images  {
+    background: #F9F9F9;
+  }
+  .accordion .title {
+    color:black;
+  }
+  .content-title, #tab-content-images form + h3 {
+    color: black;
+    padding-left: 15px;
+  }
+  .comments-list, .image-blocks {
+    background: #202020 none repeat scroll 0% 0% !important;
+    padding-left:10px;
+  }
+  .image-blocks button {
+    background: #F9F9F9 !important;
+    box-shadow: 0px 1px 2px 0px #DDD !important;
+  }
+  .image-blocks button:hover {
+    background: #818181 !important;
+    box-shadow: 0px 1px 2px 0px #DDD !important;
+  }
+
+  div.forum-content > h1.content-title, .trendline-data, div.profile-img + div.media-content > p.media-header > span {
+    color: whitesmoke !important;
+  }
+
+  .details {
+    color: black !important;
+  }
+
+  #sf-resetcontent.sf-reset > * {
+    color: black !important;
+  }
+}

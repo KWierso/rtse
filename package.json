@@ -1,8 +1,10 @@
 {
-    "id": "jid0-QVXoZN2I0qxeM6fXf1FoJU0cO7I", 
-    "fullName": "RTSE Lite",
+    "id": "jid0-QVXoZN2I0qxeM6fXf1FoJU0cO7I@jetpack",
+    "title": "RTSE Lite",
     "version": "0.6.0",
-    "description": "RTSE Lite is a version of RTSE written using the Add-on SDK.", 
+    "name": "rtselite",
+    "main": "lib/main.js",
+    "description": "RTSE Lite is a version of RTSE written using the Add-on SDK.",
     "icon": "data/icon.png",
     "author": "Wes Kocher(:KWierso)",
     "permissions": {"private-browsing": true},
@@ -14,52 +16,10 @@
         "value": true
       },
       {
-        "name": "colorWatchlist",
-        "title": "Color watchlist by context",
+        "name": "nightmode",
+        "title": "Enable nightmode on RT",
         "type": "bool",
         "value": false
-      },
-      {
-        "name": "siteHeader",
-        "title": "Show the site header",
-        "type": "bool",
-        "value": true
-      },
-      {
-        "name": "sidebar",
-        "title": "Show the sidebar in the forums elsewhere",
-        "type": "bool",
-        "value": true
-      },
-      {
-        "name": "memberSidebar",
-        "title": "Show the member sidebar",
-        "type": "bool",
-        "value": true
-      },
-      {
-        "name": "watchingRedirect",
-        "title": "Autoselect the 'Watching' feed in your watchlist",
-        "type": "bool",
-        "value": false
-      },
-      {
-        "name": "topPostRedirect",
-        "title": "Redirect to the next post in a forum thread when going to the next page",
-        "type": "bool",
-        "value": false
-      },
-      {
-        "name": "userInfoButton",
-        "title": "Determine what shows in the userInfo pane",
-        "type": "control",
-        "label": "Configure"
-      },
-      {
-        "name": "addExtraTab",
-        "title": "Add an extra tab to navbar",
-        "type": "control",
-        "label": "Configure"
       },
       {
         "name": "forumListButton",
