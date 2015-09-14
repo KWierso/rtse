@@ -12,8 +12,6 @@ var account = RTSE_updateAccount(userInfo);
 self.postMessage("RTSE::LinkFixRequest");
 self.postMessage("RTSE::ForumJumpListRequest");
 
-RTSE_addCSS();
-
 // Do stuff for signed in user
 if(account > 0) {
 }
@@ -30,76 +28,41 @@ function RTSE_updateAccount() {
 // and determines whether the user is signed in.
 // If the user is signed in, it continues to check whether
 // the user's account is an RT sponsor.
-/* INITIAL REWRITE
   var account = 0;
   try {
-    let scripts = document.head.getElementsByTagName("script");
-    for(i in scripts) {
-      if(scripts[i].innerHTML.search("GA_googleAddAttr") != -1) {
-        var metadata = scripts[i].innerHTML.replace(/GA_googleAddAttr/g, "").replace(/"/g, "")
-        metadata = metadata.replace(/\)/g, "").replace(/\(/g, "").replace(/;/g, "").replace(/ /g, "");
-        metadata = metadata.split("\n");
-        metadata.shift();
-        metadata.pop();
-        for(i in metadata) {
-          metadata[i] = metadata[i].split(",");
-          if(metadata[i][0] == "SignedIn" && metadata[i][1] == "True") {
-            account = 1;
-          }
-          if(metadata[i][0] == "Sponsor" && metadata[i][1] == "True") {
-            account = 2;
-            break;
-          }
-        }
-        break;
+    let profile = document.getElementById("profile-menu-toggle");
+    if(profile) {
+      account = 1;
+      let star = profile.getElementsByClassName("icon ion-star");
+      if(star[0]) {
+        account = 2;
       }
     }
   } catch(e) {
     account = 0;
   }
   return account;
-*/
-  return 0;
 }
 
-function RTSE_linkFix()
-// EFFECTS: removes all targets from links and prevents links from opening in a
-//          new flavor.  In addition, it changes any anchors for that page to
-//          scroll into view as opposed to loading a new url.
+function RTSE_linkFix(rootElement)
+// EFFECTS: Keeps you on your chosen domain
 {
-  // Scroll Into view for links on same page
-  var regEx = /^http:\/\/((|panics.|magic.|m.|myspace.)roosterteeth|achievementhunter|strangerhood|redvsblue|roosterteethcomics|captaindynamic).com(.*)$/i;
-  var loc = document.location.href
-                .replace(regEx,'$3');
-  var func = function showMe(aEvent) {
-    var id = this.href.replace(/^.*?#([\S\s]+)$/i,'$1');
-    var doc = this.ownerDocument;
-    var elm = doc.getElementById(id) ? doc.getElementById(id) :
-                                       doc.getElementsByName(id)[0];
-    if (elm) {
-      elm.scrollIntoView(true);
-      aEvent.preventDefault();
-    }
-  };
-  var links = RTSE_evaluateXPath(document,"//a[contains(@href,'#') and contains(@href,'" + loc + "')]");
-  for (var i = (links.length - 1); i >= 0; --i) {
-    links[i].addEventListener("click", func, false);
-  }
-
-  // Remove target and keep same flavor
-//  if (!gRTSE.prefsGetBool("extensions.rtse.fixLinks")) return;
-  links = RTSE_evaluateXPath(document,'//a[@target="_blank"]');
-
-  for (var i = (links.length - 1); i >= 0; --i) {
-    if (links[i].href.match(regEx)) {
-      links[i].removeAttribute('target');
-      links[i].href=links[i].href.replace(regEx, '$3');
-    } else if (links[i].href.match(/^\/(.*)$/i)) {
-      links[i].removeAttribute('target');
+  var RTDomains = ["roosterteeth.com", "redvsblue.com", "roosterteethcomics.com", 
+                   "strangerhood.com", "captaindynamic.com", "achievementhunter.com"];
+  var allLinks;
+  allLinks = rootElement.getElementsByTagName("a");
+console.log(allLinks.length)
+  for(var i = 0; i< allLinks.length; i++) {
+    var link = RTSE_parseURI(allLinks[i].href);
+    if(RTDomains.indexOf(link.hostname) >= 0) {
+      if(link.hostname == document.domain) {
+        link.hostname = "redvsblue.com";
+        //<<<<
+      }
+      allLinks[i].href = link.href;
     }
   }
 }
-
 
 // Evaluate an XPath expression aExpression against a given DOM node
 // or Document object (aNode), returning the results as an array
@@ -115,25 +78,6 @@ function RTSE_evaluateXPath(aNode, aExpr) {
   while (res = result.iterateNext())
     found.push(res);
   return found;
-}
-
-
-
-function RTSE_addCSS()
-// EFFECTS: adds special CSS instructions to the head of each RT page
-{
-/* INITIAL REWRITE
-  var head=document.getElementsByTagName('head')[0];
-  var css=document.createElement('style');
-  css.setAttribute('type','text/css');
-  css.setAttribute('media','screen');
-  
-  // fix for too long of text in textboxes
-  css.appendChild(document.createTextNode('textarea { overflow-x:auto; }\n'));
-  
-  // Appending
-  head.appendChild(css);
-*/
 }
 
 function RTSE_forumListBox(forumList, names) {
@@ -204,7 +148,10 @@ function RTSE_forumListBox(forumList, names) {
 self.on("message", function(message) {
   if(message.split("::")[0] == "RTSELINKFIXRESPONSE") {
     if(message.split("RTSELINKFIXRESPONSE::")[1] == "true") {
-      RTSE_linkFix();
+      RTSE_linkFix(document.getElementById("body-block"));
+      if(account > 0) {
+        document.getElementById("notification-count-toggle").addEventListener("mouseenter", RTSE_notificationClickListener, false)
+      }
     }
   } else if(message.split("::")[0] == "RTSEFORUMJUMPLISTRESPONSE") {
     let forumPrefs = JSON.parse(message.split("RTSEFORUMJUMPLISTRESPONSE::")[1]);
@@ -216,3 +163,20 @@ self.on("message", function(message) {
     //console.log(message);
   }
 });
+
+/*
+ * Message handling stuff
+ * ---------------------------------------------------------------------------
+ * Utilities
+ */
+
+function RTSE_parseURI(href) {
+  var parser = document.createElement("a");
+  parser.href = href;
+  
+  return parser;
+}
+
+function RTSE_notificationClickListener() {
+  RTSE_linkFix(document.getElementById("notification-menu"));
+}
