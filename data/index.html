@@ -4,110 +4,25 @@
       .hidden {
         display:none!important;
       }
+      
+      #forumListArea > tbody > tr > th:nth-child(3),#forumListArea > tbody > tr > td:nth-child(3) {
+        display:none!important;
+      }
     </style>
   </head>
 
   <body>
-    <div class="hidden" id="extraTabConfig">
-      <h1> CONFIGURE EXTRA TAB </h1>
-      <table id="extraTabArea">
-        <thead>
-          <th>Item Label</th>
-          <th>Item Link</th>
-        </thead>
-        <tbody></tbody>
-      </table>
-      <input id="extraTabAdd" type="button" value="Add Item"/>
-      <br/><br/>
-      <input id="extraTabSave" type="button" value="Save Extra Tab Settings"/>
-    </div>
-
     <div class="hidden" id="jumplistConfig">
       <h1> CONFIGURE FORUM LIST </h1>
       <table id="forumListArea">
         <thead>
           <th>Show</th>
           <th>Forum Name</th>
-          <th>Forum ID</th>
         </thead>
         <tbody></tbody>
       </table>
       <br/><br/>
       <input id="forumListSave" type="button" value="Save Forum List Settings"/>
-    </div>
-
-    <div class="hidden" id="userInfoConfig">
-      <h1> CONFIGURE USERINFO PANE </h1>
-      <table id="userInfoArea">
-        <thead>
-          <th>Show</th>
-          <th>Item name</th>
-        </thead>
-        <tbody>
-          <tr id="userInfoName">
-            <td><input type="checkbox"/></td>
-            <td>User name</td>
-          </tr>
-          <tr id="userInfoStats">
-            <td><input type="checkbox"/></td>
-            <td>Stats (sponsor-only)</td>
-          </tr>
-          <tr id="userInfoMods">
-            <td><input type="checkbox"/></td>
-            <td>Mod History (sponsor-only)</td>
-          </tr>
-          <tr id="userInfoFJ">
-            <td><input type="checkbox"/></td>
-            <td>Friends Journals (sponsor-only)</td>
-          </tr>
-          <tr id="userInfoComments">
-            <td><input type="checkbox"/></td>
-            <td>Comments</td>
-          </tr>
-          <tr id="userInfoJournal">
-            <td><input type="checkbox"/></td>
-            <td>Journal</td>
-          </tr>
-          <tr id="userInfoImages">
-            <td><input type="checkbox"/></td>
-            <td>Images</td>
-          </tr>
-          <tr id="userInfoLinks">
-            <td><input type="checkbox"/></td>
-            <td>Links</td>
-          </tr>
-          <tr id="userInfoMessages">
-            <td><input type="checkbox"/></td>
-            <td>Messages</td>
-          </tr>
-          <tr id="userInfoRequests">
-            <td><input type="checkbox"/></td>
-            <td>Requests</td>
-          </tr>
-          <tr id="userInfoGroups">
-            <td><input type="checkbox"/></td>
-            <td>Groups</td>
-          </tr>
-          <tr id="userInfoSponsor">
-            <td><input type="checkbox"/></td>
-            <td>Sponsor</td>
-          </tr>
-          <tr id="userInfoSettings">
-            <td><input type="checkbox"/></td>
-            <td>Settings</td>
-          </tr>
-          <tr id="userInfoLog">
-            <td><input type="checkbox"/></td>
-            <td>Log</td>
-          </tr>
-          <tr id="userInfoSignout">
-            <td><input type="checkbox"/></td>
-            <td>Sign out</td>
-          </tr>
-        </tbody>
-      </table>
-      <br/><br/>
-      <input id="userInfoSave" type="button" value="Save User Info Settings"/>
     </div>
 
     <div class="hidden" id="default">
